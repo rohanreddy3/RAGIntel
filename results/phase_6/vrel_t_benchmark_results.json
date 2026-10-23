@@ -1,0 +1,272 @@
+{
+  "protocol": "Phase 6 Pre-Declared Extensions (Post-Hoc Round 3)",
+  "cti_ate": {
+    "budget_means": {
+      "500": 0.37093500000000007,
+      "1000": 0.46088999999999997,
+      "2000": 0.6231883333333333,
+      "4000": 0.776
+    },
+    "overall_binding_mean": 0.5577533333333334,
+    "per_query_means": [
+      0.6875,
+      0.58335,
+      0.57145,
+      0.342125,
+      0.54165,
+      0.7500249999999999,
+      0.55,
+      0.39285,
+      0.14285,
+      0.21875,
+      0.541675,
+      0.444425,
+      1.0,
+      0.4091,
+      0.59375,
+      0.583325,
+      0.75,
+      0.75,
+      0.916675,
+      0.54165,
+      0.53125,
+      0.325,
+      0.5,
+      0.34375,
+      0.475,
+      1.0,
+      1.0,
+      0.25,
+      0.6875,
+      0.41664999999999996,
+      0.6,
+      0.035725,
+      0.6000000000000001,
+      0.555575,
+      0.75,
+      0.75,
+      0.357125,
+      0.5,
+      0.29164999999999996,
+      0.45,
+      0.75,
+      0.8125,
+      0.708325,
+      0.5,
+      0.249975,
+      0.607125,
+      0.214325,
+      0.58335,
+      0.458325,
+      0.527775,
+      0.35,
+      0.477275,
+      0.75,
+      0.44445,
+      0.5625,
+      0.6000000000000001,
+      0.625,
+      0.9375,
+      0.6389,
+      0.9375
+    ]
+  },
+  "CTI_ATTACK": {
+    "budget_means": {
+      "500": 0.567,
+      "1000": 0.6477,
+      "2000": 0.7525,
+      "4000": 0.8159
+    },
+    "overall_binding_mean": 0.695775,
+    "note": "Identical to E0'-HD-k200 control: 0 queries detected malware."
+  },
+  "family_p6_contrasts": [
+    {
+      "test_id": "P6_01",
+      "dataset": "cti-ate",
+      "contrast": "E-comb-ate (Vrel-T) vs E0'-HD-k200",
+      "metric": "Binding Mean Recall@B (500-4000)",
+      "treatment_mean": 0.5578,
+      "control_mean": 0.3737,
+      "delta": 0.184,
+      "ci_95": [
+        0.1321,
+        0.2395
+      ],
+      "wtl": "47/5/8",
+      "p_boot": 0.0,
+      "p_exact": 0.0,
+      "raw_p": 0.0,
+      "holm_rank": 1,
+      "holm_alpha": 0.0125,
+      "decision": "Statistically significant increase"
+    },
+    {
+      "test_id": "P6_03",
+      "dataset": "cti-taa",
+      "contrast": "E-comb-taa (Vrel) vs V0h",
+      "metric": "Object-Level Recall@10",
+      "treatment_mean": 0.32,
+      "control_mean": 0.14,
+      "delta": 0.18,
+      "ci_95": [
+        0.06,
+        0.3
+      ],
+      "wtl": "10/39/1",
+      "p_boot": 0.0054,
+      "p_exact": 0.0117,
+      "raw_p": 0.0054,
+      "holm_rank": 2,
+      "holm_alpha": 0.01667,
+      "decision": "Bootstrap-significant, exact-test borderline/not significant under Holm"
+    },
+    {
+      "test_id": "P6_04",
+      "dataset": "cti-taa",
+      "contrast": "E-comb-taa (Vrel) vs V0h",
+      "metric": "Object-Level MRR",
+      "treatment_mean": 0.212,
+      "control_mean": 0.0671,
+      "delta": 0.1449,
+      "ci_95": [
+        0.0344,
+        0.26
+      ],
+      "wtl": "14/34/2",
+      "p_boot": 0.0121,
+      "p_exact": 0.0042,
+      "raw_p": 0.0121,
+      "holm_rank": 3,
+      "holm_alpha": 0.025,
+      "decision": "Statistically significant increase"
+    },
+    {
+      "test_id": "P6_02",
+      "dataset": "CTI-ATTACK",
+      "contrast": "Vrel-T vs E0'-HD-k200",
+      "metric": "Binding Mean Recall@B (500-4000)",
+      "treatment_mean": 0.6958,
+      "control_mean": 0.6958,
+      "delta": 0.0,
+      "ci_95": [
+        0.0,
+        0.0
+      ],
+      "wtl": "0/229/0",
+      "p_boot": 1.0,
+      "p_exact": 1.0,
+      "raw_p": 1.0,
+      "holm_rank": 4,
+      "holm_alpha": 0.05,
+      "decision": "Not significant"
+    }
+  ],
+  "improvement_ladder": [
+    {
+      "Dataset": "cti-ate",
+      "Stage": "1. Raw RAGIntel (E0' raw)",
+      "Metric": "Binding Mean Recall@B",
+      "Score": 0.1514,
+      "95% CI": "[0.1032, 0.2052]",
+      "Delta vs Prev": "Baseline"
+    },
+    {
+      "Dataset": "cti-ate",
+      "Stage": "2. + Hygiene (E0' body-only)",
+      "Metric": "Binding Mean Recall@B",
+      "Score": 0.2241,
+      "95% CI": "[0.1685, 0.2854]",
+      "Delta vs Prev": "+0.0727"
+    },
+    {
+      "Dataset": "cti-ate",
+      "Stage": "3. + Domain Routing (E0'-HD-k200)",
+      "Metric": "Binding Mean Recall@B",
+      "Score": 0.3737,
+      "95% CI": "[0.3065, 0.4431]",
+      "Delta vs Prev": "+0.1496"
+    },
+    {
+      "Dataset": "cti-ate",
+      "Stage": "4. + Vrel-T Expansion (E-comb-ate)",
+      "Metric": "Binding Mean Recall@B",
+      "Score": 0.5578,
+      "95% CI": "[+0.1321, +0.2395]",
+      "Delta vs Prev": "+0.1840"
+    },
+    {
+      "Dataset": "CTI-ATTACK",
+      "Stage": "1. Raw RAGIntel (E0' raw)",
+      "Metric": "Binding Mean Recall@B",
+      "Score": 0.2216,
+      "95% CI": "[0.1780, 0.2680]",
+      "Delta vs Prev": "Baseline"
+    },
+    {
+      "Dataset": "CTI-ATTACK",
+      "Stage": "2. + Hygiene / HD (E0'-HD-k200)",
+      "Metric": "Binding Mean Recall@B",
+      "Score": 0.6958,
+      "95% CI": "[0.6450, 0.7450]",
+      "Delta vs Prev": "+0.4742"
+    },
+    {
+      "Dataset": "CTI-ATTACK",
+      "Stage": "3. + Vrel-T Expansion (Vrel-T)",
+      "Metric": "Binding Mean Recall@B",
+      "Score": 0.6958,
+      "95% CI": "[0.6450, 0.7450]",
+      "Delta vs Prev": "+0.0000 (0 malware detected)"
+    },
+    {
+      "Dataset": "cti-taa",
+      "Stage": "1. Raw RAGIntel (V0 raw)",
+      "Metric": "Object-Level Recall@10",
+      "Score": 0.14,
+      "95% CI": "[0.0400, 0.2400]",
+      "Delta vs Prev": "Baseline"
+    },
+    {
+      "Dataset": "cti-taa",
+      "Stage": "2. + Hygiene (V0h)",
+      "Metric": "Object-Level Recall@10",
+      "Score": 0.14,
+      "95% CI": "[0.0400, 0.2400]",
+      "Delta vs Prev": "+0.0000"
+    },
+    {
+      "Dataset": "cti-taa",
+      "Stage": "3. + Vrel Expansion (E-comb-taa)",
+      "Metric": "Object-Level Recall@10",
+      "Score": 0.32,
+      "95% CI": "[0.2000, 0.4400]",
+      "Delta vs Prev": "+0.1800 (p_boot=0.0054)"
+    },
+    {
+      "Dataset": "cti-taa (Mappable)",
+      "Stage": "1. Raw RAGIntel (V0 raw)",
+      "Metric": "Object-Level Recall@10",
+      "Score": 0.1628,
+      "95% CI": "[0.0465, 0.2791]",
+      "Delta vs Prev": "Baseline"
+    },
+    {
+      "Dataset": "cti-taa (Mappable)",
+      "Stage": "2. + Hygiene (V0h)",
+      "Metric": "Object-Level Recall@10",
+      "Score": 0.1628,
+      "95% CI": "[0.0465, 0.2791]",
+      "Delta vs Prev": "+0.0000"
+    },
+    {
+      "Dataset": "cti-taa (Mappable)",
+      "Stage": "3. + Vrel Expansion (E-comb-taa)",
+      "Metric": "Object-Level Recall@10",
+      "Score": 0.3721,
+      "95% CI": "[0.2326, 0.5116]",
+      "Delta vs Prev": "+0.2093 (p_boot=0.0048)"
+    }
+  ]
+}

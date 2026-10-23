@@ -1,0 +1,7 @@
+test_id,dataset,baseline,treatment,control,treatment_mean_4b,control_mean_4b,delta_4b,t_b500,t_b1000,t_b2000,t_b4000,c_b500,c_b1000,c_b2000,c_b4000,decision
+P4_01,cti-ate,B2,E1a,E0_prime_tech_k200,0.2504,0.3635,-0.1131,0.1634,0.197,0.2557,0.3854,0.1768,0.2899,0.4168,0.5704,Control arm superior across all four budgets (statistically significant decrease)
+P4_02,cti-ate,B2,E1_mixed,E0_prime_k200,0.2567,0.3688,-0.112,0.1585,0.2054,0.2735,0.3895,0.2042,0.2812,0.4201,0.5695,Control arm superior across all four budgets (statistically significant decrease)
+P4_03,cti-ate,B3,E1a,E0_prime_tech_k200,0.2629,0.3594,-0.0965,0.1699,0.2063,0.2699,0.4055,0.1748,0.2847,0.4017,0.5765,Control arm superior across all four budgets (statistically significant decrease)
+P4_04,cti-ate,B3,E1_mixed,E0_prime_k200,0.2659,0.3737,-0.1078,0.1537,0.2137,0.2913,0.4048,0.2082,0.2919,0.4249,0.5699,Control arm superior across all four budgets (statistically significant decrease)
+P4_05,CTI-ATTACK,B2,E1a,E0_prime_tech_k200,0.6143,0.6974,-0.0831,0.4316,0.5975,0.6805,0.7475,0.5713,0.6543,0.7438,0.8202,Control arm superior across all four budgets (statistically significant decrease)
+P4_06,CTI-ATTACK,B2,E1_mixed,E0_prime_k200,0.5719,0.6958,-0.1239,0.4054,0.532,0.6477,0.7023,0.567,0.6477,0.7525,0.8159,Control arm superior across all four budgets (statistically significant decrease)

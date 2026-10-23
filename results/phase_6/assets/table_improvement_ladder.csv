@@ -1,0 +1,14 @@
+Dataset,Stage,Metric,Score,95% CI,Delta vs Prev
+cti-ate,1. Raw RAGIntel (E0' raw),Binding Mean Recall@B,0.1514,"[0.1032, 0.2052]",Baseline
+cti-ate,2. + Hygiene (E0' body-only),Binding Mean Recall@B,0.2241,"[0.1685, 0.2854]",+0.0727
+cti-ate,3. + Domain Routing (E0'-HD-k200),Binding Mean Recall@B,0.3737,"[0.3065, 0.4431]",+0.1496
+cti-ate,4. + Vrel-T Expansion (E-comb-ate),Binding Mean Recall@B,0.5578,"[0.5048, 0.6111]","+0.1840 [+0.1321, +0.2395]"
+CTI-ATTACK,1. Raw RAGIntel (E0' raw),Binding Mean Recall@B,0.2216,"[0.1780, 0.2680]",Baseline
+CTI-ATTACK,2. + Hygiene / HD (E0'-HD-k200),Binding Mean Recall@B,0.6958,"[0.6450, 0.7450]",+0.4742
+CTI-ATTACK,3. + Vrel-T Expansion (Vrel-T),Binding Mean Recall@B,0.6958,"[0.6450, 0.7450]",+0.0000 (0 malware detected)
+cti-taa,1. Raw RAGIntel (V0 raw),Object-Level Recall@10,0.14,"[0.0400, 0.2400]",Baseline
+cti-taa,2. + Hygiene (V0h),Object-Level Recall@10,0.14,"[0.0400, 0.2400]",+0.0000
+cti-taa,3. + Vrel Expansion (E-comb-taa),Object-Level Recall@10,0.32,"[0.2000, 0.4400]",+0.1800 (p_boot=0.0054)
+cti-taa (Mappable),1. Raw RAGIntel (V0 raw),Object-Level Recall@10,0.1628,"[0.0465, 0.2791]",Baseline
+cti-taa (Mappable),2. + Hygiene (V0h),Object-Level Recall@10,0.1628,"[0.0465, 0.2791]",+0.0000
+cti-taa (Mappable),3. + Vrel Expansion (E-comb-taa),Object-Level Recall@10,0.3721,"[0.2326, 0.5116]",+0.2093 (p_boot=0.0048)
