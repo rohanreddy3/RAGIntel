@@ -1,6 +1,6 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-23T19:29:08.860258+00:00",
+  "timestamp_utc": "2026-10-23T19:32:06.172053+00:00",
   "total_files": 112,
   "files": {
     "analysis_plan.md": {
@@ -408,48 +408,48 @@
       "size_bytes": 5395
     },
     "results/phase_5b/assets/table_claims_reconciliation_phase5b.csv": {
-      "sha256": "63eee9ed8c3574ab61bb36cb7810bc9abf115a898363fa316f7616762680c62a",
-      "size_bytes": 2809
+      "sha256": "ea9e2a8898169f41538e11ef2cc87e8107a026ba8bee417ccc9413204a1ed384",
+      "size_bytes": 2798
     },
     "results/phase_5b/assets/table_entity_share_reconciliation.csv": {
-      "sha256": "cf184121d4e3b68146488de1b9dd3b0da950c9f175bec37710ab57a42c1d3ce8",
-      "size_bytes": 416
+      "sha256": "7bcb90083cb4d979ce8d8c59cb2af990b1544c268678a967ef144b1cdd695ee1",
+      "size_bytes": 412
     },
     "results/phase_5b/assets/table_family_p3_mcnemar_and_mappable.csv": {
-      "sha256": "af043ec45e4c144404d4f5e465fb35bf03e315347ce1804ac7aab3e1ea46a91a",
-      "size_bytes": 3708
+      "sha256": "7dbde1d040215479e1a470eaccad87f10c4245102d44fdbf7bc2637f84e9c09a",
+      "size_bytes": 3683
     },
     "results/phase_5b/assets/table_family_p4_k200_primary.csv": {
-      "sha256": "642c076a2ab8a8f33cdd6d4766fa56a32461833dc31a61e122054fe701a8c2c5",
-      "size_bytes": 1366
+      "sha256": "c308df8a9e2c8ae6efa918786a6ee8501832931c26836024e4f828807de1675c",
+      "size_bytes": 1359
     },
     "results/phase_5b/cti_attack_entity_share_reconciliation.json": {
-      "sha256": "38ccbf05204dfe97f0ebc182ab1d4162e96bae5978afb47e2ef3363a960f5dbc",
-      "size_bytes": 1036
+      "sha256": "07bfba25e6adfada2b78250c2e8c432c237724d381cdf76af145e5c1eaed20a2",
+      "size_bytes": 1022
     },
     "results/phase_5b/cti_taa_excluded_unmapped_rows.json": {
-      "sha256": "e31a2d657ef41adb6a0b59c999555c451a94fd98969d48cc6cde75f8200871ba",
-      "size_bytes": 697
+      "sha256": "8300a11e482493ca4266acaf2130ac0d6923178a143bc782b0064fded4cbe173",
+      "size_bytes": 661
     },
     "results/phase_6/assets/table_family_p6.csv": {
-      "sha256": "dc83db03fa704b4a01857612bf54c7116b023005aa14a2e363b0fdc4cfdf4fd9",
-      "size_bytes": 831
+      "sha256": "f7391e1e3d8fe3a0f1c85e56915eabf5c28c9ebdef28d60ed66c0fdf50e8b104",
+      "size_bytes": 826
     },
     "results/phase_6/assets/table_improvement_ladder.csv": {
-      "sha256": "658058c5f193282b56d5bcb685d10c608399d1289b6d9eee01072b6e78ca2a39",
-      "size_bytes": 1381
+      "sha256": "598fb286fe66ada40129947f6dbac6930d8ae065d1a1baf1283d4a8fba885afd",
+      "size_bytes": 1367
     },
     "results/phase_6/top200_vrel_t_chunks.json": {
-      "sha256": "f836f258e8985522f173446fcb47a7478689dc0b236640ad7158f5a71819b814",
-      "size_bytes": 8014263
+      "sha256": "856a3c26dc28c14d0810f4f9d63d5388c658bff208112d6e4cd57a89b6425c24",
+      "size_bytes": 7877721
     },
     "results/phase_6/variants_ledger.json": {
-      "sha256": "58bfa67d4ca1378d0d89d7e901643cc62946329d38f2f83968f69d11a5f36daf",
-      "size_bytes": 3141
+      "sha256": "81b14295d0888dd036ace2aa9977e7056357c9ee6c00ebddac8005777bf8f293",
+      "size_bytes": 3063
     },
     "results/phase_6/vrel_t_benchmark_results.json": {
-      "sha256": "9f44fdedf06bfaab40819c33f9c7e8e03ccd7c529e7866e7e5ff2150eab19513",
-      "size_bytes": 6756
+      "sha256": "430a658202fb6ea7f3a85bbe712ca55a7b44cebaede2f5c79ca89548449fb9e8",
+      "size_bytes": 6485
     }
   }
 }
