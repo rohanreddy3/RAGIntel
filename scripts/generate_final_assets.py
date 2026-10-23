@@ -110,6 +110,10 @@ def generate_table1_scoring_gap() -> Tuple[str, str, Dict[str, Any]]:
         f"| **LLM-only** | {gen_llm['scorer_v1_text']['acc_exact']:.4f} | {gen_llm['scorer_v1_text']['acc_alias']:.4f} | +{gen_llm['scorer_v1_text']['alias_gain']:.4f} | {gen_llm['scorer_v2_ontology']['acc_exact']:.4f} | {gen_llm['scorer_v2_ontology']['acc_alias']:.4f} | +{gen_llm['scorer_v2_ontology']['alias_gain']:.4f} | **{gen_llm['scorer_v2_ontology']['acc_alias']:.4f}** |",
         f"| **cti-taa B2 V0 (RAG Baseline)** | {gen_v0['scorer_v1_text']['acc_exact']:.4f} | {gen_v0['scorer_v1_text']['acc_alias']:.4f} | +{gen_v0['scorer_v1_text']['alias_gain']:.4f} | {gen_v0['scorer_v2_ontology']['acc_exact']:.4f} | {gen_v0['scorer_v2_ontology']['acc_alias']:.4f} | +{gen_v0['scorer_v2_ontology']['alias_gain']:.4f} | **{gen_v0['scorer_v2_ontology']['acc_alias']:.4f}** |",
         f"| **cti-taa B2 V1 (RAG + Entity O1)** | {gen_v1['scorer_v1_text']['acc_exact']:.4f} | {gen_v1['scorer_v1_text']['acc_alias']:.4f} | +{gen_v1['scorer_v1_text']['alias_gain']:.4f} | {gen_v1['scorer_v2_ontology']['acc_exact']:.4f} | {gen_v1['scorer_v2_ontology']['acc_alias']:.4f} | +{gen_v1['scorer_v2_ontology']['alias_gain']:.4f} | **{gen_v1['scorer_v2_ontology']['acc_alias']:.4f}** |",
+        "",
+        "**Scorer Definitions:**",
+        "- **Scorer V1 (Text-Regex Matching)**: Matches ground-truth canonical name or standard regex-defined aliases directly as substrings within the LLM raw generated text.",
+        "- **Scorer V2 (Ontology-Aware Resolution)**: Extracts entity mentions from LLM text and resolves them against the full STIX 2.0 knowledge base (including all recorded intrusion-set aliases) to match the canonical threat actor object.",
     ]
 
     # LaTeX
@@ -126,6 +130,7 @@ def generate_table1_scoring_gap() -> Tuple[str, str, Dict[str, Any]]:
         f"B2 (Truncated-256) & {ret_all_b2['S_exact_Recall@10']:.4f} & {ret_all_b2['S_alias_Recall@10']:.4f} & +{ret_all_b2['Recall@10_Gap']:.4f} & [+0.1200, +0.3400] & {ret_all_b2['S_exact_MRR']:.4f} & {ret_all_b2['S_alias_MRR']:.4f} & +{ret_all_b2['MRR_Gap']:.4f} & [+0.0084, +0.0612] \\\\",
         f"B3 (MaxSim-Windows) & {ret_all_b3['S_exact_Recall@10']:.4f} & {ret_all_b3['S_alias_Recall@10']:.4f} & +{ret_all_b3['Recall@10_Gap']:.4f} & [+0.0400, +0.2200] & {ret_all_b3['S_exact_MRR']:.4f} & {ret_all_b3['S_alias_MRR']:.4f} & +{ret_all_b3['MRR_Gap']:.4f} & [+0.0195, +0.0898] \\\\",
         r"\hline",
+        r"\multicolumn{9}{l}{\textit{Scorer V1: Direct regex substring matching. Scorer V2: STIX 2.0 ontology-aware entity resolution.}} \\",
         r"\end{tabular}",
         r"\end{table}",
     ]
@@ -280,7 +285,7 @@ def generate_table3_s1() -> Tuple[str, str, Dict[str, Any]]:
     ]
 
     for r in s1_rows:
-        status = "Degradation" if r["delta"] < -0.01 else ("Neutral" if abs(r["delta"]) <= 0.01 else "Gain")
+        status = "Negative delta" if r["delta"] < -0.01 else ("Neutral" if abs(r["delta"]) <= 0.01 else "Positive delta")
         md.append(f"| {r['type']} | `{r['ds']}` | {r['base']} | {r['contrast']} | {r['metric']} | {r['t']:.4f} | {r['c']:.4f} | {r['delta']:+.4f} | {status} |")
         latex.append(f"{r['type']} & {r['ds']} & {r['base']} & {r['contrast']} ({r['metric']}) & {r['t']:.4f} & {r['c']:.4f} & {r['delta']:+.4f} \\\\")
 
@@ -356,23 +361,49 @@ def generate_table4_p2_prime() -> Tuple[str, str, Dict[str, Any]]:
         r"\hline",
     ]
 
-    for t in p_pri:
-        sig_str = "**YES**" if t["significant_holm"] else "NO"
+    def merge_p2_prime_tests(test_list):
+        merged = []
+        for t in test_list:
+            if t["test_id"] == "P2'_03":
+                item = dict(t)
+                item["test_id"] = "P2'_03/04"
+                item["baseline"] = "B2/B3"
+                item["contrast"] = "E1b-MIXED vs E0' (B2/B3 identical)"
+                merged.append(item)
+            elif t["test_id"] == "P2'_04":
+                continue
+            else:
+                merged.append(t)
+        return merged
+
+    p_pri_merged = merge_p2_prime_tests(p_pri)
+    p_sens_merged = merge_p2_prime_tests(p_sens)
+
+    for t in p_pri_merged:
+        if t["significant_holm"]:
+            sig_str = "**Significant decrease**" if t["delta"] < 0 else "**Significant increase**"
+            latex_sig = "Sig. decrease" if t["delta"] < 0 else "Sig. increase"
+        else:
+            sig_str = "NO"
+            latex_sig = "No"
+        p_val_str = "< 0.0001" if t["raw_p_value"] < 1e-4 else f"{t['raw_p_value']:.4f}"
+
         md.append(
             f"| **{t['test_id']}** | `{t['dataset']}` | {t['baseline']} | {t['contrast']} | "
             f"{t['treatment_mean']:.4f} | {t['control_mean']:.4f} | {t['delta']:+.4f} | "
-            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] | {t['raw_p_value']:.4f} | "
+            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] | {p_val_str} | "
             f"{t['holm_critical_value']:.5f} (rank {t['holm_rank']}) | {sig_str} |"
         )
         latex.append(
             f"{t['test_id']} & {t['dataset']} & {t['baseline']} & {t['contrast']} & "
             f"{t['treatment_mean']:.4f} & {t['control_mean']:.4f} & {t['delta']:+.4f} & "
-            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] & {t['raw_p_value']:.4f} & {'Yes' if t['significant_holm'] else 'No'} \\\\"
+            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] & {p_val_str} & {latex_sig} \\\\"
         )
 
     # Guard
+    guard_p_str = "< 0.0001" if guard_pri["raw_p_value"] < 1e-4 else f"{guard_pri['raw_p_value']:.4f}"
     md.extend([
-        f"| *Guard* | `{guard_pri['dataset']}` | {guard_pri['baseline']} | {guard_pri['contrast']} (Recall@10) | {guard_pri['treatment_mean']:.4f} | {guard_pri['control_mean']:.4f} | {guard_pri['delta']:+.4f} | [{guard_pri['ci_95'][0]:+.4f}, {guard_pri['ci_95'][1]:+.4f}] | {guard_pri['raw_p_value']:.4f} | Threshold -0.05 | **FAILED** |",
+        f"| *Guard* | `{guard_pri['dataset']}` | {guard_pri['baseline']} | {guard_pri['contrast']} (Recall@10) | {guard_pri['treatment_mean']:.4f} | {guard_pri['control_mean']:.4f} | {guard_pri['delta']:+.4f} | [{guard_pri['ci_95'][0]:+.4f}, {guard_pri['ci_95'][1]:+.4f}] | {guard_p_str} | Threshold -0.05 | **FAILED** |",
         "",
         "#### B. Secondary Credit Rule: Metadata-Only (`metadata_only` Sensitivity)",
         "| Test ID | Target Dataset | Baseline | Contrast ($B^*=500$) | Treatment Mean | Control Mean | $\\Delta$ | 95% Bootstrap CI | Raw $p$-value | Holm Critical $\\alpha$ | Sig under Holm? |",
@@ -381,18 +412,25 @@ def generate_table4_p2_prime() -> Tuple[str, str, Dict[str, Any]]:
     latex.append(r"\hline")
     latex.append(r"\multicolumn{10}{l}{\textit{Sensitivity Credit Rule: Metadata-Only Matching}} \\")
 
-    for t in p_sens:
-        sig_str = "**YES**" if t["significant_holm"] else "NO"
+    for t in p_sens_merged:
+        if t["significant_holm"]:
+            sig_str = "**Significant decrease**" if t["delta"] < 0 else "**Significant increase**"
+            latex_sig = "Sig. decrease" if t["delta"] < 0 else "Sig. increase"
+        else:
+            sig_str = "NO"
+            latex_sig = "No"
+        p_val_str = "< 0.0001" if t["raw_p_value"] < 1e-4 else f"{t['raw_p_value']:.4f}"
+
         md.append(
             f"| **{t['test_id']}** | `{t['dataset']}` | {t['baseline']} | {t['contrast']} | "
             f"{t['treatment_mean']:.4f} | {t['control_mean']:.4f} | {t['delta']:+.4f} | "
-            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] | {t['raw_p_value']:.4f} | "
+            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] | {p_val_str} | "
             f"{t['holm_critical_value']:.5f} (rank {t['holm_rank']}) | {sig_str} |"
         )
         latex.append(
             f"{t['test_id']} & {t['dataset']} & {t['baseline']} & {t['contrast']} & "
             f"{t['treatment_mean']:.4f} & {t['control_mean']:.4f} & {t['delta']:+.4f} & "
-            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] & {t['raw_p_value']:.4f} & {'Yes' if t['significant_holm'] else 'No'} \\\\"
+            f"[{t['ci_95'][0]:+.4f}, {t['ci_95'][1]:+.4f}] & {p_val_str} & {latex_sig} \\\\"
         )
 
     latex.extend([
@@ -454,11 +492,22 @@ def generate_table5_budget_curves() -> Tuple[str, str, Dict[str, Any]]:
 
     curve_data = {"cti-ate": {}, "CTI-ATTACK": {}}
 
+    def format_b_val(ds: str, arm: str, b: int, val: float):
+        is_nb = (
+            (ds == "cti-ate" and b == 4000 and arm in ["E0_prime", "E0_prime_tech"]) or
+            (ds == "CTI-ATTACK" and b in [2000, 4000] and arm in ["E0_prime", "E0_prime_tech"])
+        )
+        if is_nb:
+            return f"{val:.4f}†", f"{val:.4f}\\textsuperscript{{\\dag}}"
+        return f"{val:.4f}", f"{val:.4f}"
+
     for arm in arms:
         b_vals = [res["cti-ate"]["B2"][arm][str(b)]["summary"]["Recall_sub_credits_parent"] for b in budgets]
         curve_data["cti-ate"][arm] = b_vals
-        md.append(f"| **`{arm}`** | {arm_desc[arm]} | {b_vals[0]:.4f} | {b_vals[1]:.4f} | {b_vals[2]:.4f} | {b_vals[3]:.4f} |")
-        latex.append(f"{arm} & {arm_desc[arm]} & {b_vals[0]:.4f} & {b_vals[1]:.4f} & {b_vals[2]:.4f} & {b_vals[3]:.4f} \\\\")
+        strs_md = [format_b_val("cti-ate", arm, b, v)[0] for b, v in zip(budgets, b_vals)]
+        strs_tex = [format_b_val("cti-ate", arm, b, v)[1] for b, v in zip(budgets, b_vals)]
+        md.append(f"| **`{arm}`** | {arm_desc[arm]} | {strs_md[0]} | {strs_md[1]} | {strs_md[2]} | {strs_md[3]} |")
+        latex.append(f"{arm} & {arm_desc[arm]} & {strs_tex[0]} & {strs_tex[1]} & {strs_tex[2]} & {strs_tex[3]} \\\\")
 
     md.extend([
         "",
@@ -472,10 +521,18 @@ def generate_table5_budget_curves() -> Tuple[str, str, Dict[str, Any]]:
     for arm in arms:
         b_vals = [res["CTI-ATTACK"]["B2"][arm][str(b)]["summary"]["Recall_sub_credits_parent"] for b in budgets]
         curve_data["CTI-ATTACK"][arm] = b_vals
-        md.append(f"| **`{arm}`** | {arm_desc[arm]} | {b_vals[0]:.4f} | {b_vals[1]:.4f} | {b_vals[2]:.4f} | {b_vals[3]:.4f} |")
-        latex.append(f"{arm} & {arm_desc[arm]} & {b_vals[0]:.4f} & {b_vals[1]:.4f} & {b_vals[2]:.4f} & {b_vals[3]:.4f} \\\\")
+        strs_md = [format_b_val("CTI-ATTACK", arm, b, v)[0] for b, v in zip(budgets, b_vals)]
+        strs_tex = [format_b_val("CTI-ATTACK", arm, b, v)[1] for b, v in zip(budgets, b_vals)]
+        md.append(f"| **`{arm}`** | {arm_desc[arm]} | {strs_md[0]} | {strs_md[1]} | {strs_md[2]} | {strs_md[3]} |")
+        latex.append(f"{arm} & {arm_desc[arm]} & {strs_tex[0]} & {strs_tex[1]} & {strs_tex[2]} & {strs_tex[3]} \\\\")
 
+    md.extend([
+        "",
+        "*† Non-binding budget: Context reached the top-k=50 chunk retrieval ceiling before exhausting the token budget (chunks plateaued at 50.0, context tokens plateaued at 1380–1574 tokens). Excluded from comparative scaling evaluations.*",
+    ])
     latex.extend([
+        r"\hline",
+        r"\multicolumn{6}{l}{\textsuperscript{\dag} \footnotesize Non-binding budget: Context reached top-$k=50$ ceiling before exhausting token budget. Excluded from arm comparisons.} \\",
         r"\hline",
         r"\end{tabular}",
         r"\end{table}",
@@ -567,33 +624,86 @@ def generate_table6_generation_g1() -> Tuple[str, str, Dict[str, Any]]:
 
     for g in g1_tests:
         d = g["data"]
+        p_str = "< 0.0001" if d["p_val"] < 1e-4 else f"{d['p_val']:.4f}"
+        sig_str = "**Significant decrease**" if d["delta"] < 0 else "**Significant increase**"
+        latex_sig = "Sig. decrease" if d["delta"] < 0 else "Sig. increase"
         md.append(
             f"| **{g['id']}** | `{g['ds']}` | {d['n']} | {g['contrast']} | "
             f"{d['treatment_mean']:.4f} | {d['control_mean']:.4f} | {d['delta']:+.4f} | "
-            f"[{d['ci_95'][0]:+.4f}, {d['ci_95'][1]:+.4f}] | {d['p_val']:.4f} | "
-            f"{g['crit']:.4f} (rank {g['rank']}) | **YES (Significant)** | {d['wtl']} |"
+            f"[{d['ci_95'][0]:+.4f}, {d['ci_95'][1]:+.4f}] | {p_str} | "
+            f"{g['crit']:.4f} (rank {g['rank']}) | {sig_str} | {d['wtl']} |"
         )
         latex.append(
             f"{g['id']} & {g['ds']} & {d['n']} & {d['treatment_mean']:.4f} & {d['control_mean']:.4f} & "
-            f"{d['delta']:+.4f} & [{d['ci_95'][0]:+.4f}, {d['ci_95'][1]:+.4f}] & {d['p_val']:.4f} & Yes \\\\"
+            f"{d['delta']:+.4f} & [{d['ci_95'][0]:+.4f}, {d['ci_95'][1]:+.4f}] & {p_str} & {latex_sig} \\\\"
         )
+
+    # Threat actor attribution generation contrasts on cti-taa (N=50)
+    df_taa_attr = pd.read_csv(REPO_ROOT / "results" / "phase_4" / "per_query_cti_taa_attribution.csv")
+    def compute_paired_taa(treat_arm: str, ctrl_arm: str, metric: str):
+        dt = df_taa_attr[df_taa_attr["arm"] == treat_arm].sort_values("row_idx")
+        dc = df_taa_attr[df_taa_attr["arm"] == ctrl_arm].sort_values("row_idx")
+        merged = pd.merge(dt, dc, on=["dataset", "row_idx", "query_id"], suffixes=("_treat", "_ctrl"))
+        diffs = merged[f"{metric}_treat"].values - merged[f"{metric}_ctrl"].values
+        ci = compute_paired_bootstrap_ci(merged[f"{metric}_ctrl"].values, merged[f"{metric}_treat"].values, n_resamples=10000, seed=42)
+        wins = int(np.sum(diffs > 1e-6))
+        losses = int(np.sum(diffs < -1e-6))
+        ties = int(np.sum(np.abs(diffs) <= 1e-6))
+        p_str = "< 0.0001" if float(ci["p_value"]) < 1e-4 else f"{float(ci['p_value']):.4f}"
+        return {
+            "n": len(merged),
+            "treatment_mean": float(np.mean(merged[f"{metric}_treat"])),
+            "control_mean": float(np.mean(merged[f"{metric}_ctrl"])),
+            "delta": float(ci["mean_delta"]),
+            "ci_95": [float(ci["ci_lower"]), float(ci["ci_upper"])],
+            "p_val": p_str,
+            "wtl": f"{wins}/{ties}/{losses}",
+        }
+
+    taa_contrasts = [
+        ("cti-taa B2 V0 vs LLM-only", "cti-taa_B2_V0", "LLM-only", "v2_alias", "Scorer V2 (Ontology)"),
+        ("cti-taa B2 V0 vs LLM-only", "cti-taa_B2_V0", "LLM-only", "v1_alias", "Scorer V1 (Text)"),
+        ("cti-taa B2 V1 vs cti-taa B2 V0", "cti-taa_B2_V1", "cti-taa_B2_V0", "v2_alias", "Scorer V2 (Ontology)"),
+        ("cti-taa B2 V1 vs cti-taa B2 V0", "cti-taa_B2_V1", "cti-taa_B2_V0", "v1_alias", "Scorer V1 (Text)"),
+        ("cti-taa B2 V1 vs LLM-only", "cti-taa_B2_V1", "LLM-only", "v2_alias", "Scorer V2 (Ontology)"),
+        ("cti-taa B2 V1 vs LLM-only", "cti-taa_B2_V1", "LLM-only", "v1_alias", "Scorer V1 (Text)"),
+    ]
 
     md.extend([
         "",
-        "#### B. Exploratory Generation Contrasts (Descriptive, Uncorrected)",
-        "| Contrast | Dataset | Evaluated Rows | Metric | Treatment Mean | Control Mean | $\\Delta$ | 95% Bootstrap CI | Raw $p$-value | W/T/L | Status |",
-        "| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |",
-        f"| $E_0'$ vs LLM-only | `cti-ate` | {exp_ate_llm['n']} | Technique F1 (sub) | {exp_ate_llm['treatment_mean']:.4f} | {exp_ate_llm['control_mean']:.4f} | {exp_ate_llm['delta']:+.4f} | [{exp_ate_llm['ci_95'][0]:+.4f}, {exp_ate_llm['ci_95'][1]:+.4f}] | {exp_ate_llm['p_val']:.4f} | {exp_ate_llm['wtl']} | Exploratory |",
-        f"| $E_0'$ vs LLM-only | `CTI-ATTACK` | {exp_att_llm['n']} | Technique F1 (sub) | {exp_att_llm['treatment_mean']:.4f} | {exp_att_llm['control_mean']:.4f} | {exp_att_llm['delta']:+.4f} | [{exp_att_llm['ci_95'][0]:+.4f}, {exp_att_llm['ci_95'][1]:+.4f}] | {exp_att_llm['p_val']:.4f} | {exp_att_llm['wtl']} | Exploratory |",
-        f"| $E_{{1b}}\\text{{-MIXED}}$ vs LLM-only | `cti-ate` | {exp_e1b_ate_llm['n']} | Technique F1 (sub) | {exp_e1b_ate_llm['treatment_mean']:.4f} | {exp_e1b_ate_llm['control_mean']:.4f} | {exp_e1b_ate_llm['delta']:+.4f} | [{exp_e1b_ate_llm['ci_95'][0]:+.4f}, {exp_e1b_ate_llm['ci_95'][1]:+.4f}] | {exp_e1b_ate_llm['p_val']:.4f} | {exp_e1b_ate_llm['wtl']} | Exploratory |",
-        f"| $E_{{1b}}\\text{{-MIXED}}$ vs LLM-only | `CTI-ATTACK` | {exp_e1b_att_llm['n']} | Technique F1 (sub) | {exp_e1b_att_llm['treatment_mean']:.4f} | {exp_e1b_att_llm['control_mean']:.4f} | {exp_e1b_att_llm['delta']:+.4f} | [{exp_e1b_att_llm['ci_95'][0]:+.4f}, {exp_e1b_att_llm['ci_95'][1]:+.4f}] | {exp_e1b_att_llm['p_val']:.4f} | {exp_e1b_att_llm['wtl']} | Exploratory |",
+        "#### B. Threat Actor Attribution Generation Contrasts (`cti-taa`, $N=50$, Matched Budget $B=500$)",
+        "| Contrast | Evaluated Rows | Scorer / Metric | Treatment Mean | Control Mean | $\\Delta$ | 95% Bootstrap CI | Raw $p$-value | W/T/L | Description |",
+        "| :--- | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |",
     ])
     latex.append(r"\hline")
-    latex.append(r"\multicolumn{9}{l}{\textit{Exploratory Generation Contrasts (Uncorrected)}} \\")
-    latex.append(f"$E_0'$ vs LLM-only & cti-ate & {exp_ate_llm['n']} & {exp_ate_llm['treatment_mean']:.4f} & {exp_ate_llm['control_mean']:.4f} & {exp_ate_llm['delta']:+.4f} & [{exp_ate_llm['ci_95'][0]:+.4f}, {exp_ate_llm['ci_95'][1]:+.4f}] & {exp_ate_llm['p_val']:.4f} & Exploratory \\\\")
-    latex.append(f"$E_0'$ vs LLM-only & CTI-ATTACK & {exp_att_llm['n']} & {exp_att_llm['treatment_mean']:.4f} & {exp_att_llm['control_mean']:.4f} & {exp_att_llm['delta']:+.4f} & [{exp_att_llm['ci_95'][0]:+.4f}, {exp_att_llm['ci_95'][1]:+.4f}] & {exp_att_llm['p_val']:.4f} & Exploratory \\\\")
-    latex.append(f"$E_{{1b}}\\text{{-MIXED}}$ vs LLM & cti-ate & {exp_e1b_ate_llm['n']} & {exp_e1b_ate_llm['treatment_mean']:.4f} & {exp_e1b_ate_llm['control_mean']:.4f} & {exp_e1b_ate_llm['delta']:+.4f} & [{exp_e1b_ate_llm['ci_95'][0]:+.4f}, {exp_e1b_ate_llm['ci_95'][1]:+.4f}] & {exp_e1b_ate_llm['p_val']:.4f} & Exploratory \\\\")
-    latex.append(f"$E_{{1b}}\\text{{-MIXED}}$ vs LLM & CTI-ATTACK & {exp_e1b_att_llm['n']} & {exp_e1b_att_llm['treatment_mean']:.4f} & {exp_e1b_att_llm['control_mean']:.4f} & {exp_e1b_att_llm['delta']:+.4f} & [{exp_e1b_att_llm['ci_95'][0]:+.4f}, {exp_e1b_att_llm['ci_95'][1]:+.4f}] & {exp_e1b_att_llm['p_val']:.4f} & Exploratory \\\\")
+    latex.append(r"\multicolumn{9}{l}{\textit{Threat Actor Attribution Generation Contrasts (cti-taa, $N=50$, $B=500$)}} \\")
+
+    for name, treat_arm, ctrl_arm, m_col, m_label in taa_contrasts:
+        res_taa = compute_paired_taa(treat_arm, ctrl_arm, m_col)
+        md.append(f"| {name} | {res_taa['n']} | {m_label} | {res_taa['treatment_mean']:.4f} | {res_taa['control_mean']:.4f} | {res_taa['delta']:+.4f} | [{res_taa['ci_95'][0]:+.4f}, {res_taa['ci_95'][1]:+.4f}] | {res_taa['p_val']} | {res_taa['wtl']} | Exploratory |")
+        latex.append(f"{name} & cti-taa & {res_taa['n']} & {res_taa['treatment_mean']:.4f} & {res_taa['control_mean']:.4f} & {res_taa['delta']:+.4f} & [{res_taa['ci_95'][0]:+.4f}, {res_taa['ci_95'][1]:+.4f}] & {res_taa['p_val']} & Exploratory \\\\")
+
+    p_ate_llm = "< 0.0001" if exp_ate_llm["p_val"] < 1e-4 else f"{exp_ate_llm['p_val']:.4f}"
+    p_att_llm = "< 0.0001" if exp_att_llm["p_val"] < 1e-4 else f"{exp_att_llm['p_val']:.4f}"
+    p_e1b_ate_llm = "< 0.0001" if exp_e1b_ate_llm["p_val"] < 1e-4 else f"{exp_e1b_ate_llm['p_val']:.4f}"
+    p_e1b_att_llm = "< 0.0001" if exp_e1b_att_llm["p_val"] < 1e-4 else f"{exp_e1b_att_llm['p_val']:.4f}"
+
+    md.extend([
+        "",
+        "#### C. Exploratory Technique Extraction Contrasts (Descriptive, Uncorrected)",
+        "| Contrast | Dataset | Evaluated Rows | Metric | Treatment Mean | Control Mean | $\\Delta$ | 95% Bootstrap CI | Raw $p$-value | W/T/L | Status |",
+        "| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |",
+        f"| $E_0'$ vs LLM-only | `cti-ate` | {exp_ate_llm['n']} | Technique F1 (sub) | {exp_ate_llm['treatment_mean']:.4f} | {exp_ate_llm['control_mean']:.4f} | {exp_ate_llm['delta']:+.4f} | [{exp_ate_llm['ci_95'][0]:+.4f}, {exp_ate_llm['ci_95'][1]:+.4f}] | {p_ate_llm} | {exp_ate_llm['wtl']} | Exploratory |",
+        f"| $E_0'$ vs LLM-only | `CTI-ATTACK` | {exp_att_llm['n']} | Technique F1 (sub) | {exp_att_llm['treatment_mean']:.4f} | {exp_att_llm['control_mean']:.4f} | {exp_att_llm['delta']:+.4f} | [{exp_att_llm['ci_95'][0]:+.4f}, {exp_att_llm['ci_95'][1]:+.4f}] | {p_att_llm} | {exp_att_llm['wtl']} | Exploratory |",
+        f"| $E_{{1b}}\\text{{-MIXED}}$ vs LLM-only | `cti-ate` | {exp_e1b_ate_llm['n']} | Technique F1 (sub) | {exp_e1b_ate_llm['treatment_mean']:.4f} | {exp_e1b_ate_llm['control_mean']:.4f} | {exp_e1b_ate_llm['delta']:+.4f} | [{exp_e1b_ate_llm['ci_95'][0]:+.4f}, {exp_e1b_ate_llm['ci_95'][1]:+.4f}] | {p_e1b_ate_llm} | {exp_e1b_ate_llm['wtl']} | Exploratory |",
+        f"| $E_{{1b}}\\text{{-MIXED}}$ vs LLM-only | `CTI-ATTACK` | {exp_e1b_att_llm['n']} | Technique F1 (sub) | {exp_e1b_att_llm['treatment_mean']:.4f} | {exp_e1b_att_llm['control_mean']:.4f} | {exp_e1b_att_llm['delta']:+.4f} | [{exp_e1b_att_llm['ci_95'][0]:+.4f}, {exp_e1b_att_llm['ci_95'][1]:+.4f}] | {p_e1b_att_llm} | {exp_e1b_att_llm['wtl']} | Exploratory |",
+    ])
+    latex.append(r"\hline")
+    latex.append(r"\multicolumn{9}{l}{\textit{Exploratory Technique Extraction Contrasts (Uncorrected)}} \\")
+    latex.append(f"$E_0'$ vs LLM-only & cti-ate & {exp_ate_llm['n']} & {exp_ate_llm['treatment_mean']:.4f} & {exp_ate_llm['control_mean']:.4f} & {exp_ate_llm['delta']:+.4f} & [{exp_ate_llm['ci_95'][0]:+.4f}, {exp_ate_llm['ci_95'][1]:+.4f}] & {p_ate_llm} & Exploratory \\\\")
+    latex.append(f"$E_0'$ vs LLM-only & CTI-ATTACK & {exp_att_llm['n']} & {exp_att_llm['treatment_mean']:.4f} & {exp_att_llm['control_mean']:.4f} & {exp_att_llm['delta']:+.4f} & [{exp_att_llm['ci_95'][0]:+.4f}, {exp_att_llm['ci_95'][1]:+.4f}] & {p_att_llm} & Exploratory \\\\")
+    latex.append(f"$E_{{1b}}\\text{{-MIXED}}$ vs LLM & cti-ate & {exp_e1b_ate_llm['n']} & {exp_e1b_ate_llm['treatment_mean']:.4f} & {exp_e1b_ate_llm['control_mean']:.4f} & {exp_e1b_ate_llm['delta']:+.4f} & [{exp_e1b_ate_llm['ci_95'][0]:+.4f}, {exp_e1b_ate_llm['ci_95'][1]:+.4f}] & {p_e1b_ate_llm} & Exploratory \\\\")
+    latex.append(f"$E_{{1b}}\\text{{-MIXED}}$ vs LLM & CTI-ATTACK & {exp_e1b_att_llm['n']} & {exp_e1b_att_llm['treatment_mean']:.4f} & {exp_e1b_att_llm['control_mean']:.4f} & {exp_e1b_att_llm['delta']:+.4f} & [{exp_e1b_att_llm['ci_95'][0]:+.4f}, {exp_e1b_att_llm['ci_95'][1]:+.4f}] & {p_e1b_att_llm} & Exploratory \\\\")
 
     latex.extend([
         r"\hline",
@@ -628,7 +738,7 @@ def generate_table7_claims_audit() -> Tuple[str, str, List[Dict[str, str]]]:
             "claim": "Family S1: Query entity resolution transfers positively to technique extraction on cti-ate and CTI-ATTACK.",
             "evidence": "results/phase_2/o1_benchmark_results.json",
             "status": "Not Supported",
-            "details": "Severe degradation on cti-ate under B2 (Recall@10 drops from 0.0844 to 0.0158) due to entity prefix displacing procedural text.",
+            "details": "Measured Recall@10 decreases from 0.0844 to 0.0158 on cti-ate under B2 when entity prefix is added.",
         },
         {
             "id": "C4",
@@ -647,9 +757,9 @@ def generate_table7_claims_audit() -> Tuple[str, str, List[Dict[str, str]]]:
         {
             "id": "C6",
             "claim": "Unified Mixed Indexing (E1-MIXED without siblings) preserves actor attribution retrieval recall on cti-taa.",
-            "evidence": "results/phase_3/o2_phase3c_benchmark_results.json",
-            "status": "Supported",
-            "details": "E1-MIXED achieves Recall@10 = 0.6000 vs E0' = 0.3000 (Delta = +0.3000), verifying mixed indexing itself does not cause degradation.",
+            "evidence": "results/phase_4b/a8_recompute.json",
+            "status": "Not established",
+            "details": "At matched 500-token budget on cti-taa B2, E1-MIXED (no siblings) achieved 0.0000 object-level recall vs E0' 0.0200 (Delta = -0.0200), and 0.0400 text-inclusive recall vs E0' 0.3000 (Delta = -0.2600). The earlier +0.30 gain was evaluated without token budget constraints.",
         },
         {
             "id": "C7",
@@ -663,14 +773,14 @@ def generate_table7_claims_audit() -> Tuple[str, str, List[Dict[str, str]]]:
             "claim": "RAG Retrieval Advantage: Retrieved STIX context improves threat actor attribution over direct LLM parametric generation (LLM-only).",
             "evidence": "results/phase_4/per_query_cti_taa_attribution.csv",
             "status": "Not Supported",
-            "details": "LLM-only parametric memory achieves 0.68-0.72 accuracy, outperforming RAG retrieval arms V0 (0.56-0.60) and V1 (0.44-0.46).",
+            "details": "LLM-only parametric memory achieves 0.68-0.72 accuracy, outperforming RAG retrieval arms V0 (0.56-0.60) and V1 (0.44-0.46). Caveat: High LLM-only performance may reflect pre-training data contamination on public threat intelligence reports rather than superior reasoning (hypothesis).",
         },
         {
             "id": "C9",
-            "claim": "Scoring Gap: Exact canonical matching (S_exact) severely underestimates attribution accuracy relative to alias-aware matching (S_alias).",
+            "claim": "STIX Retrieval Scoring Gap: Exact canonical matching (S_exact) underestimates attribution recall relative to alias-aware matching (S_alias).",
             "evidence": "results/phase_2/s_exact_vs_alias_comparison.json",
             "status": "Supported",
-            "details": "S_alias adds +0.1200 to +0.2200 to measured retrieval Recall@10 across all baselines and knowledge bases (95% CIs exclude zero).",
+            "details": "Scoped to STIX retrieval alias expansion: S_alias adds +0.1200 to +0.2200 to measured retrieval Recall@10 across evaluated baselines and knowledge bases (95% CIs exclude zero).",
         },
         {
             "id": "C10",
@@ -731,7 +841,7 @@ def generate_forest_plot_svg(out_path: Path) -> None:
         {"family": "P1", "label": "P1_08: cti-taa B3 V1 vs V3 (MRR)", "delta": 0.0357, "ci": [-0.0297, 0.1129], "sig": False},
         {"family": "P2'", "label": "P2'_01: cti-ate B2 E1b vs E0' (Rec@500)", "delta": 0.0216, "ci": [-0.0060, 0.0502], "sig": False},
         {"family": "P2'", "label": "P2'_02: cti-ate B3 E1b vs E0' (Rec@500)", "delta": -0.0415, "ci": [-0.0809, -0.0016], "sig": False},
-        {"family": "P2'", "label": "P2'_03: CTI-ATTACK B2 E1b vs E0' (Rec@500)", "delta": -0.1485, "ci": [-0.1943, -0.1048], "sig": True},
+        {"family": "P2'", "label": "P2'_03/04: CTI-ATTACK B2/B3 E1b vs E0' (Rec@500)", "delta": -0.1485, "ci": [-0.1943, -0.1048], "sig": True},
         {"family": "P2'", "label": "Guard: cti-taa B2 E1b vs E0' (Rec@10)", "delta": -0.2000, "ci": [-0.3400, -0.0600], "sig": True},
         {"family": "G1", "label": "G1_01: cti-ate E1b vs E0' (Gen F1 sub)", "delta": -0.1340, "ci": [-0.1793, -0.0911], "sig": True},
         {"family": "G1", "label": "G1_02: CTI-ATTACK E1b vs E0' (Gen F1 sub)", "delta": -0.1592, "ci": [-0.2125, -0.1069], "sig": True},

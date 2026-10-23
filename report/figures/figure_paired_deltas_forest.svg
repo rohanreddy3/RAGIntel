@@ -82,7 +82,7 @@
   <line x1="667.3" y1="343" x2="667.3" y2="351" stroke="#f28e2b" stroke-width="2"/>
   <circle cx="636.6" cy="347" r="4.5" fill="#f28e2b"/>
   <rect x="20" y="363" width="910" height="28" fill="#fafafa" opacity="0.6"/>
-  <text x="340" y="379" font-family="Arial, sans-serif" font-size="11" text-anchor="end" fill="#333333">P2'_03: CTI-ATTACK B2 E1b vs E0' (Rec@500)</text>
+  <text x="340" y="379" font-family="Arial, sans-serif" font-size="11" text-anchor="end" fill="#333333">P2'_03/04: CTI-ATTACK B2/B3 E1b vs E0' (Rec@500)</text>
   <line x1="518.7" y1="375" x2="587.7" y2="375" stroke="#f28e2b" stroke-width="2.5"/>
   <line x1="518.7" y1="371" x2="518.7" y2="379" stroke="#f28e2b" stroke-width="2"/>
   <line x1="587.7" y1="371" x2="587.7" y2="379" stroke="#f28e2b" stroke-width="2"/>

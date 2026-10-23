@@ -1,0 +1,272 @@
+[
+  {
+    "rank": 1,
+    "alias": "NET",
+    "frequency": 79,
+    "length": 3,
+    "entity_type": "tool",
+    "canonical_name": "Net",
+    "is_common_english_or_cmd": true
+  },
+  {
+    "rank": 2,
+    "alias": "Crimson",
+    "frequency": 67,
+    "length": 7,
+    "entity_type": "malware",
+    "canonical_name": "Crimson",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 3,
+    "alias": "APT36",
+    "frequency": 54,
+    "length": 5,
+    "entity_type": "intrusion-set",
+    "canonical_name": "Transparent Tribe",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 4,
+    "alias": "Hornbill",
+    "frequency": 40,
+    "length": 8,
+    "entity_type": "malware",
+    "canonical_name": "Hornbill",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 5,
+    "alias": "SunBird",
+    "frequency": 35,
+    "length": 7,
+    "entity_type": "malware",
+    "canonical_name": "Sunbird",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 6,
+    "alias": "cmd.exe",
+    "frequency": 33,
+    "length": 7,
+    "entity_type": "tool",
+    "canonical_name": "cmd",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 7,
+    "alias": "Solar",
+    "frequency": 27,
+    "length": 5,
+    "entity_type": "malware",
+    "canonical_name": "Solar",
+    "is_common_english_or_cmd": true
+  },
+  {
+    "rank": 8,
+    "alias": "Quick Assist",
+    "frequency": 26,
+    "length": 12,
+    "entity_type": "tool",
+    "canonical_name": "Quick Assist",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 9,
+    "alias": "Cobalt Strike",
+    "frequency": 24,
+    "length": 13,
+    "entity_type": "malware",
+    "canonical_name": "Cobalt Strike",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 10,
+    "alias": "Bandook",
+    "frequency": 21,
+    "length": 7,
+    "entity_type": "malware",
+    "canonical_name": "Bandook",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 11,
+    "alias": "AsyncRAT",
+    "frequency": 21,
+    "length": 8,
+    "entity_type": "tool",
+    "canonical_name": "AsyncRAT",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 12,
+    "alias": "KOPILUWAK",
+    "frequency": 21,
+    "length": 9,
+    "entity_type": "malware",
+    "canonical_name": "KOPILUWAK",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 13,
+    "alias": "Turla",
+    "frequency": 20,
+    "length": 5,
+    "entity_type": "intrusion-set",
+    "canonical_name": "Turla",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 14,
+    "alias": "Gomir",
+    "frequency": 18,
+    "length": 5,
+    "entity_type": "malware",
+    "canonical_name": "Gomir",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 15,
+    "alias": "SC5k",
+    "frequency": 17,
+    "length": 4,
+    "entity_type": "malware",
+    "canonical_name": "SampleCheck5000",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 16,
+    "alias": "SideCopy",
+    "frequency": 15,
+    "length": 8,
+    "entity_type": "intrusion-set",
+    "canonical_name": "SideCopy",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 17,
+    "alias": "TONESHELL",
+    "frequency": 14,
+    "length": 9,
+    "entity_type": "malware",
+    "canonical_name": "TONESHELL",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 18,
+    "alias": "page",
+    "frequency": 14,
+    "length": 4,
+    "entity_type": "malware",
+    "canonical_name": "Elise",
+    "is_common_english_or_cmd": true
+  },
+  {
+    "rank": 19,
+    "alias": "QUIETCANARY",
+    "frequency": 14,
+    "length": 11,
+    "entity_type": "malware",
+    "canonical_name": "QUIETCANARY",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 20,
+    "alias": "Impacket",
+    "frequency": 13,
+    "length": 8,
+    "entity_type": "tool",
+    "canonical_name": "Impacket",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 21,
+    "alias": "Equation",
+    "frequency": 13,
+    "length": 8,
+    "entity_type": "intrusion-set",
+    "canonical_name": "Equation",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 22,
+    "alias": "Qakbot",
+    "frequency": 12,
+    "length": 6,
+    "entity_type": "malware",
+    "canonical_name": "QakBot",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 23,
+    "alias": "MagicRAT",
+    "frequency": 11,
+    "length": 8,
+    "entity_type": "malware",
+    "canonical_name": "MagicRAT",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 24,
+    "alias": "POWERLESS",
+    "frequency": 11,
+    "length": 9,
+    "entity_type": "malware",
+    "canonical_name": "PowerLess",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 25,
+    "alias": "ShadowPad",
+    "frequency": 10,
+    "length": 9,
+    "entity_type": "malware",
+    "canonical_name": "ShadowPad",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 26,
+    "alias": "play",
+    "frequency": 10,
+    "length": 4,
+    "entity_type": "intrusion-set",
+    "canonical_name": "Play",
+    "is_common_english_or_cmd": true
+  },
+  {
+    "rank": 27,
+    "alias": "GoBear",
+    "frequency": 10,
+    "length": 6,
+    "entity_type": "malware",
+    "canonical_name": "GoBear",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 28,
+    "alias": "MimiKatz",
+    "frequency": 8,
+    "length": 8,
+    "entity_type": "tool",
+    "canonical_name": "Mimikatz",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 29,
+    "alias": "Troll Stealer",
+    "frequency": 8,
+    "length": 13,
+    "entity_type": "malware",
+    "canonical_name": "Troll Stealer",
+    "is_common_english_or_cmd": false
+  },
+  {
+    "rank": 30,
+    "alias": "SPICA",
+    "frequency": 8,
+    "length": 5,
+    "entity_type": "malware",
+    "canonical_name": "Spica",
+    "is_common_english_or_cmd": false
+  }
+]

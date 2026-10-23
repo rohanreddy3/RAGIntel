@@ -1,0 +1,12 @@
+{
+  "B2": {
+    "baseline": "B2",
+    "label": "post-hoc exploratory, outside P1, no Holm",
+    "V0_Recall@10": 0.34,
+    "V0_MRR": 0.0662,
+    "V1_Strict_Recall@10": 0.36,
+    "V1_Strict_MRR": 0.1326,
+    "Delta_Recall@10": 0.02,
+    "Delta_MRR": 0.0664
+  }
+}

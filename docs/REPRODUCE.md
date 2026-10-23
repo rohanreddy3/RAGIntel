@@ -80,6 +80,24 @@ python scripts/regenerate_cti_taa_tables.py
 python scripts/generate_final_assets.py
 ```
 
+### Phase 4B: Fix Round & Rigor Verification
+```bash
+# 1. Recompute A8 threat actor attribution at matched 500-token budget
+python scripts/recompute_a8.py
+
+# 2. Audit Table 5 token budget binding and chunk saturation
+python scripts/audit_budget_binding.py
+
+# 3. Comprehensive generation failure and abstention audit across all cache records
+python scripts/audit_generation_failures.py
+
+# 4. Audit ATT&CK STIX bundle versioning and domain technique inventory
+python scripts/audit_stix_version.py
+
+# 5. Entity detector precision audit and exploratory V1-strict retrieval
+python scripts/analyze_detector_precision.py
+```
+
 ## 5. Cryptographic Freeze Manifest Verification
 
 To verify the integrity of all experiment outputs against the frozen manifest:

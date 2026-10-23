@@ -1,11 +1,11 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-22T15:13:20.930988+00:00",
-  "total_files": 67,
+  "timestamp_utc": "2026-10-23T05:34:04.497263+00:00",
+  "total_files": 74,
   "files": {
     "analysis_plan.md": {
-      "sha256": "913e51d44c43a6d787f59a8bcfb56c3ced9f7b1d1562f5e48a5c5a0a0ec6bebc",
-      "size_bytes": 19235
+      "sha256": "02ad5ceb9d1653edbeb6a37982be534c803d988fcb99cba98eaef1beaea14758",
+      "size_bytes": 22741
     },
     "report/dataset_stats.md": {
       "sha256": "3fe402b2c5553f811f18f3cb5d0f444f78b54631cfbd0b75612c5943983cea62",
@@ -20,12 +20,12 @@
       "size_bytes": 5002
     },
     "report/figures/figure_paired_deltas_forest.svg": {
-      "sha256": "f33a151acf48e06b06da32fc6c9bf87fda94b81e268c72cac222451b6e7df1c9",
-      "size_bytes": 10272
+      "sha256": "43189b42a2daad5b94cbb4e59020247d5a99b03730df406722f8146699e630fe",
+      "size_bytes": 10278
     },
     "results/freeze_manifest.json": {
-      "sha256": "d69241e32baec51291501bff22829c07dc72b4e3676ff1f02d91601417b0007e",
-      "size_bytes": 11850
+      "sha256": "c39d258d7553788f6cdba46ac4611ee322aad3f74c4abfc7cd94f63275325ede",
+      "size_bytes": 13054
     },
     "results/phase_0/dataset_schemas.json": {
       "sha256": "4170a0eadfb1cb3b51654a96c0b800cc39442a54ae13662f2c1165985f1edb26",
@@ -240,12 +240,12 @@
       "size_bytes": 584420
     },
     "results/phase_4/final_tables/all_tables.md": {
-      "sha256": "e559c82a43d64c11b182dc958b21e254235635d616eeba647065f7b99368dbd8",
-      "size_bytes": 14032
+      "sha256": "f07d10f5ae6182511c9a792f164dcaa343029334ed388302a3d8bd0e2c1da38e",
+      "size_bytes": 16101
     },
     "results/phase_4/final_tables/all_tables.tex": {
-      "sha256": "f50349c635b8b5970ceba806c550cc92aaf623181a25458602c3b5a142748741",
-      "size_bytes": 12041
+      "sha256": "0e92295950f9591d5ddda3835035851490220eacf19c377bfdd8f76f8d1addb6",
+      "size_bytes": 13501
     },
     "results/phase_4/generation_diagnostics.json": {
       "sha256": "be8be4de99bdb6967d0fef15eec3515a47c0d6cf7377baf9eebb215621e42be3",
@@ -270,6 +270,34 @@
     "results/phase_4/row_alignment_audit.json": {
       "sha256": "f09fea8e4d2daf91414bcc623bf73d43bbb981241867bdb62ce42ff068cf964e",
       "size_bytes": 1037
+    },
+    "results/phase_4b/a8_recompute.json": {
+      "sha256": "b18172df2de69d1490d3dc21657fa98648d9eb1d9d4068750b965d5b1b8b56ad",
+      "size_bytes": 4846
+    },
+    "results/phase_4b/budget_binding_audit.json": {
+      "sha256": "9c34d688bfb699a7428cbbd01c4affbce7dcaa7f0a72d2940ebe8a4b6f898942",
+      "size_bytes": 10461
+    },
+    "results/phase_4b/detector_labels.csv": {
+      "sha256": "ed5e4909f8766db9455040434280221560fa66dd56419db2458b57e08b88988a",
+      "size_bytes": 35867
+    },
+    "results/phase_4b/generation_failure_audit.json": {
+      "sha256": "f9df0850774b95c04af84a0973e7b0afc6718a1b8f46ec4d98c6f5b50aca926b",
+      "size_bytes": 1496
+    },
+    "results/phase_4b/stix_version_audit.json": {
+      "sha256": "4f9249db7ec8e26c334a42ab0674aa08962c6f248a93d2f9f4faef25fab7e7ad",
+      "size_bytes": 1041
+    },
+    "results/phase_4b/top30_detected_aliases.json": {
+      "sha256": "8305e1a8edaf59b54b8c27ff71606efa8ef59d8ff15a596f1bdad7abc0d7a555",
+      "size_bytes": 5955
+    },
+    "results/phase_4b/v1_strict_exploratory_results.json": {
+      "sha256": "227143ddbec9f1a056a78a199b6aca4e8686fb9534a33396f354dc8ab1943fae",
+      "size_bytes": 271
     }
   }
 }

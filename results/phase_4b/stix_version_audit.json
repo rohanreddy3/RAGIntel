@@ -1,0 +1,44 @@
+{
+  "Enterprise": {
+    "collection_name": "N/A",
+    "x_mitre_version": "N/A",
+    "x_mitre_attack_spec_version": [
+      "3.3.0",
+      "3.2.0"
+    ],
+    "modified": "N/A",
+    "active_parents": 222,
+    "active_subtechniques": 475,
+    "total_active_techniques": 697,
+    "revoked_techniques": 149,
+    "deprecated_techniques": 12
+  },
+  "Mobile": {
+    "collection_name": "N/A",
+    "x_mitre_version": "N/A",
+    "x_mitre_attack_spec_version": [
+      "3.3.0",
+      "3.2.0"
+    ],
+    "modified": "N/A",
+    "active_parents": 78,
+    "active_subtechniques": 47,
+    "total_active_techniques": 125,
+    "revoked_techniques": 53,
+    "deprecated_techniques": 12
+  },
+  "ICS": {
+    "collection_name": "N/A",
+    "x_mitre_version": "N/A",
+    "x_mitre_attack_spec_version": [
+      "3.3.0",
+      "3.2.0"
+    ],
+    "modified": "N/A",
+    "active_parents": 78,
+    "active_subtechniques": 26,
+    "total_active_techniques": 104,
+    "revoked_techniques": 9,
+    "deprecated_techniques": 14
+  }
+}

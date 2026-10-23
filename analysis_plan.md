@@ -232,3 +232,34 @@ All other generation-level comparisons are explicitly designated as exploratory 
    - Both Scorer Variant 1 (Text-based regex extraction from ground-truth string) and Scorer Variant 2 (STIX ontology-based canonical and alias expansion) are computed.
    - **Status**: Designating Scorer Variant 2 as the primary scorer is explicitly designated as **post hoc** (decided after observing empirical baseline scores on V0/V1/LLM-only). Variant 1 is maintained and reported in full as the sensitivity metric.
 
+---
+
+## 10. Phase 4B Amendments
+**Date**: 2026-10-23
+**Protocol Version**: Phase 4B (Fix Round)
+**Analysis Plan Hash-Freeze Verification**:
+- The analysis plan protocol was frozen by file hash on `2026-10-22T07:42:48Z` (actual filesystem modification time, SHA-256 `913e51d44c43a6d787f59a8bcfb56c3ced9f7b1d1562f5e48a5c5a0a0ec6bebc`).
+- All terminology referring to "pre-registration" or "cryptographic pre-registration" is superseded by "analysis plan frozen by file hash on 2026-10-22T07:42:48Z". The earlier typed timestamp `07:45:00Z` in Section 9 is corrected to the actual mtime `2026-10-22T07:42:48Z`.
+- **Pre-existing Knowledge Baseline**: Prior to the drafting of Section 9, the following empirical results were already known and inspected:
+  1. All Phase 0, Phase 1, Phase 2, and Phase 3/3B/3C retrieval benchmarks across all arms, datasets, and baselines.
+  2. Baseline generation technique extraction results on `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$) for `LLM-only` and $E_0'$.
+  3. Generation attribution results on `cti-taa` ($N=50$) for `LLM-only`, $V_0$, and $V_1$.
+  4. Generation for $E_{1b}\text{-MIXED}$ on `CTI-ATTACK` was incomplete due to Gemini API daily quota limits ($N=182/229$ cached; 47 queries remaining).
+
+### 10.1 Multiplicity & Table Amendments
+1. **P2' Contrast Consolidation**:
+   - In Table 4, contrasts `P2'_03` (CTI-ATTACK B2) and `P2'_04` (CTI-ATTACK B3) are merged into a single test row `P2'_03/04` because CTI-ATTACK queries are short (~62 words) and produce identical retrieval contexts under B2 and B3 windowing. Multiplicity adjustment (Holm-Bonferroni) is adjusted accordingly to $M=3$ tests for the primary family.
+2. **P-value Precision & Directional Labels**:
+   - All bootstrap $p$-values at the empirical resampling floor ($0.0000$) are reported as `$p < 0.0001$`.
+   - Where the observed treatment effect is negative ($\Delta < 0$) and significant under Holm-Bonferroni, the outcome is explicitly labelled "Significant decrease" rather than generic "Significant".
+3. **Budget Binding Criterion (Table 5)**:
+   - Cells where context length is constrained by the retriever top-$k$ cap ($k=50$ chunks) rather than the token budget $B$ (specifically CTI-ATTACK $B=2000, 4000$ and `cti-ate` $B=4000$ for recursive splitters) are marked as non-binding (`†`) and excluded from cross-arm budget comparisons.
+4. **Hypothesis C6 Status Reclassification**:
+   - Claim C6 (Threat Actor Sibling Expansion) is updated to **Not established** because under matched budget ($B^* = 500$ tokens), object-level evaluation shows no gain ($\Delta = -0.0200$, 0 wins, 49 ties, 1 loss) and text-inclusive evaluation shows a marked reduction ($\Delta = -0.2600$).
+5. **Claims C8 and C9 Scoping**:
+   - Claim C8 (LLM-only performance) adds an explicit caveat marked as `[Hypothesis: Potential benchmark test-set contamination or high parametric pre-training exposure to public threat intelligence reports, as LLM-only achieves 0.72 accuracy on cti-taa and 0.41 F1 on technique extraction without context retrieval]`.
+   - Claim C9 (Scoring gap) is scoped strictly to STIX intrusion-set retrieval evaluations on `cti-taa` under alias expansion (+0.1200 to +0.2200 Recall@10).
+
+### 10.2 Scientific Tone & Language Hygiene
+- All causal language ("due to", "attributable to", "confirms", "severely", "actual cause", "true expected center") is prohibited in result summaries. All findings are reported strictly as descriptive associations and non-causal numerical accounting.
+
