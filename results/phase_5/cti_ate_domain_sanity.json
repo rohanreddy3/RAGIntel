@@ -1,0 +1,437 @@
+{
+  "total_rows": 60,
+  "domain_breakdown": {
+    "enterprise-attack": 47,
+    "mobile-attack": 13
+  },
+  "total_gt_ids": 397,
+  "matching_gt_ids": 396,
+  "gt_id_match_share": 0.9975,
+  "rows_100pct_match": 59,
+  "rows_100pct_share": 0.9833,
+  "rows_any_match": 60,
+  "rows_any_share": 1.0,
+  "rows_zero_match": 0,
+  "row_details": [
+    {
+      "row_idx": 0,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 1,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 2,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 3,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 19,
+      "matching_gt_ids": 19,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 4,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 5,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 3,
+      "matching_gt_ids": 3,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 6,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 7,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 8,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 9,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 8,
+      "matching_gt_ids": 8,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 10,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 11,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 9,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 12,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 1,
+      "matching_gt_ids": 1,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 13,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 11,
+      "matching_gt_ids": 11,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 14,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 8,
+      "matching_gt_ids": 8,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 15,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 9,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 16,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 17,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 18,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 3,
+      "matching_gt_ids": 3,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 19,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 20,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 8,
+      "matching_gt_ids": 8,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 21,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 10,
+      "matching_gt_ids": 10,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 22,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 23,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 8,
+      "matching_gt_ids": 8,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 24,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 10,
+      "matching_gt_ids": 10,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 25,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 1,
+      "matching_gt_ids": 1,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 26,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 1,
+      "matching_gt_ids": 1,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 27,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 8,
+      "matching_gt_ids": 8,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 28,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 29,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 9,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 30,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 31,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 32,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 33,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 9,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 34,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 35,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 36,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 37,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 38,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 39,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 10,
+      "matching_gt_ids": 10,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 40,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 41,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 42,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 43,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 44,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 9,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 45,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 46,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 7,
+      "matching_gt_ids": 7,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 47,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 48,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 49,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 8,
+      "match_rate": 0.8889
+    },
+    {
+      "row_idx": 50,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 10,
+      "matching_gt_ids": 10,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 51,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 11,
+      "matching_gt_ids": 11,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 52,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 6,
+      "matching_gt_ids": 6,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 53,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 9,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 54,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 8,
+      "matching_gt_ids": 8,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 55,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 5,
+      "matching_gt_ids": 5,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 56,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 57,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 58,
+      "target_domain": "mobile-attack",
+      "num_gt_ids": 9,
+      "matching_gt_ids": 9,
+      "match_rate": 1.0
+    },
+    {
+      "row_idx": 59,
+      "target_domain": "enterprise-attack",
+      "num_gt_ids": 4,
+      "matching_gt_ids": 4,
+      "match_rate": 1.0
+    }
+  ]
+}

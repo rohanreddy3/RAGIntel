@@ -234,32 +234,99 @@ All other generation-level comparisons are explicitly designated as exploratory 
 
 ---
 
-## 10. Phase 4B Amendments
-**Date**: 2026-10-23
-**Protocol Version**: Phase 4B (Fix Round)
-**Analysis Plan Hash-Freeze Verification**:
-- The analysis plan protocol was frozen by file hash on `2026-10-22T07:42:48Z` (actual filesystem modification time, SHA-256 `913e51d44c43a6d787f59a8bcfb56c3ced9f7b1d1562f5e48a5c5a0a0ec6bebc`).
-- All terminology referring to "pre-registration" or "cryptographic pre-registration" is superseded by "analysis plan frozen by file hash on 2026-10-22T07:42:48Z". The earlier typed timestamp `07:45:00Z` in Section 9 is corrected to the actual mtime `2026-10-22T07:42:48Z`.
-- **Pre-existing Knowledge Baseline**: Prior to the drafting of Section 9, the following empirical results were already known and inspected:
-  1. All Phase 0, Phase 1, Phase 2, and Phase 3/3B/3C retrieval benchmarks across all arms, datasets, and baselines.
-  2. Baseline generation technique extraction results on `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$) for `LLM-only` and $E_0'$.
-  3. Generation attribution results on `cti-taa` ($N=50$) for `LLM-only`, $V_0$, and $V_1$.
-  4. Generation for $E_{1b}\text{-MIXED}$ on `CTI-ATTACK` was incomplete due to Gemini API daily quota limits ($N=182/229$ cached; 47 queries remaining).
+## 10. Phase 5 Protocol: Pre-Declared Fixes and Improvement Round (Post-hoc, Exploratory)
+**Date**: 2026-10-23  
+**Status**: Pre-Declared Protocol (Phase 5 Round 2)  
+**Execution Environment**: Strict offline evaluation (`OFFLINE_ONLY=true`, thread cap = 4 via `OMP_NUM_THREADS=4`, `torch.set_num_threads(4)`), one heavy process at a time.  
+**Pre-existing Knowledge Baseline**: All Phase 0–4 results (retrieval benchmarks, generation caches, and failure audits) are frozen and untouched. All Phase 5 analyses are designated "post-hoc round 2, exploratory".
 
-### 10.1 Multiplicity & Table Amendments
-1. **P2' Contrast Consolidation**:
-   - In Table 4, contrasts `P2'_03` (CTI-ATTACK B2) and `P2'_04` (CTI-ATTACK B3) are merged into a single test row `P2'_03/04` because CTI-ATTACK queries are short (~62 words) and produce identical retrieval contexts under B2 and B3 windowing. Multiplicity adjustment (Holm-Bonferroni) is adjusted accordingly to $M=3$ tests for the primary family.
-2. **P-value Precision & Directional Labels**:
-   - All bootstrap $p$-values at the empirical resampling floor ($0.0000$) are reported as `$p < 0.0001$`.
-   - Where the observed treatment effect is negative ($\Delta < 0$) and significant under Holm-Bonferroni, the outcome is explicitly labelled "Significant decrease" rather than generic "Significant".
-3. **Budget Binding Criterion (Table 5)**:
-   - Cells where context length is constrained by the retriever top-$k$ cap ($k=50$ chunks) rather than the token budget $B$ (specifically CTI-ATTACK $B=2000, 4000$ and `cti-ate` $B=4000$ for recursive splitters) are marked as non-binding (`†`) and excluded from cross-arm budget comparisons.
-4. **Hypothesis C6 Status Reclassification**:
-   - Claim C6 (Threat Actor Sibling Expansion) is updated to **Not established** because under matched budget ($B^* = 500$ tokens), object-level evaluation shows no gain ($\Delta = -0.0200$, 0 wins, 49 ties, 1 loss) and text-inclusive evaluation shows a marked reduction ($\Delta = -0.2600$).
-5. **Claims C8 and C9 Scoping**:
-   - Claim C8 (LLM-only performance) adds an explicit caveat marked as `[Hypothesis: Potential benchmark test-set contamination or high parametric pre-training exposure to public threat intelligence reports, as LLM-only achieves 0.72 accuracy on cti-taa and 0.41 F1 on technique extraction without context retrieval]`.
-   - Claim C9 (Scoring gap) is scoped strictly to STIX intrusion-set retrieval evaluations on `cti-taa` under alias expansion (+0.1200 to +0.2200 Recall@10).
+### 10.1 Methodological Governance Rules
+- **(R1) Strict Pre-Declaration**: Every variant is defined prior to execution. No variants may be added, removed, or retuned after observing empirical results. All outcomes, including negative or neutral results, are reported in full.
+- **(R2) Independent Derivation**: All rules and filters derive exclusively from STIX knowledge base properties and task prompt instruction text, never from dataset ground truths or per-query empirical distributions.
+- **(R3) Explicit Labeling**: All tables, figures, and narratives are labeled "post-hoc round 2, exploratory", reflecting prior exposure to benchmark queries.
+- **(R4) Neutral Scientific Tone**: Zero causal language ("due to", "attributable to", "confirms", "severely", "actual cause", "true expected center") is permitted.
+- **(R5) Dual Attribution Credit & STIX Mapping**: Threat actor attribution tables report both object-level and text-inclusive credit rules. Every ground-truth threat group in `cti-taa` is asserted to map to exactly one STIX canonical intrusion-set object; any 0 or >1 matches are listed explicitly.
 
-### 10.2 Scientific Tone & Language Hygiene
-- All causal language ("due to", "attributable to", "confirms", "severely", "actual cause", "true expected center") is prohibited in result summaries. All findings are reported strictly as descriptive associations and non-causal numerical accounting.
+### 10.2 Query Hygiene Protocol (`split_query`)
+To eliminate entity detector false positives triggered by prompt boilerplate instructions, every benchmark query $q$ is parsed into:
+- `instruction`: Text preceding the marker (`"Threat Report:"` or `"**Text:**"`).
+- `body`: Text following the marker.
+- **Assertion**: Every query across all 339 benchmark queries (`cti-ate`: 60, `CTI-ATTACK`: 229, `cti-taa`: 50) must contain either `"Threat Report:"` or `"**Text:**"`.
+
+### 10.3 Optimization 1 (O1) Variants (Retrieval Only, `cti-taa`, B2/B3, `E0-STIX-ALL`)
+Evaluated strictly on query body text:
+1. **$V_{0h}$ (Fair Baseline)**:
+   - Evaluates the query body text directly without entity expansion.
+2. **$V_{1h}$ (High-Precision Alias Expansion)**:
+   - Detects entities within query body text.
+   - Filter criteria:
+     - Entity type restricted strictly to `intrusion-set` or `malware`.
+     - Alias string length $\ge 5$ characters.
+     - Case-sensitive exact match against STIX canonical name or alias casing.
+     - Exclusion of common OS utilities and commands via fixed stoplist:
+       `{"net", "cmd", "page", "play", "solar", "find", "sc", "at", "date", "time", "dir", "ping", "tasklist", "reg", "powershell", "wmic", "arp", "route", "hostname", "whoami", "ipconfig", "netstat", "schtasks", "nslookup", "systeminfo", "quser", "query", "run", "logoff", "shutdown", "format", "replace", "attrib", "assoc", "ftype", "tree", "move", "copy", "xcopy", "robocopy", "expand", "type", "more", "sort", "fc", "comp", "diskpart", "chkdsk", "sfc", "bcdedit", "vssadmin", "wevtutil", "certutil", "bitsadmin", "curl", "tar"}`.
+     - Expansion prefix capped at 64 tokens.
+3. **$V_{\text{rel}}$ (STIX Relationship Co-occurrence Expansion)**:
+   - For each software entity (malware or tool) detected in query body using the $V_{1h}$ criteria, traverses non-revoked STIX `uses` relationships (`intrusion-set` $\to$ `malware`/`tool`).
+   - Scores candidate threat groups $g$ via inverse group frequency:
+     $$\text{score}(g) = \sum_{s \in \text{detected\_software}} \frac{1}{|\{g' \in \text{groups} : g' \text{ uses } s\}|}$$
+   - Prepends the canonical name and first alias of the top 3 scoring groups to the query body (capped at 64 tokens).
+
+### 10.4 Confirmatory Family P3 (O1 Hypotheses)
+- **Contrasts (8 tests)**:
+  - Baseline B2: $V_{1h}$ vs $V_{0h}$ (Recall@10, MRR); $V_{\text{rel}}$ vs $V_{0h}$ (Recall@10, MRR).
+  - Baseline B3: $V_{1h}$ vs $V_{0h}$ (Recall@10, MRR); $V_{\text{rel}}$ vs $V_{0h}$ (Recall@10, MRR).
+- **Secondary Sensitivity**: Contrasts against frozen full-query $V_0$.
+- **Statistical Testing**: Paired bootstrap resampling ($N = 10,000$, seed 42) computing paired difference $\Delta$, 95% bootstrap percentile confidence intervals, and empirical $p$-values.
+- **Multiplicity Control**: Holm-Bonferroni step-down correction across $M = 8$ tests at family-wise $\alpha = 0.05$.
+- **Cross-Dataset Transfer Check**: $V_{1h}$ vs $V_{0h}$ evaluated on `cti-ate` and `CTI-ATTACK` with pre-declared non-inferiority margin $\Delta \ge -0.03$.
+
+### 10.5 Optimization 2 (O2) Clean Comparisons (Retrieval Only, HD Preprocessing)
+- **Preprocessing HD**:
+  - Query body text only.
+  - Domain filtering derived strictly from prompt instruction text:
+    - If instruction contains `"MITRE Enterprise"`: restricts retriever candidate pool to Enterprise domain objects.
+    - If instruction contains `"MITRE Mobile"`: restricts retriever candidate pool to Mobile domain objects.
+    - `CTI-ATTACK` and `cti-taa`: no domain filter (all objects eligible).
+  - Baseline comparison: Raw (frozen) full-query preprocessing without domain filtering.
+  - Sanity check: Compute share of `cti-ate` rows whose ground-truth IDs reside in the declared domain.
+- **Arms Evaluated**: $E_0'\text{-TECH}$, $E_{1a}$, $E_0'$, $E_1\text{-MIXED}$ (no sibling expansion arms).
+- **Contrasts (Family P4, 6 tests, Holm-Bonferroni)**:
+  - $E_{1a}$ vs $E_0'\text{-TECH}$ on: (1) `cti-ate` B2, (2) `cti-ate` B3, (3) `CTI-ATTACK`.
+  - $E_1\text{-MIXED}$ vs $E_0'$ on: (4) `cti-ate` B2, (5) `cti-ate` B3, (6) `CTI-ATTACK`.
+- **Metric**: Mean Recall@$B$ over $B \in \{500, 1000, 2000, 4000\}$, evaluated strictly for cells where token budget is binding. Full 4-budget scaling curves reported alongside.
+- **Hygiene Effect Alone**: $E_0'$ under HD vs $E_0'$ raw.
+
+### 10.6 Generation Ablation (API Protocol, Cap 250 Calls)
+- **Execution Condition**: Executed strictly after completion of the 47 pending $E_{1b}\text{-MIXED}$ calls on `CTI-ATTACK`.
+- **Hybrid Prompt Verbatim**:
+  `"Use the provided context if it is relevant; otherwise use your own knowledge. List MITRE technique IDs."` (for `cti-taa`: `"attribute to a threat group"`).
+- **Arms (220 calls total, within 250 call cap)**:
+  - `cti-ate`: $E_0'\text{-HD}$ ($N=60$) and $E_1\text{-MIXED-HD}$ ($N=60$) = 120 calls.
+  - `cti-taa`: $V_{0h}$ ($N=50$) and $V_{\text{rel}}$ ($N=50$) = 100 calls.
+- **Reported Metrics**: End-to-end F1 / attribution accuracy vs existing `LLM-only` baseline; failure counts (empty, blocked, truncated, abstentions, unparseable outputs).
+- **Quota Safeguard**: If API quota is exhausted, generation execution is deferred; all retrieval protocols remain active.
+
+### 10.7 Dated Amendments (Phase 5 Addendum: 2026-10-23)
+The following amendments are adopted as dated protocol extensions without altering pre-declared variants:
+1. **Part C Budget Rule & Pool Extension ($k=200$)**:
+   - Report Area Under the Curve (AUC) / binding mean only over budgets where the token budget is binding for **both** arms in the pair.
+   - Introduce retriever arms $E_0'\text{-k200}$ and $E_0'\text{-TECH-k200}$ (re-retrieved with an expanded candidate pool of $k=200$ chunks) to fill higher token budgets ($B = 2000$ and $B = 4000$) where top-50 candidate pools run out of chunks; present these alongside the $k=50$ versions with explicit cell labeling.
+2. **Binary Outcomes Testing (McNemar / Exact Sign Test)**:
+   - For all binary paired retrieval and attribution outcomes (e.g., object-level Recall@10, attribution accuracy), compute the exact two-sided sign test (McNemar via binomial test with $p=0.5$ on discordant pairs) alongside paired bootstrap resampling ($N = 10,000$).
+   - Explicitly annotate the origin of each reported $p$-value ($p_{\text{exact}}$ vs $p_{\text{boot}}$) and reconcile discrete confidence interval boundaries.
+3. **Phase 4B V1-Strict Deprecation**:
+   - Phase 4B V1-strict figures are deprecated and superseded by Phase 5 Part B body-only evaluation ($V_{0h}$, $V_{1h}$, $V_{\text{rel}}$); Phase 4B V1-strict numbers shall not be cited as valid benchmarks.
+4. **Table 7 Claim Reconciliations ($C_9$)**:
+   - Print Phase 4 vs Phase 4B Table 7 rows side-by-side.
+   - Restore the original scoring-gap claim under its original identifier ($C_9$).
+   - Reconcile the errant "P1_08 -0.12" reference and clarify the 0.22 vs 0.30 V1 value.
+5. **Dual Attribution Primary/Secondary Designation**:
+   - In all threat actor attribution tables, object-level credit is designated primary; text-inclusive credit is designated secondary.
+6. **Part D API Call Telemetry & Parsing**:
+   - Store `finish_reason` and token `usage` metadata for all generation API calls.
+   - Parse technique and threat group identifiers from the entire response string.
+7. **Ground-Truth STIX Status Audit**:
+   - Add a dedicated row to the limitations table quantifying the count of ground-truth IDs that are revoked, deprecated, or absent in the pinned STIX knowledge base per dataset.
+
 

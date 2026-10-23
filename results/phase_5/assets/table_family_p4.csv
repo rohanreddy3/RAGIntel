@@ -1,0 +1,7 @@
+test_id,dataset,baseline,treatment,control,description,treatment_mean,control_mean,delta,ci_95,raw_p,wtl,sum_diffs,holm_rank,holm_alpha,decision
+P4_05,CTI-ATTACK,B2,E1a,E0_prime_tech,Field Chunking Alone: E1a vs E0'-TECH (CTI-ATTACK B2),0.5146,0.6543,-0.1397,"[-0.1878, -0.0917]",0.0,14/150/65,-32.0,1,0.00833,Significant decrease
+P4_06,CTI-ATTACK,B2,E1_mixed,E0_prime,STIX-ALL Architecture: E1-MIXED vs E0' (CTI-ATTACK B2),0.4687,0.6401,-0.1714,"[-0.2238, -0.1201]",0.0,17/139/73,-39.25,2,0.01,Significant decrease
+P4_02,cti-ate,B2,E1_mixed,E0_prime,STIX-ALL Architecture: E1-MIXED vs E0' (cti-ate B2),0.2124,0.3061,-0.0936,"[-0.1387, -0.04]",0.0006,10/9/41,-5.6186,3,0.0125,Significant decrease
+P4_01,cti-ate,B2,E1a,E0_prime_tech,Field Chunking Alone: E1a vs E0'-TECH (cti-ate B2),0.2053,0.2973,-0.092,"[-0.138, -0.0383]",0.001,10/10/40,-5.5194,4,0.01667,Significant decrease
+P4_04,cti-ate,B3,E1_mixed,E0_prime,STIX-ALL Architecture: E1-MIXED vs E0' (cti-ate B3),0.2196,0.3096,-0.09,"[-0.135, -0.0363]",0.001,10/8/42,-5.4006,5,0.025,Significant decrease
+P4_03,cti-ate,B3,E1a,E0_prime_tech,Field Chunking Alone: E1a vs E0'-TECH (cti-ate B3),0.2154,0.2924,-0.0771,"[-0.1227, -0.0234]",0.004,11/13/36,-4.6232,6,0.05,Significant decrease

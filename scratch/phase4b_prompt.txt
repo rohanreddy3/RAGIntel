@@ -1,0 +1,68 @@
+<USER_REQUEST>
+PHASE 4B — FIX ROUND. Offline except item 1. Thread cap 4. Do not edit analysis_plan.md
+except to add a dated, clearly-marked "Phase 4B amendments" section. Write REVIEW_PHASE_4B.md, then STOP.
+
+1. GENERATION COMPLETION. Read reviews/api_status.md. Do not freeze while E1b_mixed CTI-ATTACK
+   is incomplete. When all 229 exist, rerun G1 on N=229 and report both N=182 (already seen) and
+   N=229 (final). If quota is not back, report the exact remaining count and skip to item 2.
+   The E1-MIXED no-sibling generation arm is OPTIONAL, lowest priority.
+
+2. A8 RECOMPUTE. From per-query files only, recompute E0' vs E1-MIXED (no siblings) vs E1b-MIXED
+   on cti-taa B2. State for each: token budget used (500 or none) and credit rule. Report BOTH
+   (a) object-level: a group object whose canonical/alias matches GT is in the context, and
+   (b) text-inclusive. Give hits, W/T/L, mean Δ, CI, p, and assert wins - losses == sum(Δ).
+   Explain why E0' is 0.30 here, 0.34 in P1 and 0.12 under exact scoring (one line each).
+   Change C6 to "Not established" unless (a) at matched budget still shows a gain.
+
+3. BUDGET BINDING. For every arm x dataset x B in Table 5, report mean chunks and mean tokens in
+   the context and the top-k cap. Flag cells where the budget is not binding (e.g. CTI-ATTACK
+   B=2000 vs 4000 for E0'/E0'-TECH). Mark them in Table 5 and exclude them from arm comparisons.
+
+4. GENERATION FAILURE AUDIT. Per arm (LLM-only, E0', E1b-MIXED, cti-taa V0, V1) count:
+   empty, error/blocked, hit 512-token cap, contains "not in context"/"cannot determine"-style
+   abstention, zero parsed technique IDs. Report F1 on all rows and on rows with a non-abstaining
+   parsed answer. Do NOT explain the cause; only report counts.
+
+5. ROW ACCOUNTING. Print a table of rows per arm x dataset in per_query_technique_f1.csv, and
+   cache files per arm. Reconcile 850 vs 820 and 1,001 vs expected, naming every extra/missing
+   (dataset, query_id, arm).
+
+6. ATT&CK VERSION. Read the version from each bundle (x-mitre-collection / x_mitre_version /
+   x_mitre_attack_spec_version, modified dates). Print per-domain active parents/subs, and
+   revoked/deprecated counts. Check ICS sub-techniques. Fix the "v14.1" note to the real version.
+
+7. DETECTOR PRECISION (descriptive, plus one exploratory run).
+   a) List the top 30 detected aliases on cti-taa with frequency, alias length, and whether the
+      alias is a common English word or Windows command.
+   b) Draw 100 random detected matches (seed 42) into results/phase_4b/detector_labels.csv with
+      the sentence context and an empty column "is_real_entity_mention" for the USER to label.
+      Compute precision only after the user returns the file.
+   c) Exploratory V1-strict: drop aliases of length <=4 and common-English/command aliases,
+      keep group + malware names. Retrieval only, cti-taa, B2/B3, E0-STIX-ALL, Recall@10 + MRR,
+      vs V0. Label "post-hoc exploratory, outside P1, no Holm". No generation.
+
+8. WORDING. Replace "pre-registered/cryptographic pre-registration" with "analysis plan frozen
+   by file hash on <actual mtime>". Remove the typed 07:45:00Z. State which results had been seen
+   before Section 9 was written. Remove every causal phrase ("due to", "attributable to",
+   "confirms", "severely"). Delete the Phase 3C case-study prose.
+
+9. TABLES. Apply the table fixes: merge P2'_03/04; "p < 0.0001"; "significant decrease" label;
+   add cti-taa LLM-only vs V0/V1 contrasts with CI; define Scorer V1/V2; scope C9;
+   add a contamination caveat to C8 marked "hypothesis".
+
+10. Regenerate all assets with generate_final_assets.py (assertions on), re-freeze, update
+    REPRODUCE.md. Report which numbers changed vs REVIEW_PHASE_4.md and nothing else.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-23T09:37:34+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\Akshitha Reddy\OneDrive\Desktop\RAG Intel\scratch\diff_e1a_b3.py (LANGUAGE_PYTHON)
+Cursor is on line: 1
+Other open documents:
+- c:\Users\Akshitha Reddy\OneDrive\Desktop\RAG Intel\scripts\run_v3_seeds_b3.py (LANGUAGE_PYTHON)
+- c:\Users\Akshitha Reddy\OneDrive\Desktop\RAG Intel\scripts\compute_phase3_o2_metrics.py (LANGUAGE_PYTHON)
+- c:\Users\Akshitha Reddy\OneDrive\Desktop\RAG Intel\scratch\audit_stix_counts.py (LANGUAGE_PYTHON)
+- c:\Users\Akshitha Reddy\OneDrive\Desktop\RAG Intel\scripts\audit_row_alignment.py (LANGUAGE_PYTHON)
+- c:\Users\Akshitha Reddy\OneDrive\Desktop\RAG Intel\analysis_plan.md (LANGUAGE_MARKDOWN)
+</ADDITIONAL_METADATA>

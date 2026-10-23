@@ -37,6 +37,8 @@ Thumbs.db
 # Large files (>25 MB)
 results/phase_3/top50_phase3c_chunks.json
 results/phase_3/top50_ranked_chunks.json
+results/phase_5/top50_hd_chunks.json
+results/phase_5/top200_hd_chunks.json
 
 # Upstream & external reference material
 vendor/

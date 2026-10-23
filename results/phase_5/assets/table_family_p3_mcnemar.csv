@@ -1,0 +1,17 @@
+Test ID,Credit Rule,Baseline,Contrast,Metric,Treatment,Control,Delta,95% CI,W/T/L,p_exact (McNemar),p_boot (10k),Holm Alpha,Decision
+P3_01,object_level,B2,V1h vs V0h,Recall@10,0.16,0.14,0.02,"[-0.0400, +0.0800]",2/47/1,1.0000,0.7644,0.01667,Not significant
+P3_02,object_level,B2,V1h vs V0h,MRR,0.0681,0.0671,0.001,"[-0.0611, +0.0621]",3/44/3,1.0000,0.9844,0.025,Not significant
+P3_03,object_level,B2,Vrel vs V0h,Recall@10,0.32,0.14,0.18,"[+0.0600, +0.3000]",10/39/1,0.0117,0.0054,0.00625,Significant increase
+P3_04,object_level,B2,Vrel vs V0h,MRR,0.212,0.0671,0.1449,"[+0.0344, +0.2600]",14/34/2,0.0042,0.0121,0.00714,Not significant
+P3_05,object_level,B3,V1h vs V0h,Recall@10,0.12,0.12,0.0,"[-0.0800, +0.0800]",2/46/2,1.0000,1.0000,0.05,Not significant
+P3_06,object_level,B3,V1h vs V0h,MRR,0.0895,0.0623,0.0272,"[-0.0100, +0.0810]",4/44/2,0.6875,0.2446,0.0125,Not significant
+P3_07,object_level,B3,Vrel vs V0h,Recall@10,0.2,0.12,0.08,"[+0.0000, +0.1800]",5/44/1,0.2188,0.1399,0.01,Not significant
+P3_08,object_level,B3,Vrel vs V0h,MRR,0.1233,0.0623,0.061,"[+0.0073, +0.1270]",6/42/2,0.2891,0.0434,0.00833,Not significant
+P3_09,text_inclusive,B2,V1h vs V0h,Recall@10,0.38,0.3,0.08,"[-0.0200, +0.2000]",6/42/2,0.2891,0.2098,0.025,Not significant
+P3_10,text_inclusive,B2,V1h vs V0h,MRR,0.2658,0.1455,0.1203,"[+0.0243, +0.2280]",10/35/5,0.3018,0.0218,0.01,Not significant
+P3_11,text_inclusive,B2,Vrel vs V0h,Recall@10,0.5,0.3,0.2,"[+0.0800, +0.3200]",11/38/1,0.0063,0.0020,0.00625,Significant increase
+P3_12,text_inclusive,B2,Vrel vs V0h,MRR,0.2931,0.1455,0.1475,"[+0.0446, +0.2502]",19/29/2,0.0002,0.0048,0.00714,Significant increase
+P3_13,text_inclusive,B3,V1h vs V0h,Recall@10,0.26,0.24,0.02,"[-0.0800, +0.1200]",4/43/3,1.0000,0.8463,0.05,Not significant
+P3_14,text_inclusive,B3,V1h vs V0h,MRR,0.2267,0.1219,0.1048,"[+0.0274, +0.1963]",9/38/3,0.1460,0.0149,0.00833,Not significant
+P3_15,text_inclusive,B3,Vrel vs V0h,Recall@10,0.34,0.24,0.1,"[+0.0000, +0.2000]",6/43/1,0.1250,0.0797,0.01667,Not significant
+P3_16,text_inclusive,B3,Vrel vs V0h,MRR,0.2087,0.1219,0.0868,"[+0.0120, +0.1713]",9/37/4,0.2668,0.0310,0.0125,Not significant
