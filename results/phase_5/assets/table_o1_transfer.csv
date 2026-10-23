@@ -1,0 +1,5 @@
+dataset,metric,v0h_mean,v1h_mean,delta,ci_95,raw_p,non_inferiority_passed
+cti-ate,Recall@10,0.0906,0.0897,-0.0009,"[-0.0237, 0.0209]",0.9349,True
+cti-ate,MRR,0.0557,0.0566,0.0009,"[-0.0143, 0.0172]",0.9057,True
+CTI-ATTACK,Recall@10,0.5822,0.5822,0.0,"[0.0, 0.0]",1.0,True
+CTI-ATTACK,MRR,0.357,0.357,0.0,"[0.0, 0.0]",1.0,True

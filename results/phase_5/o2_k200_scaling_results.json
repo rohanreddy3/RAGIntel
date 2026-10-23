@@ -1,0 +1,240 @@
+{
+  "cti-ate": {
+    "B2": {
+      "E0_prime_tech_k200": {
+        "500": {
+          "Recall_sub": 0.1768,
+          "Recall_strict": 0.0903,
+          "MRR": 0.2456,
+          "tokens_used": 500.0,
+          "mean_chunks": 11.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2899,
+          "Recall_strict": 0.1629,
+          "MRR": 0.2602,
+          "tokens_used": 1000.0,
+          "mean_chunks": 22.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.4168,
+          "Recall_strict": 0.284,
+          "MRR": 0.2633,
+          "tokens_used": 2000.0,
+          "mean_chunks": 43.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5704,
+          "Recall_strict": 0.4081,
+          "MRR": 0.2636,
+          "tokens_used": 4000.0,
+          "mean_chunks": 82.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E0_prime_k200": {
+        "500": {
+          "Recall_sub": 0.2042,
+          "Recall_strict": 0.0815,
+          "MRR": 0.3002,
+          "tokens_used": 500.0,
+          "mean_chunks": 11.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2812,
+          "Recall_strict": 0.1536,
+          "MRR": 0.3106,
+          "tokens_used": 1000.0,
+          "mean_chunks": 21.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.4201,
+          "Recall_strict": 0.2686,
+          "MRR": 0.3145,
+          "tokens_used": 1996.7,
+          "mean_chunks": 40.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5695,
+          "Recall_strict": 0.4341,
+          "MRR": 0.3145,
+          "tokens_used": 3833.9,
+          "mean_chunks": 74.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      }
+    },
+    "B3": {
+      "E0_prime_tech_k200": {
+        "500": {
+          "Recall_sub": 0.1748,
+          "Recall_strict": 0.0894,
+          "MRR": 0.2641,
+          "tokens_used": 500.0,
+          "mean_chunks": 11.9,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2847,
+          "Recall_strict": 0.1631,
+          "MRR": 0.2791,
+          "tokens_used": 1000.0,
+          "mean_chunks": 22.7,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.4017,
+          "Recall_strict": 0.2739,
+          "MRR": 0.2816,
+          "tokens_used": 2000.0,
+          "mean_chunks": 43.9,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5765,
+          "Recall_strict": 0.4131,
+          "MRR": 0.2819,
+          "tokens_used": 4000.0,
+          "mean_chunks": 84.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E0_prime_k200": {
+        "500": {
+          "Recall_sub": 0.2082,
+          "Recall_strict": 0.0875,
+          "MRR": 0.3077,
+          "tokens_used": 500.0,
+          "mean_chunks": 11.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2919,
+          "Recall_strict": 0.1596,
+          "MRR": 0.3143,
+          "tokens_used": 1000.0,
+          "mean_chunks": 21.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.4249,
+          "Recall_strict": 0.2724,
+          "MRR": 0.3172,
+          "tokens_used": 1996.7,
+          "mean_chunks": 41.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5699,
+          "Recall_strict": 0.4299,
+          "MRR": 0.3172,
+          "tokens_used": 3867.6,
+          "mean_chunks": 76.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      }
+    }
+  },
+  "CTI-ATTACK": {
+    "B2": {
+      "E0_prime_tech_k200": {
+        "500": {
+          "Recall_sub": 0.5713,
+          "Recall_strict": 0.5124,
+          "MRR": 0.348,
+          "tokens_used": 500.0,
+          "mean_chunks": 10.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.6543,
+          "Recall_strict": 0.6106,
+          "MRR": 0.3541,
+          "tokens_used": 1000.0,
+          "mean_chunks": 20.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.7438,
+          "Recall_strict": 0.698,
+          "MRR": 0.3573,
+          "tokens_used": 2000.0,
+          "mean_chunks": 40.7,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.8202,
+          "Recall_strict": 0.7831,
+          "MRR": 0.3585,
+          "tokens_used": 4000.0,
+          "mean_chunks": 82.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E0_prime_k200": {
+        "500": {
+          "Recall_sub": 0.567,
+          "Recall_strict": 0.5036,
+          "MRR": 0.3414,
+          "tokens_used": 500.0,
+          "mean_chunks": 10.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.6477,
+          "Recall_strict": 0.6041,
+          "MRR": 0.3467,
+          "tokens_used": 1000.0,
+          "mean_chunks": 20.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.7525,
+          "Recall_strict": 0.7089,
+          "MRR": 0.3502,
+          "tokens_used": 2000.0,
+          "mean_chunks": 41.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.8159,
+          "Recall_strict": 0.7809,
+          "MRR": 0.3511,
+          "tokens_used": 4000.0,
+          "mean_chunks": 83.5,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      }
+    }
+  }
+}

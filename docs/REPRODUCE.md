@@ -98,6 +98,37 @@ python scripts/audit_stix_version.py
 python scripts/analyze_detector_precision.py
 ```
 
+### Phase 5: Pre-Declared Fixes and Improvement Round (Post-Hoc, Exploratory)
+```bash
+# 1. Query Hygiene Audit (339 benchmark queries body marker verification)
+python scripts/run_query_hygiene_audit.py
+
+# 2. Optimization 1 (O1) Benchmark on cti-taa (V0h, V1h, Vrel under body-only hygiene)
+python scripts/run_o1_phase5_benchmark.py
+
+# 3. Exact two-sided sign test (McNemar) & bootstrap side-by-side computation
+python scripts/recompute_p3_binary_mcnemar.py
+
+# 4. Domain sanity audit on cti-ate enterprise vs mobile declarations
+python scripts/check_cti_ate_domain_sanity.py
+
+# 5. Optimization 2 (O2) Clean Comparisons under HD preprocessing (Family P4)
+python scripts/run_o2_clean_benchmark.py
+
+# 6. Candidate pool k=200 scaling extension (eliminating candidate starvation)
+python scripts/run_o2_k200_extension.py
+
+# 7. Table 7 Claims reconciliation (restoring C9, correcting P1_08 reference)
+python scripts/reconcile_table7.py
+
+# 8. Ground-truth STIX status audit (revoked, deprecated, absent counts)
+python scripts/audit_ground_truth_in_stix.py
+python scripts/generate_stix_limitations_table.py
+
+# 9. Format all Phase 5 tables, plain list of contrasts, and verification assets
+python scripts/generate_phase5_assets.py
+```
+
 ## 5. Cryptographic Freeze Manifest Verification
 
 To verify the integrity of all experiment outputs against the frozen manifest:

@@ -1,0 +1,7 @@
+### Limitations Table Addendum: Ground-Truth STIX Status in Pinned Knowledge Base
+
+| Dataset | Total Unique GT | Active | Revoked | Deprecated | Absent | Non-Active Share (%) | Specific Non-Active Entities |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **cti-ate** | 115 | 114 | 1 | 0 | 0 | 0.87% | Revoked: T1562 |
+| **CTI-ATTACK** | 115 | 109 | 6 | 0 | 0 | 5.22% | Revoked: T1024, T1035, T1070.001, T1508, T1562.001, T1562.004 |
+| **cti-taa** | 46 | 40 | 0 | 0 | 6 | 13.04% | Absent: ANDROMEDA, Black Basta, Emotet, Lazarus, Sharp Dragon (or  Sharp Panda), Sharp Panda |

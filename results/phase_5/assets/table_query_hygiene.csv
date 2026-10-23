@@ -1,0 +1,4 @@
+Dataset,N,Body Matches / Query,Full Matches / Query,Matches Delta,Body Share >= 1 Entity,Full Share >= 1 Entity
+cti-taa,50,17.34,19.34,-2.0,94.0%,100.0%
+cti-ate,60,5.43,5.43,0.0,98.3%,98.3%
+CTI-ATTACK,229,0.03,0.03,0.0,3.5%,3.5%

@@ -1,11 +1,11 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-23T05:34:04.497263+00:00",
-  "total_files": 74,
+  "timestamp_utc": "2026-10-23T17:45:21.361185+00:00",
+  "total_files": 97,
   "files": {
     "analysis_plan.md": {
-      "sha256": "02ad5ceb9d1653edbeb6a37982be534c803d988fcb99cba98eaef1beaea14758",
-      "size_bytes": 22741
+      "sha256": "0d24d9dc509039c5c7be5853617d56e50c54c751caa6e8db91f500d3ca7e1a8a",
+      "size_bytes": 28452
     },
     "report/dataset_stats.md": {
       "sha256": "3fe402b2c5553f811f18f3cb5d0f444f78b54631cfbd0b75612c5943983cea62",
@@ -22,10 +22,6 @@
     "report/figures/figure_paired_deltas_forest.svg": {
       "sha256": "43189b42a2daad5b94cbb4e59020247d5a99b03730df406722f8146699e630fe",
       "size_bytes": 10278
-    },
-    "results/freeze_manifest.json": {
-      "sha256": "c39d258d7553788f6cdba46ac4611ee322aad3f74c4abfc7cd94f63275325ede",
-      "size_bytes": 13054
     },
     "results/phase_0/dataset_schemas.json": {
       "sha256": "4170a0eadfb1cb3b51654a96c0b800cc39442a54ae13662f2c1165985f1edb26",
@@ -223,14 +219,6 @@
       "sha256": "53a2ddc18a9e0c5d3ec3a2370475b79705660d04b6ded47c20c0a374b501b90a",
       "size_bytes": 9425270
     },
-    "results/phase_3/top50_phase3c_chunks.json": {
-      "sha256": "071a08a4a8ac7098fcdfd03fd7742633a989852298cac0a400d5908605ef7ee8",
-      "size_bytes": 204522509
-    },
-    "results/phase_3/top50_ranked_chunks.json": {
-      "sha256": "7ce6ccc4f84fe3da6620f3c8137181ca366eecf29947d1c745c07e61dbda2c7b",
-      "size_bytes": 119021749
-    },
     "results/phase_4/d1_scoring_summary.json": {
       "sha256": "2a4838fd6a823e19586cef0ba8dcb4a603da3d1d73e54cb33296d857192e544c",
       "size_bytes": 2928
@@ -298,6 +286,110 @@
     "results/phase_4b/v1_strict_exploratory_results.json": {
       "sha256": "227143ddbec9f1a056a78a199b6aca4e8686fb9534a33396f354dc8ab1943fae",
       "size_bytes": 271
+    },
+    "results/phase_5/assets/plain_list_contrasts.md": {
+      "sha256": "9a3af07cd4df84100365680a86208234fec14547813794930757b9a60bf0c41f",
+      "size_bytes": 5356
+    },
+    "results/phase_5/assets/table7_reconciliation.csv": {
+      "sha256": "8b1cb613c36311c0833b5b1dd889fa38ac06ad29db78a2a54528df53915371dd",
+      "size_bytes": 4747
+    },
+    "results/phase_5/assets/table7_reconciliation.md": {
+      "sha256": "10c6a1930cf7857c51f4f62095d7b80c5cc72064d787c35ef3def05df71cc1f2",
+      "size_bytes": 5134
+    },
+    "results/phase_5/assets/table_family_p3.csv": {
+      "sha256": "ba078112a3cd59094625372c12b0736a76b085ac8a6c3ed577b7b83659bb2ca2",
+      "size_bytes": 3522
+    },
+    "results/phase_5/assets/table_family_p3_mcnemar.csv": {
+      "sha256": "bea5aca37921e31df80a06f5f6423a5ed52250c762b0cad2733f34b464125a9d",
+      "size_bytes": 2150
+    },
+    "results/phase_5/assets/table_family_p3_mcnemar.md": {
+      "sha256": "cc623b4a22be1ca440f6a26466e7342eede22c67db132470b2622c2cd77d18fb",
+      "size_bytes": 3125
+    },
+    "results/phase_5/assets/table_family_p4.csv": {
+      "sha256": "fadfb7225ea01acbd0643a7650f7b691d8332b244af8508daef8d60ae9f876e4",
+      "size_bytes": 1243
+    },
+    "results/phase_5/assets/table_hygiene_effect.csv": {
+      "sha256": "329a09afd414386fd55436aeb64ae6ab41f21635093c7267eeb74c8f975577f7",
+      "size_bytes": 256
+    },
+    "results/phase_5/assets/table_limitations_stix_status.csv": {
+      "sha256": "48dc0480d42806b03d65f6324847839550f0545f63757c42f62b0c2fd3308677",
+      "size_bytes": 429
+    },
+    "results/phase_5/assets/table_limitations_stix_status.md": {
+      "sha256": "cae894dce77f7b55634f566c76fc3f048cfd98225cb56c56035995b3aa3f617c",
+      "size_bytes": 601
+    },
+    "results/phase_5/assets/table_o1_summary.csv": {
+      "sha256": "d7e13b2c23a3e4d96b1944ef33b2c251429928e569901e4cf5e38de9380d2b97",
+      "size_bytes": 448
+    },
+    "results/phase_5/assets/table_o1_transfer.csv": {
+      "sha256": "a5ef73c2382617605e026c93500d3a1ed2d5193745a40e4665df148b7d55a8fd",
+      "size_bytes": 330
+    },
+    "results/phase_5/assets/table_o2_scaling.csv": {
+      "sha256": "307416992a080b6c652ea703be4ffce96c89cbbee0cfc4583f4602a7286d16ee",
+      "size_bytes": 1080
+    },
+    "results/phase_5/assets/table_o2_scaling.md": {
+      "sha256": "b6175a2590b6bdeb1b01d572e28f83d46e35ba4f68b3e8ece35a1ba577bf6a3c",
+      "size_bytes": 1677
+    },
+    "results/phase_5/assets/table_query_hygiene.csv": {
+      "sha256": "e57b9c2390fdb1547f05b2b373599ce25010667de8e02d582a8cec02ce6275df",
+      "size_bytes": 233
+    },
+    "results/phase_5/cti_ate_domain_sanity.json": {
+      "sha256": "a3039fd9bcf6b8bb6701a999bc4e0fc3aa98f20f332aff646fd17fbd86748d0a",
+      "size_bytes": 9909
+    },
+    "results/phase_5/ground_truth_stix_audit.json": {
+      "sha256": "599feae3ea9a0b5485eabf39f11d8886c0e8d761c1a7cca400bb897b45f59ae4",
+      "size_bytes": 920
+    },
+    "results/phase_5/o1_phase5_benchmark_results.json": {
+      "sha256": "81421a0549013b8dbc485e0666d7c8128ef90af9f6732ca7d8263c3804f87032",
+      "size_bytes": 44485
+    },
+    "results/phase_5/o1_top10_cache.json": {
+      "sha256": "7d9be55bb2abf94f9da072e726e4a2f8f0a4d0f41032ce8ad0f467114560bbc2",
+      "size_bytes": 2012219
+    },
+    "results/phase_5/o1_transfer_cache.json": {
+      "sha256": "c0e4132c05ccc79f4f34607fac08634289531c8c3c0d93b903b797e998a15cf0",
+      "size_bytes": 3750243
+    },
+    "results/phase_5/o2_k200_scaling_results.json": {
+      "sha256": "3b8219428f3dd410e1e3cc2a0f78b62a82c08ddceaffdbefbbb32ba2f72cc5b2",
+      "size_bytes": 6605
+    },
+    "results/phase_5/o2_phase5_benchmark_results.json": {
+      "sha256": "7384cb49dc1a3ee4e3696460c3c1944256ca22e336cec2c8d04a876060f5ff34",
+      "size_bytes": 2579167
+    },
+    "results/phase_5/query_hygiene_audit.json": {
+      "sha256": "479c67f79bcf16399613a66887cd700ad89e3b0bc0a39ec4a651759a3272054d",
+      "size_bytes": 184184
+    },
+    "results/phase_5/top200_hd_chunks.json.gz": {
+      "sha256": "3a6af1bb475eedc50020fd83ea4d4caccbe60b577334cb4c2b850f272cb4a27f",
+      "size_bytes": 23446512
+    },
+    "results/phase_5/top50_hd_chunks.json.gz": {
+      "sha256": "6d1ca08a2fe415d013325c1569f055074760062a750842b005c1cd735aa9e618",
+      "size_bytes": 17331101
+    },
+    "results/phase_5/variants_ledger.json": {
+      "sha256": "c5f610ebd1ac27ce21b2e9420e35f0c1fbf0819cee218295d262567db509cd15",
+      "size_bytes": 5395
     }
   }
 }

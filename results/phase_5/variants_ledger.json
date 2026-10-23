@@ -1,0 +1,113 @@
+{
+  "protocol": "Phase 5: Pre-Declared Fixes and Improvement Round (Post-hoc, Exploratory)",
+  "date": "2026-10-23",
+  "status": "PRE_DECLARED_FROZEN",
+  "analysis_plan_file": "analysis_plan.md",
+  "analysis_plan_sha256": "6216f77f6380ad496b26f5825270ee7785d0a0b8af21ad740e2cb53f718d67e0",
+  "analysis_plan_mtime_utc": "2026-10-23T05:49:08.680008+00:00",
+  "rules": {
+    "R1": "Every variant declared first; none added, dropped or retuned after seeing results; report all, including failures.",
+    "R2": "Rules derive from STIX properties and task text only, never from ground truth or per-query results.",
+    "R3": "Label everything 'post-hoc round 2, exploratory'; cti-taa was already seen.",
+    "R4": "No causal words (due to, attributable to, confirms, severely, actual cause, true expected center).",
+    "R5": "Attribution tables report object-level AND text-inclusive credit; assert exactly one STIX group per cti-taa GT and list 0/>1 matches."
+  },
+  "query_hygiene": {
+    "split_query_rule": "instruction = text before marker ('Threat Report:' or '**Text:**'); body = text after marker",
+    "assertion": "Marker must be present in all 339 benchmark queries (cti-ate: 60, CTI-ATTACK: 229, cti-taa: 50)"
+  },
+  "o1_variants": {
+    "V0h": {
+      "name": "V0h",
+      "description": "Body-only query without entity expansion (the fair baseline).",
+      "expansion_type": "none"
+    },
+    "V1h": {
+      "name": "V1h",
+      "description": "High-precision alias expansion on query body.",
+      "allowed_types": ["intrusion-set", "malware"],
+      "min_alias_len": 5,
+      "case_sensitive_to_stix": true,
+      "stoplist": [
+        "net", "cmd", "page", "play", "solar", "find", "sc", "at", "date", "time",
+        "dir", "ping", "tasklist", "reg", "powershell", "wmic", "arp", "route",
+        "hostname", "whoami", "ipconfig", "netstat", "schtasks", "nslookup",
+        "systeminfo", "quser", "query", "run", "logoff", "shutdown", "format",
+        "replace", "attrib", "assoc", "ftype", "tree", "move", "copy", "xcopy",
+        "robocopy", "expand", "type", "more", "sort", "fc", "comp", "diskpart",
+        "chkdsk", "sfc", "bcdedit", "vssadmin", "wevtutil", "certutil", "bitsadmin",
+        "curl", "tar"
+      ],
+      "token_cap": 64
+    },
+    "Vrel": {
+      "name": "Vrel",
+      "description": "STIX 'uses' relationship co-occurrence expansion.",
+      "seed_entities": "Software (malware and tools) detected in query body under V1h filtering criteria",
+      "graph_traversal": "intrusion-set -[uses]-> software (non-revoked STIX relationships)",
+      "scoring_formula": "score(group) = sum_{s in detected_software} 1 / |{g in groups : g uses s}|",
+      "expansion_tokens": "Canonical name and first alias of top 3 scoring groups",
+      "token_cap": 64
+    }
+  },
+  "family_p3_tests": {
+    "family_id": "P3",
+    "dataset": "cti-taa",
+    "eval_arms": ["V1h", "Vrel"],
+    "control_arm": "V0h",
+    "secondary_control_arm": "V0 (frozen full-query)",
+    "baselines": ["B2", "B3"],
+    "metrics": ["Recall@10", "MRR"],
+    "credit_rules": ["object_level", "text_inclusive"],
+    "total_confirmatory_tests": 8,
+    "multiplicity_correction": "Holm-Bonferroni (M=8, alpha=0.05)",
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 42,
+    "cross_dataset_transfer": {
+      "datasets": ["cti-ate", "CTI-ATTACK"],
+      "contrast": "V1h vs V0h",
+      "non_inferiority_margin": -0.03
+    }
+  },
+  "o2_clean_comparisons": {
+    "family_id": "P4",
+    "preprocessing_hd": {
+      "query_text": "body-only",
+      "domain_filtering": {
+        "cti-ate": "Restricted to Enterprise or Mobile based on instruction text marker ('MITRE Enterprise' vs 'MITRE Mobile')",
+        "CTI-ATTACK": "No filter (all domains eligible)",
+        "cti-taa": "No filter (all domains eligible)"
+      }
+    },
+    "arms": ["E0_prime_tech", "E1a", "E0_prime", "E1_mixed"],
+    "contrasts": [
+      {"id": "P4_01", "name": "E1a vs E0'-TECH", "dataset": "cti-ate", "baseline": "B2"},
+      {"id": "P4_02", "name": "E1a vs E0'-TECH", "dataset": "cti-ate", "baseline": "B3"},
+      {"id": "P4_03", "name": "E1a vs E0'-TECH", "dataset": "CTI-ATTACK", "baseline": "B2/B3"},
+      {"id": "P4_04", "name": "E1-MIXED vs E0'", "dataset": "cti-ate", "baseline": "B2"},
+      {"id": "P4_05", "name": "E1-MIXED vs E0'", "dataset": "cti-ate", "baseline": "B3"},
+      {"id": "P4_06", "name": "E1-MIXED vs E0'", "dataset": "CTI-ATTACK", "baseline": "B2/B3"}
+    ],
+    "total_confirmatory_tests": 6,
+    "multiplicity_correction": "Holm-Bonferroni (M=6, alpha=0.05)",
+    "primary_metric": "Mean Recall@B over binding budgets in {500, 1000, 2000, 4000}",
+    "secondary_reporting": "Full 4-budget scaling curves; E0' HD vs E0' raw (hygiene effect alone)"
+  },
+  "generation_ablation": {
+    "hybrid_prompt_verbatim": "Use the provided context if it is relevant; otherwise use your own knowledge. List MITRE technique IDs.",
+    "hybrid_prompt_cti_taa_verbatim": "Use the provided context if it is relevant; otherwise use your own knowledge. Attribute to a threat group.",
+    "execution_condition": "Run strictly after completion of the 47 pending E1b-MIXED calls on CTI-ATTACK",
+    "call_cap": 250,
+    "planned_calls": {
+      "cti-ate": {
+        "E0_prime_hd": 60,
+        "E1_mixed_hd": 60
+      },
+      "cti-taa": {
+        "V0h": 50,
+        "Vrel": 50
+      },
+      "total": 220
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "cti-ate": {
+    "total_unique_gt_ids": 115,
+    "active": 114,
+    "deprecated": 0,
+    "revoked": 1,
+    "absent": 0,
+    "deprecated_ids": [],
+    "revoked_ids": [
+      "T1562"
+    ],
+    "absent_ids": []
+  },
+  "CTI-ATTACK": {
+    "total_unique_gt_ids": 115,
+    "active": 109,
+    "deprecated": 0,
+    "revoked": 6,
+    "absent": 0,
+    "deprecated_ids": [],
+    "revoked_ids": [
+      "T1024",
+      "T1035",
+      "T1070.001",
+      "T1508",
+      "T1562.001",
+      "T1562.004"
+    ],
+    "absent_ids": []
+  },
+  "cti-taa": {
+    "total_unique_gt_strings": 46,
+    "active": 40,
+    "deprecated": 0,
+    "revoked": 0,
+    "absent": 6,
+    "deprecated_strings": [],
+    "revoked_strings": [],
+    "absent_strings": [
+      "ANDROMEDA",
+      "Black Basta",
+      "Emotet",
+      "Lazarus",
+      "Sharp Dragon (or  Sharp Panda)",
+      "Sharp Panda"
+    ]
+  }
+}
