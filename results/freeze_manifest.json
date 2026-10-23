@@ -1,11 +1,11 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-23T17:45:21.361185+00:00",
-  "total_files": 97,
+  "timestamp_utc": "2026-10-23T19:29:08.860258+00:00",
+  "total_files": 112,
   "files": {
     "analysis_plan.md": {
-      "sha256": "0d24d9dc509039c5c7be5853617d56e50c54c751caa6e8db91f500d3ca7e1a8a",
-      "size_bytes": 28452
+      "sha256": "c07cd8151110565c7aa63ded290a332afca1adf7b5e7b3b550cde5f38dd88c4c",
+      "size_bytes": 34170
     },
     "report/dataset_stats.md": {
       "sha256": "3fe402b2c5553f811f18f3cb5d0f444f78b54631cfbd0b75612c5943983cea62",
@@ -219,6 +219,14 @@
       "sha256": "53a2ddc18a9e0c5d3ec3a2370475b79705660d04b6ded47c20c0a374b501b90a",
       "size_bytes": 9425270
     },
+    "results/phase_3/top50_phase3c_chunks.json": {
+      "sha256": "071a08a4a8ac7098fcdfd03fd7742633a989852298cac0a400d5908605ef7ee8",
+      "size_bytes": 204522509
+    },
+    "results/phase_3/top50_ranked_chunks.json": {
+      "sha256": "7ce6ccc4f84fe3da6620f3c8137181ca366eecf29947d1c745c07e61dbda2c7b",
+      "size_bytes": 119021749
+    },
     "results/phase_4/d1_scoring_summary.json": {
       "sha256": "2a4838fd6a823e19586cef0ba8dcb4a603da3d1d73e54cb33296d857192e544c",
       "size_bytes": 2928
@@ -379,9 +387,17 @@
       "sha256": "479c67f79bcf16399613a66887cd700ad89e3b0bc0a39ec4a651759a3272054d",
       "size_bytes": 184184
     },
+    "results/phase_5/top200_hd_chunks.json": {
+      "sha256": "dd4e7817e384f8f2cc00e58e7cb160cbbc4a8c0198509b273c9e77d0460e53cf",
+      "size_bytes": 117112740
+    },
     "results/phase_5/top200_hd_chunks.json.gz": {
       "sha256": "3a6af1bb475eedc50020fd83ea4d4caccbe60b577334cb4c2b850f272cb4a27f",
       "size_bytes": 23446512
+    },
+    "results/phase_5/top50_hd_chunks.json": {
+      "sha256": "582832e26d26b30be1726e0eb21fbcbf077ee3f3dacf9952bb6bfd2bad48113b",
+      "size_bytes": 78208176
     },
     "results/phase_5/top50_hd_chunks.json.gz": {
       "sha256": "6d1ca08a2fe415d013325c1569f055074760062a750842b005c1cd735aa9e618",
@@ -390,6 +406,50 @@
     "results/phase_5/variants_ledger.json": {
       "sha256": "c5f610ebd1ac27ce21b2e9420e35f0c1fbf0819cee218295d262567db509cd15",
       "size_bytes": 5395
+    },
+    "results/phase_5b/assets/table_claims_reconciliation_phase5b.csv": {
+      "sha256": "63eee9ed8c3574ab61bb36cb7810bc9abf115a898363fa316f7616762680c62a",
+      "size_bytes": 2809
+    },
+    "results/phase_5b/assets/table_entity_share_reconciliation.csv": {
+      "sha256": "cf184121d4e3b68146488de1b9dd3b0da950c9f175bec37710ab57a42c1d3ce8",
+      "size_bytes": 416
+    },
+    "results/phase_5b/assets/table_family_p3_mcnemar_and_mappable.csv": {
+      "sha256": "af043ec45e4c144404d4f5e465fb35bf03e315347ce1804ac7aab3e1ea46a91a",
+      "size_bytes": 3708
+    },
+    "results/phase_5b/assets/table_family_p4_k200_primary.csv": {
+      "sha256": "642c076a2ab8a8f33cdd6d4766fa56a32461833dc31a61e122054fe701a8c2c5",
+      "size_bytes": 1366
+    },
+    "results/phase_5b/cti_attack_entity_share_reconciliation.json": {
+      "sha256": "38ccbf05204dfe97f0ebc182ab1d4162e96bae5978afb47e2ef3363a960f5dbc",
+      "size_bytes": 1036
+    },
+    "results/phase_5b/cti_taa_excluded_unmapped_rows.json": {
+      "sha256": "e31a2d657ef41adb6a0b59c999555c451a94fd98969d48cc6cde75f8200871ba",
+      "size_bytes": 697
+    },
+    "results/phase_6/assets/table_family_p6.csv": {
+      "sha256": "dc83db03fa704b4a01857612bf54c7116b023005aa14a2e363b0fdc4cfdf4fd9",
+      "size_bytes": 831
+    },
+    "results/phase_6/assets/table_improvement_ladder.csv": {
+      "sha256": "658058c5f193282b56d5bcb685d10c608399d1289b6d9eee01072b6e78ca2a39",
+      "size_bytes": 1381
+    },
+    "results/phase_6/top200_vrel_t_chunks.json": {
+      "sha256": "f836f258e8985522f173446fcb47a7478689dc0b236640ad7158f5a71819b814",
+      "size_bytes": 8014263
+    },
+    "results/phase_6/variants_ledger.json": {
+      "sha256": "58bfa67d4ca1378d0d89d7e901643cc62946329d38f2f83968f69d11a5f36daf",
+      "size_bytes": 3141
+    },
+    "results/phase_6/vrel_t_benchmark_results.json": {
+      "sha256": "9f44fdedf06bfaab40819c33f9c7e8e03ccd7c529e7866e7e5ff2150eab19513",
+      "size_bytes": 6756
     }
   }
 }

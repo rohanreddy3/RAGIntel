@@ -1,0 +1,4 @@
+Dataset,Detector / Evaluation,Queries >= 1 Entity,Total Queries,Share (%),Mean Matches,Status
+CTI-ATTACK,Phase 4 Legacy Detector (Full Queries),8,229,3.49%,0.0349,Confirmed bit-exact
+CTI-ATTACK,Phase 5 Hygiene Audit (Body-Only),8,229,3.49%,0.0349,Confirmed bit-exact in table_query_hygiene.csv
+CTI-ATTACK,Phase 5 Review Markdown Table 1,121,229,52.8%,0.99,Corrected: Typographical discrepancy in review markdown

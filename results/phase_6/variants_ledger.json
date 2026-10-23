@@ -1,0 +1,79 @@
+{
+  "protocol": "Phase 6 Pre-Declared Extensions (Post-Hoc Round 3)",
+  "registration_timestamp_utc": "2026-10-23T18:55:50.428751+00:00",
+  "analysis_plan_file": "analysis_plan.md",
+  "analysis_plan_sha256": "c07cd8151110565c7aa63ded290a332afca1adf7b5e7b3b550cde5f38dd88c4c",
+  "rules": {
+    "R1": "Every variant declared before running; none added or dropped post-hoc; report all including failures.",
+    "R2": "Rules derived strictly from STIX ontology relationships (malware -> uses -> attack-pattern) and prompt instruction boilerplate.",
+    "R3": "Explicit labeling: post-hoc round 3, exploratory.",
+    "R4": "Neutral scientific tone: zero causal words.",
+    "R5": "Full reporting of all variants and full 4-budget scaling curves."
+  },
+  "variants": {
+    "Vrel_T": {
+      "description": "Technique co-occurrence expansion via STIX uses relationships from detected malware entities to candidate techniques",
+      "target_datasets": [
+        "cti-ate",
+        "CTI-ATTACK"
+      ],
+      "preprocessing": "body-only queries via split_query; HD domain routing for cti-ate (enterprise vs mobile)",
+      "entity_filter": "malware entity type only, len >= 5 chars, case-sensitive exact match, OS stoplist exclusion",
+      "relationship": "STIX uses relationships: malware -> uses -> attack-pattern (non-revoked, within routed domain)",
+      "scoring_formula": "score(t) = sum_{s in detected_software} 1 / |{t' in techniques : s uses t'}|",
+      "expansion": "prepend canonical names and MITRE IDs of top 5 techniques (capped at 64 tokens)"
+    },
+    "E_comb_taa": {
+      "description": "Query hygiene (body-only) + Vrel relationship expansion on cti-taa",
+      "target_dataset": "cti-taa",
+      "metrics": [
+        "Object-Level Recall@10",
+        "MRR"
+      ]
+    },
+    "E_comb_ate": {
+      "description": "Query hygiene (body-only) + HD domain routing + Vrel-T technique expansion on cti-ate",
+      "target_dataset": "cti-ate",
+      "candidate_pool": 200,
+      "metrics": [
+        "Binding Mean Recall@B over 500, 1000, 2000, 4000"
+      ]
+    }
+  },
+  "contrasts": [
+    {
+      "id": "P6_01",
+      "dataset": "cti-ate",
+      "treatment": "E_comb_ate (Vrel-T)",
+      "control": "E0_prime_HD_k200",
+      "metric": "Mean Binding Recall@B"
+    },
+    {
+      "id": "P6_02",
+      "dataset": "CTI-ATTACK",
+      "treatment": "Vrel-T",
+      "control": "E0_prime_HD_k200",
+      "metric": "Mean Binding Recall@B"
+    },
+    {
+      "id": "P6_03",
+      "dataset": "cti-taa",
+      "treatment": "E_comb_taa (Vrel)",
+      "control": "V0h",
+      "metric": "Object-Level Recall@10"
+    },
+    {
+      "id": "P6_04",
+      "dataset": "cti-taa",
+      "treatment": "E_comb_taa (Vrel)",
+      "control": "V0h",
+      "metric": "MRR"
+    }
+  ],
+  "statistical_testing": {
+    "bootstrap_resamples": 10000,
+    "random_seed": 42,
+    "binary_sign_test": "Exact two-sided binomial test (scipy.stats.binomtest with p=0.5 on discordant pairs)",
+    "multiplicity": "Holm step-down across declared P6 contrasts at family-wise alpha = 0.05"
+  }
+}

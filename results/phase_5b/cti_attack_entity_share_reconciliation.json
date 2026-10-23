@@ -1,0 +1,15 @@
+{
+  "dataset": "CTI-ATTACK",
+  "n_queries": 229,
+  "phase4_detector_full_queries": {
+    "queries_with_ge1_entity": 8,
+    "share": "3.49% (8 / 229)",
+    "mean_matches": 0.0349
+  },
+  "phase5_audit_body_only": {
+    "queries_with_ge1_entity": 8,
+    "share": "3.49% (8 / 229)",
+    "mean_matches": 0.0349
+  },
+  "explanation": "In Phase 4 (and Phase 2), CTI-ATTACK entity share was reported as 3.49% (8/229 queries with >= 1 entity). In Phase 5 Table 1, the underlying CSV (table_query_hygiene.csv) and JSON (query_hygiene_audit.json) correctly recorded 3.5% (8/229, mean 0.03 matches/query). However, the markdown narrative in REVIEW_PHASE_5.md contained a typographical transcription discrepancy stating '52.8% | 0.99 matches/query' (which was draft text from a preliminary ablation run). Recomputing both from this authoritative unified script verifies that exactly 8 out of 229 queries (3.49%) contain >= 1 entity under both full queries and body-only queries. Zero queries detect entities in the boilerplate text."
+}

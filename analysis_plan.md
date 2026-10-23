@@ -329,4 +329,68 @@ The following amendments are adopted as dated protocol extensions without alteri
 7. **Ground-Truth STIX Status Audit**:
    - Add a dedicated row to the limitations table quantifying the count of ground-truth IDs that are revoked, deprecated, or absent in the pinned STIX knowledge base per dataset.
 
+### 10.8 Dated Amendments (Phase 5B Amendments: 2026-10-24)
+The following protocol refinements are adopted for Phase 5B unattended execution:
+1. **Binary Outcomes Statistical Decision Protocol**:
+   - For all binary outcomes (Recall@10, attribution accuracy), report the exact two-sided sign test $p$-value ($p_{\text{exact}}$ via `scipy.stats.binomtest`) alongside the paired bootstrap $p$-value ($p_{\text{boot}}$).
+   - Contrasts P3_03 and P3_11 are explicitly classified as "bootstrap-significant, exact-test borderline/not significant under Holm step-down". Every decision explicitly notes which test procedure was evaluated.
+2. **Claim C10 Reformulation with $k=200$ Controls**:
+   - Claim C10 is updated using $k=200$ control pools: structure-aware field chunking ($E_{1a}$) does not outperform monolithic recursive splitting ($E_0'\text{-TECH-k200}$) at any token budget ($B \in \{500, 1000, 2000, 4000\}$).
+3. **Primary O2 Scaling Table**:
+   - The primary O2 comparison table reports contrasts against $k=200$ controls across all four budgets (where token budget is binding for all arms). The $k=50$ table is retained as secondary.
+4. **CTI-ATTACK Detector Share Reconciliation**:
+   - Formally reconcile the 3.49% (Phase 4 legacy detector) and 52.8% (Phase 5 high-precision regex/alias detector) query entity match shares within a single unified comparison script.
+5. **Raw Query Condition Labeling**:
+   - Claims C4, C5, and C7 are explicitly labeled as "measured under raw (unhygienic) queries".
+6. **Mappable Subset Evaluation (`cti-taa`)**:
+   - Report `cti-taa` attribution results on both the full dataset ($N=50$) and the mappable subset ($N=40$ rows whose ground-truth threat group exists in the pinned STIX knowledge base), listing all excluded rows.
+7. **Query Splitting Uniformity Assertion**:
+   - Assert programmatically that the instruction/body query splitting logic is applied identically across all evaluated arms.
+8. **Generation Protocol Refinement**:
+   - Evaluation utilizes the bare prompt (identical to LLM-only baseline; temperature 0, `max_output_tokens` 512, tracking `finish_reason` and usage metadata). Calls prioritized in order: (1) $E_0'\text{-HD}$ `cti-ate` (60), (2) $E_0'\text{-HD}$ `CTI-ATTACK` (229), (3) `cti-taa` $V_{0h}$ (50), (4) `cti-taa` $V_{\text{rel}}$ (50), (5) optional $E_1\text{-MIXED-HD}$ `cti-ate` (60).
+
+## 11. Phase 6 Amendments: Pre-Declared Extensions (Post-Hoc Round 3, 2026-10-24)
+
+### 11.1 Methodological Governance
+- **(R1) Pre-Registration**: Formally declared prior to execution in `results/phase_6/variants_ledger.json`.
+- **(R2) Independent Derivation**: Derived strictly from STIX knowledge base relationships (`uses` edges between `malware` and `attack-pattern`) and prompt boilerplate markers.
+- **(R3) Explicit Labeling**: Labeled "post-hoc round 3, exploratory".
+- **(R4) Neutral Scientific Tone**: Zero causal wording permitted.
+- **(R5) Full Reporting**: All variants reported, including negative outcomes and failures.
+
+### 11.2 Pre-Declared Variants
+1. **$V_{\text{rel}}\text{-T}$ (Technique Co-occurrence Expansion)**:
+   - **Target Datasets**: `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$).
+   - **Query Preprocessing**: Body-only queries via `split_query`. For `cti-ate`, HD domain routing restricts candidate techniques to the declared domain (`enterprise-attack` or `mobile-attack`).
+   - **Entity Detection**: Same rules as $V_{1h}$:
+     - Restrict to `malware` entity type.
+     - Alias string length $\ge 5$ characters.
+     - Case-sensitive exact match against STIX canonical name or alias casing.
+     - Stoplist exclusion of common OS utilities and commands.
+   - **Relationship Traversal**:
+     - Traverse non-revoked STIX `uses` relationships where source is detected software $s$ and target is technique (attack-pattern) $t$ residing within the routed domain.
+   - **Scoring Formula**:
+     $$\text{score}(t) = \sum_{s \in \text{detected\_software}} \frac{1}{|\{t' \in \text{techniques} : s \text{ uses } t'\}|}$$
+   - **Query Expansion**: Prepend the canonical names and MITRE technique IDs of the top 5 scoring techniques to the retrieval query (capped at 64 tokens). No other tuning.
+2. **$E\text{-comb-taa}$**:
+   - Query hygiene (body-only) + $V_{\text{rel}}$ relationship expansion on `cti-taa`.
+3. **$E\text{-comb-ate}$**:
+   - Query hygiene (body-only) + HD domain routing + $V_{\text{rel}}\text{-T}$ technique expansion on `cti-ate` (evaluated with $k=200$ candidate pool across 4 budgets).
+
+### 11.3 Evaluation Metrics & Contrasts
+- **Technique Benchmarks (`cti-ate`, `CTI-ATTACK`)**:
+  - Primary metric: Recall@$B$ binding mean across budgets $B \in \{500, 1000, 2000, 4000\}$ using candidate pool $k=200$.
+  - Contrast: $V_{\text{rel}}\text{-T}$ vs matching hygiene-only baseline ($E_0'\text{-HD-k200}$).
+- **Threat Actor Attribution (`cti-taa`)**:
+  - Metrics: Object-level Recall@10 (primary) and MRR.
+  - Contrast: $E\text{-comb-taa}$ ($V_{\text{rel}}$) vs matching hygiene-only baseline ($V_{0h}$).
+- **Statistical Testing**:
+  - Paired bootstrap resampling ($N = 10,000$, seed 42) computing paired difference $\Delta$ and 95% bootstrap percentile confidence intervals.
+  - Exact two-sided binomial sign test (`binomtest`) on discordant pairs for binary outcomes.
+  - Multiplicity control: Holm step-down correction over the declared contrasts only.
+- **Improvement Ladder Synthesis**:
+  - Formally compile a unified cumulative progress table across evaluation stages:
+    $$\text{raw RAGIntel} \longrightarrow +\text{hygiene} \longrightarrow +\text{domain routing} \longrightarrow +V_{\text{rel}} / V_{\text{rel}}\text{-T}$$
+    reporting point estimates and 95% confidence intervals for each dataset.
+
 

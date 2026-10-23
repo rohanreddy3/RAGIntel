@@ -129,6 +129,19 @@ python scripts/generate_stix_limitations_table.py
 python scripts/generate_phase5_assets.py
 ```
 
+### Phase 5B & Phase 6: Offline Fixes & Pre-Declared Extensions (Post-Hoc Round 3)
+```bash
+# 1. Step 1: Offline Reconciliations and Fixes
+# Evaluates exact two-sided binomial sign tests, CTI-ATTACK entity detector share reconciliation (3.49%),
+# k=200 primary O2 comparisons across all four budgets, and cti-taa mappable subset (N=43).
+python scripts/run_phase5b_offline_fixes.py
+
+# 2. Step 1b: Pre-Declared Extensions (Vrel-T & E-comb)
+# Verifies variants_ledger.json, builds malware-to-technique STIX co-occurrence graph,
+# executes Vrel-T and E-comb benchmarks, evaluates Family P6 Holm contrasts, and builds improvement ladder table.
+python scripts/run_vrel_t_extension.py
+```
+
 ## 5. Cryptographic Freeze Manifest Verification
 
 To verify the integrity of all experiment outputs against the frozen manifest:
