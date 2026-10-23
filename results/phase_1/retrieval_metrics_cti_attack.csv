@@ -1,0 +1,230 @@
+query_idx,query_preview,ground_truth,latency_ms,MRR,Precision@1,Recall@1,nDCG@1,Precision@3,Recall@3,nDCG@3,Precision@5,Recall@5,nDCG@5,Precision@10,Recall@10,nDCG@10
+0,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.001,3053.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+1,Extract all MITRE attack patterns from the following text and map them to their ...,T1571,2434.85,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+2,Extract all MITRE attack patterns from the following text and map them to their ...,T1566.001,2505.4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+3,Extract all MITRE attack patterns from the following text and map them to their ...,T1543.003,2272.08,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+4,Extract all MITRE attack patterns from the following text and map them to their ...,T1565.001,2145.56,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+5,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1883.86,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+6,Extract all MITRE attack patterns from the following text and map them to their ...,T1078,1832.28,0.5,0.0,0.0,0.0,0.3333,1.0,0.6309,0.2,1.0,0.6309,0.3,1.0,1.2653
+7,Extract all MITRE attack patterns from the following text and map them to their ...,"T1082 ,  T1203",2332.45,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+8,Extract all MITRE attack patterns from the following text and map them to their ...,T1036.007,2386.43,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+9,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,1949.12,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.301
+10,Extract all MITRE attack patterns from the following text and map them to their ...,T1021.002,1818.94,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+11,Extract all MITRE attack patterns from the following text and map them to their ...,T1053.005,2380.06,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+12,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.003,2042.19,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+13,Extract all MITRE attack patterns from the following text and map them to their ...,T1059.003,2090.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+14,Extract all MITRE attack patterns from the following text and map them to their ...,T1114.003,1919.36,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+15,Extract all MITRE attack patterns from the following text and map them to their ...,T1562.001,2348.68,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+16,Extract all MITRE attack patterns from the following text and map them to their ...,T1176,2102.87,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+17,Extract all MITRE attack patterns from the following text and map them to their ...,T1573,1562.0,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.2891
+18,Extract all MITRE attack patterns from the following text and map them to their ...,T1552.001,1655.38,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+19,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1741.16,0.5,0.0,0.0,0.0,0.3333,1.0,0.6309,0.4,1.0,1.0616,0.2,1.0,1.0616
+20,Extract all MITRE attack patterns from the following text and map them to their ...,T1557.001,1774.02,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+21,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,2064.49,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+22,Extract all MITRE attack patterns from the following text and map them to their ...,T1059.001,1873.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+23,Extract all MITRE attack patterns from the following text and map them to their ...,T1547.001,1941.65,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+24,Extract all MITRE attack patterns from the following text and map them to their ...,T1567,1768.71,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+25,Extract all MITRE attack patterns from the following text and map them to their ...,T1491.001,1793.89,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+26,Extract all MITRE attack patterns from the following text and map them to their ...,T1195.001,1908.85,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+27,Extract all MITRE attack patterns from the following text and map them to their ...,T1090.003,1801.77,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+28,Extract all MITRE attack patterns from the following text and map them to their ...,T1566.002,1908.59,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+29,Extract all MITRE attack patterns from the following text and map them to their ...,"T1078.003, T1484",1917.97,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+30,Extract all MITRE attack patterns from the following text and map them to their ...,"T1082, T1212",2002.65,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+31,Extract all MITRE attack patterns from the following text and map them to their ...,T1003.001,1669.97,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+32,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.002,1532.16,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+33,Extract all MITRE attack patterns from the following text and map them to their ...,T1562.001,1847.37,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+34,Extract all MITRE attack patterns from the following text and map them to their ...,T1566.002,1781.02,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+35,Extract all MITRE attack patterns from the following text and map them to their ...,T1048,1653.07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+36,Extract all MITRE attack patterns from the following text and map them to their ...,T1588.002,2031.07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+37,Extract all MITRE attack patterns from the following text and map them to their ...,"T1530 ,  T1078",1737.92,0.3333,0.0,0.0,0.0,0.3333,0.5,0.3066,0.4,0.5,0.5438,0.3,0.5,0.7622
+38,Extract all MITRE attack patterns from the following text and map them to their ...,T1053.005,1910.38,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3155
+39,Extract all MITRE attack patterns from the following text and map them to their ...,"T1078, T1566",1656.29,1.0,1.0,1.0,1.0,0.3333,1.0,0.6131,0.4,1.0,0.8772,0.2,1.0,0.8772
+40,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1753.47,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+41,Extract all MITRE attack patterns from the following text and map them to their ...,T1496,1885.05,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+42,Extract all MITRE attack patterns from the following text and map them to their ...,"T1189, T1556.002",1676.65,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+43,Extract all MITRE attack patterns from the following text and map them to their ...,T1078.002,1668.74,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+44,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1826.58,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.2,1.0,0.3869,0.3,1.0,1.0585
+45,Extract all MITRE attack patterns from the following text and map them to their ...,T1562.001,2266.46,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+46,Extract all MITRE attack patterns from the following text and map them to their ...,T1021.002,1805.15,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+47,Extract all MITRE attack patterns from the following text and map them to their ...,T1070.004,2202.44,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+48,Extract all MITRE attack patterns from the following text and map them to their ...,"T1542.005, T1495",2546.66,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+49,Extract all MITRE attack patterns from the following text and map them to their ...,T1542.002,2341.38,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+50,Extract all MITRE attack patterns from the following text and map them to their ...,T1091,3174.31,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+51,Extract all MITRE attack patterns from the following text and map them to their ...,T1095,1897.11,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+52,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.004,1895.23,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+53,Extract all MITRE attack patterns from the following text and map them to their ...,T1136.001,2072.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+54,Extract all MITRE attack patterns from the following text and map them to their ...,T1070.001,1672.17,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+55,Extract all MITRE attack patterns from the following text and map them to their ...,T1046,1783.94,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+56,Extract all MITRE attack patterns from the following text and map them to their ...,T1027.003,1940.76,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+57,Extract all MITRE attack patterns from the following text and map them to their ...,T1078,1931.37,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.2,1.0,0.3869,0.1,1.0,0.3869
+58,Extract all MITRE attack patterns from the following text and map them to their ...,T1070.006,1750.96,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+59,Extract all MITRE attack patterns from the following text and map them to their ...,"T1534, T1566.002",1480.4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+60,Extract all MITRE attack patterns from the following text and map them to their ...,T1071,1454.8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+61,Extract all MITRE attack patterns from the following text and map them to their ...,"T1555, T1021",1496.09,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+62,Extract all MITRE attack patterns from the following text and map them to their ...,T1484.001,1762.04,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+63,Extract all MITRE attack patterns from the following text and map them to their ...,"T1087, T1039",1599.77,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+64,Extract all MITRE attack patterns from the following text and map them to their ...,T1496,1812.94,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+65,Extract all MITRE attack patterns from the following text and map them to their ...,T1531,2037.44,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+66,Extract all MITRE attack patterns from the following text and map them to their ...,"T1571, T1102",1914.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+67,Extract all MITRE attack patterns from the following text and map them to their ...,T1568.002,1993.21,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+68,Extract all MITRE attack patterns from the following text and map them to their ...,T1550.002.,1835.44,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+69,Extract all MITRE attack patterns from the following text and map them to their ...,"T1491.001, T1486",1968.99,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+70,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1997.58,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+71,Extract all MITRE attack patterns from the following text and map them to their ...,T1219,2413.22,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+72,Extract all MITRE attack patterns from the following text and map them to their ...,T1053.005,2427.38,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+73,Extract all MITRE attack patterns from the following text and map them to their ...,T1547.001,1963.19,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+74,Extract all MITRE attack patterns from the following text and map them to their ...,T1048.003,1972.27,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+75,Extract all MITRE attack patterns from the following text and map them to their ...,T1562.001,2073.26,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+76,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.001,2011.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+77,Extract all MITRE attack patterns from the following text and map them to their ...,"T1566.001, T1204.002",2031.41,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+78,Extract all MITRE attack patterns from the following text and map them to their ...,T1071,1960.42,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+79,Extract all MITRE attack patterns from the following text and map them to their ...,T1056.001,2725.08,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+80,Extract all MITRE attack patterns from the following text and map them to their ...,T1573,1978.85,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+81,Extract all MITRE attack patterns from the following text and map them to their ...,T1003.001,1975.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+82,Extract all MITRE attack patterns from the following text and map them to their ...,T1543.003,2180.39,0.1429,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3333
+83,Extract all MITRE attack patterns from the following text and map them to their ...,T1078.004,1426.65,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+84,Extract all MITRE attack patterns from the following text and map them to their ...,T1534,1789.42,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+85,Extract all MITRE attack patterns from the following text and map them to their ...,T1568.002,1559.04,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+86,Extract all MITRE attack patterns from the following text and map them to their ...,T1562.004,1472.69,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+87,Extract all MITRE attack patterns from the following text and map them to their ...,"T1083, T1087",1552.52,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+88,Extract all MITRE attack patterns from the following text and map them to their ...,"T1027, T1564.001",1646.36,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+89,Extract all MITRE attack patterns from the following text and map them to their ...,T1090.003,1476.36,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3155
+90,Extract all MITRE attack patterns from the following text and map them to their ...,"T1021.002, T1078",1598.94,0.5,0.0,0.0,0.0,0.3333,0.5,0.3869,0.4,0.5,0.6241,0.3,0.5,0.8175
+91,Extract all MITRE attack patterns from the following text and map them to their ...,T1095,1417.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+92,Extract all MITRE attack patterns from the following text and map them to their ...,T1621,1485.7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+93,Extract all MITRE attack patterns from the following text and map them to their ...,T1123,1951.91,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+94,Extract all MITRE attack patterns from the following text and map them to their ...,T1496,1707.7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+95,Extract all MITRE attack patterns from the following text and map them to their ...,T1546.003,1498.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+96,Extract all MITRE attack patterns from the following text and map them to their ...,T1490,1745.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+97,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1430.12,0.5,0.0,0.0,0.0,0.6667,1.0,1.1309,0.4,1.0,1.1309,0.2,1.0,1.1309
+98,Extract all MITRE attack patterns from the following text and map them to their ...,T1021.002,1514.61,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+99,Extract all MITRE attack patterns from the following text and map them to their ...,"T1566.001, T1204.002",1726.08,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+100,Extract all MITRE attack patterns from the following text and map them to their ...,T1095,1713.11,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+101,Extract all MITRE attack patterns from the following text and map them to their ...,T1014,1826.31,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+102,Extract all MITRE attack patterns from the following text and map them to their ...,T1046,1498.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+103,Extract all MITRE attack patterns from the following text and map them to their ...,"T1078.002, T1484",1640.16,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+104,Extract all MITRE attack patterns from the following text and map them to their ...,T1542.002,1790.64,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+105,Extract all MITRE attack patterns from the following text and map them to their ...,T1564.004,1684.53,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+106,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1611.14,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+107,Extract all MITRE attack patterns from the following text and map them to their ...,T1176,1789.76,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+108,Extract all MITRE attack patterns from the following text and map them to their ...,T1090.003,1569.62,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+109,Extract all MITRE attack patterns from the following text and map them to their ...,"T1552.001, T1596.005",1406.18,0.5,0.0,0.0,0.0,0.3333,0.5,0.3869,0.2,0.5,0.3869,0.1,0.5,0.3869
+110,Extract all MITRE attack patterns from the following text and map them to their ...,"T1001.002, T1071",1547.17,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+111,Extract all MITRE attack patterns from the following text and map them to their ...,"T1053.005, T1059.001",1847.26,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.5,0.1934
+112,Extract all MITRE attack patterns from the following text and map them to their ...,"T1078.002, T1484",2131.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+113,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1655.13,0.3333,0.0,0.0,0.0,0.3333,1.0,0.5,0.4,1.0,0.9307,0.2,1.0,0.9307
+114,Extract all MITRE attack patterns from the following text and map them to their ...,"T1021.001, T1133",1636.08,0.5,0.0,0.0,0.0,0.3333,0.5,0.3869,0.2,0.5,0.3869,0.2,0.5,0.5803
+115,Extract all MITRE attack patterns from the following text and map them to their ...,T1091,1862.43,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+116,Extract all MITRE attack patterns from the following text and map them to their ...,"T1573, T1095",1743.49,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+117,Extract all MITRE attack patterns from the following text and map them to their ...,T1113,1859.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+118,Extract all MITRE attack patterns from the following text and map them to their ...,T1496,1833.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+119,Extract all MITRE attack patterns from the following text and map them to their ...,"T1547.001, T1059.001",1712.67,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.5,0.1846
+120,Extract all MITRE attack patterns from the following text and map them to their ...,T1133,1852.62,1.0,1.0,1.0,1.0,0.3333,1.0,1.0,0.4,1.0,1.4307,0.5,1.0,2.4212
+121,Extract all MITRE attack patterns from the following text and map them to their ...,"T1003, T1055",1960.91,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.5,0.1846
+122,Extract all MITRE attack patterns from the following text and map them to their ...,T1557.001,2721.18,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+123,Extract all MITRE attack patterns from the following text and map them to their ...,"T1534, T1566.003",2027.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+124,Extract all MITRE attack patterns from the following text and map them to their ...,"T1187, T1557",1641.43,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+125,Extract all MITRE attack patterns from the following text and map them to their ...,T1610,1570.72,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+126,Extract all MITRE attack patterns from the following text and map them to their ...,T1046,1476.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+127,Extract all MITRE attack patterns from the following text and map them to their ...,T1110,1636.95,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3155
+128,Extract all MITRE attack patterns from the following text and map them to their ...,T1505,1961.68,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+129,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,2932.56,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+130,Extract all MITRE attack patterns from the following text and map them to their ...,T1082,3450.12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+131,Extract all MITRE attack patterns from the following text and map them to their ...,T1021,2535.17,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+132,Extract all MITRE attack patterns from the following text and map them to their ...,T1508,1587.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+133,Extract all MITRE attack patterns from the following text and map them to their ...,T1137,1672.37,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+134,Extract all MITRE attack patterns from the following text and map them to their ...,T1030,1616.4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+135,Extract all MITRE attack patterns from the following text and map them to their ...,T1059.001,1695.04,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+136,Extract all MITRE attack patterns from the following text and map them to their ...,T1505.003,1643.27,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+137,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1635.87,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+138,Extract all MITRE attack patterns from the following text and map them to their ...,T1112,1729.44,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+139,Extract all MITRE attack patterns from the following text and map them to their ...,T1024,1563.42,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+140,Extract all MITRE attack patterns from the following text and map them to their ...,"T1190, T1212",1576.01,0.3333,0.0,0.0,0.0,0.3333,0.5,0.3066,0.2,0.5,0.3066,0.1,0.5,0.3066
+141,Extract all MITRE attack patterns from the following text and map them to their ...,T1548.002,1721.69,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+142,Extract all MITRE attack patterns from the following text and map them to their ...,T1053.005,1583.15,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+143,Extract all MITRE attack patterns from the following text and map them to their ...,T1078,1608.33,1.0,1.0,1.0,1.0,0.3333,1.0,1.0,0.2,1.0,1.0,0.2,1.0,1.3333
+144,Extract all MITRE attack patterns from the following text and map them to their ...,T1055,1770.09,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+145,Extract all MITRE attack patterns from the following text and map them to their ...,T1090.004,1790.07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+146,Extract all MITRE attack patterns from the following text and map them to their ...,"T1059.001, T1082, T1571",2139.79,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.3333,0.1413
+147,Extract all MITRE attack patterns from the following text and map them to their ...,T1048,1809.06,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+148,Extract all MITRE attack patterns from the following text and map them to their ...,T1566.002,2167.68,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+149,Extract all MITRE attack patterns from the following text and map them to their ...,"T1136.001, T1078",2344.91,0.5,0.0,0.0,0.0,0.6667,0.5,0.6934,0.6,0.5,0.9575,0.4,0.5,1.1759
+150,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,2109.43,0.3333,0.0,0.0,0.0,0.3333,1.0,0.5,0.2,1.0,0.5,0.2,1.0,0.8562
+151,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1744.35,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+152,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,2054.85,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+153,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.003,1830.21,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+154,Extract all MITRE attack patterns from the following text and map them to their ...,T1095,1703.03,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+155,Extract all MITRE attack patterns from the following text and map them to their ...,T1091,1816.97,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+156,Extract all MITRE attack patterns from the following text and map them to their ...,T1059,1820.27,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+157,Extract all MITRE attack patterns from the following text and map them to their ...,T1567,1876.12,0.1667,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3562
+158,Extract all MITRE attack patterns from the following text and map them to their ...,T1046,1563.65,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+159,Extract all MITRE attack patterns from the following text and map them to their ...,"T1114, T1566",1672.82,1.0,1.0,0.5,1.0,1.0,0.5,1.3066,1.0,0.5,1.8078,0.8,1.0,2.4241
+160,Extract all MITRE attack patterns from the following text and map them to their ...,T1547.001,2039.99,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+161,Extract all MITRE attack patterns from the following text and map them to their ...,T1498,1701.95,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+162,Extract all MITRE attack patterns from the following text and map them to their ...,T1090.003,1606.21,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+163,Extract all MITRE attack patterns from the following text and map them to their ...,T1566.001,1806.12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+164,Extract all MITRE attack patterns from the following text and map them to their ...,T1059.001,1724.41,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.2891
+165,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.001,1639.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+166,Extract all MITRE attack patterns from the following text and map them to their ...,T1078,1658.25,0.5,0.0,0.0,0.0,0.3333,1.0,0.6309,0.2,1.0,0.6309,0.2,1.0,0.9871
+167,Extract all MITRE attack patterns from the following text and map them to their ...,T1041,1760.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+168,Extract all MITRE attack patterns from the following text and map them to their ...,T1499,2167.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+169,Extract all MITRE attack patterns from the following text and map them to their ...,T1566,2111.87,1.0,1.0,1.0,1.0,1.0,1.0,2.1309,1.0,1.0,2.9485,0.6,1.0,3.3047
+170,Extract all MITRE attack patterns from the following text and map them to their ...,T1098,1914.23,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+171,Extract all MITRE attack patterns from the following text and map them to their ...,T1071,1844.3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+172,Extract all MITRE attack patterns from the following text and map them to their ...,T1074,1635.28,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+173,Extract all MITRE attack patterns from the following text and map them to their ...,T1110,1714.94,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3155
+174,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,2061.55,0.1667,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3562
+175,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1978.41,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+176,Extract all MITRE attack patterns from the following text and map them to their ...,T1204.002,2248.92,0.3333,0.0,0.0,0.0,0.3333,1.0,0.5,0.2,1.0,0.5,0.1,1.0,0.5
+177,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.003,1914.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+178,Extract all MITRE attack patterns from the following text and map them to their ...,T1059,2251.63,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+179,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1832.74,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.2,1.0,0.4307,0.2,1.0,0.764
+180,Extract all MITRE attack patterns from the following text and map them to their ...,T1041,1815.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+181,Extract all MITRE attack patterns from the following text and map them to their ...,T1053,1796.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+182,Extract all MITRE attack patterns from the following text and map them to their ...,T1566,1747.74,1.0,1.0,1.0,1.0,0.6667,1.0,1.6309,0.8,1.0,2.4485,0.6,1.0,3.138
+183,Extract all MITRE attack patterns from the following text and map them to their ...,T1035,1690.34,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+184,Extract all MITRE attack patterns from the following text and map them to their ...,T1059.001,1649.63,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.301
+185,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,1733.32,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+186,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.001,1913.34,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+187,Extract all MITRE attack patterns from the following text and map them to their ...,T1204.002,2943.89,0.1429,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3333
+188,Extract all MITRE attack patterns from the following text and map them to their ...,T1110.003,1924.54,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+189,Extract all MITRE attack patterns from the following text and map them to their ...,T1059,2021.44,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+190,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1748.05,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.2,1.0,0.4307,0.2,1.0,0.764
+191,Extract all MITRE attack patterns from the following text and map them to their ...,T1041,1739.16,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+192,Extract all MITRE attack patterns from the following text and map them to their ...,T1053,1888.06,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+193,Extract all MITRE attack patterns from the following text and map them to their ...,T1566,1962.86,1.0,1.0,1.0,1.0,0.6667,1.0,1.6309,0.8,1.0,2.4485,0.6,1.0,3.138
+194,Extract all MITRE attack patterns from the following text and map them to their ...,T1035,1993.77,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+195,Extract all MITRE attack patterns from the following text and map them to their ...,T1059.001,1798.03,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.301
+196,Extract all MITRE attack patterns from the following text and map them to their ...,T1110,1721.76,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3155
+197,Extract all MITRE attack patterns from the following text and map them to their ...,T1059,2129.17,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+198,Extract all MITRE attack patterns from the following text and map them to their ...,T1190,1874.54,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.2,1.0,0.4307,0.2,1.0,0.764
+199,Extract all MITRE attack patterns from the following text and map them to their ...,T1041,2043.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+200,Extract all MITRE attack patterns from the following text and map them to their ...,T1053,2007.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+201,Extract all MITRE attack patterns from the following text and map them to their ...,T1566,1998.12,1.0,1.0,1.0,1.0,0.6667,1.0,1.6309,0.8,1.0,2.4485,0.6,1.0,3.138
+202,Extract all MITRE attack patterns from the following text and map them to their ...,T1046,2066.22,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+203,Extract all MITRE attack patterns from the following text and map them to their ...,T1035,1831.32,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+204,Extract all MITRE attack patterns from the following text and map them to their ...,T1059.001,1827.14,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.301
+205,Extract all MITRE attack patterns from the following text and map them to their ...,T1059,2284.44,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+206,Extract all MITRE attack patterns from the following text and map them to their ...,T1071,2020.77,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+207,Extract all MITRE attack patterns from the following text and map them to their ...,T1110,1693.11,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+208,Extract all MITRE attack patterns from the following text and map them to their ...,T1110,1770.01,0.1429,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3333
+209,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,1981.58,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+210,Extract all MITRE attack patterns from the following text and map them to their ...,T1020,1513.56,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3155
+211,Extract all MITRE attack patterns from the following text and map them to their ...,T1176,1688.52,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+212,Extract all MITRE attack patterns from the following text and map them to their ...,T1072,1829.27,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+213,Extract all MITRE attack patterns from the following text and map them to their ...,T1566.001,1636.31,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+214,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1613.89,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+215,Extract all MITRE attack patterns from the following text and map them to their ...,T1176,1695.37,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+216,Extract all MITRE attack patterns from the following text and map them to their ...,T1098,1623.82,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+217,Extract all MITRE attack patterns from the following text and map them to their ...,T1499,1707.42,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+218,Extract all MITRE attack patterns from the following text and map them to their ...,T1557.002,1472.8,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,1.0,0.3155
+219,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.003,1417.76,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+220,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.001,1789.88,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+221,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,1691.61,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+222,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.004,1695.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+223,Extract all MITRE attack patterns from the following text and map them to their ...,T1176,1771.56,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+224,Extract all MITRE attack patterns from the following text and map them to their ...,T1071.001,1750.23,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+225,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,1836.82,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+226,Extract all MITRE attack patterns from the following text and map them to their ...,T1110,1578.52,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.2,1.0,0.4307,0.2,1.0,0.7317
+227,Extract all MITRE attack patterns from the following text and map them to their ...,T1486,1789.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+228,Extract all MITRE attack patterns from the following text and map them to their ...,T1176,1846.75,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

@@ -1,0 +1,44 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+venv/
+venv312/
+.idea/
+.vscode/
+.pytest_cache/
+.ipynb_checkpoints/
+.cache/
+*.faiss
+*.index
+*.pkl
+*.npy
+*.npz
+*.bin
+*.safetensors
+*.pt
+*.onnx
+*.log
+*.tmp
+logs/
+indexes/
+models/
+.flashrank*/
+data/mitre/*.json
+*.zip
+*.tar
+*.tar.gz
+Thumbs.db
+.DS_Store
+~$*
+
+# Large files (>25 MB)
+results/phase_3/top50_phase3c_chunks.json
+results/phase_3/top50_ranked_chunks.json
+
+# Upstream & external reference material
+vendor/
+base paper/
+base_paper_extracted.txt

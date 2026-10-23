@@ -1,0 +1,25 @@
+# Locked Configuration for API Generation Runner
+# Phase 3: End-to-End LLM Generation and Evaluation
+# All settings in this file are strictly locked and monitored by SHA-256 integrity verification.
+
+model_id: "gemini-3.5-flash-lite"
+temperature: 0.0
+max_output_tokens: 512
+pacing_seconds: 5.0
+daily_cap: 1300
+max_workers: 1
+
+prompt_templates:
+  no_context: "Question: {query}\nAnswer:"
+  with_context: "Context:\n{context}\n\nQuestion: {query}\nAnswer:"
+
+datasets:
+  cti-ate: "data/datasets/cti-ate.xlsx"
+  cti-taa: "data/datasets/cti-taa.xlsx"
+  CTI-ATTACK: "data/datasets/CTI-ATTACK.xlsx"
+
+paths:
+  cache_dir: ".cache/api_runner"
+  ledger_csv: "reviews/api_ledger.csv"
+  status_md: "reviews/api_status.md"
+  scores_json: "reviews/api_scores.json"

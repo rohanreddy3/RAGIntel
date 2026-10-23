@@ -1,0 +1,102 @@
+{
+  "diagnostics": [
+    {
+      "arm": "LLM-only",
+      "N": 50,
+      "n_empty": 0,
+      "n_unparseable": 14,
+      "n_truncated": 1,
+      "N_valid (excl. empty/trunc)": 49,
+      "Scorer_V2_Overall": 0.72,
+      "Scorer_V2_Sensitivity": 0.7143,
+      "Scorer_V1_Overall": 0.68,
+      "Scorer_V1_Sensitivity": 0.6735
+    },
+    {
+      "arm": "cti-taa_B2_V0",
+      "N": 50,
+      "n_empty": 1,
+      "n_unparseable": 20,
+      "n_truncated": 1,
+      "N_valid (excl. empty/trunc)": 48,
+      "Scorer_V2_Overall": 0.6,
+      "Scorer_V2_Sensitivity": 0.625,
+      "Scorer_V1_Overall": 0.56,
+      "Scorer_V1_Sensitivity": 0.5833
+    },
+    {
+      "arm": "cti-taa_B2_V1",
+      "N": 50,
+      "n_empty": 0,
+      "n_unparseable": 27,
+      "n_truncated": 0,
+      "N_valid (excl. empty/trunc)": 50,
+      "Scorer_V2_Overall": 0.46,
+      "Scorer_V2_Sensitivity": 0.46,
+      "Scorer_V1_Overall": 0.44,
+      "Scorer_V1_Sensitivity": 0.44
+    }
+  ],
+  "paired_bootstrap": [
+    {
+      "Contrast": "V1 vs V0",
+      "Scorer": "Scorer V2: STIX Ontology Alias",
+      "Mean_A": 0.46,
+      "Mean_B": 0.6,
+      "Mean_Diff (A - B)": -0.14,
+      "95% Bootstrap CI": "[-0.2800, 0.0000]",
+      "p-value": 0.0594,
+      "Win/Tie/Loss": "3/37/10"
+    },
+    {
+      "Contrast": "V1 vs V0",
+      "Scorer": "Scorer V1: Text Regex Alias",
+      "Mean_A": 0.44,
+      "Mean_B": 0.56,
+      "Mean_Diff (A - B)": -0.12,
+      "95% Bootstrap CI": "[-0.2600, 0.0200]",
+      "p-value": 0.1328,
+      "Win/Tie/Loss": "4/36/10"
+    },
+    {
+      "Contrast": "V0 vs LLM-only",
+      "Scorer": "Scorer V2: STIX Ontology Alias",
+      "Mean_A": 0.6,
+      "Mean_B": 0.72,
+      "Mean_Diff (A - B)": -0.12,
+      "95% Bootstrap CI": "[-0.2400, 0.0000]",
+      "p-value": 0.0668,
+      "Win/Tie/Loss": "2/40/8"
+    },
+    {
+      "Contrast": "V0 vs LLM-only",
+      "Scorer": "Scorer V1: Text Regex Alias",
+      "Mean_A": 0.56,
+      "Mean_B": 0.68,
+      "Mean_Diff (A - B)": -0.12,
+      "95% Bootstrap CI": "[-0.2400, 0.0000]",
+      "p-value": 0.0644,
+      "Win/Tie/Loss": "2/40/8"
+    },
+    {
+      "Contrast": "V1 vs LLM-only",
+      "Scorer": "Scorer V2: STIX Ontology Alias",
+      "Mean_A": 0.46,
+      "Mean_B": 0.72,
+      "Mean_Diff (A - B)": -0.26,
+      "95% Bootstrap CI": "[-0.3800, -0.1400]",
+      "p-value": 0.0001,
+      "Win/Tie/Loss": "0/37/13"
+    },
+    {
+      "Contrast": "V1 vs LLM-only",
+      "Scorer": "Scorer V1: Text Regex Alias",
+      "Mean_A": 0.44,
+      "Mean_B": 0.68,
+      "Mean_Diff (A - B)": -0.24,
+      "95% Bootstrap CI": "[-0.3800, -0.1200]",
+      "p-value": 0.0002,
+      "Win/Tie/Loss": "1/36/13"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "definition": "query_id = sha1(normalized query text)[:12]",
+  "canonical_counts": {
+    "cti-ate": 60,
+    "cti-taa": 50,
+    "CTI-ATTACK": 229
+  },
+  "file_audits": {
+    "top50_ranked_chunks_3B": {
+      "checked": 1256,
+      "mismatches": 0
+    },
+    "top50_phase3c_chunks": {
+      "checked": 2512,
+      "mismatches": 0
+    },
+    "phase_2_checkpoint": {
+      "checked": 400,
+      "mismatches": 0
+    },
+    "generation_cache_files": {
+      "checked": 1000,
+      "mismatches": 0
+    },
+    "d1_per_query_technique_f1_csv": {
+      "checked": 850,
+      "mismatches": 0
+    },
+    "d1_per_query_cti_taa_attribution_csv": {
+      "checked": 150,
+      "mismatches": 0
+    }
+  },
+  "mismatch_counts": {
+    "top50_ranked_chunks_3B": 0,
+    "top50_phase3c_chunks": 0,
+    "phase_2_checkpoint": 0,
+    "generation_cache_files": 0,
+    "d1_per_query_technique_f1_csv": 0,
+    "d1_per_query_cti_taa_attribution_csv": 0
+  },
+  "overall_status": "PASSED (0 mismatches across all files)"
+}

@@ -1,0 +1,216 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "num_rows": 4,
+  "total_calls": 70,
+  "generation_calls": 4,
+  "judge_calls": 66,
+  "calls_per_row": 17.5,
+  "ragas_summary": {
+    "faithfulness": {
+      "mean": 0.0,
+      "nans": 0
+    },
+    "answer_relevancy": {
+      "mean": 0.6333,
+      "nans": 0
+    },
+    "context_recall": {
+      "mean": 0.0,
+      "nans": 0
+    },
+    "context_precision": {
+      "mean": 0.0,
+      "nans": 1
+    },
+    "factual_correctness": {
+      "mean": 0.0,
+      "nans": 1
+    }
+  },
+  "generation_records": [
+    {
+      "row_idx": 0,
+      "query": "Extract all MITRE Enterprise attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs.  **Text:** 3PARA RAT is a remote access tool (RAT) developed in C++ and associated with the group Putter Panda. It communicates with its command and control (C2) servers via HTTP, with commands encrypted using the DES algorithm in CBC mode. The encryption key is derived from the MD5 hash of the string \"HYF54&%9&jkMCXuiS.\" If the DES decryption fails, 3PARA RAT will attempt to decode the commands using an 8-byte XOR key, also derived from the same string. The tool includes commands to retrieve file metadata, list the current working directory, and modify file attributes, such as creation and modification timestamps.",
+      "ground_truth": "T1071, T1573, T1083, T1070",
+      "answer": "Based on the threat report provided, here are the identified MITRE ATT&CK techniques, tactics, and procedures (TTPs), along with their corresponding technique IDs and reasoning:\n\n### Identified MITRE ATT&CK Techniques\n\n1. **Remote Access Software / Remote Access Trojan**\n   - **Associated Technique:** T1219 (Remote Access Software) / Part of the Command and Control / Ingress Tool Transfer tactics. *(Note: In standard ATT&CK mappings for RATs acting as primary backdoors, this often falls under **T1219** or generic malware execution, but looking specifically at the behaviors described:)*\n   \n2. **Indicator Removal on Host: File Modification / Timestomping**\n   - **Technique ID:** **T1070.006** (Indicator Removal on Host: Timestomp)\n   - **Tactic:** Defense Evasion\n   - **Reasoning:** The report states that 3PARA RAT includes commands to \"modify file attributes, such as creation and modification timestamps,\" which is the definition of timestomping used to evade detection and hinder forensic investigations.\n\n3. **Query File System / File and Directory Discovery**\n   - **Technique ID:** **T1083** (File and Directory Discovery)\n   - **Tactic:** Discovery\n   - **Reasoning:** The tool includes commands to \"retrieve file metadata\" and \"list the current working directory,\" allowing the threat actor to gather information about the victim's file system.\n\n4. **Application Layer Protocol: Web Protocols**\n   - **Technique ID:** **T1071.001** (Application Layer Protocol: Web Protocols)\n   - **Tactic:** Command and Control\n   - **Reasoning:** The report explicitly mentions that the malware \"communicates with its command and control (C2) servers via HTTP.\"\n\n5. **Asymmetric/Symmetric Cryptography / Obfuscated Files or Information**\n   - **Technique ID:** **T1027** (Obfuscated Files or Information)\n   - **Tactic:** Defense Evasion\n   - **Reasoning:** The malware employs encryption (DES in CBC mode) and encoding (8-byte XOR key derived from an MD5 hash) to protect and obfuscate its command communications from security analysts and network monitoring.\n\n---\n\n### Final Technique IDs (Main Techniques Only)\nT1070, T1083, T1071, T1027",
+      "retrieval_latency_s": 5.8,
+      "generation_latency_s": 7.76,
+      "offline_metrics": {
+        "hit": 1.0,
+        "precision": 0.4286,
+        "recall": 0.75,
+        "f1": 0.5455,
+        "num_pred": 7,
+        "num_gt": 4,
+        "num_matched": 3,
+        "matched_ids": [
+          "T1070",
+          "T1071",
+          "T1083"
+        ],
+        "predicted_ids": [
+          "T1027",
+          "T1070",
+          "T1070.006",
+          "T1071",
+          "T1071.001",
+          "T1083",
+          "T1219"
+        ]
+      }
+    },
+    {
+      "row_idx": 1,
+      "query": "Extract all MITRE Enterprise attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs. **Text:** 4H RAT is a piece of malware linked to Putter Panda, with evidence of its use dating back to at least 2007. It relies on HTTP for command and control (C2) communication and has the ability to create a remote shell. To obfuscate its C2 traffic, 4H RAT uses a 1-byte XOR encryption with the key 0xBE. The malware is capable of retrieving file and directory listings, as well as obtaining information about running processes and loaded modules. Additionally, 4H RAT includes an OS version identifier in its beacon messages.",
+      "ground_truth": "T1071, T1059, T1573, T1083, T1057, T1082",
+      "answer": "Based on the provided threat report for the 4H RAT malware, here are the identified MITRE ATT&CK techniques, mapped with their corresponding IDs, tactics, and reasoning:\n\n### 1. Application Layer Protocol: Web Protocols\n* **Technique ID:** T1071.001 (Subtechnique) / T1071 (Main Technique)\n* **Tactics:** Command and Control\n* **Reasoning:** The report states that the malware \"relies on HTTP for command and control (C2) communication,\" which falls under using standard application layer protocols for C2 traffic.\n\n### 2. Remote Access Software / Remote Service (Remote Shell)\n* **Technique ID:** T1219 (or T1021 depending on exact implementation, but standard remote access / interactive shell functionality maps best to Remote Access Software or Command and Scripting Interpreter / Remote Service. Given the context of a remote shell feature, T1219 is commonly applied, or more specifically under Execution/Management, but for C2/remote control, let's look at **T1219** or **T1059** / **T1569**. Wait, providing a remote shell is classically mapped to **T1219** (Remote Access Software) or **T1021** (Remote Services), but looking strictly at standard behaviors: creating a remote shell to interact with the system maps to **T1059** (Command and Scripting Interpreter) or **T1219**). Let's refine based on MITRE definitions: Creating a remote shell allows operators to execute commands. However, standard capability for remote shells often maps to **T1219** or **T1059**. Let's use **T1059** for command execution via remote shell, or **T1071** for protocol. Let's look at the next capability: System Information Discovery.\n\n### 3. System Information Discovery\n* **Technique ID:** T1082\n* **Tactics:** Discovery\n* **Reasoning:** The malware is described as \"obtaining information about running processes and loaded modules\" (though process discovery is T1057, OS version identifier and module info fall under System Information Discovery and Software Discovery). Specifically, \"includes an OS version identifier in its beacon messages\" directly maps to **T1082** (System Information Discovery).\n\n### 4. Process Discovery\n* **Technique ID:** T1057\n* **Tactics:** Discovery\n* **Reasoning:** The malware has the ability of \"obtaining information about running processes,\" which is a direct match for Process Discovery.\n\n### 5. File and Directory Discovery\n* **Technique ID:** T1083\n* **Tactics:** Discovery\n* **Reasoning:** The malware is capable of \"retrieving file and directory listings,\" which directly maps to File and Directory Discovery.\n\n---\n\n### Summary of Main Technique IDs (Excluding Subtechnique IDs)\nT1071, T1082, T1057, T1083",
+      "retrieval_latency_s": 3.62,
+      "generation_latency_s": 7.94,
+      "offline_metrics": {
+        "hit": 1.0,
+        "precision": 0.5556,
+        "recall": 0.8333,
+        "f1": 0.6667,
+        "num_pred": 9,
+        "num_gt": 6,
+        "num_matched": 5,
+        "matched_ids": [
+          "T1057",
+          "T1059",
+          "T1071",
+          "T1082",
+          "T1083"
+        ],
+        "predicted_ids": [
+          "T1021",
+          "T1057",
+          "T1059",
+          "T1071",
+          "T1071.001",
+          "T1082",
+          "T1083",
+          "T1219",
+          "T1569"
+        ]
+      }
+    },
+    {
+      "row_idx": 2,
+      "query": "Extract all MITRE Enterprise attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs.  **Text:** ABK is a downloader associated with BRONZE BUTLER, active since at least 2019. It communicates with its command and control (C2) server via HTTP and can use the command line to execute Portable Executables (PEs) on compromised hosts. ABK is capable of decrypting AES-encrypted payloads and downloading files from the C2 server. Additionally, it can extract malicious PEs from images and inject shellcode into svchost.exe. ABK also has the ability to detect the installed anti-virus software on the compromised host.",
+      "ground_truth": "T1071, T1059, T1140, T1105, T1027, T1055, T1518",
+      "answer": "Based on the threat report provided, here is the analysis of the MITRE ATT&CK techniques, tactics, and procedures (TTPs) used by ABK, along with the reasoning for each identification:\n\n### 1. Application Layer Protocol: HTTP\n* **Technique ID:** T1071.001 (Subtechnique: T1071)\n* **Tactics:** Command and Control\n* **Reasoning:** The report states that ABK \"communicates with its command and control (C2) server via HTTP,\" which falls under the standard application layer protocol technique for C2 communications.\n\n### 2. Command and Scripting Interpreter\n* **Technique ID:** T1059\n* **Tactics:** Execution\n* **Reasoning:** The report notes that ABK \"can use the command line to execute Portable Executables (PEs) on compromised hosts,\" demonstrating the use of a command interpreter to execute payloads.\n\n### 3. Data Decryption\n* **Technique ID:** T1140\n* **Tactics:** Defense Evasion\n* **Reasoning:** ABK is described as being \"capable of decrypting AES-encrypted payloads,\" which aligns with deobfuscating or decrypting files or information to hide malicious content from detection.\n\n### 4. Ingress Tool Transfer\n* **Technique ID:** T1105\n* **Tactics:** Command and Control\n* **Reasoning:** The malware has the capability of \"downloading files from the C2 server,\" which indicates the transfer of tools or payloads from an external source onto the compromised host.\n\n### 5. Steganography\n* **Technique ID:** T1027.003 (Subtechnique: T1027)\n* **Tactics:** Defense Evasion\n* **Reasoning:** The report mentions that ABK \"can extract malicious PEs from images,\" indicating the hiding of malicious payloads within other files (steganography) to evade detection.\n\n### 6. Process Injection\n* **Technique ID:** T1055\n* **Tactics:** Defense Evasion, Privilege Escalation\n* **Reasoning:** The capability of ABK to \"inject shellcode into svchost.exe\" is a classic example of process injection, used to hide execution within a legitimate process.\n\n### 7. Software Discovery\n* **Technique ID:** T1518\n* **Tactics:** Discovery\n* **Reasoning:** The report states that \"ABK also has the ability to detect the installed anti-virus software on the compromised host,\" which directly maps to gathering information about security software installed on the system.\n\n---\n\nT1071, T1059, T1140, T1105, T1027, T1055, T1518",
+      "retrieval_latency_s": 5.2,
+      "generation_latency_s": 7.55,
+      "offline_metrics": {
+        "hit": 1.0,
+        "precision": 0.7778,
+        "recall": 1.0,
+        "f1": 0.875,
+        "num_pred": 9,
+        "num_gt": 7,
+        "num_matched": 7,
+        "matched_ids": [
+          "T1027",
+          "T1055",
+          "T1059",
+          "T1071",
+          "T1105",
+          "T1140",
+          "T1518"
+        ],
+        "predicted_ids": [
+          "T1027",
+          "T1027.003",
+          "T1055",
+          "T1059",
+          "T1071",
+          "T1071.001",
+          "T1105",
+          "T1140",
+          "T1518"
+        ]
+      }
+    },
+    {
+      "row_idx": 3,
+      "query": "Extract all MITRE Mobile attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs. **Text:** AbstractEmu is mobile malware that was first detected in October 2021 on Google Play and other third-party app stores. It was found in 19 Android applications, with at least 7 exploiting known Android vulnerabilities to gain root permissions. While primarily affecting users in the United States, AbstractEmu\u201a\u00c4\u00f4s reach extends to victims across 17 countries. The malware can modify system settings to grant itself device administrator privileges, monitor notifications, and communicate with its command and control (C2) server via HTTP. AbstractEmu can also grant itself microphone and camera permissions, access location data, and disable Play Protect. Additionally, it can collect extensive device information, including the manufacturer, model, version, serial number, telephone number, IP address, and SIM information. AbstractEmu can download and install additional malware post-infection, access call logs, intercept SMS messages containing two-factor authentication codes, and obtain a list of installed applications. The malware uses encoded shell scripts and exploit binaries to facilitate the rooting process and can silently gain permissions or install additional malware using rooting exploits. To evade detection, AbstractEmu employs code abstraction and anti-emulation checks.",
+      "ground_truth": "T1626, T1517, T1437, T1429, T1623, T1533, T1407, T1646, T1404, T1629, T1544, T1430, T1406, T1636, T1418, T1426, T1422, T1512, T1633",
+      "answer": "Based on the provided text describing the AbstractEmu mobile malware, here is the analysis of the MITRE ATT&CK techniques (specifically leveraging the Mobile matrix framework where applicable), along with their reasoning:\n\n### Identified MITRE ATT&CK Techniques\n\n1. **Exploitation for Privilege Escalation (T1068 / Mobile equivalent T1404 - Exploitation for Privilege Escalation)**\n   * **Reasoning:** The text notes that the malware exploits \"known Android vulnerabilities to gain root permissions,\" allowing it to elevate its privileges on the device.\n\n2. **Modify System Settings (T1412 - Mobile)**\n   * **Reasoning:** AbstractEmu \"modify[s] system settings to grant itself device administrator privileges\" and can disable security features like Play Protect.\n\n3. **Application Layer Protocol / Web Protocols (T1071 / Mobile equivalent T1426 - Remote Access Software / Network Connection)**\n   * **Reasoning:** The malware \"communicate[s] with its command and control (C2) server via HTTP.\"\n\n4. **Audio Capture / Access Microphone and Camera (T1123 / Mobile equivalent T1429 - Audio Capture)**\n   * **Reasoning:** AbstractEmu \"grant[s] itself microphone and camera permissions\" to potentially capture audio or video.\n\n5. **Location Tracking (T1614 / Mobile equivalent T1430 - Location Tracking)**\n   * **Reasoning:** The malware is capable of accessing location data from the compromised mobile device.\n\n6. **Automated Collection / Device Information Discovery (T1592 / Mobile equivalent T1418 - Device Information Discovery)**\n   * **Reasoning:** AbstractEmu collects extensive device information, including the manufacturer, model, version, serial number, telephone number, IP address, and SIM information.\n\n7. **Ingress Tool Transfer (T1105 / Mobile equivalent T1407 - Downloaded Malware)**\n   * **Reasoning:** The malware has the ability to \"download and install additional malware post-infection.\"\n\n8. **Access Call Logs / SMS (T1512 / Mobile equivalent T1422 - Access Contact List / T1414 - Capture SMS Messages)**\n   * **Reasoning:** AbstractEmu can access call logs and \"intercept SMS messages containing two-factor authentication codes.\"\n\n9. **Obfuscated Files or Information (T1027 / Mobile equivalent T1440 - Deobfuscate/Decode Files or Information)**\n   * **Reasoning:** To evade detection and facilitate its exploits, the malware \"uses encoded shell scripts\" and \"employs code abstraction.\"\n\n---\n\nT1068, T1412, T1071, T1123, T1614, T1592, T1105, T1512, T1027",
+      "retrieval_latency_s": 10.42,
+      "generation_latency_s": 7.82,
+      "offline_metrics": {
+        "hit": 1.0,
+        "precision": 0.4444,
+        "recall": 0.4211,
+        "f1": 0.4324,
+        "num_pred": 18,
+        "num_gt": 19,
+        "num_matched": 8,
+        "matched_ids": [
+          "T1404",
+          "T1407",
+          "T1418",
+          "T1422",
+          "T1426",
+          "T1429",
+          "T1430",
+          "T1512"
+        ],
+        "predicted_ids": [
+          "T1027",
+          "T1068",
+          "T1071",
+          "T1105",
+          "T1123",
+          "T1404",
+          "T1407",
+          "T1412",
+          "T1414",
+          "T1418",
+          "T1422",
+          "T1426",
+          "T1429",
+          "T1430",
+          "T1440",
+          "T1512",
+          "T1592",
+          "T1614"
+        ]
+      }
+    }
+  ],
+  "token_usage_samples": [
+    {
+      "input_tokens": 765,
+      "output_tokens": 532,
+      "total_tokens": 1297,
+      "input_token_details": {
+        "cache_read": 0
+      }
+    },
+    {
+      "input_tokens": 703,
+      "output_tokens": 670,
+      "total_tokens": 1373,
+      "input_token_details": {
+        "cache_read": 0
+      }
+    },
+    {
+      "input_tokens": 674,
+      "output_tokens": 610,
+      "total_tokens": 1284,
+      "input_token_details": {
+        "cache_read": 0
+      }
+    },
+    {
+      "input_tokens": 613,
+      "output_tokens": 626,
+      "total_tokens": 1239,
+      "input_token_details": {
+        "cache_read": 0
+      }
+    }
+  ]
+}

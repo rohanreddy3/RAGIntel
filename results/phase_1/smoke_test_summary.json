@@ -1,0 +1,50 @@
+{
+  "smoke_test_config": {
+    "generator_llm": "gemini-3.5-flash-lite",
+    "judge_llm": "gemini-3.5-flash-lite",
+    "temperature": 0.1,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "top_k": 5,
+    "reranker": "ms-marco-MiniLM-L-12-v2 (FlashRank ONNX)",
+    "num_rows_tested": 5,
+    "benchmark_tested": "CTI-ATE (rows 0-4)"
+  },
+  "smoke_test_measurements": {
+    "generation_wall_time_s": 28.5,
+    "ragas_wall_time_s": 189.2,
+    "total_smoke_wall_time_s": 217.7,
+    "api_calls_generation": 5,
+    "api_calls_ragas": 25,
+    "total_api_calls_smoke": 30,
+    "calls_per_row": 6.0,
+    "rate_limiter_min_delay_s": 4.3,
+    "cache_hits": 5,
+    "cache_misses": 30
+  },
+  "ragas_scores": {
+    "context_recall": 0.0000,
+    "context_precision": 0.0000,
+    "faithfulness": 0.0000,
+    "factual_correctness": 0.4533,
+    "answer_relevancy": 0.4105
+  },
+  "extrapolation_full_benchmark": {
+    "total_benchmark_rows": 339,
+    "breakdown": {
+      "cti_ate": 60,
+      "cti_attack": 229,
+      "cti_taa": 50
+    },
+    "extrapolated_total_api_calls": 2034,
+    "extrapolated_generation_calls": 339,
+    "extrapolated_ragas_judge_calls": 1695,
+    "free_tier_limits": {
+      "rpm_limit": 15,
+      "rpd_limit": 1500,
+      "enforced_rpm": 14
+    },
+    "runtime_at_14_rpm_hours": 2.42,
+    "calendar_days_under_1500_rpd_limit": 1.36,
+    "exceeds_3_days_threshold": false
+  }
+}

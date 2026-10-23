@@ -1,0 +1,23 @@
+{
+  "total_queries": 50,
+  "split_alias_in_256": {
+    "count": 9,
+    "percentage": 18.0,
+    "recall10_B2_truncated": 0.3333,
+    "recall10_B3_maxsim": 0.3333,
+    "mrr_B2_truncated": 0.0889,
+    "mrr_B3_maxsim": 0.1111,
+    "hits_top10_B2": 3,
+    "hits_top10_B3": 3
+  },
+  "split_no_alias_in_256": {
+    "count": 41,
+    "percentage": 82.0,
+    "recall10_B2_truncated": 0.3659,
+    "recall10_B3_maxsim": 0.122,
+    "mrr_B2_truncated": 0.1042,
+    "mrr_B3_maxsim": 0.063,
+    "hits_top10_B2": 15,
+    "hits_top10_B3": 5
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "url": "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json",
+  "file_size_bytes": 47953963,
+  "sha256": "f7eaf37fe53b50404084fe1fe67237278f7317e61c11ad550295722d13ede259",
+  "bundle_type": "bundle",
+  "total_objects": 26085,
+  "object_counts": {
+    "campaign": 56,
+    "course-of-action": 268,
+    "intrusion-set": 191,
+    "malware": 733,
+    "tool": 95,
+    "attack-pattern": 858,
+    "x-mitre-matrix": 1,
+    "x-mitre-tactic": 15,
+    "x-mitre-analytic": 1758,
+    "x-mitre-data-component": 109,
+    "x-mitre-data-source": 38,
+    "x-mitre-detection-strategy": 699,
+    "relationship": 21262,
+    "identity": 1,
+    "marking-definition": 1
+  },
+  "download_time_seconds": 27.302161693572998
+}

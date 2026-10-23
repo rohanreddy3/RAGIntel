@@ -1,0 +1,90 @@
+[
+  {
+    "arm": "E0_prime",
+    "dataset": "CTI-ATTACK",
+    "n_total": 229,
+    "n_empty": 0,
+    "n_unparseable": 3,
+    "n_truncated": 7,
+    "mean_predicted_ids": 4.5,
+    "metric_overall": 0.2454,
+    "metric_sensitivity_clean": 0.2561
+  },
+  {
+    "arm": "E0_prime",
+    "dataset": "cti-ate",
+    "n_total": 60,
+    "n_empty": 0,
+    "n_unparseable": 0,
+    "n_truncated": 9,
+    "mean_predicted_ids": 6.18,
+    "metric_overall": 0.4792,
+    "metric_sensitivity_clean": 0.4808
+  },
+  {
+    "arm": "E1b",
+    "dataset": "cti-ate",
+    "n_total": 30,
+    "n_empty": 0,
+    "n_unparseable": 1,
+    "n_truncated": 4,
+    "mean_predicted_ids": 6.37,
+    "metric_overall": 0.4503,
+    "metric_sensitivity_clean": 0.4875
+  },
+  {
+    "arm": "LLM-only",
+    "dataset": "CTI-ATTACK",
+    "n_total": 229,
+    "n_empty": 0,
+    "n_unparseable": 0,
+    "n_truncated": 7,
+    "mean_predicted_ids": 2.71,
+    "metric_overall": 0.3964,
+    "metric_sensitivity_clean": 0.4049
+  },
+  {
+    "arm": "LLM-only",
+    "dataset": "cti-ate",
+    "n_total": 60,
+    "n_empty": 0,
+    "n_unparseable": 0,
+    "n_truncated": 17,
+    "mean_predicted_ids": 8.47,
+    "metric_overall": 0.4634,
+    "metric_sensitivity_clean": 0.4516
+  },
+  {
+    "arm": "LLM-only",
+    "dataset": "cti-taa",
+    "n_total": 50,
+    "n_empty": 0,
+    "n_unparseable": 14,
+    "n_truncated": 1,
+    "mean_predicted_ids": 0.72,
+    "metric_overall": 0.7,
+    "metric_sensitivity_clean": 0.7
+  },
+  {
+    "arm": "cti-taa_B2_V0",
+    "dataset": "cti-taa",
+    "n_total": 50,
+    "n_empty": 1,
+    "n_unparseable": 19,
+    "n_truncated": 1,
+    "mean_predicted_ids": 0.6,
+    "metric_overall": 0.56,
+    "metric_sensitivity_clean": 0.56
+  },
+  {
+    "arm": "cti-taa_B2_V1",
+    "dataset": "cti-taa",
+    "n_total": 50,
+    "n_empty": 0,
+    "n_unparseable": 27,
+    "n_truncated": 0,
+    "mean_predicted_ids": 0.46,
+    "metric_overall": 0.44,
+    "metric_sensitivity_clean": 0.44
+  }
+]

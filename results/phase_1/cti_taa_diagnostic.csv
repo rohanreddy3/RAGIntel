@@ -1,0 +1,51 @@
+query_idx,ground_truth,alias_in_first_256,matching_aliases,rank_B2,rank_B3,Recall@10_B2,Recall@10_B3,MRR_B2,MRR_B3
+0,SideCopy,False,[],0,2,0.0,1.0,0.0,0.5
+1,"Stately Taurus (alias Bronze President, Camaro Dragon, Earth Preta, Mustang Panda, Red Delta and Luminous Moth)",False,[],0,0,0.0,0.0,0.0,0.0
+2,Stately Taurus,False,[],0,0,0.0,0.0,0.0,0.0
+3,Emotet,False,[],0,0,0.0,0.0,0.0,0.0
+4,APT-C-23 ( FrozenCell or Two-tailed Scorpion),False,[],0,0,0.0,0.0,0.0,0.0
+5,Sharp Dragon (or  Sharp Panda),False,[],0,0,0.0,0.0,0.0,0.0
+6,Storm-1811,False,[],0,2,0.0,1.0,0.0,0.5
+7,"APT-C-36, also known as Blind Eagle",False,[],0,0,0.0,0.0,0.0,0.0
+8,"APT-C-36, also known as Blind Eagle",False,[],10,0,1.0,0.0,0.1,0.0
+9,ANDROMEDA,False,[],3,0,1.0,0.0,0.3333,0.0
+10,Venomous Bear (or Turla or Uroburos),False,[],6,0,1.0,0.0,0.1667,0.0
+11,APT29 (Cozy Bear / The Dukes),False,[],0,0,0.0,0.0,0.0,0.0
+12,"Gamaredon (APT-C-53, Primitive Bear, Armageddon)",False,[],0,0,0.0,0.0,0.0,0.0
+13,Midnight Blizzard ( NOBELIUM),False,[],10,0,1.0,0.0,0.1,0.0
+14,Black Basta,False,[],6,0,1.0,0.0,0.1667,0.0
+15,"OilRig, APT34, Lyceum, or Siamesekitten",True,['apt3'],5,3,1.0,1.0,0.2,0.3333
+16,APT34,True,['apt3'],0,0,0.0,0.0,0.0,0.0
+17,Earth Freybug ( subset of APT41),False,[],0,0,0.0,0.0,0.0,0.0
+18,Lazarus,False,[],5,0,1.0,0.0,0.2,0.0
+19,Springtail espionage group (or Kimsuky),False,[],0,0,0.0,0.0,0.0,0.0
+20,Kimsuky,False,[],10,0,1.0,0.0,0.1,0.0
+21,Transparent Tribe (APT36),True,"['apt36', 'apt3']",10,0,1.0,0.0,0.1,0.0
+22,Mint Sandstorm (PHOSPHORUS),False,[],0,0,0.0,0.0,0.0,0.0
+23,MuddyWater,False,[],0,0,0.0,0.0,0.0,0.0
+24,Seedworm (or Muddywater),False,[],1,1,1.0,1.0,1.0,1.0
+25,"CharmingCypress (aka Charming Kitten, APT42, TA453)",False,[],0,0,0.0,0.0,0.0,0.0
+26,Mint Sandstorm,False,[],0,0,0.0,0.0,0.0,0.0
+27,"APT31, also known as BRONZE VINEWOOD, Zirconium or Judgment Panda",True,['apt3'],0,0,0.0,0.0,0.0,0.0
+28,"Gamaredon, also known as Primitive Bear, ACTINIUM, and Shuckworm",False,[],8,0,1.0,0.0,0.125,0.0
+29,Gamaredon Group,False,[],0,0,0.0,0.0,0.0,0.0
+30,Sharp Panda,False,[],0,0,0.0,0.0,0.0,0.0
+31,Bitter,False,[],7,0,1.0,0.0,0.1429,0.0
+32,Confucius,False,[],0,0,0.0,0.0,0.0,0.0
+33,Dragonfly,False,[],0,0,0.0,0.0,0.0,0.0
+34,Andariel,False,[],0,0,0.0,0.0,0.0,0.0
+35,"COLDRIVER (also known as UNC4057, Star Blizzard and Callisto)",False,[],1,0,1.0,0.0,1.0,0.0
+36,Bahamut,False,[],0,0,0.0,0.0,0.0,0.0
+37,APT37,True,"['reaper', 'apt3']",0,6,0.0,1.0,0.0,0.1667
+38,"APT33, or Peach Sandstorm, HOLMIUM, or Refined Kitten",True,"['apt3', 'holmium', 'peachsandstorm']",0,0,0.0,0.0,0.0,0.0
+39,APT29,False,[],0,0,0.0,0.0,0.0,0.0
+40,APT29,True,['cozybear'],0,0,0.0,0.0,0.0,0.0
+41,"APT29 (aka Cozy Bear, Nobelium and many other monikers)",False,[],0,0,0.0,0.0,0.0,0.0
+42,Diamond Sleet (ZINC),False,[],0,0,0.0,0.0,0.0,0.0
+43,Lazarus group,False,[],0,0,0.0,0.0,0.0,0.0
+44,Lazarus Group,False,[],9,4,1.0,1.0,0.1111,0.25
+45,Lazarus Group,False,[],7,0,1.0,0.0,0.1429,0.0
+46,Lazarus,False,[],3,0,1.0,0.0,0.3333,0.0
+47,OilRig,False,[],4,3,1.0,1.0,0.25,0.3333
+48,"MuddyWater,or Crambus",True,['crambus'],0,0,0.0,0.0,0.0,0.0
+49,"Turla APT (aka Pensive Ursa, Uroburos, Snake)",True,['turla'],2,2,1.0,1.0,0.5,0.5

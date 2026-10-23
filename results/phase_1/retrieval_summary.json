@@ -1,0 +1,53 @@
+{
+  "cti-ate": {
+    "num_queries": 60,
+    "latency_ms": 3466.1073,
+    "MRR": 0.1335,
+    "Precision@1": 0.0667,
+    "Recall@1": 0.0154,
+    "nDCG@1": 0.0667,
+    "Precision@3": 0.05,
+    "Recall@3": 0.0282,
+    "nDCG@3": 0.0539,
+    "Precision@5": 0.06,
+    "Recall@5": 0.0588,
+    "nDCG@5": 0.0606,
+    "Precision@10": 0.0417,
+    "Recall@10": 0.0769,
+    "nDCG@10": 0.0629
+  },
+  "cti-taa": {
+    "num_queries": 50,
+    "latency_ms": 7048.57,
+    "MRR": 0.1014,
+    "Precision@1": 0.04,
+    "Recall@1": 0.04,
+    "nDCG@1": 0.04,
+    "Precision@3": 0.0333,
+    "Recall@3": 0.1,
+    "nDCG@3": 0.0726,
+    "Precision@5": 0.032,
+    "Recall@5": 0.16,
+    "nDCG@5": 0.0967,
+    "Precision@10": 0.04,
+    "Recall@10": 0.36,
+    "nDCG@10": 0.1718
+  },
+  "CTI-ATTACK": {
+    "num_queries": 229,
+    "latency_ms": 1870.4672,
+    "MRR": 0.0778,
+    "Precision@1": 0.0349,
+    "Recall@1": 0.0328,
+    "nDCG@1": 0.0349,
+    "Precision@3": 0.0437,
+    "Recall@3": 0.0764,
+    "nDCG@3": 0.0783,
+    "Precision@5": 0.0463,
+    "Recall@5": 0.1026,
+    "nDCG@5": 0.1157,
+    "Precision@10": 0.045,
+    "Recall@10": 0.1914,
+    "nDCG@10": 0.1808
+  }
+}

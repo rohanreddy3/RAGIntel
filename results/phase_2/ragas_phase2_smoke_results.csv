@@ -1,0 +1,135 @@
+user_input,retrieved_contexts,response,reference,faithfulness,answer_relevancy,context_recall,context_precision,factual_correctness,noise_sensitivity_relevant
+"Extract all MITRE Enterprise attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs.  **Text:** 3PARA RAT is a remote access tool (RAT) developed in C++ and associated with the group Putter Panda. It communicates with its command and control (C2) servers via HTTP, with commands encrypted using the DES algorithm in CBC mode. The encryption key is derived from the MD5 hash of the string ""HYF54&%9&jkMCXuiS."" If the DES decryption fails, 3PARA RAT will attempt to decode the commands using an 8-byte XOR key, also derived from the same string. The tool includes commands to retrieve file metadata, list the current working directory, and modify file attributes, such as creation and modification timestamps.","['[Fooder](https://attack.mitre.org/software/S9033) is a custom 64-bit C/C++ loader used by [MuddyWater](https://attack.mitre.org/groups/G0069) that can decrypt and reflectively load embedded payloads such as a\u202fgo-socks5 proxy\u202futility, the\u202fopen-source\u202fHackBrowserData\u202finfostealer, or\u202fthe\u202f[MuddyViper](https://attack.mitre.org/software/S9032)\u202fbackdoor. [Fooder](https://attack.mitre.org/software/S9033) has frequently\u202fmasqueraded as\u202fan entertainment executable, such as\u202fthe Snake game (e.g.,', '[PLEAD](https://attack.mitre.org/software/S0435) is a remote access tool (RAT) and downloader used by [BlackTech](https://attack.mitre.org/groups/G0098) in targeted attacks in East Asia including Taiwan, Japan, and Hong Kong.(Citation: TrendMicro BlackTech June 2017)(Citation: JPCert PLEAD Downloader June 2018) [PLEAD](https://attack.mitre.org/software/S0435) has also been referred to as [TSCookie](https://attack.mitre.org/software/S0436), though more recent reporting indicates likely', 'Description:\n[Snip3](https://attack.mitre.org/software/S1086) is a sophisticated crypter-as-a-service that has been used since at least 2021 to obfuscate and load numerous strains of malware including [AsyncRAT](https://attack.mitre.org/software/S1087), [Revenge RAT](https://attack.mitre.org/software/S0379), [Agent Tesla](https://attack.mitre.org/software/S0331), and [NETWIRE](https://attack.mitre.org/software/S0198).(Citation: Morphisec Snip3 May 2021)(Citation: Telefonica Snip3 December 2021)']","Based on the threat report provided, here are the identified MITRE ATT&CK techniques, tactics, and procedures (TTPs), along with their corresponding technique IDs and reasoning:
+
+### Identified MITRE ATT&CK Techniques
+
+1. **Remote Access Software / Remote Access Trojan**
+   - **Associated Technique:** T1219 (Remote Access Software) / Part of the Command and Control / Ingress Tool Transfer tactics. *(Note: In standard ATT&CK mappings for RATs acting as primary backdoors, this often falls under **T1219** or generic malware execution, but looking specifically at the behaviors described:)*
+   
+2. **Indicator Removal on Host: File Modification / Timestomping**
+   - **Technique ID:** **T1070.006** (Indicator Removal on Host: Timestomp)
+   - **Tactic:** Defense Evasion
+   - **Reasoning:** The report states that 3PARA RAT includes commands to ""modify file attributes, such as creation and modification timestamps,"" which is the definition of timestomping used to evade detection and hinder forensic investigations.
+
+3. **Query File System / File and Directory Discovery**
+   - **Technique ID:** **T1083** (File and Directory Discovery)
+   - **Tactic:** Discovery
+   - **Reasoning:** The tool includes commands to ""retrieve file metadata"" and ""list the current working directory,"" allowing the threat actor to gather information about the victim's file system.
+
+4. **Application Layer Protocol: Web Protocols**
+   - **Technique ID:** **T1071.001** (Application Layer Protocol: Web Protocols)
+   - **Tactic:** Command and Control
+   - **Reasoning:** The report explicitly mentions that the malware ""communicates with its command and control (C2) servers via HTTP.""
+
+5. **Asymmetric/Symmetric Cryptography / Obfuscated Files or Information**
+   - **Technique ID:** **T1027** (Obfuscated Files or Information)
+   - **Tactic:** Defense Evasion
+   - **Reasoning:** The malware employs encryption (DES in CBC mode) and encoding (8-byte XOR key derived from an MD5 hash) to protect and obfuscate its command communications from security analysts and network monitoring.
+
+---
+
+### Final Technique IDs (Main Techniques Only)
+T1070, T1083, T1071, T1027","T1071, T1573, T1083, T1070",0.0,0.45766480364167933,0.0,0.0,0.0,0.0
+"Extract all MITRE Enterprise attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs. **Text:** 4H RAT is a piece of malware linked to Putter Panda, with evidence of its use dating back to at least 2007. It relies on HTTP for command and control (C2) communication and has the ability to create a remote shell. To obfuscate its C2 traffic, 4H RAT uses a 1-byte XOR encryption with the key 0xBE. The malware is capable of retrieving file and directory listings, as well as obtaining information about running processes and loaded modules. Additionally, 4H RAT includes an OS version identifier in its beacon messages.","['Description:\n[BendyBear](https://attack.mitre.org/software/S0574) is an x64 shellcode for a stage-zero implant designed to download malware from a C2 server. First discovered in August 2020, [BendyBear](https://attack.mitre.org/software/S0574) shares a variety of features with [Waterbear](https://attack.mitre.org/software/S0579), malware previously attributed to the Chinese cyber espionage group [BlackTech](https://attack.mitre.org/groups/G0098).(Citation: Unit42 BendyBear Feb 2021)', '[Troll Stealer](https://attack.mitre.org/software/S1196) is an information stealer written in Go associated with [Kimsuky](https://attack.mitre.org/groups/G0094) operations. [Troll Stealer](https://attack.mitre.org/software/S1196) has typically been delivered through a dropper disguised as a legitimate security program installation file. [Troll Stealer](https://attack.mitre.org/software/S1196) features code similar to [AppleSeed](https://attack.mitre.org/software/S0622), also uniquely', 'Description:\n[Snip3](https://attack.mitre.org/software/S1086) is a sophisticated crypter-as-a-service that has been used since at least 2021 to obfuscate and load numerous strains of malware including [AsyncRAT](https://attack.mitre.org/software/S1087), [Revenge RAT](https://attack.mitre.org/software/S0379), [Agent Tesla](https://attack.mitre.org/software/S0331), and [NETWIRE](https://attack.mitre.org/software/S0198).(Citation: Morphisec Snip3 May 2021)(Citation: Telefonica Snip3 December 2021)']","Based on the provided threat report for the 4H RAT malware, here are the identified MITRE ATT&CK techniques, mapped with their corresponding IDs, tactics, and reasoning:
+
+### 1. Application Layer Protocol: Web Protocols
+* **Technique ID:** T1071.001 (Subtechnique) / T1071 (Main Technique)
+* **Tactics:** Command and Control
+* **Reasoning:** The report states that the malware ""relies on HTTP for command and control (C2) communication,"" which falls under using standard application layer protocols for C2 traffic.
+
+### 2. Remote Access Software / Remote Service (Remote Shell)
+* **Technique ID:** T1219 (or T1021 depending on exact implementation, but standard remote access / interactive shell functionality maps best to Remote Access Software or Command and Scripting Interpreter / Remote Service. Given the context of a remote shell feature, T1219 is commonly applied, or more specifically under Execution/Management, but for C2/remote control, let's look at **T1219** or **T1059** / **T1569**. Wait, providing a remote shell is classically mapped to **T1219** (Remote Access Software) or **T1021** (Remote Services), but looking strictly at standard behaviors: creating a remote shell to interact with the system maps to **T1059** (Command and Scripting Interpreter) or **T1219**). Let's refine based on MITRE definitions: Creating a remote shell allows operators to execute commands. However, standard capability for remote shells often maps to **T1219** or **T1059**. Let's use **T1059** for command execution via remote shell, or **T1071** for protocol. Let's look at the next capability: System Information Discovery.
+
+### 3. System Information Discovery
+* **Technique ID:** T1082
+* **Tactics:** Discovery
+* **Reasoning:** The malware is described as ""obtaining information about running processes and loaded modules"" (though process discovery is T1057, OS version identifier and module info fall under System Information Discovery and Software Discovery). Specifically, ""includes an OS version identifier in its beacon messages"" directly maps to **T1082** (System Information Discovery).
+
+### 4. Process Discovery
+* **Technique ID:** T1057
+* **Tactics:** Discovery
+* **Reasoning:** The malware has the ability of ""obtaining information about running processes,"" which is a direct match for Process Discovery.
+
+### 5. File and Directory Discovery
+* **Technique ID:** T1083
+* **Tactics:** Discovery
+* **Reasoning:** The malware is capable of ""retrieving file and directory listings,"" which directly maps to File and Directory Discovery.
+
+---
+
+### Summary of Main Technique IDs (Excluding Subtechnique IDs)
+T1071, T1082, T1057, T1083","T1071, T1059, T1573, T1083, T1057, T1082",0.0,0.7648489480837926,0.0,0.0,0.0,0.0
+"Extract all MITRE Enterprise attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs.  **Text:** ABK is a downloader associated with BRONZE BUTLER, active since at least 2019. It communicates with its command and control (C2) server via HTTP and can use the command line to execute Portable Executables (PEs) on compromised hosts. ABK is capable of decrypting AES-encrypted payloads and downloading files from the C2 server. Additionally, it can extract malicious PEs from images and inject shellcode into svchost.exe. ABK also has the ability to detect the installed anti-virus software on the compromised host.","['Software ID: S0624\nSoftware Name: Ecipekac\nType: malware\n\nDescription:\n[Ecipekac](https://attack.mitre.org/software/S0624) is a multi-layer loader that has been used by [menuPass](https://attack.mitre.org/groups/G0045) since at least 2019 including use as a loader for [P8RAT](https://attack.mitre.org/software/S0626), [SodaMaster](https://attack.mitre.org/software/S0627), and [FYAnti](https://attack.mitre.org/software/S0628).(Citation: Securelist APT10 March 2021)', 'Software ID: S0460\nSoftware Name: Get2\nType: malware\n\nDescription:\n[Get2](https://attack.mitre.org/software/S0460) is a downloader written in C++ that has been used by [TA505](https://attack.mitre.org/groups/G0092) to deliver [FlawedGrace](https://attack.mitre.org/software/S0383), [FlawedAmmyy](https://attack.mitre.org/software/S0381), Snatch and [SDBbot](https://attack.mitre.org/software/S0461).(Citation: Proofpoint TA505 October 2019)', 'Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) (ex: listening ports, server banners, user agent strings) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Adversaries may also compromise sites then include malicious content designed to collect host information from visitors.(Citation: ATT ScanBox) Information about the installed software may also be exposed to']","Based on the threat report provided, here is the analysis of the MITRE ATT&CK techniques, tactics, and procedures (TTPs) used by ABK, along with the reasoning for each identification:
+
+### 1. Application Layer Protocol: HTTP
+* **Technique ID:** T1071.001 (Subtechnique: T1071)
+* **Tactics:** Command and Control
+* **Reasoning:** The report states that ABK ""communicates with its command and control (C2) server via HTTP,"" which falls under the standard application layer protocol technique for C2 communications.
+
+### 2. Command and Scripting Interpreter
+* **Technique ID:** T1059
+* **Tactics:** Execution
+* **Reasoning:** The report notes that ABK ""can use the command line to execute Portable Executables (PEs) on compromised hosts,"" demonstrating the use of a command interpreter to execute payloads.
+
+### 3. Data Decryption
+* **Technique ID:** T1140
+* **Tactics:** Defense Evasion
+* **Reasoning:** ABK is described as being ""capable of decrypting AES-encrypted payloads,"" which aligns with deobfuscating or decrypting files or information to hide malicious content from detection.
+
+### 4. Ingress Tool Transfer
+* **Technique ID:** T1105
+* **Tactics:** Command and Control
+* **Reasoning:** The malware has the capability of ""downloading files from the C2 server,"" which indicates the transfer of tools or payloads from an external source onto the compromised host.
+
+### 5. Steganography
+* **Technique ID:** T1027.003 (Subtechnique: T1027)
+* **Tactics:** Defense Evasion
+* **Reasoning:** The report mentions that ABK ""can extract malicious PEs from images,"" indicating the hiding of malicious payloads within other files (steganography) to evade detection.
+
+### 6. Process Injection
+* **Technique ID:** T1055
+* **Tactics:** Defense Evasion, Privilege Escalation
+* **Reasoning:** The capability of ABK to ""inject shellcode into svchost.exe"" is a classic example of process injection, used to hide execution within a legitimate process.
+
+### 7. Software Discovery
+* **Technique ID:** T1518
+* **Tactics:** Discovery
+* **Reasoning:** The report states that ""ABK also has the ability to detect the installed anti-virus software on the compromised host,"" which directly maps to gathering information about security software installed on the system.
+
+---
+
+T1071, T1059, T1140, T1105, T1027, T1055, T1518","T1071, T1059, T1140, T1105, T1027, T1055, T1518",0.0,0.5593415978226456,0.0,0.0,0.0,
+"Extract all MITRE Mobile attack patterns from the following text and map them to their corresponding MITRE technique IDs. Provide reasoning for each identification. Ensure the final line contains only the IDs for the main techniques, separated by commas, excluding any subtechnique IDs. **Text:** AbstractEmu is mobile malware that was first detected in October 2021 on Google Play and other third-party app stores. It was found in 19 Android applications, with at least 7 exploiting known Android vulnerabilities to gain root permissions. While primarily affecting users in the United States, AbstractEmu‚Äôs reach extends to victims across 17 countries. The malware can modify system settings to grant itself device administrator privileges, monitor notifications, and communicate with its command and control (C2) server via HTTP. AbstractEmu can also grant itself microphone and camera permissions, access location data, and disable Play Protect. Additionally, it can collect extensive device information, including the manufacturer, model, version, serial number, telephone number, IP address, and SIM information. AbstractEmu can download and install additional malware post-infection, access call logs, intercept SMS messages containing two-factor authentication codes, and obtain a list of installed applications. The malware uses encoded shell scripts and exploit binaries to facilitate the rooting process and can silently gain permissions or install additional malware using rooting exploits. To evade detection, AbstractEmu employs code abstraction and anti-emulation checks.","['In order to create or manipulate accounts, the adversary must already have sufficient permissions on systems or the domain. However, account manipulation may also lead to privilege escalation where modifications grant access to additional roles, permissions, or higher-privileged [Valid Accounts](https://attack.mitre.org/techniques/T1078).', 'Adversaries may also gather victim host information via User-Agent HTTP headers, which are sent to a server to identify the application, operating system, vendor, and/or version of the requesting user agent. This can be used to inform the adversary’s follow-on action. For example, adversaries may check user agents for the requesting operating system, then only serve malware for target operating systems while ignoring others.(Citation: TrellixQakbot)', ""desktop) or on a publicly accessible share to be accessed by victim(s). When the user's system accesses the untrusted resource, it will attempt authentication and send information, including the user's hashed credentials, over SMB to the adversary-controlled server.(Citation: GitHub Hashjacking) With access to the credential hash, an adversary can perform off-line [Brute Force](https://attack.mitre.org/techniques/T1110) cracking to gain access to plaintext credentials.(Citation: Cylance""]","Based on the provided text describing the AbstractEmu mobile malware, here is the analysis of the MITRE ATT&CK techniques (specifically leveraging the Mobile matrix framework where applicable), along with their reasoning:
+
+### Identified MITRE ATT&CK Techniques
+
+1. **Exploitation for Privilege Escalation (T1068 / Mobile equivalent T1404 - Exploitation for Privilege Escalation)**
+   * **Reasoning:** The text notes that the malware exploits ""known Android vulnerabilities to gain root permissions,"" allowing it to elevate its privileges on the device.
+
+2. **Modify System Settings (T1412 - Mobile)**
+   * **Reasoning:** AbstractEmu ""modify[s] system settings to grant itself device administrator privileges"" and can disable security features like Play Protect.
+
+3. **Application Layer Protocol / Web Protocols (T1071 / Mobile equivalent T1426 - Remote Access Software / Network Connection)**
+   * **Reasoning:** The malware ""communicate[s] with its command and control (C2) server via HTTP.""
+
+4. **Audio Capture / Access Microphone and Camera (T1123 / Mobile equivalent T1429 - Audio Capture)**
+   * **Reasoning:** AbstractEmu ""grant[s] itself microphone and camera permissions"" to potentially capture audio or video.
+
+5. **Location Tracking (T1614 / Mobile equivalent T1430 - Location Tracking)**
+   * **Reasoning:** The malware is capable of accessing location data from the compromised mobile device.
+
+6. **Automated Collection / Device Information Discovery (T1592 / Mobile equivalent T1418 - Device Information Discovery)**
+   * **Reasoning:** AbstractEmu collects extensive device information, including the manufacturer, model, version, serial number, telephone number, IP address, and SIM information.
+
+7. **Ingress Tool Transfer (T1105 / Mobile equivalent T1407 - Downloaded Malware)**
+   * **Reasoning:** The malware has the ability to ""download and install additional malware post-infection.""
+
+8. **Access Call Logs / SMS (T1512 / Mobile equivalent T1422 - Access Contact List / T1414 - Capture SMS Messages)**
+   * **Reasoning:** AbstractEmu can access call logs and ""intercept SMS messages containing two-factor authentication codes.""
+
+9. **Obfuscated Files or Information (T1027 / Mobile equivalent T1440 - Deobfuscate/Decode Files or Information)**
+   * **Reasoning:** To evade detection and facilitate its exploits, the malware ""uses encoded shell scripts"" and ""employs code abstraction.""
+
+---
+
+T1068, T1412, T1071, T1123, T1614, T1592, T1105, T1512, T1027","T1626, T1517, T1437, T1429, T1623, T1533, T1407, T1646, T1404, T1629, T1544, T1430, T1406, T1636, T1418, T1426, T1422, T1512, T1633",0.0,0.7514040058994337,0.0,,,

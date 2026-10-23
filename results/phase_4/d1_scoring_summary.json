@@ -1,0 +1,125 @@
+{
+  "technique_f1": {
+    "E0_prime_CTI-ATTACK": {
+      "arm": "E0_prime",
+      "dataset": "CTI-ATTACK",
+      "n_queries": 229,
+      "p_strict": 0.2095,
+      "r_strict": 0.3981,
+      "f1_strict": 0.2469,
+      "p_sub": 0.208,
+      "r_sub": 0.3981,
+      "f1_sub": 0.2454
+    },
+    "E0_prime_cti-ate": {
+      "arm": "E0_prime",
+      "dataset": "cti-ate",
+      "n_queries": 60,
+      "p_strict": 0.497,
+      "r_strict": 0.486,
+      "f1_strict": 0.4762,
+      "p_sub": 0.4987,
+      "r_sub": 0.4909,
+      "f1_sub": 0.4792
+    },
+    "E1b_cti-ate": {
+      "arm": "E1b",
+      "dataset": "cti-ate",
+      "n_queries": 30,
+      "p_strict": 0.4584,
+      "r_strict": 0.4781,
+      "f1_strict": 0.446,
+      "p_sub": 0.4618,
+      "r_sub": 0.4823,
+      "f1_sub": 0.4503
+    },
+    "E1b_mixed_CTI-ATTACK": {
+      "arm": "E1b_mixed",
+      "dataset": "CTI-ATTACK",
+      "n_queries": 182,
+      "p_strict": 0.0564,
+      "r_strict": 0.1447,
+      "f1_strict": 0.0773,
+      "p_sub": 0.0555,
+      "r_sub": 0.1557,
+      "f1_sub": 0.0772
+    },
+    "E1b_mixed_cti-ate": {
+      "arm": "E1b_mixed",
+      "dataset": "cti-ate",
+      "n_queries": 60,
+      "p_strict": 0.3699,
+      "r_strict": 0.3351,
+      "f1_strict": 0.3325,
+      "p_sub": 0.3761,
+      "r_sub": 0.3708,
+      "f1_sub": 0.3452
+    },
+    "LLM-only_CTI-ATTACK": {
+      "arm": "LLM-only",
+      "dataset": "CTI-ATTACK",
+      "n_queries": 229,
+      "p_strict": 0.3281,
+      "r_strict": 0.6026,
+      "f1_strict": 0.398,
+      "p_sub": 0.3268,
+      "r_sub": 0.6026,
+      "f1_sub": 0.3964
+    },
+    "LLM-only_cti-ate": {
+      "arm": "LLM-only",
+      "dataset": "cti-ate",
+      "n_queries": 60,
+      "p_strict": 0.4284,
+      "r_strict": 0.5453,
+      "f1_strict": 0.4649,
+      "p_sub": 0.4267,
+      "r_sub": 0.5453,
+      "f1_sub": 0.4634
+    }
+  },
+  "cti_taa_attribution": {
+    "LLM-only": {
+      "arm": "LLM-only",
+      "n_queries": 50,
+      "scorer_v1_text": {
+        "acc_exact": 0.6,
+        "acc_alias": 0.68,
+        "alias_gain": 0.08
+      },
+      "scorer_v2_ontology": {
+        "acc_exact": 0.68,
+        "acc_alias": 0.72,
+        "alias_gain": 0.04
+      }
+    },
+    "cti-taa_B2_V0": {
+      "arm": "cti-taa_B2_V0",
+      "n_queries": 50,
+      "scorer_v1_text": {
+        "acc_exact": 0.4,
+        "acc_alias": 0.56,
+        "alias_gain": 0.16
+      },
+      "scorer_v2_ontology": {
+        "acc_exact": 0.5,
+        "acc_alias": 0.6,
+        "alias_gain": 0.1
+      }
+    },
+    "cti-taa_B2_V1": {
+      "arm": "cti-taa_B2_V1",
+      "n_queries": 50,
+      "scorer_v1_text": {
+        "acc_exact": 0.38,
+        "acc_alias": 0.44,
+        "alias_gain": 0.06
+      },
+      "scorer_v2_ontology": {
+        "acc_exact": 0.4,
+        "acc_alias": 0.46,
+        "alias_gain": 0.06
+      }
+    }
+  }
+}

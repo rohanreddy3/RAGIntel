@@ -1,0 +1,14 @@
+{
+  "timestamp_utc": "2026-10-19T19:08:49.187623+00:00",
+  "seed": 42,
+  "code_hash": {
+    "src_sha256": "656519f12c4d69dd77488a0a0d82965932ec034e427ec162b58259e4926b59eb",
+    "scripts_sha256": "33816adf07c9543dd25bd74d73bd76d0f1578651872de4ba7fec18cd9d540647"
+  },
+  "config_hash": "35c8020ec814496f908011c6294bc25e1bfa9884cecc850f1c97b3b1728de0e4",
+  "index_hashes": {
+    "E0-STIX-ENT_faiss_sha256": "49d84d6f8c5fe1da0b36e299b5530543f0de0a4e0eba6fdb0c4d30907ba32cf5",
+    "E0-STIX-ALL_faiss_sha256": "6262c9313ae72db08f157220322102a9ffe46f1d8737da5b5d75d86adea63563"
+  },
+  "extra_metadata": {}
+}

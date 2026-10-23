@@ -1,0 +1,135 @@
+# Configuration for RAG CTI Thesis Project
+# All ablation arms (E0, E1, E2, E3) are switchable directly from this file without code edits.
+
+# Reproducibility
+seed: 42
+
+# Ablation arm setting:
+# E0: Baseline (unmodified RAGIntel)
+# E1: +O2 (Security-aware chunking + Sibling expansion)
+# E2: +O1 (Entity / alias resolution)
+# E3: O1 + O2 (Entity resolution + Security-aware chunking + Sibling expansion)
+ablation_arm: "E0"
+
+# Feature flags:
+use_entity_resolution: false    # O1: Alias expansion for queries + Canonical normalization for answers/ground truth
+use_security_chunking: false    # O2: Structure-aware chunking by STIX fields (identity, description, procedure, mitigations)
+sibling_expansion: false        # O2: Expand retrieved chunks to siblings sharing same technique_id (under matched context budget)
+
+# Matched Context Budget (Fairness Rule):
+# Maximum number of context chunks passed to the LLM (must be matched across all arms)
+context_budget: 10
+max_context_tokens: 3000
+
+# Target Dataset:
+# Choices: "cti-ate", "cti-taa", "CTI-ATTACK"
+dataset: "cti-ate"
+
+# Target LLM:
+# Choices: "gemini-3.5-flash-lite", "gpt-4o-mini", "flan-t5"
+llm: "gemini-3.5-flash-lite"
+
+# Baseline Definitions (Locked before evaluation):
+# B1 = Whole query embedded once with a long-context model (Primary, if available)
+# B2 = MiniLM truncated to 256 tokens
+# B3 = MiniLM + sliding-window MaxSim pooling (150 words per window, 30-word overlap)
+# Rule: If B1 is unavailable, B2 and B3 are BOTH reported and every later arm runs against both.
+baselines:
+  B1:
+    name: "long_context_single_embedding"
+    model: "BAAI/bge-m3"
+    status: "unavailable_on_host"  # Ollama 1.58GB download stalled; transformers<5 requires uninstalled Python 3.11/3.12; BGE-M3 2.24GB stalled
+  B2:
+    name: "minilm_truncated_256"
+    model: "sentence-transformers/all-MiniLM-L6-v2"
+    max_tokens: 256
+    status: "active"
+  B3:
+    name: "minilm_maxsim_windows"
+    model: "sentence-transformers/all-MiniLM-L6-v2"
+    window_words: 150
+    overlap_words: 30
+    pooling: "MaxSim"
+    status: "active"
+  active_baselines: ["B2", "B3"]
+
+# Evaluation Metrics Definition:
+# Primary: Strict exact-ID match metrics
+# Secondary: Hierarchical sub-technique credit and reachable ceiling metrics
+metrics:
+  primary:
+    - "Recall@5"
+    - "Recall@10"
+    - "MRR"
+    - "nDCG@10"
+  secondary:
+    - "SubtechCredit_Recall@10"
+    - "SubtechCredit_MRR"
+    - "Reachable_Recall@10"
+    - "Reachable_MRR"
+  subtechnique_credit:
+    direction: "sub_credits_parent"
+    definition: >
+      A retrieved sub-technique (e.g. T1059.001 PowerShell) is credited as evidence for a
+      generic parent technique in ground truth (e.g. T1059 Command and Scripting Interpreter).
+      Conversely, retrieving a generic parent technique does NOT satisfy a specific sub-technique requirement in ground truth.
+
+# Knowledge Base Priority (Locked for Phase 2):
+primary_kb: "E0-STIX-ALL"
+secondary_kb: "E0-STIX-ENT"
+
+# Knowledge Base Definitions:
+knowledge_bases:
+  E0-STIX-ENT:
+    description: "Enterprise MITRE ATT&CK STIX 2.1 bundle"
+    path: "data/mitre/enterprise-attack.json"
+    active_objects: 1698
+  E0-STIX-ALL:
+    description: "Full MITRE ATT&CK STIX 2.1 corpus (Enterprise + Mobile + ICS)"
+    paths:
+      - "data/mitre/enterprise-attack.json"
+      - "data/mitre/mobile-attack.json"
+      - "data/mitre/ics-attack.json"
+    active_objects: 2062
+
+# Optimization 1 (Entity Resolution) Query-Side Configuration:
+entity_resolution:
+  active_variant: "V1"   # Choices: "V0" (Baseline), "V1" (Aliases), "V2" (Canonical ID), "V3" (Random Control)
+  min_alias_len: 3       # Minimum characters for regex matching to avoid spurious matches
+  variants:
+    V0:
+      name: "baseline_no_resolution"
+      description: "No entity expansion; raw query unmodified"
+    V1:
+      name: "alias_expansion"
+      description: "Prepend detected entity aliases up to max_expansion_tokens"
+      max_expansion_tokens: 64
+    V2:
+      name: "canonical_id_only"
+      description: "Prepend canonical name + MITRE ID only (no full alias list)"
+    V3:
+      name: "random_entity_control"
+      description: "Prepend random entity aliases of matched token length (seed 42)"
+      seed: 42
+
+# Retrieval parameters
+retrieval:
+  dense_top_k: 15
+  bm25_top_k: 15
+  rerank_model: "ms-marco-MiniLM-L-12-v2"
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+
+# File paths
+paths:
+  stix_bundle: "data/mitre/enterprise-attack.json"
+  stix_all_bundles:
+    enterprise: "data/mitre/enterprise-attack.json"
+    mobile: "data/mitre/mobile-attack.json"
+    ics: "data/mitre/ics-attack.json"
+  datasets:
+    cti_ate: "data/datasets/cti-ate.xlsx"
+    cti_taa: "data/datasets/cti-taa.xlsx"
+    cti_attack: "data/datasets/CTI-ATTACK.xlsx"
+  vendor_ragintel: "vendor/RAGIntel"
+  results_dir: "results"
+  logs_dir: "logs"

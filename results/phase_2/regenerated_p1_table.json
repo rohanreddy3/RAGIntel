@@ -1,0 +1,181 @@
+{
+  "family": "P1",
+  "description": "Code-generated Family P1 primary confirmatory tests with Holm step-down correction",
+  "contrasts": [
+    {
+      "test_id": "P1_01",
+      "baseline": "B2",
+      "contrast": "V1 vs V0",
+      "metric": "Recall@10",
+      "treatment_mean": 0.3,
+      "control_mean": 0.34,
+      "delta": -0.04,
+      "ci_95": [
+        -0.24,
+        0.16
+      ],
+      "raw_p_value": 0.767,
+      "holm_rank": 7,
+      "holm_critical_value": 0.025,
+      "significant_holm": false
+    },
+    {
+      "test_id": "P1_02",
+      "baseline": "B2",
+      "contrast": "V1 vs V0",
+      "metric": "MRR",
+      "treatment_mean": 0.1584,
+      "control_mean": 0.0662,
+      "delta": 0.0922,
+      "ci_95": [
+        -0.0031,
+        0.1994
+      ],
+      "raw_p_value": 0.0721,
+      "holm_rank": 2,
+      "holm_critical_value": 0.00714,
+      "significant_holm": false
+    },
+    {
+      "test_id": "P1_03",
+      "baseline": "B2",
+      "contrast": "V1 vs V3 (seeds 42-46)",
+      "metric": "Recall@10",
+      "treatment_mean": 0.3,
+      "control_mean": 0.252,
+      "delta": 0.048,
+      "ci_95": [
+        -0.08,
+        0.18
+      ],
+      "raw_p_value": 0.4892,
+      "holm_rank": 5,
+      "holm_critical_value": 0.0125,
+      "significant_holm": false
+    },
+    {
+      "test_id": "P1_04",
+      "baseline": "B2",
+      "contrast": "V1 vs V3 (seeds 42-46)",
+      "metric": "MRR",
+      "treatment_mean": 0.1584,
+      "control_mean": 0.065,
+      "delta": 0.0934,
+      "ci_95": [
+        0.0186,
+        0.1797
+      ],
+      "raw_p_value": 0.0223,
+      "holm_rank": 1,
+      "holm_critical_value": 0.00625,
+      "significant_holm": false
+    },
+    {
+      "test_id": "P1_05",
+      "baseline": "B3",
+      "contrast": "V1 vs V0",
+      "metric": "Recall@10",
+      "treatment_mean": 0.18,
+      "control_mean": 0.18,
+      "delta": 0.0,
+      "ci_95": [
+        -0.16,
+        0.16
+      ],
+      "raw_p_value": 1.0,
+      "holm_rank": 8,
+      "holm_critical_value": 0.05,
+      "significant_holm": false
+    },
+    {
+      "test_id": "P1_06",
+      "baseline": "B3",
+      "contrast": "V1 vs V0",
+      "metric": "MRR",
+      "treatment_mean": 0.1051,
+      "control_mean": 0.0608,
+      "delta": 0.0443,
+      "ci_95": [
+        -0.0489,
+        0.1417
+      ],
+      "raw_p_value": 0.3654,
+      "holm_rank": 4,
+      "holm_critical_value": 0.01,
+      "significant_holm": false
+    },
+    {
+      "test_id": "P1_07",
+      "baseline": "B3",
+      "contrast": "V1 vs V3 (seeds 42-44)",
+      "metric": "Recall@10",
+      "treatment_mean": 0.18,
+      "control_mean": 0.2067,
+      "delta": -0.0267,
+      "ci_95": [
+        -0.12,
+        0.0667
+      ],
+      "raw_p_value": 0.6029,
+      "holm_rank": 6,
+      "holm_critical_value": 0.01667,
+      "significant_holm": false
+    },
+    {
+      "test_id": "P1_08",
+      "baseline": "B3",
+      "contrast": "V1 vs V3 (seeds 42-44)",
+      "metric": "MRR",
+      "treatment_mean": 0.1051,
+      "control_mean": 0.0694,
+      "delta": 0.0357,
+      "ci_95": [
+        -0.0297,
+        0.1129
+      ],
+      "raw_p_value": 0.3193,
+      "holm_rank": 3,
+      "holm_critical_value": 0.00833,
+      "significant_holm": false
+    }
+  ],
+  "table_markdown": "| Test ID | Baseline | Contrast | Metric | Treatment Mean | Control Mean | $\\Delta$ | 95% Bootstrap CI | Raw $p$-value | Holm Critical $\\alpha$ | Sig under Holm? |\n| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| **P1_01** | B2 | V1 vs V0 | Recall@10 | 0.3000 | 0.3400 | -0.0400 | [-0.2400, +0.1600] | 0.7670 | 0.02500 (rank 7) | NO |\n| **P1_02** | B2 | V1 vs V0 | MRR | 0.1584 | 0.0662 | +0.0922 | [-0.0031, +0.1994] | 0.0721 | 0.00714 (rank 2) | NO |\n| **P1_03** | B2 | V1 vs V3 (seeds 42-46) | Recall@10 | 0.3000 | 0.2520 | +0.0480 | [-0.0800, +0.1800] | 0.4892 | 0.01250 (rank 5) | NO |\n| **P1_04** | B2 | V1 vs V3 (seeds 42-46) | MRR | 0.1584 | 0.0650 | +0.0934 | [+0.0186, +0.1797] | 0.0223 | 0.00625 (rank 1) | NO |\n| **P1_05** | B3 | V1 vs V0 | Recall@10 | 0.1800 | 0.1800 | +0.0000 | [-0.1600, +0.1600] | 1.0000 | 0.05000 (rank 8) | NO |\n| **P1_06** | B3 | V1 vs V0 | MRR | 0.1051 | 0.0608 | +0.0443 | [-0.0489, +0.1417] | 0.3654 | 0.01000 (rank 4) | NO |\n| **P1_07** | B3 | V1 vs V3 (seeds 42-44) | Recall@10 | 0.1800 | 0.2067 | -0.0267 | [-0.1200, +0.0667] | 0.6029 | 0.01667 (rank 6) | NO |\n| **P1_08** | B3 | V1 vs V3 (seeds 42-44) | MRR | 0.1051 | 0.0694 | +0.0357 | [-0.0297, +0.1129] | 0.3193 | 0.00833 (rank 3) | NO |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| *Sensitivity (Seed-42-Only)* | | | | | | | | | | |\n| *P1_03 (seed 42 only)* | B2 | V1 vs V3 (seed 42) | Recall@10 | 0.3000 | 0.3000 | +0.0000 | [-0.1400, +0.1400] | 1.0000 | \u2014 | Sens. |\n| *P1_04 (seed 42 only)* | B2 | V1 vs V3 (seed 42) | MRR | 0.1584 | 0.0753 | +0.0832 | [+0.0152, +0.1595] | 0.0230 | \u2014 | Sens. |\n| *P1_07 (seed 42 only)* | B3 | V1 vs V3 (seed 42) | Recall@10 | 0.1800 | 0.3200 | -0.1400 | [-0.2800, +0.0000] | 0.0592 | \u2014 | Sens. |\n| *P1_08 (seed 42 only)* | B3 | V1 vs V3 (seed 42) | MRR | 0.1051 | 0.1054 | -0.0003 | [-0.0841, +0.0879] | 0.9944 | \u2014 | Sens. |",
+  "v3_multi_seed": {
+    "B2": {
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "Recall@10_mean": 0.252,
+      "Recall@10_range": [
+        0.2,
+        0.3
+      ],
+      "MRR_mean": 0.065,
+      "MRR_range": [
+        0.0503,
+        0.0753
+      ]
+    },
+    "B3": {
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "Recall@10_mean": 0.2067,
+      "Recall@10_range": [
+        0.14,
+        0.24
+      ],
+      "MRR_mean": 0.0694,
+      "MRR_range": [
+        0.047,
+        0.0987
+      ]
+    }
+  }
+}

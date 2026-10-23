@@ -1,0 +1,66 @@
+{
+  "E0-STIX-ALL": {
+    "B2": {
+      "S_exact_MRR": 0.0342,
+      "S_alias_MRR": 0.0662,
+      "S_exact_Recall@1": 0.0,
+      "S_alias_Recall@1": 0.0,
+      "S_exact_Recall@3": 0.08,
+      "S_alias_Recall@3": 0.08,
+      "S_exact_Recall@5": 0.08,
+      "S_alias_Recall@5": 0.1,
+      "S_exact_Recall@10": 0.12,
+      "S_alias_Recall@10": 0.34,
+      "Recall@5_Gap": 0.02,
+      "Recall@10_Gap": 0.22,
+      "MRR_Gap": 0.032
+    },
+    "B3": {
+      "S_exact_MRR": 0.0094,
+      "S_alias_MRR": 0.0608,
+      "S_exact_Recall@1": 0.0,
+      "S_alias_Recall@1": 0.02,
+      "S_exact_Recall@3": 0.0,
+      "S_alias_Recall@3": 0.08,
+      "S_exact_Recall@5": 0.02,
+      "S_alias_Recall@5": 0.1,
+      "S_exact_Recall@10": 0.06,
+      "S_alias_Recall@10": 0.18,
+      "Recall@5_Gap": 0.08,
+      "Recall@10_Gap": 0.12,
+      "MRR_Gap": 0.0514
+    }
+  },
+  "E0-STIX-ENT": {
+    "B2": {
+      "S_exact_MRR": 0.068,
+      "S_alias_MRR": 0.1014,
+      "S_exact_Recall@1": 0.04,
+      "S_alias_Recall@1": 0.04,
+      "S_exact_Recall@3": 0.08,
+      "S_alias_Recall@3": 0.1,
+      "S_exact_Recall@5": 0.08,
+      "S_alias_Recall@5": 0.16,
+      "S_exact_Recall@10": 0.18,
+      "S_alias_Recall@10": 0.36,
+      "Recall@5_Gap": 0.08,
+      "Recall@10_Gap": 0.18,
+      "MRR_Gap": 0.0334
+    },
+    "B3": {
+      "S_exact_MRR": 0.01,
+      "S_alias_MRR": 0.0717,
+      "S_exact_Recall@1": 0.0,
+      "S_alias_Recall@1": 0.02,
+      "S_exact_Recall@3": 0.02,
+      "S_alias_Recall@3": 0.12,
+      "S_exact_Recall@5": 0.02,
+      "S_alias_Recall@5": 0.14,
+      "S_exact_Recall@10": 0.02,
+      "S_alias_Recall@10": 0.16,
+      "Recall@5_Gap": 0.12,
+      "Recall@10_Gap": 0.14,
+      "MRR_Gap": 0.0617
+    }
+  }
+}

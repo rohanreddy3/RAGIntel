@@ -1,0 +1,61 @@
+query_idx,query_preview,ground_truth,latency_ms,MRR,Precision@1,Recall@1,nDCG@1,Precision@3,Recall@3,nDCG@3,Precision@5,Recall@5,nDCG@5,Precision@10,Recall@10,nDCG@10
+0,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1573, T1083, T1070",4660.7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+1,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1573, T1083, T1057, T1082",3406.77,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+2,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1140, T1105, T1027, T1055, T1518",2924.77,0.125,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.2857,0.0867
+3,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1626, T1517, T1437, T1429, T1623, T1533, T1407, T1646, T1404, T1629, T1544, T1430, T1406, T1636, T1418, T1426, T1422, T1512, T1633",5317.72,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+4,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1005, T1140, T1083, T1105",2726.37,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+5,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1573, T1546",2259.05,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+6,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1087, T1482, T1069, T1018, T1016",2148.79,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+7,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1560, T1547, T1059, T1132, T1074, T1573",3572.94,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.1429,0.1312,0.1,0.1429,0.1063
+8,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1577, T1404, T1643, T1628, T1630, T1655, T1406",3484.44,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+9,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1087, T1071, T1560, T1547, T1185, T1115, T1555, T1140",3231.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+10,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1560, T1052, T1105, T1091, T1016, T1033",3897.58,0.1667,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1667,0.1078
+11,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1437, T1429, T1398, T1533, T1521, T1624, T1646, T1420, T1430",3335.95,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+12,Extract all MITRE Mobile attack patterns from the following text and map them to...,T1474,2107.65,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+13,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1547, T1005, T1140, T1568, T1041, T1083, T1105, T1112, T1106, T1027",2737.87,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+14,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1543, T1480, T1008, T1564, T1070, T1105",2842.29,1.0,1.0,0.25,1.0,0.3333,0.25,0.4693,0.2,0.25,0.3392,0.1,0.25,0.2529
+15,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1437, T1624, T1643, T1628, T1655, T1406, T1418, T1426, T1633",3677.93,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+16,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1437, T1430, T1644, T1636, T1426",2445.77,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+17,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1624, T1629, T1655, T1406",3280.47,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+18,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1426, T1422, T1481",2648.71,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+19,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1547, T1105, T1036, T1055, T1091",4001.63,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+20,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1429, T1616, T1430, T1655, T1636, T1582, T1422, T1512",2871.09,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+21,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1532, T1429, T1616, T1471, T1533, T1407, T1629, T1417, T1430, T1655",4294.12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+22,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1548, T1071, T1059, T1543, T1140, T1546, T1041",5005.76,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+23,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1134, T1071, T1560, T1119, T1547, T1059, T1005, T1025",3872.53,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+24,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1626, T1437, T1532, T1655, T1575, T1406, T1636, T1582, T1426, T1422",3381.84,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+25,Extract all MITRE Enterprise attack patterns from the following text and map the...,T1505,1989.45,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+26,Extract all MITRE Enterprise attack patterns from the following text and map the...,T1053,1687.28,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+27,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1547, T1059, T1005, T1074, T1041, T1095, T1518",4755.03,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+28,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1548, T1059, T1132, T1083",3914.77,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.25,0.151,0.2,0.25,0.2639
+29,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1560, T1005, T1140, T1573, T1105, T1095, T1571, T1016, T1033",3795.94,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.2222,0.1312,0.1,0.2222,0.0909
+30,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1140, T1573, T1559, T1205",3680.05,0.2,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.2,0.1312,0.1,0.2,0.1312
+31,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1548, T1134, T1098, T1583, T1071, T1010, T1119",6489.27,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+32,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1573, T1090, T1016, T1033",4266.6,1.0,1.0,0.2,1.0,0.3333,0.2,0.4693,0.4,0.2,0.4704,0.2,0.2,0.4704
+33,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1074, T1482, T1189, T1048, T1105, T1036, T1027, T1566",4825.97,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+34,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1429, T1430, T1636, T1409, T1512",2853.59,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+35,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1005, T1567, T1083, T1574",2660.56,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+36,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1132, T1005, T1074, T1140, T1573",3569.99,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.2857,0.1461,0.2,0.4286,0.2051
+37,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1132, T1140, T1105, T1505",2850.66,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.4,0.1461,0.1,0.4,0.1461
+38,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1554, T1001, T1140, T1505",3460.62,0.3333,0.0,0.0,0.0,0.3333,0.1667,0.2346,0.4,0.3333,0.3008,0.3,0.3333,0.3762
+39,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1543, T1140, T1573, T1190, T1083, T1222, T1564, T1574",3678.01,0.5,0.0,0.0,0.0,0.3333,0.2,0.2961,0.2,0.2,0.214,0.1,0.2,0.1389
+40,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1554, T1132, T1048, T1056",3817.14,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+41,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1485, T1561, T1083, T1529",3752.62,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+42,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1560, T1119, T1005, T1074, T1083, T1574",3939.74,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+43,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1554, T1140, T1573, T1505",2813.15,0.1111,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.4,0.1021
+44,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1547, T1176, T1217, T1115, T1059, T1555, T1140, T1573, T1041",4368.93,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+45,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1554, T1132, T1140, T1573, T1105, T1505",3795.95,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+46,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1554, T1543, T1573, T1083, T1095, T1090, T1082",5118.81,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+47,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1517, T1624, T1643, T1628, T1417, T1409",3052.29,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+48,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1119, T1059, T1074, T1083, T1003, T1055",2990.34,0.5,0.0,0.0,0.0,0.3333,0.1667,0.2961,0.4,0.3333,0.3601,0.2,0.3333,0.3212
+49,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1573, T1083, T1562, T1105, T1095, T1057, T1090, T1205",3092.93,1.0,1.0,0.2222,1.0,0.3333,0.2222,0.4693,0.2,0.2222,0.3392,0.1,0.2222,0.235
+50,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1543, T1132, T1001, T1140, T1573, T1480, T1083, T1574, T1070",4504.98,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+51,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1543, T1132, T1005, T1573, T1083, T1105, T1036, T1112, T1106",3432.88,0.1429,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.0909,0.0734
+52,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1554, T1140, T1105, T1027, T1505, T1205",2666.75,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+53,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1486, T1083, T1490, T1106, T1135, T1057, T1082, T1047",2763.6,0.3333,0.0,0.0,0.0,0.3333,0.1111,0.2346,0.2,0.1111,0.1696,0.1,0.1111,0.1175
+54,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1498, T1057, T1090, T1053, T1113, T1082, T1016",3410.27,0.5,0.0,0.0,0.0,0.3333,0.125,0.2961,0.2,0.125,0.214,0.1,0.125,0.1596
+55,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1554, T1074, T1556, T1111, T1027",3554.06,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+56,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1005, T1140, T1027, T1505",3460.73,1.0,1.0,0.25,1.0,0.3333,0.25,0.4693,0.2,0.25,0.3904,0.1,0.25,0.3904
+57,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1071, T1059, T1132, T1505",2076.06,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+58,Extract all MITRE Mobile attack patterns from the following text and map them to...,"T1429, T1533, T1404, T1544, T1417, T1655, T1636, T1426, T1512",4469.3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+59,Extract all MITRE Enterprise attack patterns from the following text and map the...,"T1059, T1132, T1140, T1505",2274.37,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

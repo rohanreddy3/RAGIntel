@@ -1,0 +1,26 @@
+{
+  "nomic-ai/nomic-embed-text-v1.5": {
+    "status": "success",
+    "load_time_s": 14.66,
+    "doc_time_100_s": 64.79,
+    "doc_time_per_item_s": 0.6479,
+    "query_time_20_s": 250.35,
+    "query_time_per_item_s": 12.5176,
+    "extrapolated_doc_embed_s": 1335.98,
+    "extrapolated_query_embed_s": 4243.46,
+    "total_projected_hours": 1.55,
+    "meets_2hr_budget": true
+  },
+  "nomic-ai/modernbert-embed-base": {
+    "status": "success",
+    "load_time_s": 11.43,
+    "doc_time_100_s": 62.91,
+    "doc_time_per_item_s": 0.6291,
+    "query_time_20_s": 322.46,
+    "query_time_per_item_s": 16.1229,
+    "extrapolated_doc_embed_s": 1297.12,
+    "extrapolated_query_embed_s": 5465.67,
+    "total_projected_hours": 1.88,
+    "meets_2hr_budget": true
+  }
+}

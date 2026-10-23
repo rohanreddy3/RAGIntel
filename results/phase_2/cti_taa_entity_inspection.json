@@ -1,0 +1,710 @@
+{
+  "dataset": "cti-taa",
+  "num_queries": 50,
+  "queries_mention_gt_alias": 4,
+  "queries_mention_other_entities": 50,
+  "ground_truth_types": {
+    "intrusion-set": 20,
+    "software": 3,
+    "unknown": 27
+  },
+  "per_query_details": [
+    {
+      "idx": 0,
+      "gt_raw": "SideCopy",
+      "gt_canonical": "SideCopy",
+      "gt_mid": "G1008",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 6,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Raindrop (S0565, software)"
+      ]
+    },
+    {
+      "idx": 1,
+      "gt_raw": "Stately Taurus (alias Bronze President, Camaro Dragon, Earth Preta, Mustang Panda, Red Delta and Luminous Moth)",
+      "gt_canonical": "Stately Taurus (alias Bronze President, Camaro Dragon, Earth Preta, Mustang Panda, Red Delta and Luminous Moth)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 7,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "PUBLOAD (S1228, software)",
+        "Crimson (S0115, software)"
+      ]
+    },
+    {
+      "idx": 2,
+      "gt_raw": "Stately Taurus",
+      "gt_canonical": "Mustang Panda",
+      "gt_mid": "G0129",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 15,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "China Chopper (S0020, software)"
+      ]
+    },
+    {
+      "idx": 3,
+      "gt_raw": "Emotet",
+      "gt_canonical": "Emotet",
+      "gt_mid": "S0367",
+      "gt_type": "software",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Inception (G0100, intrusion-set)"
+      ]
+    },
+    {
+      "idx": 4,
+      "gt_raw": "APT-C-23 ( FrozenCell or Two-tailed Scorpion)",
+      "gt_canonical": "APT-C-23 ( FrozenCell or Two-tailed Scorpion)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 5,
+      "gt_raw": "Sharp Dragon (or  Sharp Panda)",
+      "gt_canonical": "Sharp Dragon (or  Sharp Panda)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 4,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Cobalt Strike (S0154, software)"
+      ]
+    },
+    {
+      "idx": 6,
+      "gt_raw": "Storm-1811",
+      "gt_canonical": "Storm-1811",
+      "gt_mid": "G1046",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 9,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "QakBot (S0650, software)"
+      ]
+    },
+    {
+      "idx": 7,
+      "gt_raw": "APT-C-36, also known as Blind Eagle",
+      "gt_canonical": "APT-C-36, also known as Blind Eagle",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 10,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 8,
+      "gt_raw": "APT-C-36, also known as Blind Eagle",
+      "gt_canonical": "APT-C-36, also known as Blind Eagle",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "ftp (S0095, software)"
+      ]
+    },
+    {
+      "idx": 9,
+      "gt_raw": "ANDROMEDA",
+      "gt_canonical": "ANDROMEDA",
+      "gt_mid": "S1074",
+      "gt_type": "software",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 8,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Net (S0039, software)"
+      ]
+    },
+    {
+      "idx": 10,
+      "gt_raw": "Venomous Bear\u00a0(or\u00a0Turla\u00a0or\u00a0Uroburos)",
+      "gt_canonical": "Venomous Bear\u00a0(or\u00a0Turla\u00a0or\u00a0Uroburos)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 2,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)"
+      ]
+    },
+    {
+      "idx": 11,
+      "gt_raw": "APT29 (Cozy Bear / The Dukes)",
+      "gt_canonical": "APT29 (Cozy Bear / The Dukes)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 12,
+      "gt_raw": "Gamaredon (APT-C-53, Primitive Bear, Armageddon)",
+      "gt_canonical": "Gamaredon (APT-C-53, Primitive Bear, Armageddon)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 4,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Systeminfo (S0096, software)"
+      ]
+    },
+    {
+      "idx": 13,
+      "gt_raw": "Midnight Blizzard ( NOBELIUM)",
+      "gt_canonical": "Midnight Blizzard ( NOBELIUM)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Expand (S0361, software)"
+      ]
+    },
+    {
+      "idx": 14,
+      "gt_raw": "Black Basta",
+      "gt_canonical": "Black Basta",
+      "gt_mid": "S1070",
+      "gt_type": "software",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 6,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Impacket (S0357, software)"
+      ]
+    },
+    {
+      "idx": 15,
+      "gt_raw": "OilRig, APT34, Lyceum, or Siamesekitten",
+      "gt_canonical": "OilRig, APT34, Lyceum, or Siamesekitten",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 10,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 16,
+      "gt_raw": "APT34",
+      "gt_canonical": "OilRig",
+      "gt_mid": "G0049",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Net (S0039, software)"
+      ]
+    },
+    {
+      "idx": 17,
+      "gt_raw": "Earth Freybug ( subset of APT41)",
+      "gt_canonical": "Earth Freybug ( subset of APT41)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 11,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 18,
+      "gt_raw": "Lazarus",
+      "gt_canonical": "Lazarus",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 14,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 19,
+      "gt_raw": "Springtail espionage group (or Kimsuky)",
+      "gt_canonical": "Springtail espionage group (or Kimsuky)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 7,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Gomir (S1198, software)"
+      ]
+    },
+    {
+      "idx": 20,
+      "gt_raw": "Kimsuky",
+      "gt_canonical": "Kimsuky",
+      "gt_mid": "G0094",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 11,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "BRONZE BUTLER (G0060, intrusion-set)",
+        "Crimson (S0115, software)"
+      ]
+    },
+    {
+      "idx": 21,
+      "gt_raw": "Transparent Tribe (APT36)",
+      "gt_canonical": "Transparent Tribe (APT36)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 7,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Ping (S0097, software)"
+      ]
+    },
+    {
+      "idx": 22,
+      "gt_raw": "Mint Sandstorm (PHOSPHORUS)",
+      "gt_canonical": "Mint Sandstorm (PHOSPHORUS)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Magic Hound (G0059, intrusion-set)"
+      ]
+    },
+    {
+      "idx": 23,
+      "gt_raw": "MuddyWater",
+      "gt_canonical": "MuddyWater",
+      "gt_mid": "G0069",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": true,
+      "num_other_entities": 9,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Silence (G0091, intrusion-set)"
+      ]
+    },
+    {
+      "idx": 24,
+      "gt_raw": "Seedworm (or Muddywater)",
+      "gt_canonical": "Seedworm (or Muddywater)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 25,
+      "gt_raw": "CharmingCypress (aka Charming Kitten, APT42, TA453)",
+      "gt_canonical": "CharmingCypress (aka Charming Kitten, APT42, TA453)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 8,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 26,
+      "gt_raw": "Mint Sandstorm",
+      "gt_canonical": "Magic Hound",
+      "gt_mid": "G0059",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": true,
+      "num_other_entities": 8,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "PsExec (S0029, software)"
+      ]
+    },
+    {
+      "idx": 27,
+      "gt_raw": "APT31, also known as BRONZE VINEWOOD, Zirconium or Judgment Panda",
+      "gt_canonical": "APT31, also known as BRONZE VINEWOOD, Zirconium or Judgment Panda",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "PlugX (S0013, software)"
+      ]
+    },
+    {
+      "idx": 28,
+      "gt_raw": "Gamaredon, also known as Primitive Bear, ACTINIUM, and Shuckworm",
+      "gt_canonical": "Gamaredon, also known as Primitive Bear, ACTINIUM, and Shuckworm",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 2,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)"
+      ]
+    },
+    {
+      "idx": 29,
+      "gt_raw": "Gamaredon Group",
+      "gt_canonical": "Gamaredon Group",
+      "gt_mid": "G0047",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 2,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)"
+      ]
+    },
+    {
+      "idx": 30,
+      "gt_raw": "Sharp Panda",
+      "gt_canonical": "Sharp Panda",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 6,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "BRONZE BUTLER (G0060, intrusion-set)",
+        "Crimson (S0115, software)"
+      ]
+    },
+    {
+      "idx": 31,
+      "gt_raw": "Bitter",
+      "gt_canonical": "BITTER",
+      "gt_mid": "G1002",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 6,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Net (S0039, software)"
+      ]
+    },
+    {
+      "idx": 32,
+      "gt_raw": "Confucius",
+      "gt_canonical": "Confucius",
+      "gt_mid": "G0142",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 11,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Mango (S1169, software)"
+      ]
+    },
+    {
+      "idx": 33,
+      "gt_raw": "Dragonfly",
+      "gt_canonical": "Dragonfly",
+      "gt_mid": "G0035",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 7,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "BITSAdmin (S0190, software)"
+      ]
+    },
+    {
+      "idx": 34,
+      "gt_raw": "Andariel",
+      "gt_canonical": "Andariel",
+      "gt_mid": "G0138",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 7,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 35,
+      "gt_raw": "COLDRIVER (also known as UNC4057, Star Blizzard and Callisto)",
+      "gt_canonical": "COLDRIVER (also known as UNC4057, Star Blizzard and Callisto)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Spica (S1140, software)"
+      ]
+    },
+    {
+      "idx": 36,
+      "gt_raw": "Bahamut",
+      "gt_canonical": "Windshift",
+      "gt_mid": "G0112",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 4,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Playcrypt (S1162, software)"
+      ]
+    },
+    {
+      "idx": 37,
+      "gt_raw": "APT37",
+      "gt_canonical": "APT37",
+      "gt_mid": "G0067",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": true,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Kimsuky (G0094, intrusion-set)"
+      ]
+    },
+    {
+      "idx": 38,
+      "gt_raw": "APT33, or Peach Sandstorm, HOLMIUM, or Refined Kitten",
+      "gt_canonical": "APT33, or Peach Sandstorm, HOLMIUM, or Refined Kitten",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "APT33 (G0064, intrusion-set)"
+      ]
+    },
+    {
+      "idx": 39,
+      "gt_raw": "APT29",
+      "gt_canonical": "APT29",
+      "gt_mid": "G0016",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "certutil (S0160, software)"
+      ]
+    },
+    {
+      "idx": 40,
+      "gt_raw": "APT29",
+      "gt_canonical": "APT29",
+      "gt_mid": "G0016",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": true,
+      "num_other_entities": 4,
+      "other_entities_sample": [
+        "CozyCar (S0046, software)",
+        "Crimson (S0115, software)",
+        "Transparent Tribe (G0134, intrusion-set)"
+      ]
+    },
+    {
+      "idx": 41,
+      "gt_raw": "APT29 (aka Cozy Bear, Nobelium and many other monikers)",
+      "gt_canonical": "APT29 (aka Cozy Bear, Nobelium and many other monikers)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "ngrok (S0508, software)"
+      ]
+    },
+    {
+      "idx": 42,
+      "gt_raw": "Diamond Sleet (ZINC)",
+      "gt_canonical": "Diamond Sleet (ZINC)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Net (S0039, software)"
+      ]
+    },
+    {
+      "idx": 43,
+      "gt_raw": "Lazarus group",
+      "gt_canonical": "Lazarus Group",
+      "gt_mid": "G0032",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 3,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "cmd (S0106, software)"
+      ]
+    },
+    {
+      "idx": 44,
+      "gt_raw": "Lazarus Group",
+      "gt_canonical": "Lazarus Group",
+      "gt_mid": "G0032",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 9,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "MagicRAT (S1182, software)"
+      ]
+    },
+    {
+      "idx": 45,
+      "gt_raw": "Lazarus Group",
+      "gt_canonical": "Lazarus Group",
+      "gt_mid": "G0032",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 4,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "Black Basta (S1070, software)"
+      ]
+    },
+    {
+      "idx": 46,
+      "gt_raw": "Lazarus",
+      "gt_canonical": "Lazarus",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 6,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "MagicRAT (S1182, software)"
+      ]
+    },
+    {
+      "idx": 47,
+      "gt_raw": "OilRig",
+      "gt_canonical": "OilRig",
+      "gt_mid": "G0049",
+      "gt_type": "intrusion-set",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 9,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "ODAgent (S1170, software)"
+      ]
+    },
+    {
+      "idx": 48,
+      "gt_raw": "MuddyWater,or Crambus",
+      "gt_canonical": "MuddyWater,or Crambus",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 5,
+      "other_entities_sample": [
+        "Transparent Tribe (G0134, intrusion-set)",
+        "Crimson (S0115, software)",
+        "OilRig (G0049, intrusion-set)"
+      ]
+    },
+    {
+      "idx": 49,
+      "gt_raw": "Turla APT (aka Pensive Ursa, Uroburos, Snake)",
+      "gt_canonical": "Turla APT (aka Pensive Ursa, Uroburos, Snake)",
+      "gt_mid": "Unknown",
+      "gt_type": "unknown",
+      "gt_mentioned_in_query": false,
+      "num_other_entities": 23,
+      "other_entities_sample": [
+        "Net (S0039, software)",
+        "Uroburos (S0022, software)",
+        "TinyTurla (S0668, software)"
+      ]
+    }
+  ]
+}

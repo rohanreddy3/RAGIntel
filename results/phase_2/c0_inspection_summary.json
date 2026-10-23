@@ -1,0 +1,45 @@
+{
+  "corpus_chunk_distribution_by_type": {
+    "attack-pattern": {
+      "chunk_count": 4505,
+      "chars_mean": 297.9,
+      "chars_median": 326.0,
+      "tokens_words_mean": 39.0,
+      "tokens_words_median": 42.0
+    },
+    "intrusion-set": {
+      "chunk_count": 555,
+      "chars_mean": 249.4,
+      "chars_median": 207.0,
+      "tokens_words_mean": 28.7,
+      "tokens_words_median": 24.0
+    },
+    "malware": {
+      "chunk_count": 1633,
+      "chars_mean": 260.8,
+      "chars_median": 283.0,
+      "tokens_words_mean": 28.4,
+      "tokens_words_median": 30.0
+    },
+    "tool": {
+      "chunk_count": 1633,
+      "chars_mean": 260.8,
+      "chars_median": 283.0,
+      "tokens_words_mean": 28.4,
+      "tokens_words_median": 30.0
+    }
+  },
+  "top10_context_distribution": {
+    "mean_words": 349.9,
+    "median_words": 349.5,
+    "median_subwords_minilm": 464.8,
+    "B_star_tokens": 500
+  },
+  "pre_registered_primary_budget_B_star": 500,
+  "secondary_budgets": [
+    500,
+    1000,
+    2000,
+    4000
+  ]
+}

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+  <rect width="100%" height="100%" fill="#ffffff" rx="8"/>
+  <text x="450" y="32" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">CTI-TAA Threat Actor Attribution: Text-Only vs Ontology-Aware Matching</text>
+  <!-- Grid lines -->
+  <line x1="80" y1="340" x2="850" y2="340" stroke="#cccccc" stroke-width="1.5"/>
+  <line x1="80" y1="270" x2="850" y2="270" stroke="#eeeeee" stroke-dasharray="4"/>
+  <line x1="80" y1="200" x2="850" y2="200" stroke="#eeeeee" stroke-dasharray="4"/>
+  <line x1="80" y1="130" x2="850" y2="130" stroke="#eeeeee" stroke-dasharray="4"/>
+  <line x1="80" y1="60"  x2="850" y2="60"  stroke="#eeeeee" stroke-dasharray="4"/>
+  <!-- Y-axis labels -->
+  <text x="65" y="345" font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666666">0.0</text>
+  <text x="65" y="275" font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666666">0.25</text>
+  <text x="65" y="205" font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666666">0.50</text>
+  <text x="65" y="135" font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666666">0.75</text>
+  <text x="65" y="65"  font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666666">1.00</text>
+  <rect x="86.0" y="172.0" width="32" height="168.0" fill="#4e79a7" rx="2"/>
+  <text x="102.0" y="168.0" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.60</text>
+  <rect x="122.0" y="149.6" width="32" height="190.4" fill="#a0cbe8" rx="2"/>
+  <text x="138.0" y="145.6" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.68</text>
+  <rect x="158.0" y="149.6" width="32" height="190.4" fill="#f28e2b" rx="2"/>
+  <text x="174.0" y="145.6" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.68</text>
+  <rect x="194.0" y="138.4" width="32" height="201.6" fill="#ffbe7d" rx="2"/>
+  <text x="210.0" y="134.4" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.72</text>
+  <text x="140.0" y="365" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#333333">LLM-only</text>
+  <rect x="326.0" y="228.0" width="32" height="112.0" fill="#4e79a7" rx="2"/>
+  <text x="342.0" y="224.0" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.40</text>
+  <rect x="362.0" y="183.2" width="32" height="156.8" fill="#a0cbe8" rx="2"/>
+  <text x="378.0" y="179.2" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.56</text>
+  <rect x="398.0" y="200.0" width="32" height="140.0" fill="#f28e2b" rx="2"/>
+  <text x="414.0" y="196.0" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.50</text>
+  <rect x="434.0" y="172.0" width="32" height="168.0" fill="#ffbe7d" rx="2"/>
+  <text x="450.0" y="168.0" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.60</text>
+  <text x="380.0" y="365" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#333333">cti-taa_B2_V0</text>
+  <rect x="566.0" y="233.6" width="32" height="106.4" fill="#4e79a7" rx="2"/>
+  <text x="582.0" y="229.6" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.38</text>
+  <rect x="602.0" y="216.8" width="32" height="123.2" fill="#a0cbe8" rx="2"/>
+  <text x="618.0" y="212.8" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.44</text>
+  <rect x="638.0" y="228.0" width="32" height="112.0" fill="#f28e2b" rx="2"/>
+  <text x="654.0" y="224.0" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.40</text>
+  <rect x="674.0" y="211.2" width="32" height="128.8" fill="#ffbe7d" rx="2"/>
+  <text x="690.0" y="207.2" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">0.46</text>
+  <text x="620.0" y="365" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#333333">cti-taa_B2_V1</text>
+  <!-- Legend -->
+  <rect x="220" y="385" width="16" height="12" fill="#4e79a7" rx="2"/><text x="242" y="396" font-family="Arial, sans-serif" font-size="12" fill="#444">Text-Only Exact</text>
+  <rect x="360" y="385" width="16" height="12" fill="#a0cbe8" rx="2"/><text x="382" y="396" font-family="Arial, sans-serif" font-size="12" fill="#444">Text-Only Alias</text>
+  <rect x="500" y="385" width="16" height="12" fill="#f28e2b" rx="2"/><text x="522" y="396" font-family="Arial, sans-serif" font-size="12" fill="#444">Ontology Exact</text>
+  <rect x="640" y="385" width="16" height="12" fill="#ffbe7d" rx="2"/><text x="662" y="396" font-family="Arial, sans-serif" font-size="12" fill="#444">Ontology Alias</text>
+</svg>

@@ -1,0 +1,79 @@
+{
+  "hardware": {
+    "cpu_count": 8,
+    "threads_per_process": 4,
+    "torch_threads": 4
+  },
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "timing_measured_seeds": {
+    "43": {
+      "elapsed_seconds": 779.78,
+      "s_per_query": 15.5956
+    },
+    "44": {
+      "elapsed_seconds": 1357.374,
+      "s_per_query": 27.1475
+    },
+    "45": {
+      "elapsed_seconds": 822.445,
+      "s_per_query": 16.4489
+    },
+    "46": {
+      "elapsed_seconds": 519.806,
+      "s_per_query": 10.3961
+    }
+  },
+  "mean_s_per_query_b2_4threads": 17.397,
+  "Recall@10": {
+    "mean": 0.252,
+    "min": 0.2,
+    "max": 0.3,
+    "range": 0.1,
+    "std": 0.0431,
+    "per_seed": {
+      "42": 0.3,
+      "43": 0.2,
+      "44": 0.28,
+      "45": 0.28,
+      "46": 0.2
+    }
+  },
+  "MRR": {
+    "mean": 0.065,
+    "min": 0.0503,
+    "max": 0.0753,
+    "range": 0.025,
+    "std": 0.0093,
+    "per_seed": {
+      "42": 0.0753,
+      "43": 0.0582,
+      "44": 0.0719,
+      "45": 0.0694,
+      "46": 0.0503
+    }
+  },
+  "v1_vs_v3_mean_contrasts": {
+    "Recall@10": {
+      "mean_before": 0.3,
+      "mean_after": 0.252,
+      "mean_delta": -0.048,
+      "ci_lower": -0.18,
+      "ci_upper": 0.08,
+      "p_value": 0.4892
+    },
+    "MRR": {
+      "mean_before": 0.1584,
+      "mean_after": 0.065,
+      "mean_delta": -0.0934,
+      "ci_lower": -0.1797,
+      "ci_upper": -0.0186,
+      "p_value": 0.0223
+    }
+  }
+}
