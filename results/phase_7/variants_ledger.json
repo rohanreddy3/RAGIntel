@@ -1,0 +1,78 @@
+{
+  "protocol": "Phase 7 Optimization 2 Redesign (Post-Hoc Round 4, Exploratory)",
+  "registration_timestamp_utc": "2026-10-24T15:11:36.700449+00:00",
+  "analysis_plan_file": "analysis_plan.md",
+  "analysis_plan_sha256": "107e60c83a523d81dd1d2009abf69b32b4d41948a905f96c52a0b8d1c59f6f18",
+  "rules": {
+    "R1": "Declared prior to execution in analysis_plan.md Section 13 and variants_ledger.json; report all variants including failures.",
+    "R2": "Operational constraints: thread cap 4, one heavy retrieval process at a time, offline execution only, no modification of frozen Phase 0-6 results.",
+    "R3": "Explicit labeling: post-hoc round 4, exploratory.",
+    "R4": "Neutral scientific tone: descriptive only, zero causal words.",
+    "R5": "Full reporting of all variants across 4-budget scaling curves; retain original O2 negative result as-is."
+  },
+  "variants": {
+    "E1h": {
+      "description": "Structure-aware field chunking with header prepending ([<technique_id> <name> | <tactics>]), 150-token sentence-boundary splitting, and header repetition.",
+      "target_datasets": [
+        "cti-ate",
+        "CTI-ATTACK"
+      ],
+      "max_chunk_tokens": 150,
+      "header_format": "[<technique_id> <name> | <tactics>]",
+      "candidate_pool": 200,
+      "preprocessing": "body-only queries via split_query; HD domain routing for cti-ate"
+    },
+    "E1h_div": {
+      "description": "E1h with diversity-constrained context packing admitting at most 2 chunks per technique ID before token budget truncation.",
+      "target_datasets": [
+        "cti-ate",
+        "CTI-ATTACK"
+      ],
+      "max_chunks_per_technique": 2,
+      "candidate_pool": 200
+    },
+    "E1h_MIXED": {
+      "description": "Mixed-corpus version combining E1h technique chunks with baseline splitter chunks for groups and software.",
+      "target_datasets": [
+        "cti-ate",
+        "CTI-ATTACK"
+      ],
+      "candidate_pool": 200
+    }
+  },
+  "family_P7_contrasts": [
+    {
+      "id": "P7_01",
+      "dataset": "cti-ate",
+      "treatment": "E1h",
+      "control": "E0_prime_TECH_k200",
+      "metric": "Mean Recall@B over {500, 1000} (sub-credit)"
+    },
+    {
+      "id": "P7_02",
+      "dataset": "cti-ate",
+      "treatment": "E1h_div",
+      "control": "E0_prime_TECH_k200",
+      "metric": "Mean Recall@B over {500, 1000} (sub-credit)"
+    },
+    {
+      "id": "P7_03",
+      "dataset": "CTI-ATTACK",
+      "treatment": "E1h",
+      "control": "E0_prime_TECH_k200",
+      "metric": "Mean Recall@B over {500, 1000} (sub-credit)"
+    },
+    {
+      "id": "P7_04",
+      "dataset": "CTI-ATTACK",
+      "treatment": "E1h_div",
+      "control": "E0_prime_TECH_k200",
+      "metric": "Mean Recall@B over {500, 1000} (sub-credit)"
+    }
+  ],
+  "statistical_testing": {
+    "bootstrap_resamples": 10000,
+    "random_seed": 42,
+    "multiplicity": "Holm step-down across declared P7 contrasts at family-wise alpha = 0.05 (M=4)"
+  }
+}

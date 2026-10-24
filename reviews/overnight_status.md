@@ -17,12 +17,20 @@
 ---
 
 ## Current Status Snapshot
-- **Timestamp (UTC)**: `2026-10-24T07:40:00Z`
-- **Timestamp (Local IST)**: `2026-10-24T13:10:00+05:30`
-- **Current Step**: `PHASE_6B_COMPLETED`
-- **API Calls Used in Rolling 24h**: `500 / 500` (Step 3 generation queued; api_runner probe monitoring reset)
-- **Next Planned Action**: Once Gemini API daily quota resets, api_runner will proceed with Step 3 generation and scoring under bare-prompt configuration.
-- **Active Errors / Blockers**: None. All Phase 6B scripts and assertions verified bit-exact.
+- **Timestamp (UTC)**: `2026-10-24T22:25:00Z`
+- **Timestamp (Local IST)**: `2026-10-25T03:55:00+05:30`
+- **Current Step**: `PHASE_7_COMPLETED`
+- **Phase 7 O2 Redesign (Offline, Post-Hoc Round 4, Exploratory)**: Completed.
+  - Pre-registered in `analysis_plan.md` Section 13 and `results/phase_7/variants_ledger.json`.
+  - Part A Diagnostics: Computed across 4 arms ($E_0'\text{-k200}$, $E_0'\text{-TECH-k200}$, $E_{1a}$, $E_1\text{-MIXED}$) at $B \in \{500, 1000\}$; saved in `results/phase_7/assets/table_diagnostics_o2.csv`.
+  - Part B Variants: Built $E_{1h}$ (150-token cap, sentence-boundary split, header repeated, 100% ID coverage) and $E_{1h}\text{-MIXED}$.
+  - Part C Contrasts (Family P7, Holm $M=4$): Evaluated vs $E_0'\text{-TECH-k200}$ on `cti-ate` and `CTI-ATTACK` (paired bootstrap $N=10,000$, seed 42, exact sign test). Results: P7_01 (Neutral, $p=0.5014$), P7_02 (Neutral, $p=0.6162$), P7_03 (Neutral under Holm, $p=0.0334$), P7_04 (Significant Deficit, $p=0.0106$).
+  - Full 4-budget scaling table ($B \in \{500, 1000, 2000, 4000\}$) with binding flags generated and saved in `results/phase_7/assets/table_o2_4budget_scaling.csv`.
+  - Report finalized in `reviews/REVIEW_PHASE_7.md`. Original O2 negative result preserved as-is.
+- **Phase 6C Generation Status**:
+  - Pre-declared in `analysis_plan.md` Section 12 and `results/phase_6c/variants_ledger.json`.
+  - Queued for live execution when the 24-hour rolling Gemini API rate-limit quota resets.
+- **Active Errors / Blockers**: None. All Phase 7 offline benchmarks completed with code 0.
 
 ---
 
@@ -30,5 +38,7 @@
 1. `STEP 1 — OFFLINE FIXES`: Complete. Artifacts in `results/phase_5b/`.
 2. `STEP 1b — PRE-DECLARED EXTENSIONS`: Complete. Pre-registered in `analysis_plan.md` Section 11 and `results/phase_6/variants_ledger.json`. Artifacts in `results/phase_6/`.
 3. `PHASE 6B — FIX ROUND (OFFLINE)`: Complete. Rebuilt claims table, leakage audit, detector audit (D0 vs D1), common-budget & k=200 ladders, Family P6 M=2 correction. Artifacts in `results/phase_6b/`.
-4. `REPORTING`: `reviews/REVIEW_PHASE_5B.md` updated with Phase 6B sections.
-5. `FREEZE & MANIFEST`: Verified. Ready for push to `main`.
+4. `PHASE 7 — O2 REDESIGN (OFFLINE, POST-HOC ROUND 4, EXPLORATORY)`: Complete. Diagnostics, $E_{1h}$ & $E_{1h}\text{-div}$ implementations, Family P7 contrasts, 4-budget scaling table, and `reviews/REVIEW_PHASE_7.md` report.
+5. `REPORTING & REVIEWS`: All review markdown documents updated.
+6. `FREEZE & MANIFEST`: Phase 0–6 frozen results strictly preserved. Ready for push to `main`.
+

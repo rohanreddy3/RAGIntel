@@ -1,0 +1,126 @@
+{
+  "cti-ate": {
+    "500": {
+      "E0'-k200": {
+        "mean_tokens_per_chunk": 45.45,
+        "share_chunks_with_id_pct": 31.97,
+        "mean_distinct_tech_ids": 12.07,
+        "mean_chunks_per_tech": 1.21,
+        "total_chunks_evaluated": 660
+      },
+      "E0'-TECH-k200": {
+        "mean_tokens_per_chunk": 43.23,
+        "share_chunks_with_id_pct": 29.68,
+        "mean_distinct_tech_ids": 12.08,
+        "mean_chunks_per_tech": 1.22,
+        "total_chunks_evaluated": 694
+      },
+      "E1a": {
+        "mean_tokens_per_chunk": 139.53,
+        "share_chunks_with_id_pct": 99.07,
+        "mean_distinct_tech_ids": 3.75,
+        "mean_chunks_per_tech": 1.1,
+        "total_chunks_evaluated": 215
+      },
+      "E1-MIXED": {
+        "mean_tokens_per_chunk": 126.58,
+        "share_chunks_with_id_pct": 99.16,
+        "mean_distinct_tech_ids": 3.95,
+        "mean_chunks_per_tech": 1.13,
+        "total_chunks_evaluated": 237
+      }
+    },
+    "1000": {
+      "E0'-k200": {
+        "mean_tokens_per_chunk": 47.58,
+        "share_chunks_with_id_pct": 33.86,
+        "mean_distinct_tech_ids": 21.37,
+        "mean_chunks_per_tech": 1.28,
+        "total_chunks_evaluated": 1261
+      },
+      "E0'-TECH-k200": {
+        "mean_tokens_per_chunk": 44.71,
+        "share_chunks_with_id_pct": 32.41,
+        "mean_distinct_tech_ids": 22.08,
+        "mean_chunks_per_tech": 1.28,
+        "total_chunks_evaluated": 1342
+      },
+      "E1a": {
+        "mean_tokens_per_chunk": 166.67,
+        "share_chunks_with_id_pct": 99.72,
+        "mean_distinct_tech_ids": 6.33,
+        "mean_chunks_per_tech": 1.15,
+        "total_chunks_evaluated": 360
+      },
+      "E1-MIXED": {
+        "mean_tokens_per_chunk": 155.44,
+        "share_chunks_with_id_pct": 100.0,
+        "mean_distinct_tech_ids": 6.42,
+        "mean_chunks_per_tech": 1.18,
+        "total_chunks_evaluated": 386
+      }
+    }
+  },
+  "CTI-ATTACK": {
+    "500": {
+      "E0'-k200": {
+        "mean_tokens_per_chunk": 48.01,
+        "share_chunks_with_id_pct": 28.89,
+        "mean_distinct_tech_ids": 8.86,
+        "mean_chunks_per_tech": 1.49,
+        "total_chunks_evaluated": 2385
+      },
+      "E0'-TECH-k200": {
+        "mean_tokens_per_chunk": 48.33,
+        "share_chunks_with_id_pct": 30.1,
+        "mean_distinct_tech_ids": 9.42,
+        "mean_chunks_per_tech": 1.49,
+        "total_chunks_evaluated": 2369
+      },
+      "E1a": {
+        "mean_tokens_per_chunk": 164.28,
+        "share_chunks_with_id_pct": 96.7,
+        "mean_distinct_tech_ids": 4.19,
+        "mean_chunks_per_tech": 1.4,
+        "total_chunks_evaluated": 697
+      },
+      "E1-MIXED": {
+        "mean_tokens_per_chunk": 161.27,
+        "share_chunks_with_id_pct": 93.94,
+        "mean_distinct_tech_ids": 3.55,
+        "mean_chunks_per_tech": 1.41,
+        "total_chunks_evaluated": 710
+      }
+    },
+    "1000": {
+      "E0'-k200": {
+        "mean_tokens_per_chunk": 49.12,
+        "share_chunks_with_id_pct": 29.3,
+        "mean_distinct_tech_ids": 15.76,
+        "mean_chunks_per_tech": 1.56,
+        "total_chunks_evaluated": 4662
+      },
+      "E0'-TECH-k200": {
+        "mean_tokens_per_chunk": 49.35,
+        "share_chunks_with_id_pct": 31.49,
+        "mean_distinct_tech_ids": 16.92,
+        "mean_chunks_per_tech": 1.56,
+        "total_chunks_evaluated": 4640
+      },
+      "E1a": {
+        "mean_tokens_per_chunk": 185.73,
+        "share_chunks_with_id_pct": 96.35,
+        "mean_distinct_tech_ids": 7.9,
+        "mean_chunks_per_tech": 1.6,
+        "total_chunks_evaluated": 1233
+      },
+      "E1-MIXED": {
+        "mean_tokens_per_chunk": 171.02,
+        "share_chunks_with_id_pct": 90.89,
+        "mean_distinct_tech_ids": 6.12,
+        "mean_chunks_per_tech": 1.53,
+        "total_chunks_evaluated": 1339
+      }
+    }
+  }
+}

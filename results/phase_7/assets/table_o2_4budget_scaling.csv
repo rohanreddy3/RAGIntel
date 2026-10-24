@@ -1,0 +1,17 @@
+dataset,arm,B=500,B=500_raw,B=500_binding,B=1000,B=1000_raw,B=1000_binding,B=2000,B=2000_raw,B=2000_binding,B=4000,B=4000_raw,B=4000_binding,Mean_Recall@500_1000
+cti-ate,E0'-k200 (Phase 5),0.2042 [B],0.2042,True,0.2812 [B],0.2812,True,0.4201 [B],0.4201,True,0.5695 [B],0.5695,True,0.2427
+cti-ate,E0'-TECH-k200 (Control),0.1768 [B],0.1768,True,0.2899 [B],0.2899,True,0.4168 [B],0.4168,True,0.5704 [B],0.5704,True,0.2334
+cti-ate,E1a (Phase 5),0.1634 [B],0.1634,True,0.1970 [B],0.197,True,0.2557 [B],0.2557,True,0.3854 [B],0.3854,True,0.1802
+cti-ate,E1-MIXED (Phase 5),0.1585 [B],0.1585,True,0.2054 [B],0.2054,True,0.2735 [B],0.2735,True,0.3895 [B],0.3895,True,0.182
+cti-ate,E1h (Phase 7),0.1935 [B],0.1935,True,0.2392 [B],0.2392,True,0.3446 [B],0.3446,True,0.4990 [B],0.499,True,0.2163
+cti-ate,E1h-div (Phase 7),0.1968 [B],0.1968,True,0.2452 [B],0.2452,True,0.3567 [B],0.3567,True,0.5391 [B],0.5391,True,0.221
+cti-ate,E1h-MIXED (Phase 7),0.1814 [B],0.1814,True,0.2418 [B],0.2418,True,0.3606 [B],0.3606,True,0.5340 [B],0.534,True,0.2116
+cti-ate,E1h-MIXED-div (Phase 7),0.1899 [B],0.1899,True,0.2562 [B],0.2562,True,0.3652 [B],0.3652,True,0.5668 [B],0.5668,True,0.223
+CTI-ATTACK,E0'-k200 (Phase 5),0.5670 [B],0.567,True,0.6477 [B],0.6477,True,0.7525 [B],0.7525,True,0.8159 [B],0.8159,True,0.6074
+CTI-ATTACK,E0'-TECH-k200 (Control),0.5713 [B],0.5713,True,0.6543 [B],0.6543,True,0.7438 [B],0.7438,True,0.8202 [B],0.8202,True,0.6128
+CTI-ATTACK,E1a (Phase 5),0.4316 [B],0.4316,True,0.5975 [B],0.5975,True,0.6805 [B],0.6805,True,0.7475 [B],0.7475,True,0.5146
+CTI-ATTACK,E1-MIXED (Phase 5),0.4054 [B],0.4054,True,0.5320 [B],0.532,True,0.6477 [B],0.6477,True,0.7023 [B],0.7023,True,0.4687
+CTI-ATTACK,E1h (Phase 7),0.5058 [B],0.5058,True,0.6041 [B],0.6041,True,0.6980 [B],0.698,True,0.7744 [B],0.7744,True,0.555
+CTI-ATTACK,E1h-div (Phase 7),0.4927 [B],0.4927,True,0.5844 [B],0.5844,True,0.6783 [B],0.6783,True,0.7365 [B],0.7365,True,0.5386
+CTI-ATTACK,E1h-MIXED (Phase 7),0.5146 [B],0.5146,True,0.5844 [B],0.5844,True,0.7001 [B],0.7001,True,0.7649 [B],0.7649,True,0.5495
+CTI-ATTACK,E1h-MIXED-div (Phase 7),0.5015 [B],0.5015,True,0.5779 [B],0.5779,True,0.6892 [B],0.6892,True,0.7387 [B],0.7387,True,0.5397

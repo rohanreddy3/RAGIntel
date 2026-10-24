@@ -1,0 +1,712 @@
+{
+  "family_P7_contrasts": [
+    {
+      "contrast_id": "P7_01",
+      "dataset": "cti-ate",
+      "treatment": "E1h",
+      "control": "E0'-TECH-k200",
+      "metric": "Mean Recall@{500,1000} (sub-credit)",
+      "n_queries": 60,
+      "control_mean": 0.2333,
+      "treatment_mean": 0.2163,
+      "delta": -0.017,
+      "ci_95_low": -0.064,
+      "ci_95_high": 0.0368,
+      "bootstrap_pval": 0.5014,
+      "exact_sign_pval": 0.07245,
+      "wins": 16,
+      "ties": 15,
+      "losses": 29,
+      "wtl_str": "16/15/29",
+      "holm_alpha": 0.025,
+      "is_significant_holm": false,
+      "verdict": "Neutral / Not Significant"
+    },
+    {
+      "contrast_id": "P7_02",
+      "dataset": "cti-ate",
+      "treatment": "E1h_div",
+      "control": "E0'-TECH-k200",
+      "metric": "Mean Recall@{500,1000} (sub-credit)",
+      "n_queries": 60,
+      "control_mean": 0.2333,
+      "treatment_mean": 0.221,
+      "delta": -0.0123,
+      "ci_95_low": -0.059,
+      "ci_95_high": 0.0409,
+      "bootstrap_pval": 0.6162,
+      "exact_sign_pval": 0.10381,
+      "wins": 17,
+      "ties": 14,
+      "losses": 29,
+      "wtl_str": "17/14/29",
+      "holm_alpha": 0.05,
+      "is_significant_holm": false,
+      "verdict": "Neutral / Not Significant"
+    },
+    {
+      "contrast_id": "P7_03",
+      "dataset": "CTI-ATTACK",
+      "treatment": "E1h",
+      "control": "E0'-TECH-k200",
+      "metric": "Mean Recall@{500,1000} (sub-credit)",
+      "n_queries": 229,
+      "control_mean": 0.6128,
+      "treatment_mean": 0.5549,
+      "delta": -0.0579,
+      "ci_95_low": -0.1103,
+      "ci_95_high": -0.0055,
+      "bootstrap_pval": 0.0334,
+      "exact_sign_pval": 0.00558,
+      "wins": 23,
+      "ties": 159,
+      "losses": 47,
+      "wtl_str": "23/159/47",
+      "holm_alpha": 0.0167,
+      "is_significant_holm": false,
+      "verdict": "Neutral / Not Significant"
+    },
+    {
+      "contrast_id": "P7_04",
+      "dataset": "CTI-ATTACK",
+      "treatment": "E1h_div",
+      "control": "E0'-TECH-k200",
+      "metric": "Mean Recall@{500,1000} (sub-credit)",
+      "n_queries": 229,
+      "control_mean": 0.6128,
+      "treatment_mean": 0.5386,
+      "delta": -0.0742,
+      "ci_95_low": -0.131,
+      "ci_95_high": -0.0186,
+      "bootstrap_pval": 0.0106,
+      "exact_sign_pval": 0.01058,
+      "wins": 26,
+      "ties": 154,
+      "losses": 49,
+      "wtl_str": "26/154/49",
+      "holm_alpha": 0.0125,
+      "is_significant_holm": true,
+      "verdict": "Significant Deficit"
+    }
+  ],
+  "scaling_results_phase7": {
+    "cti-ate": {
+      "E1h": {
+        "500": {
+          "Recall_sub": 0.1935,
+          "Recall_strict": 0.0919,
+          "MRR": 0.3923,
+          "tokens_used": 500.0,
+          "mean_chunks": 5.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2392,
+          "Recall_strict": 0.1453,
+          "MRR": 0.4066,
+          "tokens_used": 1000.0,
+          "mean_chunks": 10.9,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.3446,
+          "Recall_strict": 0.2414,
+          "MRR": 0.4201,
+          "tokens_used": 2000.0,
+          "mean_chunks": 21.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.499,
+          "Recall_strict": 0.3806,
+          "MRR": 0.4214,
+          "tokens_used": 4000.0,
+          "mean_chunks": 40.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1h_div": {
+        "500": {
+          "Recall_sub": 0.1968,
+          "Recall_strict": 0.0943,
+          "MRR": 0.3976,
+          "tokens_used": 500.0,
+          "mean_chunks": 5.9,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2452,
+          "Recall_strict": 0.1253,
+          "MRR": 0.4109,
+          "tokens_used": 1000.0,
+          "mean_chunks": 11.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.3567,
+          "Recall_strict": 0.2254,
+          "MRR": 0.4261,
+          "tokens_used": 2000.0,
+          "mean_chunks": 21.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5391,
+          "Recall_strict": 0.3721,
+          "MRR": 0.4268,
+          "tokens_used": 4000.0,
+          "mean_chunks": 40.5,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1h_MIXED": {
+        "500": {
+          "Recall_sub": 0.1814,
+          "Recall_strict": 0.1103,
+          "MRR": 0.3742,
+          "tokens_used": 500.0,
+          "mean_chunks": 5.7,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2418,
+          "Recall_strict": 0.1542,
+          "MRR": 0.3986,
+          "tokens_used": 1000.0,
+          "mean_chunks": 10.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.3606,
+          "Recall_strict": 0.2545,
+          "MRR": 0.4126,
+          "tokens_used": 2000.0,
+          "mean_chunks": 20.7,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.534,
+          "Recall_strict": 0.4059,
+          "MRR": 0.4149,
+          "tokens_used": 4000.0,
+          "mean_chunks": 40.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1h_MIXED_div": {
+        "500": {
+          "Recall_sub": 0.1899,
+          "Recall_strict": 0.1006,
+          "MRR": 0.3861,
+          "tokens_used": 500.0,
+          "mean_chunks": 5.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2562,
+          "Recall_strict": 0.1365,
+          "MRR": 0.4053,
+          "tokens_used": 1000.0,
+          "mean_chunks": 11.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.3652,
+          "Recall_strict": 0.2324,
+          "MRR": 0.4183,
+          "tokens_used": 2000.0,
+          "mean_chunks": 20.7,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5668,
+          "Recall_strict": 0.3856,
+          "MRR": 0.4206,
+          "tokens_used": 4000.0,
+          "mean_chunks": 39.5,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      }
+    },
+    "CTI-ATTACK": {
+      "E1h": {
+        "500": {
+          "Recall_sub": 0.5058,
+          "Recall_strict": 0.4709,
+          "MRR": 0.3497,
+          "tokens_used": 500.0,
+          "mean_chunks": 4.9,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.6041,
+          "Recall_strict": 0.567,
+          "MRR": 0.3639,
+          "tokens_used": 1000.0,
+          "mean_chunks": 9.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.698,
+          "Recall_strict": 0.6477,
+          "MRR": 0.3706,
+          "tokens_used": 2000.0,
+          "mean_chunks": 18.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.7744,
+          "Recall_strict": 0.7569,
+          "MRR": 0.3741,
+          "tokens_used": 4000.0,
+          "mean_chunks": 36.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1h_div": {
+        "500": {
+          "Recall_sub": 0.4927,
+          "Recall_strict": 0.4512,
+          "MRR": 0.3459,
+          "tokens_used": 500.0,
+          "mean_chunks": 4.9,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.5844,
+          "Recall_strict": 0.5386,
+          "MRR": 0.3581,
+          "tokens_used": 1000.0,
+          "mean_chunks": 9.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.6783,
+          "Recall_strict": 0.6128,
+          "MRR": 0.3658,
+          "tokens_used": 2000.0,
+          "mean_chunks": 18.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.7365,
+          "Recall_strict": 0.6841,
+          "MRR": 0.3682,
+          "tokens_used": 4000.0,
+          "mean_chunks": 36.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1h_MIXED": {
+        "500": {
+          "Recall_sub": 0.5146,
+          "Recall_strict": 0.4753,
+          "MRR": 0.3483,
+          "tokens_used": 500.0,
+          "mean_chunks": 5.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.5844,
+          "Recall_strict": 0.5364,
+          "MRR": 0.3595,
+          "tokens_used": 1000.0,
+          "mean_chunks": 9.7,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.7001,
+          "Recall_strict": 0.6652,
+          "MRR": 0.3679,
+          "tokens_used": 2000.0,
+          "mean_chunks": 19.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.7649,
+          "Recall_strict": 0.7453,
+          "MRR": 0.3705,
+          "tokens_used": 4000.0,
+          "mean_chunks": 38.5,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1h_MIXED_div": {
+        "500": {
+          "Recall_sub": 0.5015,
+          "Recall_strict": 0.4491,
+          "MRR": 0.3449,
+          "tokens_used": 500.0,
+          "mean_chunks": 5.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.5779,
+          "Recall_strict": 0.5189,
+          "MRR": 0.3554,
+          "tokens_used": 1000.0,
+          "mean_chunks": 9.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.6892,
+          "Recall_strict": 0.615,
+          "MRR": 0.3636,
+          "tokens_used": 2000.0,
+          "mean_chunks": 19.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.7387,
+          "Recall_strict": 0.6754,
+          "MRR": 0.3656,
+          "tokens_used": 4000.0,
+          "mean_chunks": 39.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      }
+    }
+  },
+  "scaling_results_phase5_baseline": {
+    "cti-ate": {
+      "E0_prime_k200": {
+        "500": {
+          "Recall_sub": 0.2042,
+          "Recall_strict": 0.0815,
+          "MRR": 0.3002,
+          "tokens_used": 500.0,
+          "mean_chunks": 11.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2812,
+          "Recall_strict": 0.1536,
+          "MRR": 0.3106,
+          "tokens_used": 1000.0,
+          "mean_chunks": 21.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.4201,
+          "Recall_strict": 0.2686,
+          "MRR": 0.3145,
+          "tokens_used": 1996.7,
+          "mean_chunks": 40.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5695,
+          "Recall_strict": 0.4341,
+          "MRR": 0.3145,
+          "tokens_used": 3833.9,
+          "mean_chunks": 74.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E0_prime_tech_k200": {
+        "500": {
+          "Recall_sub": 0.1768,
+          "Recall_strict": 0.0903,
+          "MRR": 0.2456,
+          "tokens_used": 500.0,
+          "mean_chunks": 11.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2899,
+          "Recall_strict": 0.1629,
+          "MRR": 0.2602,
+          "tokens_used": 1000.0,
+          "mean_chunks": 22.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.4168,
+          "Recall_strict": 0.284,
+          "MRR": 0.2633,
+          "tokens_used": 2000.0,
+          "mean_chunks": 43.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.5704,
+          "Recall_strict": 0.4081,
+          "MRR": 0.2636,
+          "tokens_used": 4000.0,
+          "mean_chunks": 82.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1a": {
+        "500": {
+          "Recall_sub": 0.1634,
+          "Recall_strict": 0.0824,
+          "MRR": 0.4589,
+          "tokens_used": 500.0,
+          "mean_chunks": 3.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.197,
+          "Recall_strict": 0.1324,
+          "MRR": 0.4803,
+          "tokens_used": 1000.0,
+          "mean_chunks": 6.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.2557,
+          "Recall_strict": 0.1987,
+          "MRR": 0.5022,
+          "tokens_used": 2000.0,
+          "mean_chunks": 10.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.3854,
+          "Recall_strict": 0.3125,
+          "MRR": 0.5132,
+          "tokens_used": 4000.0,
+          "mean_chunks": 18.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1_mixed": {
+        "500": {
+          "Recall_sub": 0.1585,
+          "Recall_strict": 0.0721,
+          "MRR": 0.3738,
+          "tokens_used": 500.0,
+          "mean_chunks": 4.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.2054,
+          "Recall_strict": 0.1327,
+          "MRR": 0.4285,
+          "tokens_used": 1000.0,
+          "mean_chunks": 6.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.2735,
+          "Recall_strict": 0.2181,
+          "MRR": 0.4482,
+          "tokens_used": 2000.0,
+          "mean_chunks": 11.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.3895,
+          "Recall_strict": 0.3143,
+          "MRR": 0.4528,
+          "tokens_used": 4000.0,
+          "mean_chunks": 21.2,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      }
+    },
+    "CTI-ATTACK": {
+      "E0_prime_k200": {
+        "500": {
+          "Recall_sub": 0.567,
+          "Recall_strict": 0.5036,
+          "MRR": 0.3414,
+          "tokens_used": 500.0,
+          "mean_chunks": 10.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.6477,
+          "Recall_strict": 0.6041,
+          "MRR": 0.3467,
+          "tokens_used": 1000.0,
+          "mean_chunks": 20.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.7525,
+          "Recall_strict": 0.7089,
+          "MRR": 0.3502,
+          "tokens_used": 2000.0,
+          "mean_chunks": 41.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.8159,
+          "Recall_strict": 0.7809,
+          "MRR": 0.3511,
+          "tokens_used": 4000.0,
+          "mean_chunks": 83.5,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E0_prime_tech_k200": {
+        "500": {
+          "Recall_sub": 0.5713,
+          "Recall_strict": 0.5124,
+          "MRR": 0.348,
+          "tokens_used": 500.0,
+          "mean_chunks": 10.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.6543,
+          "Recall_strict": 0.6106,
+          "MRR": 0.3541,
+          "tokens_used": 1000.0,
+          "mean_chunks": 20.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.7438,
+          "Recall_strict": 0.698,
+          "MRR": 0.3573,
+          "tokens_used": 2000.0,
+          "mean_chunks": 40.7,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.8202,
+          "Recall_strict": 0.7831,
+          "MRR": 0.3585,
+          "tokens_used": 4000.0,
+          "mean_chunks": 82.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1a": {
+        "500": {
+          "Recall_sub": 0.4316,
+          "Recall_strict": 0.4163,
+          "MRR": 0.333,
+          "tokens_used": 500.0,
+          "mean_chunks": 3.0,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.5975,
+          "Recall_strict": 0.5691,
+          "MRR": 0.3782,
+          "tokens_used": 1000.0,
+          "mean_chunks": 5.4,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.6805,
+          "Recall_strict": 0.6434,
+          "MRR": 0.3905,
+          "tokens_used": 2000.0,
+          "mean_chunks": 10.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.7475,
+          "Recall_strict": 0.7147,
+          "MRR": 0.396,
+          "tokens_used": 3968.0,
+          "mean_chunks": 20.5,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      },
+      "E1_mixed": {
+        "500": {
+          "Recall_sub": 0.4054,
+          "Recall_strict": 0.3814,
+          "MRR": 0.3007,
+          "tokens_used": 500.0,
+          "mean_chunks": 3.1,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "1000": {
+          "Recall_sub": 0.532,
+          "Recall_strict": 0.5036,
+          "MRR": 0.333,
+          "tokens_used": 1000.0,
+          "mean_chunks": 5.8,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "2000": {
+          "Recall_sub": 0.6477,
+          "Recall_strict": 0.6259,
+          "MRR": 0.3509,
+          "tokens_used": 2000.0,
+          "mean_chunks": 11.6,
+          "is_binding": true,
+          "binding_status": "Binding"
+        },
+        "4000": {
+          "Recall_sub": 0.7023,
+          "Recall_strict": 0.6805,
+          "MRR": 0.3552,
+          "tokens_used": 3768.9,
+          "mean_chunks": 23.3,
+          "is_binding": true,
+          "binding_status": "Binding"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "protocol": "Phase 6C Generation Arms Declaration (Post-Hoc Round 3, Exploratory)",
+  "registration_timestamp_utc": "2026-10-24T15:11:36.701916+00:00",
+  "analysis_plan_file": "analysis_plan.md",
+  "analysis_plan_sha256": "107e60c83a523d81dd1d2009abf69b32b4d41948a905f96c52a0b8d1c59f6f18",
+  "model_config": {
+    "model_id": "gemini-3.5-flash-lite",
+    "temperature": 0.0,
+    "max_output_tokens": 512,
+    "pacing_seconds": 5.0
+  },
+  "primary_arms": {
+    "budget_tokens": 500,
+    "arms": [
+      {
+        "arm": "E0_prime_HD_k200",
+        "dataset": "cti-ate",
+        "num_queries": 60,
+        "source": "results/phase_5/top200_hd_chunks.json.gz"
+      },
+      {
+        "arm": "E0_prime_HD_k200",
+        "dataset": "CTI-ATTACK",
+        "num_queries": 229,
+        "source": "results/phase_5/top200_hd_chunks.json.gz"
+      },
+      {
+        "arm": "V0h",
+        "dataset": "cti-taa",
+        "num_queries": 50,
+        "source": "results/phase_5/o1_top10_cache.json"
+      },
+      {
+        "arm": "Vrel",
+        "dataset": "cti-taa",
+        "num_queries": 50,
+        "source": "results/phase_5/o1_top10_cache.json"
+      }
+    ],
+    "total_calls": 389
+  },
+  "secondary_arm": {
+    "budget_tokens": 2000,
+    "arms": [
+      {
+        "arm": "E0_prime_HD_k200",
+        "dataset": "cti-ate",
+        "num_queries": 60
+      },
+      {
+        "arm": "E0_prime_HD_k200",
+        "dataset": "CTI-ATTACK",
+        "num_queries": 229
+      }
+    ],
+    "total_calls": 289
+  },
+  "statistical_testing": {
+    "bootstrap_resamples": 10000,
+    "random_seed": 42,
+    "binary_sign_test": "Exact two-sided binomial sign test on discordant pairs"
+  }
+}

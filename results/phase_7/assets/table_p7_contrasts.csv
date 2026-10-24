@@ -1,0 +1,5 @@
+contrast_id,dataset,treatment,control,metric,n_queries,control_mean,treatment_mean,delta,ci_95_low,ci_95_high,bootstrap_pval,exact_sign_pval,wins,ties,losses,wtl_str,holm_alpha,is_significant_holm,verdict
+P7_01,cti-ate,E1h,E0'-TECH-k200,"Mean Recall@{500,1000} (sub-credit)",60,0.2333,0.2163,-0.017,-0.064,0.0368,0.5014,0.07245,16,15,29,16/15/29,0.025,False,Neutral / Not Significant
+P7_02,cti-ate,E1h_div,E0'-TECH-k200,"Mean Recall@{500,1000} (sub-credit)",60,0.2333,0.221,-0.0123,-0.059,0.0409,0.6162,0.10381,17,14,29,17/14/29,0.05,False,Neutral / Not Significant
+P7_03,CTI-ATTACK,E1h,E0'-TECH-k200,"Mean Recall@{500,1000} (sub-credit)",229,0.6128,0.5549,-0.0579,-0.1103,-0.0055,0.0334,0.00558,23,159,47,23/159/47,0.0167,False,Neutral / Not Significant
+P7_04,CTI-ATTACK,E1h_div,E0'-TECH-k200,"Mean Recall@{500,1000} (sub-credit)",229,0.6128,0.5386,-0.0742,-0.131,-0.0186,0.0106,0.01058,26,154,49,26/154/49,0.0125,True,Significant Deficit

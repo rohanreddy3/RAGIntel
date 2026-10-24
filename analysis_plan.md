@@ -393,4 +393,63 @@ The following protocol refinements are adopted for Phase 5B unattended execution
     $$\text{raw RAGIntel} \longrightarrow +\text{hygiene} \longrightarrow +\text{domain routing} \longrightarrow +V_{\text{rel}} / V_{\text{rel}}\text{-T}$$
     reporting point estimates and 95% confidence intervals for each dataset.
 
+## 12. Phase 6C Amendments: Generation Arms Implementation & Evaluation (Post-Hoc Round 3, 2026-10-24)
+
+### 12.1 Generation Arms Declaration
+- **Model & Configuration**: Locked strictly to `gemini-3.5-flash-lite`, temperature 0.0, `max_output_tokens` 512, bare prompt template identical to LLM-only and existing E0' arms.
+- **Primary Arms ($B^* = 500$ tokens, 389 live calls)**:
+  1. $E_0'\text{-HD-k200}$ on `cti-ate` ($N=60$), built from `results/phase_5/top200_hd_chunks.json.gz` via `truncate_to_token_budget(budget_tokens=500)`.
+  2. $E_0'\text{-HD-k200}$ on `CTI-ATTACK` ($N=229$), built from `results/phase_5/top200_hd_chunks.json.gz` via `truncate_to_token_budget(budget_tokens=500)`.
+  3. `cti-taa` $V_{0h}$ ($N=50$), built from top-10 chunks of `results/phase_5/o1_top10_cache.json` under body-only queries.
+  4. `cti-taa` $V_{\text{rel}}$ ($N=50$), built from top-10 chunks of `results/phase_5/o1_top10_cache.json` under body-only queries with entity relationship expansion.
+- **Secondary Arm (Next Quota Day)**:
+  - $E_0'\text{-HD-k200}$ at $B = 2000$ tokens on `cti-ate` (60) and `CTI-ATTACK` (229), totaling 289 calls.
+- **Evaluation Metrics & Contrasts**:
+  - Technique Benchmarks: F1 (sub-technique credit and strict), precision, recall, abstention, empty, and truncation counts.
+  - Threat Actor Attribution: Object-level accuracy (primary) and alias-aware match (Scorer V2).
+  - Contrasts: Each arm vs existing LLM-only arm and vs matching raw-context arm, evaluated on identical rows.
+  - Statistical Testing: Paired bootstrap (10,000 resamples, seed 42) and exact two-sided binomial sign test on discordant pairs.
+  - Labeling: "post-hoc round 3, exploratory".
+
+## 13. Phase 7 Amendments: Optimization 2 Redesign (Post-Hoc Round 4, 2026-10-24)
+
+### 13.1 Methodological Governance
+- **(R1) Pre-Registration**: Declared prior to execution in `analysis_plan.md` and registered with hash and timestamp in `results/phase_7/variants_ledger.json`.
+- **(R2) Operational Constraints**: Offline execution only; thread cap 4; one heavy retrieval process at a time. No modification of frozen Phase 0–6 results.
+- **(R3) Explicit Labeling**: Labeled strictly as "post-hoc round 4, exploratory".
+- **(R4) Neutral Scientific Tone**: Strictly descriptive language; zero causal wording permitted.
+- **(R5) Full Reporting & Transparency**: Report all evaluated variants, including negative outcomes and failures. Retain the original O2 negative result in the report as-is.
+
+### 13.2 Part A: Diagnostics Protocol (Descriptive Only)
+Evaluate across arms ($E_0'\text{-k200}$, $E_0'\text{-TECH-k200}$, $E_{1a}$, $E_1\text{-MIXED}$) on `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$) at token budgets $B \in \{500, 1000\}$:
+1. **Mean tokens per chunk**: Average token count of retrieved chunks entering the packed context.
+2. **Share of chunks with technique ID**: Percentage of retrieved chunks whose text matches `T\d{4}(?:\.\d{3})?`.
+3. **Mean distinct technique IDs per context**: Average count of unique parent technique IDs contained in the packed context per query.
+4. **Mean chunks per context from the same technique**: Average ratio of chunks per distinct technique present in the packed context.
+
+### 13.3 Part B: Redesigned Variants Specification
+1. **$E_{1h}$ (Header-Prepended, Length-Capped Field Chunks)**:
+   - Built over the same four ATT&CK technique fields as $E_{1a}$ (`identity_description`, `procedure_examples`, `mitigations`, `detection`).
+   - Every chunk prepends a one-line header: `[<technique_id> <name> | <tactics>]`.
+   - Each chunk is capped at exactly 150 tokens, split at sentence boundaries, with the one-line header repeated on every split chunk.
+   - Mixed-corpus version $E_{1h}\text{-MIXED}$ combines $E_{1h}$ technique chunks with original splitter chunks for groups/software, analogous to $E_1\text{-MIXED}$.
+2. **$E_{1h}\text{-div}$ (Diversity-Constrained Packing)**:
+   - Applies post-retrieval diversity packing to $E_{1h}$: at most 2 chunks per technique ID are admitted to the context window before truncation at token budget $B$.
+3. **Retrieval Pipeline**:
+   - Both variants use query hygiene (body-only queries), domain routing for `cti-ate`, HybridSTIXRetriever (dense + BM25Okapi), FlashRank cross-encoder reranking, and a $k=200$ candidate pool.
+
+### 13.4 Part C: Contrasts & Evaluation Protocol (Family P7, Holm $M=4$)
+- **Target Datasets**: `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$).
+- **Primary Metric**: Mean Recall@$B$ across budgets $B \in \{500, 1000\}$ under sub-technique credit (`sub_credits_parent`).
+- **Family P7 Contrasts ($M=4$)**:
+  - $P7\_01$: $E_{1h}$ vs $E_0'\text{-TECH-k200}$ on `cti-ate`
+  - $P7\_02$: $E_{1h}\text{-div}$ vs $E_0'\text{-TECH-k200}$ on `cti-ate`
+  - $P7\_03$: $E_{1h}$ vs $E_0'\text{-TECH-k200}$ on `CTI-ATTACK`
+  - $P7\_04$: $E_{1h}\text{-div}$ vs $E_0'\text{-TECH-k200}$ on `CTI-ATTACK`
+- **Statistical Testing**:
+  - Paired bootstrap resampling ($N = 10,000$, seed 42) reporting paired difference $\Delta$ and 95% bootstrap percentile confidence intervals.
+  - Family-wise multiplicity control via Holm step-down correction at $\alpha = 0.05$ across $M=4$ contrasts.
+  - Full 4-budget scaling table ($B \in \{500, 1000, 2000, 4000\}$) reporting binding flags alongside Phase 5 $E_{1a}$ and $E_1\text{-MIXED}$ baselines.
+
+
 
