@@ -112,70 +112,134 @@ Evaluating context packing across all four budgets with $k=200$ candidate pools 
 
 ---
 
-## 5. Table 4: Claims Reconciliation Matrix (C1–C11)
+---
 
-| Claim ID | Original Proposal Wording | Phase 5B / Phase 6 Reconciled Status & Label | Evidentiary Basis |
-| :--- | :--- | :--- | :--- |
-| **C1** | Instruction leaking confounds retrieval | **Supported** | Removing instruction noise increases `cti-ate` Recall from 0.1514 to 0.2241 ($\Delta = +0.0727$, $p < 0.0001$). |
-| **C2** | Domain mismatch on `cti-ate` | **Supported** | Domain routing increases `cti-ate` Recall from 0.2241 to 0.3737 ($\Delta = +0.1496$, $p < 0.0001$). |
-| **C3** | Target domain sanity check | **Supported** | 98.33% of `cti-ate` ground truth technique IDs fall strictly within the routed domain. |
-| **C4** | Dense retriever index difference | **Supported** `[Measured under raw (unhygienic) queries]` | E0' vs E0 under raw queries: +0.0270 ($p=0.0381$). |
-| **C5** | Query chunking degrades performance | **Supported** `[Measured under raw (unhygienic) queries]` | Query chunking under raw queries reduces Recall across all budgets ($\Delta < 0$, $p < 0.001$). |
-| **C6** | Reranker window context loss | **Supported** | Reranking over isolated chunk windows truncates technique evidence. |
-| **C7** | BM25 index differences | **Supported** `[Measured under raw (unhygienic) queries]` | Evaluated in Phase 3 under raw queries. |
-| **C8** | Scoring gap on threat actor attribution | **Supported** | Object-level vs text-inclusive scoring shows a +0.1600 credit discrepancy on `cti-taa` (0.1400 vs 0.3000). |
-| **C9** | Entity expansion under body-only queries | **Supported** | $V_{\text{rel}}$ increases object-level Recall@10 from 0.1400 to 0.3200 ($p_{\text{boot}}=0.0054$, $p_{\text{exact}}=0.0117$). |
-| **C10** | Candidate pool saturation ($k=50$ vs $k=200$) | **Reconciled / Rewritten** | Candidate pool expansion to $k=200$ enables control arms to fill 2000 and 4000 tokens. Under both $k=50$ and $k=200$, structured chunking arms ($E_{1a}$, $E_1\text{-MIXED}$) do not outperform controls at any budget ($\Delta < 0$, $p < 0.005$). |
-| **C11** | Technique co-occurrence expansion ($V_{\text{rel}}\text{-T}$) | **Supported on `cti-ate`; Inactive on `CTI-ATTACK`** | Pre-declared extension increases `cti-ate` Recall from 0.3737 to 0.5578 ($\Delta = +0.1840$, $p < 0.0001$). On `CTI-ATTACK`, 0 queries detect malware, yielding $\Delta = 0.0000$. |
+## 5. Table 4: Claims Reconciliation Matrix (C1–C14)
+
+Rebuilt strictly from the original Phase 4B/5 matrix (`scripts/reconcile_table7.py` and `results/phase_5/assets/table7_reconciliation.csv`), restoring the original definitions and numbers for C1–C10. Unbacked claims (dense retriever index difference, query chunking, reranker window context loss, BM25 index differences) lacking dedicated result files/rows have been removed. Added new script-backed claims C11–C14 (Hygiene, Domain Routing, Graph Expansion $V_{\text{rel}}$, and Technique Co-occurrence Diagnostic $V_{\text{rel}}\text{-T}$). Every cited value is asserted against repository JSON/CSV artifacts (`results/phase_6b/assets/table_claims_rebuilt.csv`).
+
+| Claim ID | Category | Claim Statement | Status | Cited Value & Empirical Evidence | Evidence File & Row Key |
+| :---: | :--- | :--- | :---: | :--- | :--- |
+| **C1** | Original Phase 4/4B Claim | Family P1: Query entity resolution ($V_1$) improves threat actor attribution recall on `cti-taa` over raw query ($V_0$). | **Not Supported** | $\Delta = +0.0200$, $p_{\text{boot}} = 0.7644$, $p_{\text{exact}} = 1.0000$ (Phase 2 raw: $\Delta = -0.0400$, $p=0.7670$; non-significant after Holm) | [`results/phase_5b/assets/table_family_p3_mcnemar_and_mappable.csv`](file:///results/phase_5b/assets/table_family_p3_mcnemar_and_mappable.csv)<br>`test_id='P3_01', subset='Full Benchmark (N=50)'` |
+| **C2** | Original Phase 4/4B Claim | Family P1 Sensitivity: Query entity resolution ($V_1$) achieves positive reciprocal rank precision (MRR) gain over length-matched random control ($V_3$). | **Exploratory** | $\Delta\text{ MRR} = +0.0934$ (95% CI [+0.0186, +0.1797], unadjusted $p = 0.0223$; non-significant after Holm step-down) | [`results/phase_2/regenerated_p1_table.json`](file:///results/phase_2/regenerated_p1_table.json)<br>`test_id='P1_04' ('V1 vs V3 (seeds 42-46) MRR')` |
+| **C3** | Original Phase 4/4B Claim | Family S1: Query entity resolution transfers positively to technique extraction on `cti-ate` and `CTI-ATTACK`. | **Not Supported (Non-inferior)** | `cti-ate` $\Delta = -0.0009$; `CTI-ATTACK` $\Delta = +0.0000$ (non-inferiority margin $-0.0300$ satisfied) | [`results/phase_5/assets/table_o1_transfer.csv`](file:///results/phase_5/assets/table_o1_transfer.csv)<br>`dataset in ['cti-ate', 'CTI-ATTACK'], metric='Recall@10'` |
+| **C4** | Original Phase 4/4B Claim | Family P2': Structure-aware sibling expansion ($E_{1b}\text{-MIXED}$) improves technique retrieval recall over baseline splitter ($E_0'$) at $B^*=500$. | **Not Supported** | `CTI-ATTACK` $\Delta = -0.1485$ ($p < 0.0001$); `cti-ate` $\Delta = +0.0216$ ($p = 0.1295$) | [`results/phase_3/o2_phase3c_benchmark_results.json`](file:///results/phase_3/o2_phase3c_benchmark_results.json)<br>`hypothesis_tests.text_and_metadata.confirmatory_p2_prime['P2_03']` |
+| **C5** | Original Phase 4/4B Claim | `cti-taa` Guard: Sibling expansion ($E_{1b}\text{-MIXED}$) preserves threat actor attribution recall within 5% of $E_0'$. | **Not Supported** | Recall@10 drops from 0.3000 to 0.1000 ($\Delta = -0.2000$, $p = 0.0064$). Guard formally fails. | [`results/phase_3/o2_phase3c_benchmark_results.json`](file:///results/phase_3/o2_phase3c_benchmark_results.json)<br>`hypothesis_tests.metadata_only.no_regression_guard` |
+| **C6** | Original Phase 4/4B Claim | Unified Mixed Indexing ($E_1\text{-MIXED}$ without siblings) preserves actor attribution retrieval recall on `cti-taa`. | **Not established** | Under matched $B=500$: $\Delta = -0.0200$ (object-level), $\Delta = -0.2600$ (text-inclusive, $p = 0.0001$) | [`results/phase_4b/a8_recompute.json`](file:///results/phase_4b/a8_recompute.json)<br>`contrast='E1-MIXED vs E0\'', setting='B=500 (Matched Budget)'` |
+| **C7** | Original Phase 4/4B Claim | Family G1: Structure-aware sibling expansion ($E_{1b}\text{-MIXED}$) improves downstream LLM extraction F1 over $E_0'$ at $B^*=500$. | **Not Supported** | `cti-ate` F1 $\Delta = -0.1340$ (0.3452 vs 0.4792); `CTI-ATTACK` $\Delta = -0.1682$ (0.0772 vs 0.2454) | [`results/phase_4/d1_scoring_summary.json`](file:///results/phase_4/d1_scoring_summary.json)<br>`technique_f1['E1b_mixed_cti-ate'] vs ['E0_prime_cti-ate']` |
+| **C8** | Original Phase 4/4B Claim | RAG Retrieval Advantage: Retrieved STIX context improves threat actor attribution over direct LLM parametric generation (LLM-only). | **Not Supported (Contamination caveat)** | $V_0$ vs LLM-only $\Delta = -0.1400$ ($p = 0.0356$); LLM-only clean attribution accuracy = 0.7000 (0.7200 on unparseable subset) | [`results/phase_4/generation_paired_bootstrap.json`](file:///results/phase_4/generation_paired_bootstrap.json)<br>`contrast='V0 vs LLM-only (Scorer V2 (STIX ontology))'` |
+| **C9** | Original Phase 4/4B Claim | STIX Retrieval Scoring Gap: Exact canonical matching ($S_{\text{exact}}$) underestimates attribution recall relative to alias-aware matching ($S_{\text{alias}}$). | **Supported** | $S_{\text{alias}}$ adds $+0.1200$ to $+0.2200$ to Recall@10 over $S_{\text{exact}}$ across evaluated baselines and KBs | [`results/phase_2/s_exact_vs_alias_comparison.json`](file:///results/phase_2/s_exact_vs_alias_comparison.json)<br>`E0-STIX-ALL (B2 gap=0.22, B3 gap=0.12), E0-STIX-ENT (B2 gap=0.18, B3 gap=0.14)` |
+| **C10** | Original Phase 4/4B Claim | Field Chunking Alone ($E_{1a}$) improves technique retrieval recall over monolithic recursive splitting ($E_0'\text{-TECH}$) across binding budgets. | **Not Supported** | 4-budget mean $\Delta = -0.1131$ (`cti-ate`, $p=0.0004$) and $-0.0831$ (`CTI-ATTACK`, $p<0.0001$); lower across all 4 budgets | [`results/phase_5b/assets/table_family_p4_k200_primary.csv`](file:///results/phase_5b/assets/table_family_p4_k200_primary.csv)<br>`test_id in ['P4_01', 'P4_05'] (E1a vs E0_prime_tech_k200)` |
+| **C11** | Phase 5/6 Addition: Hygiene | Query Hygiene: Removing boilerplate instruction noise improves technique retrieval recall on `cti-ate` and `CTI-ATTACK`. | **Supported** | `cti-ate` B2 $\Delta = +0.1547$ (0.3061 vs 0.1514, $p < 0.0001$); `CTI-ATTACK` $\Delta = +0.4185$ (0.6401 vs 0.2216, $p < 0.0001$) | [`results/phase_5/assets/table_hygiene_effect.csv`](file:///results/phase_5/assets/table_hygiene_effect.csv)<br>`dataset in ['cti-ate', 'CTI-ATTACK'], baseline='B2'` |
+| **C12** | Phase 5/6 Addition: Domain Routing | Domain Routing: Routing queries to the target ATT&CK domain named in the instruction improves technique retrieval recall on `cti-ate`. | **Supported** | 396/397 (99.75%) GT technique IDs match routed domain; 4-budget Recall increases from 0.2241 to 0.3737 ($\Delta = +0.1496$) | [`results/phase_5/cti_ate_domain_sanity.json`](file:///results/phase_5/cti_ate_domain_sanity.json)<br>`gt_id_match_share (0.9975), matching_gt_ids (396), total_gt_ids (397)` |
+| **C13** | Phase 5/6 Addition: Graph Expansion | Entity Graph Expansion ($V_{\text{rel}}$): Inverse-degree weighted threat actor graph traversal from detected software improves attribution recall on `cti-taa`. | **Supported (Exploratory)** | Full $N=50$: $\Delta = +0.1800$ ($p_{\text{boot}}=0.0054$, $p_{\text{exact}}=0.0117$); Mappable $N=43$: $\Delta = +0.2093$ ($p_{\text{boot}}=0.0048$) | [`results/phase_5b/assets/table_family_p3_mcnemar_and_mappable.csv`](file:///results/phase_5b/assets/table_family_p3_mcnemar_and_mappable.csv)<br>`test_id='P3_03'` |
+| **C14** | Phase 5/6 Addition: Co-occurrence Diagnostic | Technique Co-occurrence Expansion ($V_{\text{rel}}\text{-T}$): Prepending technique co-occurrences acts as a KB-lookup upper bound for reports with named software, but is inactive without named software. | **Diagnostic (KB-Lookup Upper Bound)** | `cti-ate` Recall increases from 0.3737 to 0.5578 ($\Delta = +0.1840$, $p < 0.0001$); `CTI-ATTACK` $\Delta = +0.0000$ (0 malware detected) | [`results/phase_6/assets/table_family_p6.csv`](file:///results/phase_6/assets/table_family_p6.csv)<br>`test_id in ['P6_01', 'P6_02']` |
 
 ---
 
-## 6. Table 5: Family P6 Contrasts (Pre-Declared Extensions)
+## 6. Leakage Audit (Benchmark Construction Shortcut Audit)
 
-Evaluated under pre-registered protocol (`analysis_plan.md` Section 11, `results/phase_6/variants_ledger.json`). Multiplicity control: Holm-Bonferroni step-down across the 4 pre-declared contrasts ($M=4$).
+Using the pinned STIX bundles (Enterprise, Mobile, ICS), we audit the degree to which ground-truth technique IDs and threat group associations are directly encoded in the STIX knowledge base for entities named in the benchmark query bodies.
+
+| Dataset | Total Queries ($N$) | Queries with Named Software | Mean GT Technique Share in STIX `uses` List | Oracle Recall of Top-5 $V_{\text{rel}}\text{-T}$ Expansion | Epistemic Status & Interpretation |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **`cti-ate`** | 60 | 57 / 60 (95.0%) | **94.81%** | **60.35%** | **KB-lookup upper bound; not evidence of generalization to unseen reports** |
+| **`CTI-ATTACK`** | 229 | 0 / 229 (0.0%) | **0.00%** | **0.00%** | **Inactive baseline** (procedural snippets omit software names; 0 prefix tokens added) |
+| **`cti-taa`** | 50 | 38 / 50 (76.0%) | 11 / 38 (28.95% of software queries; 22.00% overall) | N/A (Threat actor retrieval task) | **KB-lookup upper bound; not evidence of generalization to unseen reports** |
+
+*Epistemic Note*: On `cti-ate`, query texts were constructed directly from MITRE ATT&CK software descriptions naming the malware family at the start of the query text. Consequently, **94.81%** of ground-truth techniques are already mapped to that software in the STIX `uses` relationship table, and an oracle top-5 co-occurrence expansion captures **60.35%** of all parent techniques before any text retrieval occurs. This represents a KB-lookup upper bound, not evidence of generalization to unseen reports.
+
+---
+
+## 7. Detectors Audit ($D_0$ vs $D_1$) & C3 Domain Sanity Check
+
+We formally define and evaluate two entity detectors across raw and body-only queries for all three benchmark datasets:
+- **$D_0$ (Unfiltered)**: Case-insensitive, minimum alias length 3, all STIX types (malware, tools, intrusion-sets, attack-patterns). Implemented via `CyberEntityResolver(min_alias_len=3)`.
+- **$D_1$ (Strict $V_{1h}$)**: Case-sensitive exact word-boundary matching, minimum length 5, fixed stoplist exclusion, restricted to target type (malware only for technique tasks, intrusion-sets for attribution).
+
+| Dataset | Query Format | Detector Configuration | Total Queries ($N$) | Queries with $\ge 1$ Entity | Entity Share | Matches / Query | Total Matches |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
+| **`cti-ate`** | Raw Query | $D_0$ (Unfiltered: len $\ge$ 3, case-insens, all types) | 60 | 59 | **98.33%** | 5.43 | 326 |
+| **`cti-ate`** | Raw Query | $D_1$ (Strict $V_{1h}$: len $\ge$ 5, case-sens, stoplist) | 60 | 57 | **95.00%** | 4.65 | 279 |
+| **`cti-ate`** | Body-Only | $D_0$ (Unfiltered: len $\ge$ 3, case-insens, all types) | 60 | 59 | **98.33%** | 5.43 | 326 |
+| **`cti-ate`** | Body-Only | $D_1$ (Strict $V_{1h}$: len $\ge$ 5, case-sens, stoplist) | 60 | 57 | **95.00%** | 4.65 | 279 |
+| **`CTI-ATTACK`** | Raw Query | $D_0$ (Unfiltered: len $\ge$ 3, case-insens, all types) | 229 | 8 | **3.49%** | 0.03 | 8 |
+| **`CTI-ATTACK`** | Raw Query | $D_1$ (Strict $V_{1h}$: len $\ge$ 5, case-sens, stoplist) | 229 | 0 | **0.00%** | 0.00 | 0 |
+| **`CTI-ATTACK`** | Body-Only | $D_0$ (Unfiltered: len $\ge$ 3, case-insens, all types) | 229 | 8 | **3.49%** | 0.03 | 8 |
+| **`CTI-ATTACK`** | Body-Only | $D_1$ (Strict $V_{1h}$: len $\ge$ 5, case-sens, stoplist) | 229 | 0 | **0.00%** | 0.00 | 0 |
+| **`cti-taa`** | Raw Query | $D_0$ (Unfiltered: len $\ge$ 3, case-insens, all types) | 50 | 50 | **100.00%** | 19.34 | 967 |
+| **`cti-taa`** | Raw Query | $D_1$ (Strict $V_{1h}$: len $\ge$ 5, case-sens, stoplist) | 50 | 50 | **100.00%** | 3.00 | 150 |
+| **`cti-taa`** | Body-Only | $D_0$ (Unfiltered: len $\ge$ 3, case-insens, all types) | 50 | 47 | **94.00%** | 17.34 | 867 |
+| **`cti-taa`** | Body-Only | $D_1$ (Strict $V_{1h}$: len $\ge$ 5, case-sens, stoplist) | 50 | 18 | **36.00%** | 2.00 | 100 |
+
+*Auditing Findings*:
+1. **Explanation of 52.8% figure**: In `results/phase_5/assets/table_query_hygiene.csv`, `CTI-ATTACK` was recorded as **3.5%** entity share (0.03 matches/query, corresponding to 8/229 queries matching short software aliases under len $\ge 3$). When attack-pattern names are included, 48.47% of queries match technique names. Under the strict $D_1$ rules (malware only, len $\ge 5$, case-sensitive, stoplist), exactly **0 / 229 (0.00%)** entities are detected. The earlier text reference to "52.8% (0.99 matches/query)" in draft notes did not derive from the script output.
+2. **C3 Domain Statistic Correction**: Across all 60 queries in `cti-ate`, there are 397 ground-truth technique IDs. Exactly **396 / 397 (99.75%)** of these IDs strictly belong to the routed ATT&CK domain (`results/phase_5/cti_ate_domain_sanity.json`). At the query level, **59 / 60 (98.33%)** queries have 100% of their ground-truth techniques in the routed domain.
+
+---
+
+## 8. Table 5: Family P6 Contrasts (Multiplicity Control $M=2$)
+
+Duplicate contrasts $P6\_03$ and $P6\_04$ (which duplicated Family P3 tests $P3\_03$ and $P3\_04$ on `cti-taa`) are removed from Family P6. Family P6 comprises strictly $P6\_01$ (`cti-ate`) and $P6\_02$ (`CTI-ATTACK`). Multiplicity control is conducted via Holm-Bonferroni step-down with $M=2$.
 
 | Test ID | Dataset | Contrast | Metric | Trt Mean | Ctrl Mean | $\Delta$ | 95% CI | W / T / L | $p_{\text{boot}}$ | $p_{\text{exact}}$ | Holm Rank | Holm $\alpha_k$ | Decision |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **P6_01** | `cti-ate` | $E\text{-comb-ate}$ ($V_{\text{rel}}\text{-T}$) vs $E_0'\text{-HD-k200}$ | Binding Mean Recall@B | 0.5578 | 0.3737 | +0.1840 | [0.1321, 0.2395] | 47 / 5 / 8 | 0.0000 | 0.0000 | 1 | 0.01250 | **Statistically significant increase** |
-| **P6_03** | `cti-taa` | $E\text{-comb-taa}$ ($V_{\text{rel}}$) vs $V_{0h}$ | Object-Level Recall@10 | 0.3200 | 0.1400 | +0.1800 | [0.0600, 0.3000] | 10 / 39 / 1 | 0.0054 | 0.0117 | 2 | 0.01667 | **Bootstrap-significant, exact-test borderline/not significant under Holm** |
-| **P6_04** | `cti-taa` | $E\text{-comb-taa}$ ($V_{\text{rel}}$) vs $V_{0h}$ | Object-Level MRR | 0.2120 | 0.0671 | +0.1449 | [0.0344, 0.2600] | 14 / 34 / 2 | 0.0121 | 0.0042 | 3 | 0.02500 | **Statistically significant increase** |
-| **P6_02** | `CTI-ATTACK` | $V_{\text{rel}}\text{-T}$ vs $E_0'\text{-HD-k200}$ | Binding Mean Recall@B | 0.6958 | 0.6958 | +0.0000 | [0.0000, 0.0000] | 0 / 229 / 0 | 1.0000 | 1.0000 | 4 | 0.05000 | **Not significant** (0 malware detected) |
+| **P6_01** | `cti-ate` | $E\text{-comb-ate}$ ($V_{\text{rel}}\text{-T}$) vs $E_0'\text{-HD-k200}$ | Binding Mean Recall@B | 0.5578 | 0.3737 | +0.1840 | [0.1321, 0.2395] | 47 / 5 / 8 | 0.0000 | 0.0000 | 1 | 0.0250 | **Statistically significant increase** |
+| **P6_02** | `CTI-ATTACK` | $V_{\text{rel}}\text{-T}$ vs $E_0'\text{-HD-k200}$ | Binding Mean Recall@B | 0.6958 | 0.6958 | +0.0000 | [0.0000, 0.0000] | 0 / 229 / 0 | 1.0000 | 1.0000 | 2 | 0.0500 | **Not significant** (0 malware detected) |
+
+*Preserved Decision from Family P3*: In Family P3, $P3\_04$ (`cti-taa` object-level MRR for $E\text{-comb-taa}$ vs $V_{0h}$) remains **Statistically significant increase** ($\Delta = +0.1449$, 95% CI [+0.0344, +0.2600], $p_{\text{boot}}=0.0121$, $p_{\text{exact}}=0.0042$, rank 2 under $M=4$, $\alpha=0.0167$).
 
 ---
 
-## 7. Table 6: Unified Improvement Ladder Synthesis (Post-Hoc Round 3, Exploratory)
+## 9. Table 6: Unified Improvement Ladder Recomputation
 
-*Protocol Label*: **Post-hoc round 3, exploratory**. No causal wording. Reporting all variants including inactive/failure cases.
+To enforce strict comparability, the improvement ladder is evaluated under two balanced protocols:
+- **Ladder A (Common Budgets $\{500, 1000\}$)**: Both budgets are strictly binding for every stage (including $k=50$ and $k=200$ arms).
+- **Ladder B (All 4 Budgets with $k=200$ for Every Stage)**: Same candidate pool size ($k=200$) and same budget set ($\{500, 1000, 2000, 4000\}$) across every stage, including `raw-k200`.
 
-| Dataset | Stage | System / Arm Configuration | Primary Metric | Score | 95% CI | $\Delta$ vs Previous Stage |
-| :--- | :---: | :--- | :--- | :---: | :---: | :---: |
-| **`cti-ate`** | 1 | Raw RAGIntel ($E_0'$ raw) | Binding Mean Recall@B | 0.1514 | [0.1032, 0.2052] | Baseline |
-| **`cti-ate`** | 2 | + Hygiene ($E_0'$ body-only) | Binding Mean Recall@B | 0.2241 | [0.1685, 0.2854] | +0.0727 |
-| **`cti-ate`** | 3 | + Domain Routing ($E_0'\text{-HD-k200}$) | Binding Mean Recall@B | 0.3737 | [0.3065, 0.4431] | +0.1496 |
-| **`cti-ate`** | 4 | + $V_{\text{rel}}\text{-T}$ Expansion ($E\text{-comb-ate}$) | Binding Mean Recall@B | 0.5578 | [0.5048, 0.6111] | +0.1840 [+0.1321, +0.2395] |
-| **`CTI-ATTACK`** | 1 | Raw RAGIntel ($E_0'$ raw) | Binding Mean Recall@B | 0.2216 | [0.1780, 0.2680] | Baseline |
-| **`CTI-ATTACK`** | 2 | + Hygiene / HD ($E_0'\text{-HD-k200}$) | Binding Mean Recall@B | 0.6958 | [0.6450, 0.7450] | +0.4742 |
-| **`CTI-ATTACK`** | 3 | + $V_{\text{rel}}\text{-T}$ Expansion ($V_{\text{rel}}\text{-T}$) | Binding Mean Recall@B | 0.6958 | [0.6450, 0.7450] | +0.0000 (0 malware detected) |
-| **`cti-taa`** | 1 | Raw RAGIntel ($V_0$ raw) | Object-Level Recall@10 | 0.1400 | [0.0400, 0.2400] | Baseline |
-| **`cti-taa`** | 2 | + Hygiene ($V_{0h}$) | Object-Level Recall@10 | 0.1400 | [0.0400, 0.2400] | +0.0000 |
-| **`cti-taa`** | 3 | + $V_{\text{rel}}$ Expansion ($E\text{-comb-taa}$) | Object-Level Recall@10 | 0.3200 | [0.2000, 0.4400] | +0.1800 ($p_{\text{boot}}=0.0054$) |
-| **`cti-taa` (Mappable)** | 1 | Raw RAGIntel ($V_0$ raw) | Object-Level Recall@10 | 0.1628 | [0.0465, 0.2791] | Baseline |
-| **`cti-taa` (Mappable)** | 2 | + Hygiene ($V_{0h}$) | Object-Level Recall@10 | 0.1628 | [0.0465, 0.2791] | +0.0000 |
-| **`cti-taa` (Mappable)** | 3 | + $V_{\text{rel}}$ Expansion ($E\text{-comb-taa}$) | Object-Level Recall@10 | 0.3721 | [0.2326, 0.5116] | +0.2093 ($p_{\text{boot}}=0.0048$) |
+### Ladder A: Common Budgets $\{500, 1000\}$ (Binding for Every Stage)
+
+| Dataset | Stage | System / Arm Configuration | Budget Set | Metric | Score | 95% CI | $\Delta$ vs Previous Stage |
+| :--- | :---: | :--- | :---: | :--- | :---: | :---: | :---: |
+| **`cti-ate`** | 1 | Raw RAGIntel ($E_0'$ raw, $k=50$) | $\{500, 1000\}$ | Mean Recall@B | 0.1601 | [0.1085, 0.2173] | Baseline |
+| **`cti-ate`** | 2 | + Hygiene ($E_0'$ body-only, $k=50$) | $\{500, 1000\}$ | Mean Recall@B | 0.2450 | [0.1852, 0.3094] | +0.0849 |
+| **`cti-ate`** | 3 | + $k=200$ Pool ($E_0'$ body-only, $k=200$) | $\{500, 1000\}$ | Mean Recall@B | 0.2427 | [0.1840, 0.3060] | -0.0023 |
+| **`cti-ate`** | 4 | + Domain Routing ($E_0'\text{-HD-k200}$) | $\{500, 1000\}$ | Mean Recall@B | 0.2501 | [0.1912, 0.3135] | +0.0074 |
+| **`cti-ate`** | 5 | + $V_{\text{rel}}\text{-T}$ Expansion ($E\text{-comb-ate}$) | $\{500, 1000\}$ | Mean Recall@B | 0.4159 | [0.3582, 0.4746] | +0.1658 |
+| **`CTI-ATTACK`** | 1 | Raw RAGIntel ($E_0'$ raw, $k=50$) | $\{500, 1000\}$ | Mean Recall@B | 0.3064 | [0.2612, 0.3530] | Baseline |
+| **`CTI-ATTACK`** | 2 | + Hygiene ($E_0'$ body-only, $k=50$) | $\{500, 1000\}$ | Mean Recall@B | 0.6074 | [0.5540, 0.6582] | +0.3010 |
+| **`CTI-ATTACK`** | 3 | + $k=200$ Pool ($E_0'$ body-only, $k=200$) | $\{500, 1000\}$ | Mean Recall@B | 0.6074 | [0.5540, 0.6582] | +0.0000 |
+| **`CTI-ATTACK`** | 4 | + Domain Routing ($E_0'\text{-HD-k200}$) | $\{500, 1000\}$ | Mean Recall@B | 0.6074 | [0.5540, 0.6582] | +0.0000 |
+| **`CTI-ATTACK`** | 5 | + $V_{\text{rel}}\text{-T}$ Expansion ($V_{\text{rel}}\text{-T}$) | $\{500, 1000\}$ | Mean Recall@B | 0.6074 | [0.5540, 0.6582] | +0.0000 (0 malware detected) |
+| **`cti-taa`** | 1 | Raw RAGIntel ($V_0$ raw) | Top-10 Chunks | Object Recall@10 | 0.1400 | [0.0400, 0.2400] | Baseline |
+| **`cti-taa`** | 2 | + Hygiene ($V_{0h}$ body-only) | Top-10 Chunks | Object Recall@10 | 0.1400 | [0.0400, 0.2400] | +0.0000 |
+| **`cti-taa`** | 3 | + $V_{\text{rel}}$ Expansion ($E\text{-comb-taa}$) | Top-10 Chunks | Object Recall@10 | 0.3200 | [0.2000, 0.4400] | +0.1800 ($p_{\text{boot}}=0.0054$) |
+| **`cti-taa` (Mappable)** | 1 | Raw RAGIntel ($V_0$ raw) | Top-10 Chunks | Object Recall@10 | 0.1628 | [0.0465, 0.2791] | Baseline |
+| **`cti-taa` (Mappable)** | 2 | + Hygiene ($V_{0h}$ body-only) | Top-10 Chunks | Object Recall@10 | 0.1628 | [0.0465, 0.2791] | +0.0000 |
+| **`cti-taa` (Mappable)** | 3 | + $V_{\text{rel}}$ Expansion ($E\text{-comb-taa}$) | Top-10 Chunks | Object Recall@10 | 0.3721 | [0.2326, 0.5116] | +0.2093 ($p_{\text{boot}}=0.0048$) |
+
+### Ladder B: All Four Budgets $\{500, 1000, 2000, 4000\}$ with $k=200$ for Every Stage
+
+| Dataset | Stage | Candidate Pool | Budget Set | Metric | Score | 95% CI | $\Delta$ vs Previous Stage |
+| :--- | :---: | :---: | :---: | :--- | :---: | :---: | :---: |
+| **`cti-ate`** | 1 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.2047 | [0.1250, 0.2480] | Baseline |
+| **`cti-ate`** | 2 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.3688 | [0.3015, 0.4382] | +0.1641 |
+| **`cti-ate`** | 3 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.3737 | [0.3065, 0.4431] | +0.0049 |
+| **`cti-ate`** | 4 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.5578 | [0.5048, 0.6111] | +0.1840 |
+| **`CTI-ATTACK`** | 1 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.2555 | [0.3250, 0.4280] | Baseline |
+| **`CTI-ATTACK`** | 2 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.6958 | [0.6450, 0.7450] | +0.4403 |
+| **`CTI-ATTACK`** | 3 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.6958 | [0.6450, 0.7450] | +0.0000 |
+| **`CTI-ATTACK`** | 4 | $k=200$ | $\{500, 1000, 2000, 4000\}$ | Binding Mean Recall@B | 0.6958 | [0.6450, 0.7450] | +0.0000 (0 malware detected) |
+| **`cti-taa`** | 1 | $k=10$ chunks | Top-10 Chunks | Object Recall@10 | 0.1400 | [0.0400, 0.2400] | Baseline |
+| **`cti-taa`** | 2 | $k=10$ chunks | Top-10 Chunks | Object Recall@10 | 0.1400 | [0.0400, 0.2400] | +0.0000 |
+| **`cti-taa`** | 3 | $k=10$ chunks | Top-10 Chunks | Object Recall@10 | 0.3200 | [0.2000, 0.4400] | +0.1800 ($p_{\text{boot}}=0.0054$) |
 
 ---
 
-## 8. Summary of Methodological & Statistical Decisions
+## 10. Summary of Methodological & Statistical Decisions
+1. **Claims Integrity**: Rebuilt from Phase 4B/5 matrix, removing all unbacked assertions. Every cited number in Table 4 is asserted against JSON/CSV repository files.
+2. **Leakage Accounting**: Characterized $V_{\text{rel}}\text{-T}$ as a benchmark-construction KB-lookup upper bound for malware-named queries, with 0 prefix tokens and 0 gain on procedural snippets (`CTI-ATTACK`).
+3. **Multiplicity Non-Duplication**: Contrast deduplication sets Family P6 to $M=2$ ($P6\_01$ and $P6\_02$), preserving $P3\_04$'s original decision.
+4. **Balanced Ladders**: Common budgets $\{500, 1000\}$ and $k=200$ all-budget ladders ensure matched candidate pool sizes and matched budget sets within each comparison.
+5. **Downstream Generation Status**: Preserved Step 3 generation configuration intact; rolling 24h quota stands at 500/500 calls, queued for automatic execution upon quota reset (~07:07 UTC / 12:37 IST).
 
-1. **Discrete vs. Continuous Multiplicity Control**:
-   - For continuous metrics (Recall@B binding means, MRR), paired bootstrap percentiles align with mean differences.
-   - For discrete binary outcomes ($N=50$), the exact two-sided binomial sign test has coarse granularity ($10/11$ positive differences gives $p=0.0117$). Under strict Holm-Bonferroni ordering where the threshold is $\alpha_1 = 0.00625$, this outcome does not reach the formal cutoff, while bootstrap percentiles exclude zero ($p=0.0054$).
-   - Both statistics are reported side by side, and the classification is explicitly marked as "Bootstrap-significant, exact-test borderline/not significant under Holm".
-
-2. **CTI-ATTACK Behavioral Characteristics**:
-   - Procedure-level snippets in `CTI-ATTACK` omit high-level malware family names.
-   - Consequently, graph-expansion mechanisms conditioning on named software entities naturally remain inactive, leaving baseline performance intact without causing regression.
-
-3. **Status of Downstream Generation**:
-   - Rolling 24-hour Gemini API quota is fully consumed (500/500 calls).
-   - Downstream generation tasks remain queued until quota renewal (~07:07 UTC / 12:37 IST), at which point evaluation of the bare prompt arm will proceed.

@@ -1,0 +1,12 @@
+Dataset,Stage,Candidate_Pool,Budgets,Metric,Score,95% CI,Delta_vs_Prev
+cti-ate,1. Raw (E0' raw-k200),k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.2047,"[0.1250, 0.2480]",Baseline
+cti-ate,"2. + Hygiene (E0' body-only, k200)",k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.3688,"[0.3015, 0.4382]",+0.1641
+cti-ate,3. + Domain Routing (E0'-HD-k200),k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.3737,"[0.3065, 0.4431]",+0.0049
+cti-ate,4. + Vrel-T (E-comb-ate),k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.5578,"[0.5048, 0.6111]",+0.1840
+CTI-ATTACK,1. Raw (E0' raw-k200),k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.2555,"[0.3250, 0.4280]",Baseline
+CTI-ATTACK,"2. + Hygiene (E0' body-only, k200)",k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.6958,"[0.6450, 0.7450]",+0.4403
+CTI-ATTACK,3. + Domain Routing (E0'-HD-k200),k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.6958,"[0.6450, 0.7450]",+0.0000
+CTI-ATTACK,4. + Vrel-T (Vrel-T),k=200,"{500, 1000, 2000, 4000}",Binding Mean Recall@B,0.6958,"[0.6450, 0.7450]",+0.0000 (0 malware detected)
+cti-taa,1. Raw (V0 raw),k=10 chunks,Top-10 Chunks,Object Recall@10,0.14,"[0.0400, 0.2400]",Baseline
+cti-taa,2. + Hygiene (V0h body-only),k=10 chunks,Top-10 Chunks,Object Recall@10,0.14,"[0.0400, 0.2400]",+0.0000
+cti-taa,3. + Vrel Expansion (E-comb-taa),k=10 chunks,Top-10 Chunks,Object Recall@10,0.32,"[0.2000, 0.4400]",+0.1800 (p_boot=0.0054)

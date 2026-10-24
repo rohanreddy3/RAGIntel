@@ -1,7 +1,7 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-23T19:32:06.172053+00:00",
-  "total_files": 112,
+  "timestamp_utc": "2026-10-24T07:39:11.247584+00:00",
+  "total_files": 119,
   "files": {
     "analysis_plan.md": {
       "sha256": "c07cd8151110565c7aa63ded290a332afca1adf7b5e7b3b550cde5f38dd88c4c",
@@ -432,8 +432,8 @@
       "size_bytes": 661
     },
     "results/phase_6/assets/table_family_p6.csv": {
-      "sha256": "f7391e1e3d8fe3a0f1c85e56915eabf5c28c9ebdef28d60ed66c0fdf50e8b104",
-      "size_bytes": 826
+      "sha256": "cfe48c7a19e6a75c7313a37db53f67bc5225aef5657c3a3dad970f0668c36860",
+      "size_bytes": 486
     },
     "results/phase_6/assets/table_improvement_ladder.csv": {
       "sha256": "598fb286fe66ada40129947f6dbac6930d8ae065d1a1baf1283d4a8fba885afd",
@@ -450,6 +450,34 @@
     "results/phase_6/vrel_t_benchmark_results.json": {
       "sha256": "430a658202fb6ea7f3a85bbe712ca55a7b44cebaede2f5c79ca89548449fb9e8",
       "size_bytes": 6485
+    },
+    "results/phase_6b/leakage_audit_detailed.json": {
+      "sha256": "063f220b8abd796f49274c8b602108fc703edff844854d8578d029f7dfe4a54f",
+      "size_bytes": 76216
+    },
+    "results/phase_6b/assets/table_claims_rebuilt.csv": {
+      "sha256": "59f7f86a46d80a6b41360f245953f113dde4f024db915aec7ea088e912c13158",
+      "size_bytes": 5309
+    },
+    "results/phase_6b/assets/table_detectors_audit.csv": {
+      "sha256": "c53463ff129e1e0388d2d099057068ad7a5fbbc54d549a61a0f1ad827e401ed2",
+      "size_bytes": 1292
+    },
+    "results/phase_6b/assets/table_family_p6_m2.csv": {
+      "sha256": "cfe48c7a19e6a75c7313a37db53f67bc5225aef5657c3a3dad970f0668c36860",
+      "size_bytes": 486
+    },
+    "results/phase_6b/assets/table_ladder_common_budgets.csv": {
+      "sha256": "c8b2d445af6c6ccf667f90134c87367fe4303145ffe091ed6f8c83d0796d7055",
+      "size_bytes": 1783
+    },
+    "results/phase_6b/assets/table_ladder_k200_all_budgets.csv": {
+      "sha256": "88d81b144370d9b2b2ba92f45d32572113295692abb647f281dbfb3aaf5523bd",
+      "size_bytes": 1462
+    },
+    "results/phase_6b/assets/table_leakage_audit.csv": {
+      "sha256": "4f5169defe4f8b4ec215f1dfca1647e399d56f94dd28c7adcd3019b90c1a711a",
+      "size_bytes": 528
     }
   }
 }

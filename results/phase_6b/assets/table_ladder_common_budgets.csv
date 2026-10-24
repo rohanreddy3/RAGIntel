@@ -1,0 +1,17 @@
+Dataset,Stage,Budgets,Metric,Score,95% CI,Delta_vs_Prev
+cti-ate,"1. Raw (E0' raw, k=50)","{500, 1000}",Mean Recall@B,0.1601,"[0.1085, 0.2173]",Baseline
+cti-ate,"2. + Hygiene (E0' body-only, k=50)","{500, 1000}",Mean Recall@B,0.245,"[0.1852, 0.3094]",+0.0849
+cti-ate,"3. + k200 Pool (E0' body-only, k=200)","{500, 1000}",Mean Recall@B,0.2427,"[0.1840, 0.3060]",-0.0023
+cti-ate,4. + Domain Routing (E0'-HD-k200),"{500, 1000}",Mean Recall@B,0.2501,"[0.1912, 0.3135]",+0.0074
+cti-ate,5. + Vrel-T (E-comb-ate),"{500, 1000}",Mean Recall@B,0.4159,"[0.3582, 0.4746]",+0.1658
+CTI-ATTACK,"1. Raw (E0' raw, k=50)","{500, 1000}",Mean Recall@B,0.3064,"[0.2612, 0.3530]",Baseline
+CTI-ATTACK,"2. + Hygiene (E0' body-only, k=50)","{500, 1000}",Mean Recall@B,0.6074,"[0.5540, 0.6582]",+0.3010
+CTI-ATTACK,"3. + k200 Pool (E0' body-only, k=200)","{500, 1000}",Mean Recall@B,0.6074,"[0.5540, 0.6582]",+0.0000
+CTI-ATTACK,4. + Domain Routing (E0'-HD-k200),"{500, 1000}",Mean Recall@B,0.6074,"[0.5540, 0.6582]",+0.0000
+CTI-ATTACK,5. + Vrel-T (Vrel-T),"{500, 1000}",Mean Recall@B,0.6074,"[0.5540, 0.6582]",+0.0000 (0 malware detected)
+cti-taa,1. Raw (V0 raw),Top-10 Chunks,Object Recall@10,0.14,"[0.0400, 0.2400]",Baseline
+cti-taa,2. + Hygiene (V0h body-only),Top-10 Chunks,Object Recall@10,0.14,"[0.0400, 0.2400]",+0.0000
+cti-taa,3. + Vrel Expansion (E-comb-taa),Top-10 Chunks,Object Recall@10,0.32,"[0.2000, 0.4400]",+0.1800 (p_boot=0.0054)
+cti-taa (Mappable),1. Raw (V0 raw),Top-10 Chunks,Object Recall@10,0.1628,"[0.0465, 0.2791]",Baseline
+cti-taa (Mappable),2. + Hygiene (V0h body-only),Top-10 Chunks,Object Recall@10,0.1628,"[0.0465, 0.2791]",+0.0000
+cti-taa (Mappable),3. + Vrel Expansion (E-comb-taa),Top-10 Chunks,Object Recall@10,0.3721,"[0.2326, 0.5116]",+0.2093 (p_boot=0.0048)
