@@ -1,0 +1,3035 @@
+{
+  "summary": [
+    {
+      "Dataset": "cti-ate",
+      "N_Queries": 60,
+      "Queries_with_Named_Software": "57 / 60 (95.0%)",
+      "Mean_GT_Share_in_STIX_Uses": "94.81%",
+      "Oracle_Recall_Top5_Vrel_T": "60.38%",
+      "Epistemic_Label": "KB-lookup upper bound; not evidence of generalization to unseen reports"
+    },
+    {
+      "Dataset": "CTI-ATTACK",
+      "N_Queries": 229,
+      "Queries_with_Named_Software": "0 / 229 (0.0%)",
+      "Mean_GT_Share_in_STIX_Uses": "0.00%",
+      "Oracle_Recall_Top5_Vrel_T": "0.00%",
+      "Epistemic_Label": "Inactive baseline (procedural queries lack malware names; 0 prefix tokens)"
+    },
+    {
+      "Dataset": "cti-taa",
+      "N_Queries": 50,
+      "Queries_with_Named_Software": "38 / 50 (76.0%)",
+      "Mean_GT_Share_in_STIX_Uses": "11 / 38 (28.95% of software queries; 22.00% overall)",
+      "Oracle_Recall_Top5_Vrel_T": "N/A (Group retrieval task)",
+      "Epistemic_Label": "KB-lookup upper bound; not evidence of generalization to unseen reports"
+    }
+  ],
+  "cti_ate": [
+    {
+      "row_idx": 0,
+      "detected_malware": [
+        "3PARA RAT"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 1,
+      "detected_malware": [
+        "4H RAT"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.8333
+    },
+    {
+      "row_idx": 2,
+      "detected_malware": [],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 3,
+      "detected_malware": [
+        "AbstractEmu"
+      ],
+      "num_gt_parents": 19,
+      "num_gt_in_stix_uses": 19,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.2632
+    },
+    {
+      "row_idx": 4,
+      "detected_malware": [
+        "Action RAT"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.1667
+    },
+    {
+      "row_idx": 5,
+      "detected_malware": [
+        "adbupd",
+        "Dipsind"
+      ],
+      "num_gt_parents": 3,
+      "num_gt_in_stix_uses": 3,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 6,
+      "detected_malware": [],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 7,
+      "detected_malware": [
+        "ADVSTORESHELL"
+      ],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 7,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.2857
+    },
+    {
+      "row_idx": 8,
+      "detected_malware": [
+        "Agent Smith"
+      ],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 7,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 9,
+      "detected_malware": [
+        "Agent Tesla"
+      ],
+      "num_gt_parents": 8,
+      "num_gt_in_stix_uses": 8,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.25
+    },
+    {
+      "row_idx": 10,
+      "detected_malware": [
+        "Agent.btz"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.8333
+    },
+    {
+      "row_idx": 11,
+      "detected_malware": [
+        "AhRat"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 9,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.4444
+    },
+    {
+      "row_idx": 12,
+      "detected_malware": [
+        "Allwinner"
+      ],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 1,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 13,
+      "detected_malware": [
+        "Amadey"
+      ],
+      "num_gt_parents": 11,
+      "num_gt_in_stix_uses": 11,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.2727
+    },
+    {
+      "row_idx": 14,
+      "detected_malware": [
+        "TrickBot",
+        "Anchor"
+      ],
+      "num_gt_parents": 8,
+      "num_gt_in_stix_uses": 8,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.25
+    },
+    {
+      "row_idx": 15,
+      "detected_malware": [
+        "Android/AdDisplay.Ashas"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 9,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.5556
+    },
+    {
+      "row_idx": 16,
+      "detected_malware": [
+        "Android/Chuli.A"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.6
+    },
+    {
+      "row_idx": 17,
+      "detected_malware": [
+        "AndroidOS/MalLocker.B"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 18,
+      "detected_malware": [
+        "ANDROIDOS_ANSERVER.A"
+      ],
+      "num_gt_parents": 3,
+      "num_gt_in_stix_uses": 3,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 19,
+      "detected_malware": [
+        "ANDROMEDA"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.6667
+    },
+    {
+      "row_idx": 20,
+      "detected_malware": [
+        "AndroRAT"
+      ],
+      "num_gt_parents": 8,
+      "num_gt_in_stix_uses": 8,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.5
+    },
+    {
+      "row_idx": 21,
+      "detected_malware": [
+        "Anubis"
+      ],
+      "num_gt_parents": 10,
+      "num_gt_in_stix_uses": 10,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.1
+    },
+    {
+      "row_idx": 22,
+      "detected_malware": [
+        "AppleJeus",
+        "FALLCHILL"
+      ],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 7,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.1429
+    },
+    {
+      "row_idx": 23,
+      "detected_malware": [
+        "AppleSeed"
+      ],
+      "num_gt_parents": 8,
+      "num_gt_in_stix_uses": 8,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.375
+    },
+    {
+      "row_idx": 24,
+      "detected_malware": [
+        "Asacub"
+      ],
+      "num_gt_parents": 10,
+      "num_gt_in_stix_uses": 10,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.3
+    },
+    {
+      "row_idx": 25,
+      "detected_malware": [
+        "ASPXSpy"
+      ],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 1,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 26,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 27,
+      "detected_malware": [
+        "AuTo Stealer"
+      ],
+      "num_gt_parents": 8,
+      "num_gt_in_stix_uses": 8,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.625
+    },
+    {
+      "row_idx": 28,
+      "detected_malware": [
+        "AutoIt backdoor"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 29,
+      "detected_malware": [
+        "WellMail",
+        "WellMess"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 9,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.5556
+    },
+    {
+      "row_idx": 30,
+      "detected_malware": [
+        "PITSTOP"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 31,
+      "detected_malware": [
+        "DarkGate"
+      ],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 7,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 32,
+      "detected_malware": [
+        "NGLite"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 33,
+      "detected_malware": [
+        "SocGholish"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 9,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.3333
+    },
+    {
+      "row_idx": 34,
+      "detected_malware": [
+        "HilalRAT"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.8
+    },
+    {
+      "row_idx": 35,
+      "detected_malware": [
+        "Pcexter"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 36,
+      "detected_malware": [
+        "SLIGHTPULSE"
+      ],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 7,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.5714
+    },
+    {
+      "row_idx": 37,
+      "detected_malware": [
+        "STEADYPULSE"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 38,
+      "detected_malware": [
+        "FRAMESTING"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.6667
+    },
+    {
+      "row_idx": 39,
+      "detected_malware": [
+        "COATHANGER"
+      ],
+      "num_gt_parents": 10,
+      "num_gt_in_stix_uses": 10,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.2
+    },
+    {
+      "row_idx": 40,
+      "detected_malware": [
+        "WARPWIRE"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 41,
+      "detected_malware": [
+        "AcidRain"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 42,
+      "detected_malware": [
+        "LoFiSe"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.8333
+    },
+    {
+      "row_idx": 43,
+      "detected_malware": [
+        "LIGHTWIRE"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 44,
+      "detected_malware": [
+        "Mispadu"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 9,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.2222
+    },
+    {
+      "row_idx": 45,
+      "detected_malware": [
+        "WIREFIRE"
+      ],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 7,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.7143
+    },
+    {
+      "row_idx": 46,
+      "detected_malware": [
+        "LITTLELAMB.WOOLTEA"
+      ],
+      "num_gt_parents": 7,
+      "num_gt_in_stix_uses": 7,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.7143
+    },
+    {
+      "row_idx": 47,
+      "detected_malware": [
+        "FlixOnline"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.8333
+    },
+    {
+      "row_idx": 48,
+      "detected_malware": [
+        "PACEMAKER"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.8333
+    },
+    {
+      "row_idx": 49,
+      "detected_malware": [
+        "ZIPLINE"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 8,
+      "gt_share_in_stix_uses": 0.8889,
+      "oracle_recall_top5": 0.4444
+    },
+    {
+      "row_idx": 50,
+      "detected_malware": [
+        "Ninja",
+        "Samurai"
+      ],
+      "num_gt_parents": 10,
+      "num_gt_in_stix_uses": 10,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.2
+    },
+    {
+      "row_idx": 51,
+      "detected_malware": [
+        "Ninja",
+        "Samurai"
+      ],
+      "num_gt_parents": 11,
+      "num_gt_in_stix_uses": 11,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.2727
+    },
+    {
+      "row_idx": 52,
+      "detected_malware": [
+        "BUSHWALK"
+      ],
+      "num_gt_parents": 6,
+      "num_gt_in_stix_uses": 6,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.8333
+    },
+    {
+      "row_idx": 53,
+      "detected_malware": [
+        "Akira"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 9,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.5556
+    },
+    {
+      "row_idx": 54,
+      "detected_malware": [
+        "NKAbuse"
+      ],
+      "num_gt_parents": 8,
+      "num_gt_in_stix_uses": 8,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.625
+    },
+    {
+      "row_idx": 55,
+      "detected_malware": [
+        "SLOWPULSE"
+      ],
+      "num_gt_parents": 5,
+      "num_gt_in_stix_uses": 5,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 56,
+      "detected_malware": [
+        "RAPIDPULSE"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 57,
+      "detected_malware": [
+        "PULSECHECK"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    },
+    {
+      "row_idx": 58,
+      "detected_malware": [
+        "Phenakite"
+      ],
+      "num_gt_parents": 9,
+      "num_gt_in_stix_uses": 9,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 0.5556
+    },
+    {
+      "row_idx": 59,
+      "detected_malware": [
+        "GLASSTOKEN"
+      ],
+      "num_gt_parents": 4,
+      "num_gt_in_stix_uses": 4,
+      "gt_share_in_stix_uses": 1.0,
+      "oracle_recall_top5": 1.0
+    }
+  ],
+  "CTI_ATTACK": [
+    {
+      "row_idx": 0,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 1,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 2,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 3,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 4,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 5,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 6,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 7,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 8,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 9,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 10,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 11,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 12,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 13,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 14,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 15,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 16,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 17,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 18,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 19,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 20,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 21,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 22,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 23,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 24,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 25,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 26,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 27,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 28,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 29,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 30,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 31,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 32,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 33,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 34,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 35,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 36,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 37,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 38,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 39,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 40,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 41,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 42,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 43,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 44,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 45,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 46,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 47,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 48,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 49,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 50,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 51,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 52,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 53,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 54,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 55,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 56,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 57,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 58,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 59,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 60,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 61,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 62,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 63,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 64,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 65,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 66,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 67,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 68,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 69,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 70,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 71,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 72,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 73,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 74,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 75,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 76,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 77,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 78,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 79,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 80,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 81,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 82,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 83,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 84,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 85,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 86,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 87,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 88,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 89,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 90,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 91,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 92,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 93,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 94,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 95,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 96,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 97,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 98,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 99,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 100,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 101,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 102,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 103,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 104,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 105,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 106,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 107,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 108,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 109,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 110,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 111,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 112,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 113,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 114,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 115,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 116,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 117,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 118,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 119,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 120,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 121,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 122,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 123,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 124,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 125,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 126,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 127,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 128,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 129,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 130,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 131,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 132,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 133,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 134,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 135,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 136,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 137,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 138,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 139,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 140,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 141,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 142,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 143,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 144,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 145,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 146,
+      "detected_malware": [],
+      "num_gt_parents": 3,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 147,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 148,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 149,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 150,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 151,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 152,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 153,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 154,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 155,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 156,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 157,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 158,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 159,
+      "detected_malware": [],
+      "num_gt_parents": 2,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 160,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 161,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 162,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 163,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 164,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 165,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 166,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 167,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 168,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 169,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 170,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 171,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 172,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 173,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 174,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 175,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 176,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 177,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 178,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 179,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 180,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 181,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 182,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 183,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 184,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 185,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 186,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 187,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 188,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 189,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 190,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 191,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 192,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 193,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 194,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 195,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 196,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 197,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 198,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 199,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 200,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 201,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 202,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 203,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 204,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 205,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 206,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 207,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 208,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 209,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 210,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 211,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 212,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 213,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 214,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 215,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 216,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 217,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 218,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 219,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 220,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 221,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 222,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 223,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 224,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 225,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 226,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 227,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    },
+    {
+      "row_idx": 228,
+      "detected_malware": [],
+      "num_gt_parents": 1,
+      "num_gt_in_stix_uses": 0,
+      "gt_share_in_stix_uses": 0.0,
+      "oracle_recall_top5": 0.0
+    }
+  ],
+  "cti_taa": [
+    {
+      "row_idx": 0,
+      "ground_truth": "SideCopy",
+      "gt_resolved_stix_id": "intrusion-set--03be849d-b5a2-4766-9dda-48976bae5710",
+      "detected_software": [
+        "Crimson",
+        "Action RAT",
+        "Raindrop"
+      ],
+      "num_associated_groups": 3,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 1,
+      "ground_truth": "Stately Taurus (alias Bronze President, Camaro Dragon, Earth Preta, Mustang Panda, Red Delta and Luminous Moth)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "PUBLOAD",
+        "TONESHELL",
+        "PlugX"
+      ],
+      "num_associated_groups": 15,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 2,
+      "ground_truth": "Stately Taurus",
+      "gt_resolved_stix_id": "intrusion-set--420ac20b-f2b9-42b8-aa1a-6d4b72895ca4",
+      "detected_software": [
+        "PlugX",
+        "NBTscan",
+        "AdFind",
+        "Cobalt Strike",
+        "Impacket",
+        "China Chopper",
+        "TONESHELL",
+        "Net",
+        "Mimikatz",
+        "ShadowPad"
+      ],
+      "num_associated_groups": 84,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 3,
+      "ground_truth": "Emotet",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 4,
+      "ground_truth": "APT-C-23 ( FrozenCell or Two-tailed Scorpion)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "cmd",
+        "Bandook"
+      ],
+      "num_associated_groups": 7,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 5,
+      "ground_truth": "Sharp Dragon (or  Sharp Panda)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Cobalt Strike"
+      ],
+      "num_associated_groups": 30,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 6,
+      "ground_truth": "Storm-1811",
+      "gt_resolved_stix_id": "intrusion-set--319fd652-edde-46b2-9987-3519493989f5",
+      "detected_software": [
+        "Quick Assist",
+        "ConnectWise",
+        "Cobalt Strike",
+        "PsExec",
+        "SystemBC",
+        "QakBot"
+      ],
+      "num_associated_groups": 62,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 7,
+      "ground_truth": "APT-C-36, also known as Blind Eagle",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "cmd",
+        "AsyncRAT",
+        "Carbon",
+        "njRAT",
+        "schtasks",
+        "QuasarRAT"
+      ],
+      "num_associated_groups": 19,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 8,
+      "ground_truth": "APT-C-36, also known as Blind Eagle",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "QuasarRAT"
+      ],
+      "num_associated_groups": 7,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 9,
+      "ground_truth": "ANDROMEDA",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "KOPILUWAK",
+        "QUIETCANARY"
+      ],
+      "num_associated_groups": 1,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 10,
+      "ground_truth": "Venomous Bear\u00a0(or\u00a0Turla\u00a0or\u00a0Uroburos)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 11,
+      "ground_truth": "APT29 (Cozy Bear / The Dukes)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "SysUpdate",
+        "cmd",
+        "Impacket"
+      ],
+      "num_associated_groups": 22,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 12,
+      "ground_truth": "Gamaredon (APT-C-53, Primitive Bear, Armageddon)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 13,
+      "ground_truth": "Midnight Blizzard ( NOBELIUM)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 14,
+      "ground_truth": "Black Basta",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Quick Assist",
+        "Cobalt Strike",
+        "ConnectWise",
+        "Impacket"
+      ],
+      "num_associated_groups": 42,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 15,
+      "ground_truth": "OilRig, APT34, Lyceum, or Siamesekitten",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "SampleCheck5000",
+        "Shark",
+        "cmd",
+        "Milan",
+        "DanBot"
+      ],
+      "num_associated_groups": 8,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 16,
+      "ground_truth": "APT34",
+      "gt_resolved_stix_id": "intrusion-set--4ca1929c-7d64-4aab-b849-badbfc0c760d",
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 17,
+      "ground_truth": "Earth Freybug ( subset of APT41)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "cmd",
+        "schtasks"
+      ],
+      "num_associated_groups": 8,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 18,
+      "ground_truth": "Lazarus",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Mimikatz",
+        "cmd",
+        "MagicRAT",
+        "pwdump"
+      ],
+      "num_associated_groups": 55,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 19,
+      "ground_truth": "Springtail espionage group (or Kimsuky)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Troll Stealer",
+        "Gomir",
+        "GoBear",
+        "Circles"
+      ],
+      "num_associated_groups": 1,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 20,
+      "ground_truth": "Kimsuky",
+      "gt_resolved_stix_id": "intrusion-set--0ec2f388-bf0f-4b5c-97b1-fc736d26c25f",
+      "detected_software": [
+        "cmd",
+        "netsh"
+      ],
+      "num_associated_groups": 12,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 21,
+      "ground_truth": "Transparent Tribe (APT36)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Crimson",
+        "Action RAT"
+      ],
+      "num_associated_groups": 2,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 22,
+      "ground_truth": "Mint Sandstorm (PHOSPHORUS)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Derusbi"
+      ],
+      "num_associated_groups": 4,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 23,
+      "ground_truth": "MuddyWater",
+      "gt_resolved_stix_id": "intrusion-set--269e8108-68c6-4f99-b911-14b2e765dec2",
+      "detected_software": [
+        "PowGoop",
+        "Wiper"
+      ],
+      "num_associated_groups": 1,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 24,
+      "ground_truth": "Seedworm (or Muddywater)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "cmd",
+        "Impacket",
+        "schtasks"
+      ],
+      "num_associated_groups": 24,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 25,
+      "ground_truth": "CharmingCypress (aka Charming Kitten, APT42, TA453)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "cmd",
+        "Qilin",
+        "PowerLess"
+      ],
+      "num_associated_groups": 9,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 26,
+      "ground_truth": "Mint Sandstorm",
+      "gt_resolved_stix_id": "intrusion-set--f9d6633a-55e6-4adc-9263-6ae080421a13",
+      "detected_software": [
+        "CharmPower",
+        "PsExec",
+        "SysUpdate",
+        "Impacket"
+      ],
+      "num_associated_groups": 46,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 27,
+      "ground_truth": "APT31, also known as BRONZE VINEWOOD, Zirconium or Judgment Panda",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "PlugX"
+      ],
+      "num_associated_groups": 15,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 28,
+      "ground_truth": "Gamaredon, also known as Primitive Bear, ACTINIUM, and Shuckworm",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 29,
+      "ground_truth": "Gamaredon Group",
+      "gt_resolved_stix_id": "intrusion-set--2e290bfe-93b5-48ce-97d6-edcd6d32b7cf",
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 30,
+      "ground_truth": "Sharp Panda",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 31,
+      "ground_truth": "Bitter",
+      "gt_resolved_stix_id": "intrusion-set--7f848c02-4d1e-4808-a4ae-4670681370a9",
+      "detected_software": [
+        "AndroRAT"
+      ],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 32,
+      "ground_truth": "Confucius",
+      "gt_resolved_stix_id": "intrusion-set--6eded342-33e5-4451-b6b2-e1c62863129f",
+      "detected_software": [
+        "CALENDAR",
+        "Stealth Mango",
+        "Sunbird",
+        "Mango",
+        "Hornbill",
+        "Tangelo"
+      ],
+      "num_associated_groups": 3,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 33,
+      "ground_truth": "Dragonfly",
+      "gt_resolved_stix_id": "intrusion-set--1c63d4ec-0a75-4daa-b1df-0d11af3d3cc1",
+      "detected_software": [
+        "Shamoon",
+        "PsExec",
+        "Trojan.Karagany",
+        "Stuxnet"
+      ],
+      "num_associated_groups": 38,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 34,
+      "ground_truth": "Andariel",
+      "gt_resolved_stix_id": "intrusion-set--39d6890e-7f23-4474-b8ef-e7b0343c5fc8",
+      "detected_software": [
+        "Mimikatz",
+        "cmd"
+      ],
+      "num_associated_groups": 53,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 35,
+      "ground_truth": "COLDRIVER (also known as UNC4057, Star Blizzard and Callisto)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Spica"
+      ],
+      "num_associated_groups": 1,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 36,
+      "ground_truth": "Bahamut",
+      "gt_resolved_stix_id": "intrusion-set--afec6dc3-a18e-4b62-b1a4-5510e1a498d1",
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 37,
+      "ground_truth": "APT37",
+      "gt_resolved_stix_id": "intrusion-set--4a2ce82e-1a74-468a-a6fb-bbead541383c",
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 38,
+      "ground_truth": "APT33, or Peach Sandstorm, HOLMIUM, or Refined Kitten",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 39,
+      "ground_truth": "APT29",
+      "gt_resolved_stix_id": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+      "detected_software": [
+        "EnvyScout",
+        "Donut"
+      ],
+      "num_associated_groups": 2,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 40,
+      "ground_truth": "APT29",
+      "gt_resolved_stix_id": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+      "detected_software": [
+        "Chaos",
+        "CozyCar"
+      ],
+      "num_associated_groups": 1,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 41,
+      "ground_truth": "APT29 (aka Cozy Bear, Nobelium and many other monikers)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "ngrok"
+      ],
+      "num_associated_groups": 5,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 42,
+      "ground_truth": "Diamond Sleet (ZINC)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [],
+      "num_associated_groups": 0,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 43,
+      "ground_truth": "Lazarus group",
+      "gt_resolved_stix_id": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+      "detected_software": [
+        "cmd"
+      ],
+      "num_associated_groups": 6,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 44,
+      "ground_truth": "Lazarus Group",
+      "gt_resolved_stix_id": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+      "detected_software": [
+        "Sliver",
+        "Dtrack",
+        "Cobalt Strike",
+        "MagicRAT",
+        "Impacket",
+        "Mimikatz"
+      ],
+      "num_associated_groups": 70,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 45,
+      "ground_truth": "Lazarus Group",
+      "gt_resolved_stix_id": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+      "detected_software": [
+        "Black Basta"
+      ],
+      "num_associated_groups": 1,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 46,
+      "ground_truth": "Lazarus",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "MagicRAT",
+        "Cobalt Strike",
+        "WannaCry",
+        "Havoc"
+      ],
+      "num_associated_groups": 32,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 47,
+      "ground_truth": "OilRig",
+      "gt_resolved_stix_id": "intrusion-set--4ca1929c-7d64-4aab-b849-badbfc0c760d",
+      "detected_software": [
+        "SampleCheck5000",
+        "OilBooster",
+        "Shark",
+        "OilCheck",
+        "ODAgent",
+        "PowerExchange"
+      ],
+      "num_associated_groups": 2,
+      "gt_in_associated_groups": true
+    },
+    {
+      "row_idx": 48,
+      "ground_truth": "MuddyWater,or Crambus",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Mimikatz",
+        "PowerExchange"
+      ],
+      "num_associated_groups": 51,
+      "gt_in_associated_groups": false
+    },
+    {
+      "row_idx": 49,
+      "ground_truth": "Turla APT (aka Pensive Ursa, Uroburos, Snake)",
+      "gt_resolved_stix_id": null,
+      "detected_software": [
+        "Crutch",
+        "Gazer",
+        "Uroburos",
+        "MEDUSA",
+        "LightNeuron",
+        "KOPILUWAK",
+        "HyperStack",
+        "Epic",
+        "Agent.btz",
+        "PowerStallion",
+        "Mosquito",
+        "ComRAT",
+        "ANDROMEDA",
+        "Carbon",
+        "SUNBURST",
+        "TinyTurla",
+        "QUIETCANARY",
+        "Kazuar"
+      ],
+      "num_associated_groups": 3,
+      "gt_in_associated_groups": false
+    }
+  ]
+}

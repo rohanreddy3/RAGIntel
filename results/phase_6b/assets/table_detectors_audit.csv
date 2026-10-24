@@ -1,0 +1,13 @@
+Dataset,Query_Type,Detector,N_Queries,Queries_with_Entity,Entity_Share,Matches_per_Query,Total_Matches
+cti-ate,Raw Query,"D0 (Unfiltered: len>=3, case-insens, all types)",60,59,98.33%,5.43,326
+cti-ate,Raw Query,"D1 (V1h Strict: len>=5, case-sens, stoplist, target type)",60,57,95.00%,4.65,279
+cti-ate,Body-Only Query,"D0 (Unfiltered: len>=3, case-insens, all types)",60,59,98.33%,5.43,326
+cti-ate,Body-Only Query,"D1 (V1h Strict: len>=5, case-sens, stoplist, target type)",60,57,95.00%,4.65,279
+CTI-ATTACK,Raw Query,"D0 (Unfiltered: len>=3, case-insens, all types)",229,8,3.49%,0.03,8
+CTI-ATTACK,Raw Query,"D1 (V1h Strict: len>=5, case-sens, stoplist, target type)",229,0,0.00%,0.0,0
+CTI-ATTACK,Body-Only Query,"D0 (Unfiltered: len>=3, case-insens, all types)",229,8,3.49%,0.03,8
+CTI-ATTACK,Body-Only Query,"D1 (V1h Strict: len>=5, case-sens, stoplist, target type)",229,0,0.00%,0.0,0
+cti-taa,Raw Query,"D0 (Unfiltered: len>=3, case-insens, all types)",50,50,100.00%,19.34,967
+cti-taa,Raw Query,"D1 (V1h Strict: len>=5, case-sens, stoplist, target type)",50,50,100.00%,3.0,150
+cti-taa,Body-Only Query,"D0 (Unfiltered: len>=3, case-insens, all types)",50,47,94.00%,17.34,867
+cti-taa,Body-Only Query,"D1 (V1h Strict: len>=5, case-sens, stoplist, target type)",50,18,36.00%,2.0,100

@@ -1,0 +1,4 @@
+Dataset,N_Queries,Queries_with_Named_Software,Mean_GT_Share_in_STIX_Uses,Oracle_Recall_Top5_Vrel_T,Epistemic_Label
+cti-ate,60,57 / 60 (95.0%),94.81%,60.38%,KB-lookup upper bound; not evidence of generalization to unseen reports
+CTI-ATTACK,229,0 / 229 (0.0%),0.00%,0.00%,Inactive baseline (procedural queries lack malware names; 0 prefix tokens)
+cti-taa,50,38 / 50 (76.0%),11 / 38 (28.95% of software queries; 22.00% overall),N/A (Group retrieval task),KB-lookup upper bound; not evidence of generalization to unseen reports
