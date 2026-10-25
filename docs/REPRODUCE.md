@@ -142,6 +142,43 @@ python scripts/run_phase5b_offline_fixes.py
 python scripts/run_vrel_t_extension.py
 ```
 
+### Phase 6C: Live LLM Generation Benchmark (Post-Hoc Round 3)
+```bash
+# 1. Execute live generation on primary model (gemini-3.5-flash-lite, 389 calls)
+# Evaluates E0'-HD-k200 on cti-ate (60) and CTI-ATTACK (229), and V0h (50) and Vrel (50) on cti-taa.
+python scripts/api_runner.py --phase6c
+
+# 2. Score generation outputs and compute Phase 6C contrasts
+python scripts/compute_phase6c_metrics.py
+```
+
+### Phase 6D: Extended Round (Post-Hoc Round 3–4, Exploratory)
+```bash
+# 1. Part A: Clean-up and missing cti-taa contrasts (Vrel vs V0h, V0h vs V0 across 4 scorers)
+python scripts/evaluate_missing_taa_contrasts.py
+
+# 2. Part C: Descriptive diagnostics & Mobile domain filter audit
+python scripts/compute_phase6d_diagnostics.py
+
+# 3. Part G: Deterministic script-generated case studies on cti-taa (5 wins, 3 losses)
+python scripts/generate_phase6d_case_studies.py
+
+# 4. Part F: Second generator replication (models/gemini-3.1-flash-lite on cti-taa, 200 calls)
+python scripts/run_phase6d_second_generator.py --run
+
+# 5. Part E: Secondary KB replication on E0-STIX-ENT (B2 and B3 across all 3 datasets)
+python scripts/run_phase6d_secondary_kb.py
+
+# 6. Part D: B1 retriever robustness (nomic-ai/nomic-embed-text-v1.5 dense retrieval)
+python scripts/run_phase6d_b1_robustness.py
+
+# 7. Part B: API generation extension priority arms (D1, D2a, D3, D2b, D4)
+python scripts/api_runner.py --phase6d
+
+# 8. Part H: Unified report generation and integrity verification
+python scripts/generate_phase6d_report.py
+```
+
 ## 5. Cryptographic Freeze Manifest Verification
 
 To verify the integrity of all experiment outputs against the frozen manifest:

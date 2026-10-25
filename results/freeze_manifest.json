@@ -1,7 +1,7 @@
 {
   "title": "RAGIntel Freeze Manifest",
   "timestamp_utc": "2026-10-24T07:39:11.247584+00:00",
-  "total_files": 119,
+  "total_files": 138,
   "files": {
     "analysis_plan.md": {
       "sha256": "c07cd8151110565c7aa63ded290a332afca1adf7b5e7b3b550cde5f38dd88c4c",
@@ -478,6 +478,82 @@
     "results/phase_6b/assets/table_leakage_audit.csv": {
       "sha256": "4f5169defe4f8b4ec215f1dfca1647e399d56f94dd28c7adcd3019b90c1a711a",
       "size_bytes": 528
+    },
+    "results/phase_6c/bootstrap_distributions.json.gz": {
+      "sha256": "68806dee8839a272fafacb376ed83883637fc222fa152443cf97647076fe543e",
+      "size_bytes": 11489
+    },
+    "results/phase_6c/contrasts_table.csv": {
+      "sha256": "ced6a3c95dea5ddad58a0d682cc9a6b1e6c1963df5621a83440cf0692585d692",
+      "size_bytes": 3851
+    },
+    "results/phase_6c/contrasts_table.json": {
+      "sha256": "cb9c2aab9e4dc0b4b96f6aebeecb7a8ae533270495c26b0dfec2b04ace73ea36",
+      "size_bytes": 13431
+    },
+    "results/phase_6c/per_query_scores.csv": {
+      "sha256": "a0a1008523db3645760f4cba3cc3a2aef597c6125ee300db2eca786fe55f15dc",
+      "size_bytes": 3554068
+    },
+    "results/phase_6c/summary_metrics.json": {
+      "sha256": "faf9b383aab91b6d92c725c18f5e52eed52a046f19f6d460190a30cba29dc9af",
+      "size_bytes": 1768
+    },
+    "results/phase_6c/variants_ledger.json": {
+      "sha256": "9d059bfd4507e5a443b4e279df168b5f903d9e40312bb9215abd918bb272b20a",
+      "size_bytes": 2360
+    },
+    "results/phase_6d/case_studies_cti_taa.json": {
+      "sha256": "f9bb03c5b3ce29c67f03a2d857251af1f8a24a31127350b3ad641f4cbffca00a",
+      "size_bytes": 16641
+    },
+    "results/phase_6d/case_studies_cti_taa.md": {
+      "sha256": "fa28eba22c1700356829ff8db006af8de64f35dd2bdee0eebf8ff0e1c7aa89d1",
+      "size_bytes": 15073
+    },
+    "results/phase_6d/diagnostics_generation.csv": {
+      "sha256": "ceec5249db2dbac44094802a2b934453ca944b255a0fc00711062a54a44785aa",
+      "size_bytes": 894
+    },
+    "results/phase_6d/diagnostics_generation.json": {
+      "sha256": "679e3fdb65009454fb17e8522a399af795774e40f3377b9c7f51575a40aaf2a7",
+      "size_bytes": 3268
+    },
+    "results/phase_6d/holm_primary_generation.csv": {
+      "sha256": "5aeab1cae550f3fd54bd15fc0a46fc88148fbcaa4a41e38d299ea1fc349aadb1",
+      "size_bytes": 477
+    },
+    "results/phase_6d/holm_primary_generation.json": {
+      "sha256": "99ad9139deccf699a8f2fecccf2af86f4b3879ddba4da8dc0829cc117c831127",
+      "size_bytes": 1191
+    },
+    "results/phase_6d/missing_taa_contrasts.csv": {
+      "sha256": "7f2522dbd1337a4da1ed03c21430e4798bf7aca4f8c03a0812a64fd3f567c416",
+      "size_bytes": 952
+    },
+    "results/phase_6d/missing_taa_contrasts.json": {
+      "sha256": "b10859eac420798d3a6c5b08a020a34b96514f9f8f3d0ddccce87f7583b8a6bd",
+      "size_bytes": 3236
+    },
+    "results/phase_6d/mobile_domain_filter_check.json": {
+      "sha256": "f275579a08dada84cf6681e939e5b24bef1bd62f11ea35132ab959576cf893a5",
+      "size_bytes": 3559
+    },
+    "results/phase_6d/second_generator_ledger.csv": {
+      "sha256": "eded81310dd187af6aedd694d268312d014214d62e7cb4b837b6b21ea0300a8f",
+      "size_bytes": 27840
+    },
+    "results/phase_6d/second_generator_ranking_comparison.json": {
+      "sha256": "fa36ad819d899b5bd16add2978472bcbfcd2054cb23a02e01ef30554fdae213c",
+      "size_bytes": 1059
+    },
+    "results/phase_6d/second_generator_scores.json": {
+      "sha256": "543314e484fa66461cb1f596c193ed323ea66847b877544adbf65e22417c0b44",
+      "size_bytes": 441
+    },
+    "results/phase_6d/variants_ledger.json": {
+      "sha256": "7b0ed9b5121420f30cba0d4b87d63a40fb256f68274da3141384d37150a8ede3",
+      "size_bytes": 4811
     }
   }
 }
