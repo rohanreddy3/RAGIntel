@@ -17,8 +17,8 @@
 ---
 
 ## Current Status Snapshot
-- **Timestamp (UTC)**: `2026-10-25T08:35:00Z`
-- **Timestamp (Local IST)**: `2026-10-25T14:05:00+05:30`
+- **Timestamp (UTC)**: `2026-10-25T09:55:00Z`
+- **Timestamp (Local IST)**: `2026-10-25T15:25:00+05:30`
 - **Current Step**: `PHASE_6D_IN_PROGRESS`
 - **Phase 6C Generation Status**: Completed. All 389 live generation calls finished with code 0. Contrasts computed and saved in `results/phase_6c/`.
 - **Phase 6D Extended Round (Post-Hoc Round 3–4, Exploratory)**:
@@ -33,10 +33,10 @@
     - Priority D3 (O2 end-to-end `E1h_mixed_HD_b500`): **60 cti-ate calls Complete** (F1 0.3515 vs 0.3936 HD, $p=0.1189$; vs 0.4634 LLM-only, $p=0.0003$). CTI-ATTACK has 98 calls complete (131 remaining).
     - Runner is safely sleeping on quota backoff and will resume remaining D3 (131 calls), D2b (229 calls), and D4 (60 calls) upon quota replenishment.
     - Metrics saved in `results/phase_6d/generation_contrasts.csv` and `generation_arm_means.json`.
-  - Part E (Secondary KB Replication): In progress (`task-11837`, PID 19680). Evaluating V0, V0h, V1, Vrel on `E0-STIX-ENT`. Baseline B2 (MiniLM-Truncated-256) is **100% Complete** across all 3 datasets (cti-taa 50/50, cti-ate 60/60, CTI-ATTACK 229/229). Baseline B3 (MiniLM-MaxSim-Windows) is **In Progress** (`cti-taa` 25/50 queries complete, active CPU time >38,000s).
-  - Part D (B1 Retriever Robustness): Ready to run sequentially via `scripts/run_phase6d_b1_robustness.py` with local `nomic-ai/nomic-embed-text-v1.5` immediately following Part E completion (strictly one heavy retrieval process at a time).
-  - Part H (Report & Reproducibility): Unified report updated. Freeze manifest updated to 141 bit-exact files (historic hashes strictly preserved).
-- **Active Errors / Blockers**: None. Background processes running smoothly within resource limits. Secondary KB progressing on B3; API runner safely waiting on quota backoff.
+  - Part E (Secondary KB Replication): **Complete**. Evaluated V0, V0h, V1, Vrel on `E0-STIX-ENT` under B2 (`MiniLM-Truncated-256`) and B3 (`MiniLM-MaxSim-Windows`) across all 3 datasets (339 queries). Key findings: (1) on `cti-taa`, relationship expansion ($V_{\text{rel}}$) provides significant recall gains over hygiene alone ($V_{0h}$) under B2 ($\Delta = +0.1800$, $p=0.0117$) and under B3 ($\Delta = +0.0800$); (2) on `cti-ate`, $V_{\text{rel}}$ substantially outperforms both $V_1$ and $V_{0h}$ under B2 ($\Delta = +0.1510$, $p < 0.0001$) and B3 ($\Delta = +0.1476$, $p < 0.0001$); (3) on `CTI-ATTACK`, hygiene ($V_{0h}$) yields a massive +44.9 percentage point recall gain over $V_0$ under both B2 and B3 (0.6303 vs 0.1812, $p < 0.0001$). Saved in `results/phase_6d/secondary_kb_contrasts.csv` and `secondary_kb_evaluations.json`.
+  - Part D (B1 Retriever Robustness): **In Progress** (`task-12625`, PID 18776). Evaluating dense long-context embeddings (`nomic-ai/nomic-embed-text-v1.5`, 8192 context) without chunking. Began immediately following Part E completion (strictly one heavy retrieval process at a time).
+  - Part H (Report & Reproducibility): Unified report updated. Freeze manifest updated to 144 bit-exact files (historic hashes strictly preserved).
+- **Active Errors / Blockers**: None. Background processes running smoothly within resource limits. Part D actively computing; API runner safely waiting on quota backoff.
 
 
 ---

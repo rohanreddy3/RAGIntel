@@ -1,7 +1,7 @@
 {
   "title": "RAGIntel Freeze Manifest",
   "timestamp_utc": "2026-10-24T07:39:11.247584+00:00",
-  "total_files": 141,
+  "total_files": 144,
   "files": {
     "analysis_plan.md": {
       "sha256": "c07cd8151110565c7aa63ded290a332afca1adf7b5e7b3b550cde5f38dd88c4c",
@@ -566,6 +566,18 @@
     "results/phase_6d/generation_contrasts.json": {
       "sha256": "293b36de7c0724596220416c08d0f2f5247f03fcaa277a37e631b17b22362775",
       "size_bytes": 5575
+    },
+    "results/phase_6d/secondary_kb_contrasts.csv": {
+      "sha256": "00ea20fa9824452604de7bf89cc83a213bd4dd9f81e0c03343a1365534690502",
+      "size_bytes": 10211
+    },
+    "results/phase_6d/secondary_kb_contrasts.json": {
+      "sha256": "13538af7c03972c3c52b6ba85c5381c6d238b1de6e9bdfb5a81ae284d1859fac",
+      "size_bytes": 38596
+    },
+    "results/phase_6d/secondary_kb_evaluations.json": {
+      "sha256": "6494e51dfc6ec21ac7efae3e0cf1926b375b47fd923d520c884d1054b222ee09",
+      "size_bytes": 4373
     }
   }
 }

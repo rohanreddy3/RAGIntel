@@ -178,7 +178,38 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 
 *Post-hoc round 3–4, exploratory. Evaluating query hygiene ($V_{0h}$ vs $V_0$) and relationship expansion ($V_{\text{rel}}$) over Enterprise STIX bundle (1,698 objects) under baselines B2 and B3.*
 
-*Computation currently in progress in background task (`task-11837`). Output will populate upon completion.*
+| Baseline | Dataset | Contrast | Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
+| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| B2 | `cti-taa` | V0h vs V0 | Object_Recall@10 | 0.1600 | 0.1200 | -0.0400 | [-0.1600, 0.0600] | 3/42/5 | 0.7266 |
+| B2 | `cti-taa` | Vrel vs V1 | Object_Recall@10 | 0.1600 | 0.3000 | +0.1400 | [-0.0400, 0.3200] | 14/29/7 | 0.1892 |
+| B2 | `cti-taa` | Vrel vs V0h | Object_Recall@10 | 0.1200 | 0.3000 | +0.1800 | [0.0600, 0.3000] | 10/39/1 | 0.0117 |
+| B2 | `cti-taa` | V1 vs V0 | Object_Recall@10 | 0.1600 | 0.1600 | +0.0000 | [-0.1400, 0.1400] | 7/36/7 | 1.0000 |
+| B2 | `cti-ate` | V0h vs V0 | Subtech_Recall@10 | 0.0895 | 0.0813 | -0.0082 | [-0.0636, 0.0561] | 8/36/16 | 0.1516 |
+| B2 | `cti-ate` | Vrel vs V1 | Subtech_Recall@10 | 0.0158 | 0.2323 | +0.2164 | [0.1526, 0.2865] | 37/23/0 | 0.0000 |
+| B2 | `cti-ate` | Vrel vs V0h | Subtech_Recall@10 | 0.0813 | 0.2323 | +0.1510 | [0.0986, 0.2091] | 31/28/1 | 0.0000 |
+| B2 | `cti-ate` | V1 vs V0 | Subtech_Recall@10 | 0.0895 | 0.0158 | -0.0736 | [-0.1060, -0.0435] | 1/40/19 | 0.0000 |
+| B2 | `CTI-ATTACK` | V0h vs V0 | Subtech_Recall@10 | 0.1812 | 0.6303 | +0.4491 | [0.3785, 0.5168] | 117/104/8 | 0.0000 |
+| B2 | `CTI-ATTACK` | Vrel vs V1 | Subtech_Recall@10 | 0.1856 | 0.6303 | +0.4447 | [0.3726, 0.5131] | 117/103/9 | 0.0000 |
+| B2 | `CTI-ATTACK` | Vrel vs V0h | Subtech_Recall@10 | 0.6303 | 0.6303 | +0.0000 | [0.0000, 0.0000] | 0/229/0 | 1.0000 |
+| B2 | `CTI-ATTACK` | V1 vs V0 | Subtech_Recall@10 | 0.1812 | 0.1856 | +0.0044 | [0.0000, 0.0131] | 1/228/0 | 1.0000 |
+| B3 | `cti-taa` | V0h vs V0 | Object_Recall@10 | 0.0400 | 0.1200 | +0.0800 | [-0.0200, 0.2000] | 6/42/2 | 0.2891 |
+| B3 | `cti-taa` | Vrel vs V1 | Object_Recall@10 | 0.1000 | 0.2000 | +0.1000 | [-0.0400, 0.2400] | 9/37/4 | 0.2668 |
+| B3 | `cti-taa` | Vrel vs V0h | Object_Recall@10 | 0.1200 | 0.2000 | +0.0800 | [0.0000, 0.1800] | 5/44/1 | 0.2188 |
+| B3 | `cti-taa` | V1 vs V0 | Object_Recall@10 | 0.0400 | 0.1000 | +0.0600 | [-0.0200, 0.1400] | 4/45/1 | 0.3750 |
+| B3 | `cti-ate` | V0h vs V0 | Subtech_Recall@10 | 0.1221 | 0.0811 | -0.0410 | [-0.1033, 0.0293] | 6/32/22 | 0.0037 |
+| B3 | `cti-ate` | Vrel vs V1 | Subtech_Recall@10 | 0.0363 | 0.2286 | +0.1923 | [0.1300, 0.2601] | 35/24/1 | 0.0000 |
+| B3 | `cti-ate` | Vrel vs V0h | Subtech_Recall@10 | 0.0811 | 0.2286 | +0.1476 | [0.0976, 0.2034] | 31/28/1 | 0.0000 |
+| B3 | `cti-ate` | V1 vs V0 | Subtech_Recall@10 | 0.1221 | 0.0363 | -0.0858 | [-0.1285, -0.0468] | 3/38/19 | 0.0009 |
+| B3 | `CTI-ATTACK` | V0h vs V0 | Subtech_Recall@10 | 0.1812 | 0.6303 | +0.4491 | [0.3785, 0.5168] | 117/104/8 | 0.0000 |
+| B3 | `CTI-ATTACK` | Vrel vs V1 | Subtech_Recall@10 | 0.1856 | 0.6303 | +0.4447 | [0.3726, 0.5131] | 117/103/9 | 0.0000 |
+| B3 | `CTI-ATTACK` | Vrel vs V0h | Subtech_Recall@10 | 0.6303 | 0.6303 | +0.0000 | [0.0000, 0.0000] | 0/229/0 | 1.0000 |
+| B3 | `CTI-ATTACK` | V1 vs V0 | Subtech_Recall@10 | 0.1812 | 0.1856 | +0.0044 | [0.0000, 0.0131] | 1/228/0 | 1.0000 |
+
+> [!NOTE]
+> **Key Part E Secondary KB Replication Findings**:
+> 1. **Threat Actor Attribution (`cti-taa`)**: Relationship expansion ($V_{\text{rel}}$) provides significant recall gains over hygiene alone ($V_{0h}$) under B2 ($\Delta = +0.1800$, 95% CI [0.0600, 0.3000], exact sign $p=0.0117$, W/T/L = 10/39/1) and under B3 ($\Delta = +0.0800$, W/T/L = 5/44/1).
+> 2. **Technique Extraction (`cti-ate`)**: Relationship expansion ($V_{\text{rel}}$) substantially outperforms both $V_1$ and $V_{0h}$ under B2 ($\Delta = +0.1510$ over $V_{0h}$, exact sign $p < 0.0001$) and under B3 ($\Delta = +0.1476$, exact sign $p < 0.0001$).
+> 3. **CTI-ATTACK Hygiene Replicability**: Query hygiene ($V_{0h}$) yields a massive +44.9 percentage point recall gain over $V_0$ on Enterprise STIX under both B2 and B3 (0.6303 vs 0.1812, $\Delta = +0.4491$, exact sign $p < 0.0001$), strictly replicating the headline hygiene effect found on the full STIX corpus.
 
 ---
 

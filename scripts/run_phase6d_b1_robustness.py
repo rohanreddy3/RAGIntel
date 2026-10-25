@@ -150,6 +150,26 @@ class B1DenseRetriever:
         self.model_name = model_name
         self.stix_kb = stix_kb
         
+        import torch
+        import transformers
+
+        # Patch get_extended_attention_mask for transformers 5.x compatibility with nomic-bert
+        if not hasattr(transformers.PreTrainedModel, "get_extended_attention_mask"):
+            def get_extended_attention_mask(self, attention_mask, input_shape, device=None, dtype=None):
+                if dtype is None:
+                    dtype = getattr(self, "dtype", torch.float32)
+                if attention_mask.dim() == 3:
+                    extended_attention_mask = attention_mask[:, None, :, :]
+                elif attention_mask.dim() == 2:
+                    extended_attention_mask = attention_mask[:, None, None, :]
+                else:
+                    raise ValueError(f"Wrong shape for attention_mask {attention_mask.shape}")
+                extended_attention_mask = extended_attention_mask.to(dtype=dtype)
+                extended_attention_mask = (1.0 - extended_attention_mask) * torch.finfo(dtype).min
+                return extended_attention_mask
+
+            transformers.PreTrainedModel.get_extended_attention_mask = get_extended_attention_mask
+
         from sentence_transformers import SentenceTransformer
         print(f"Loading B1 model: {model_name} (trust_remote_code=True)...", flush=True)
         self.model = SentenceTransformer(model_name, trust_remote_code=True)

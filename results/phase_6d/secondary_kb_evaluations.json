@@ -1,0 +1,150 @@
+{
+  "B2": {
+    "cti-taa": {
+      "arm_means": {
+        "V0": {
+          "Object_Recall@10": 0.16,
+          "Alias_Recall@10": 0.3,
+          "Object_MRR": 0.035555555555555556
+        },
+        "V0h": {
+          "Object_Recall@10": 0.12,
+          "Alias_Recall@10": 0.3,
+          "Object_MRR": 0.05566666666666666
+        },
+        "V1": {
+          "Object_Recall@10": 0.16,
+          "Alias_Recall@10": 0.3,
+          "Object_MRR": 0.04596825396825397
+        },
+        "Vrel": {
+          "Object_Recall@10": 0.3,
+          "Alias_Recall@10": 0.48,
+          "Object_MRR": 0.16919047619047617
+        }
+      }
+    },
+    "cti-ate": {
+      "arm_means": {
+        "V0": {
+          "Subtech_Recall@10": 0.08945666666666667,
+          "Exact_Recall@10": 0.08427166666666668,
+          "Subtech_MRR": 0.10591666666666667
+        },
+        "V0h": {
+          "Subtech_Recall@10": 0.08129166666666666,
+          "Exact_Recall@10": 0.04043833333333334,
+          "Subtech_MRR": 0.04501999999999999
+        },
+        "V1": {
+          "Subtech_Recall@10": 0.01582,
+          "Exact_Recall@10": 0.01582,
+          "Subtech_MRR": 0.012315000000000001
+        },
+        "Vrel": {
+          "Subtech_Recall@10": 0.23225833333333334,
+          "Exact_Recall@10": 0.16203333333333333,
+          "Subtech_MRR": 0.47074000000000005
+        }
+      }
+    },
+    "CTI-ATTACK": {
+      "arm_means": {
+        "V0": {
+          "Subtech_Recall@10": 0.1812227074235808,
+          "Exact_Recall@10": 0.17903930131004367,
+          "Subtech_MRR": 0.09934847161572054
+        },
+        "V0h": {
+          "Subtech_Recall@10": 0.6302764192139738,
+          "Exact_Recall@10": 0.5582240174672489,
+          "Subtech_MRR": 0.3894419213973799
+        },
+        "V1": {
+          "Subtech_Recall@10": 0.185589519650655,
+          "Exact_Recall@10": 0.18340611353711792,
+          "Subtech_MRR": 0.0998943231441048
+        },
+        "Vrel": {
+          "Subtech_Recall@10": 0.6302764192139738,
+          "Exact_Recall@10": 0.5582240174672489,
+          "Subtech_MRR": 0.3894419213973799
+        }
+      }
+    }
+  },
+  "B3": {
+    "cti-taa": {
+      "arm_means": {
+        "V0": {
+          "Object_Recall@10": 0.04,
+          "Alias_Recall@10": 0.2,
+          "Object_MRR": 0.012
+        },
+        "V0h": {
+          "Object_Recall@10": 0.12,
+          "Alias_Recall@10": 0.26,
+          "Object_MRR": 0.05966666666666667
+        },
+        "V1": {
+          "Object_Recall@10": 0.1,
+          "Alias_Recall@10": 0.2,
+          "Object_MRR": 0.043166666666666666
+        },
+        "Vrel": {
+          "Object_Recall@10": 0.2,
+          "Alias_Recall@10": 0.32,
+          "Object_MRR": 0.11133333333333333
+        }
+      }
+    },
+    "cti-ate": {
+      "arm_means": {
+        "V0": {
+          "Subtech_Recall@10": 0.12209666666666667,
+          "Exact_Recall@10": 0.10119666666666666,
+          "Subtech_MRR": 0.21455499999999997
+        },
+        "V0h": {
+          "Subtech_Recall@10": 0.08105333333333334,
+          "Exact_Recall@10": 0.04115333333333333,
+          "Subtech_MRR": 0.04316833333333333
+        },
+        "V1": {
+          "Subtech_Recall@10": 0.036318333333333334,
+          "Exact_Recall@10": 0.021726666666666665,
+          "Subtech_MRR": 0.11409333333333334
+        },
+        "Vrel": {
+          "Subtech_Recall@10": 0.22860666666666668,
+          "Exact_Recall@10": 0.14945333333333333,
+          "Subtech_MRR": 0.4436116666666667
+        }
+      }
+    },
+    "CTI-ATTACK": {
+      "arm_means": {
+        "V0": {
+          "Subtech_Recall@10": 0.1812227074235808,
+          "Exact_Recall@10": 0.17903930131004367,
+          "Subtech_MRR": 0.09934847161572054
+        },
+        "V0h": {
+          "Subtech_Recall@10": 0.6302764192139738,
+          "Exact_Recall@10": 0.5582240174672489,
+          "Subtech_MRR": 0.3894419213973799
+        },
+        "V1": {
+          "Subtech_Recall@10": 0.185589519650655,
+          "Exact_Recall@10": 0.18340611353711792,
+          "Subtech_MRR": 0.0998943231441048
+        },
+        "Vrel": {
+          "Subtech_Recall@10": 0.6302764192139738,
+          "Exact_Recall@10": 0.5582240174672489,
+          "Subtech_MRR": 0.3894419213973799
+        }
+      }
+    }
+  }
+}

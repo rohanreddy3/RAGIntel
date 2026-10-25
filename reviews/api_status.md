@@ -1,16 +1,16 @@
 # API Generation Runner Status
 
-- **Last Updated (UTC)**: `2026-10-25T08:35:03.156576+00:00`
+- **Last Updated (UTC)**: `2026-10-25T09:53:48.118649+00:00`
 - **Heartbeat Status**: Alive and logging every 10 min (PID: 19736)
 - **Calls Used in Current Window (Rolling 24h)**: `998 / 500`
 - **Rolling 24-Hour Successful Calls**: `998`
 - **Previous 60s Successful Calls**: `0`
 - **Last Quota Event / 429 Reason**: `per-day: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please `
-- **Next Probe Time (UTC)**: `2026-10-25T08:50:03.149914+00:00`
+- **Next Probe Time (UTC)**: `2026-10-25T10:05:08.349700+00:00`
 - **Confirmed Reset Time**: `2026-10-25T07:00:29.028844+00:00`
 - **Measured Daily Limit**: `500`
 - **Arm Identification**: Note that `E0` corresponds to `E0'` (original STIX splitter control).
-- **Notes**: Daily 429 hit (per-day). Probing every 30m; next probe at 2026-10-25T08:50:03.149914+00:00.
+- **Notes**: Heartbeat tick (process alive)
 
 ## Completed Cache Records by Arm
 | Arm | Cached Responses |
@@ -28,13 +28,13 @@
 | `hybrid` | 160 |
 
 ## Heartbeat Log (Every 10 min)
-- `2026-10-25T07:03:42.001343+00:00` - PID 19736 - Process Alive
-- `2026-10-25T07:13:42.270379+00:00` - PID 19736 - Process Alive
-- `2026-10-25T07:23:42.631102+00:00` - PID 19736 - Process Alive
-- `2026-10-25T07:33:43.004628+00:00` - PID 19736 - Process Alive
-- `2026-10-25T07:43:43.424050+00:00` - PID 19736 - Process Alive
-- `2026-10-25T07:53:43.747893+00:00` - PID 19736 - Process Alive
-- `2026-10-25T08:03:44.085099+00:00` - PID 19736 - Process Alive
-- `2026-10-25T08:13:44.409793+00:00` - PID 19736 - Process Alive
 - `2026-10-25T08:23:44.812948+00:00` - PID 19736 - Process Alive
 - `2026-10-25T08:33:45.097721+00:00` - PID 19736 - Process Alive
+- `2026-10-25T08:43:45.456547+00:00` - PID 19736 - Process Alive
+- `2026-10-25T08:53:45.826851+00:00` - PID 19736 - Process Alive
+- `2026-10-25T09:03:46.213359+00:00` - PID 19736 - Process Alive
+- `2026-10-25T09:13:46.560328+00:00` - PID 19736 - Process Alive
+- `2026-10-25T09:23:46.945897+00:00` - PID 19736 - Process Alive
+- `2026-10-25T09:33:47.351535+00:00` - PID 19736 - Process Alive
+- `2026-10-25T09:43:47.755240+00:00` - PID 19736 - Process Alive
+- `2026-10-25T09:53:48.118649+00:00` - PID 19736 - Process Alive
