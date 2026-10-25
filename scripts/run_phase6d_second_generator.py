@@ -37,7 +37,7 @@ load_dotenv(dotenv_path=REPO_ROOT / ".env", override=False)
 API_KEY = os.getenv("GOOGLE_API_KEY")
 
 from src.data_loader import load_benchmark_dataset, load_stix_all_bundles
-from src.offline_answer_scorer import score_threat_actor_attribution_v2, score_threat_actor_attribution
+from scripts.compute_phase6c_metrics import score_group_match
 
 CACHE_DIR = REPO_ROOT / ".cache" / "api_runner_second_gen"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -254,17 +254,11 @@ def run_evaluation(dry_run: bool = False):
             gt = str(row.get("ground_truth", ""))
             ans = results_by_arm[arm][row_idx]
 
-            # Scorer v1
-            s_v1_exact = score_threat_actor_attribution(ans, gt, group_alias_map, alias_mode=False)
-            s_v1_alias = score_threat_actor_attribution(ans, gt, group_alias_map, alias_mode=True)
-            # Scorer v2
-            s_v2_exact = score_threat_actor_attribution_v2(ans, gt, group_alias_map, alias_mode=False)
-            s_v2_alias = score_threat_actor_attribution_v2(ans, gt, group_alias_map, alias_mode=True)
-
-            v1_exact_scores.append(float(s_v1_exact))
-            v1_alias_scores.append(float(s_v1_alias))
-            v2_exact_scores.append(float(s_v2_exact))
-            v2_alias_scores.append(float(s_v2_alias))
+            sc = score_group_match(ans, gt, group_alias_map)
+            v1_exact_scores.append(float(sc["v1_exact"]))
+            v1_alias_scores.append(float(sc["v1_alias"]))
+            v2_exact_scores.append(float(sc["v2_exact"]))
+            v2_alias_scores.append(float(sc["v2_alias"]))
 
         scores_summary[arm] = {
             "v2_alias": round(float(np.mean(v2_alias_scores)), 4),
@@ -320,12 +314,26 @@ def run_evaluation(dry_run: bool = False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="Simulate second generator")
+    parser.add_argument("--test-live-1", action="store_true", help="Execute 1 live API call to test quota")
     parser.add_argument("--run", action="store_true", help="Run live calls")
     args = parser.parse_args()
 
     if args.dry_run:
         run_evaluation(dry_run=True)
+    elif args.test_live_1:
+        print(f"[SECOND GEN] Testing 1 live call with {SECOND_MODEL_ID}...")
+        from google import genai
+        client = genai.Client(api_key=API_KEY)
+        ans, _ = call_second_gen(
+            client=client,
+            prompt_text="Question: Name a common threat actor.\nAnswer:",
+            arm="PROBE_TEST",
+            row_idx=0,
+            contexts_used=[],
+            dry_run=False,
+        )
+        print(f"[SECOND GEN] Probe answer: {ans}")
     elif args.run:
         run_evaluation(dry_run=False)
     else:
-        print("Usage: python scripts/run_phase6d_second_generator.py [--dry-run | --run]")
+        print("Usage: python scripts/run_phase6d_second_generator.py [--dry-run | --test-live-1 | --run]")

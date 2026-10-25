@@ -1,0 +1,26 @@
+{
+  "LLM_only": {
+    "v2_alias": 0.66,
+    "v2_exact": 0.56,
+    "v1_alias": 0.6,
+    "v1_exact": 0.44
+  },
+  "V0": {
+    "v2_alias": 0.66,
+    "v2_exact": 0.58,
+    "v1_alias": 0.6,
+    "v1_exact": 0.44
+  },
+  "V0h": {
+    "v2_alias": 0.7,
+    "v2_exact": 0.62,
+    "v1_alias": 0.66,
+    "v1_exact": 0.52
+  },
+  "Vrel": {
+    "v2_alias": 0.72,
+    "v2_exact": 0.62,
+    "v1_alias": 0.68,
+    "v1_exact": 0.52
+  }
+}

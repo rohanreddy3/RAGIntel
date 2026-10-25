@@ -1,0 +1,55 @@
+{
+  "primary_model": "models/gemini-3.5-flash-lite",
+  "second_model": "models/gemini-3.1-flash-lite",
+  "primary_ranking_v2_alias": [
+    "Vrel",
+    "V0h",
+    "LLM_only",
+    "V0"
+  ],
+  "second_ranking_v2_alias": [
+    "Vrel",
+    "V0h",
+    "LLM_only",
+    "V0"
+  ],
+  "ranking_matches": true,
+  "primary_scores_v2_alias": {
+    "Vrel": 0.76,
+    "V0h": 0.74,
+    "LLM_only": 0.72,
+    "V0": 0.64
+  },
+  "second_scores_v2_alias": {
+    "LLM_only": 0.66,
+    "V0": 0.66,
+    "V0h": 0.7,
+    "Vrel": 0.72
+  },
+  "second_full_scores": {
+    "LLM_only": {
+      "v2_alias": 0.66,
+      "v2_exact": 0.56,
+      "v1_alias": 0.6,
+      "v1_exact": 0.44
+    },
+    "V0": {
+      "v2_alias": 0.66,
+      "v2_exact": 0.58,
+      "v1_alias": 0.6,
+      "v1_exact": 0.44
+    },
+    "V0h": {
+      "v2_alias": 0.7,
+      "v2_exact": 0.62,
+      "v1_alias": 0.66,
+      "v1_exact": 0.52
+    },
+    "Vrel": {
+      "v2_alias": 0.72,
+      "v2_exact": 0.62,
+      "v1_alias": 0.68,
+      "v1_exact": 0.52
+    }
+  }
+}

@@ -17,8 +17,8 @@
 ---
 
 ## Current Status Snapshot
-- **Timestamp (UTC)**: `2026-10-25T05:32:00Z`
-- **Timestamp (Local IST)**: `2026-10-25T11:02:00+05:30`
+- **Timestamp (UTC)**: `2026-10-25T06:05:00Z`
+- **Timestamp (Local IST)**: `2026-10-25T11:35:00+05:30`
 - **Current Step**: `PHASE_6D_IN_PROGRESS`
 - **Phase 6C Generation Status**: Completed. All 389 live generation calls finished with code 0. Contrasts computed and saved in `results/phase_6c/`.
 - **Phase 6D Extended Round (Post-Hoc Round 3–4, Exploratory)**:
@@ -26,11 +26,12 @@
   - Part A (Clean-up): Complete. Fixed cti-taa table labels, replaced Section 4 of REVIEW_PHASE_6C.md with descriptive diagnostics, computed missing cti-taa contrasts (Vrel vs V0h, V0h vs V0 across all 4 scorers with bootstrap and exact sign p), and computed Holm step-down correction over 4 primary generation comparisons.
   - Part C (Diagnostics): Complete. Descriptive diagnostics for E0'(raw), E0'-HD-k200, E1h, LLM-only on cti-ate/CTI-ATTACK computed. Spearman rank correlation between context recall and F1 computed. Mobile domain filter compliance verified (100%).
   - Part G (Case Studies): Complete. Script-generated case studies for cti-taa (5 Vrel wins, 3 Vrel losses by row_idx) with top-3 voted groups, ground-truth presence, model response, and verbatim query span assertions passed.
-  - Part E (Secondary KB): In progress (actively computing B2/B3 retrieval across cti-taa, cti-ate, CTI-ATTACK on E0-STIX-ENT).
-  - Part F (Second Generator): Pre-declared model `models/gemini-3.1-flash-lite` (newest Flash-Lite model in API listing != gemini-3.5-flash-lite). Pipeline script `scripts/run_phase6d_second_generator.py` prepared.
-  - Part D (B1 Robustness): Dense long-context embedding pipeline `scripts/run_phase6d_b1_robustness.py` prepared with local `nomic-ai/nomic-embed-text-v1.5`.
-  - Part B (API Generation): Section 14 arms (D1, D2a, D3, D2b, D4) implemented in `scripts/api_runner.py` and validated via dry-run simulation. Ready for live execution.
-- **Active Errors / Blockers**: None.
+  - Part E (Secondary KB): In progress (actively computing B2/B3 retrieval across cti-taa, cti-ate, CTI-ATTACK on E0-STIX-ENT; CPU time >6,800s).
+  - Part F (Second Generator): Pre-declared model `models/gemini-3.1-flash-lite`. Live execution actively running (182/200 calls completed; HTTP 200, latency ~2.5s). Final offline scoring and ranking comparison queued immediately upon completion.
+  - Part D (B1 Robustness): Dense long-context embedding pipeline `scripts/run_phase6d_b1_robustness.py` prepared with local `nomic-ai/nomic-embed-text-v1.5`, scheduled sequentially following Part E.
+  - Part B (API Generation): Section 14 arms (D1, D2a, D3, D2b, D4) implemented in `scripts/api_runner.py` and validated via dry-run simulation.
+  - Part H (Report & Reproducibility): Report verification pipeline `scripts/generate_phase6d_report.py` created and verified; `reviews/REVIEW_PHASE_6D.md` drafted.
+- **Active Errors / Blockers**: None. Quota on primary model `gemini-3.5-flash-lite` resets at 07:00 UTC (~55 minutes remaining). Second generator `gemini-3.1-flash-lite` operating smoothly on its separate quota pool.
 
 
 ---
