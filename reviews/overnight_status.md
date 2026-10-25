@@ -17,19 +17,19 @@
 ---
 
 ## Current Status Snapshot
-- **Timestamp (UTC)**: `2026-10-25T04:52:00Z`
-- **Timestamp (Local IST)**: `2026-10-25T10:22:00+05:30`
+- **Timestamp (UTC)**: `2026-10-25T05:05:00Z`
+- **Timestamp (Local IST)**: `2026-10-25T10:35:00+05:30`
 - **Current Step**: `PHASE_6D_IN_PROGRESS`
-- **Phase 6C Generation Status**: Completed. All 389 live generation calls finished with code 0 (zero 429 rate limit errors). Contrasts computed and saved in `results/phase_6c/`.
+- **Phase 6C Generation Status**: Completed. All 389 live generation calls finished with code 0. Contrasts computed and saved in `results/phase_6c/`.
 - **Phase 6D Extended Round (Post-Hoc Round 3–4, Exploratory)**:
   - Pre-registered in `analysis_plan.md` Section 14 (SHA256: `117E541B157001676F963D3B73C81504CBCE7328FE43A635C5F12EEDE30A3BA6`) and `results/phase_6d/variants_ledger.json`.
-  - Part A (Clean-up): In progress (REVIEW_PHASE_6C.md Section 4 rewrite, missing cti-taa contrasts, Holm correction).
-  - Part B (API Generation): Ready for execution following quota reset (07:00 UTC) with probe-first protocol.
-  - Part C (Diagnostics): Queued.
+  - Part A (Clean-up): Complete. Fixed cti-taa table labels, replaced Section 4 of REVIEW_PHASE_6C.md with descriptive diagnostics, computed missing cti-taa contrasts (Vrel vs V0h, V0h vs V0 across all 4 scorers with bootstrap and exact sign p), and computed Holm step-down correction over 4 primary generation comparisons.
+  - Part C (Diagnostics): Complete. Descriptive diagnostics for E0'(raw), E0'-HD-k200, E1h, LLM-only on cti-ate/CTI-ATTACK computed. Spearman rank correlation between context recall and F1 computed. Mobile domain filter compliance verified (100%).
+  - Part G (Case Studies): Complete. Script-generated case studies for cti-taa (5 Vrel wins, 3 Vrel losses by row_idx) with top-3 voted groups, ground-truth presence, model response, and verbatim query span assertions passed.
+  - Part E (Secondary KB): In progress.
   - Part D (B1 Robustness): Queued.
-  - Part E (Secondary KB): Queued.
-  - Part F (Second Generator): Model listing check queued.
-  - Part G (Case Studies): Queued.
+  - Part F (Second Generator): Listing available models queued.
+  - Part B (API Generation): Section 14 arms implementation in progress, ready for execution after probe / 07:00 UTC daily quota reset.
 - **Active Errors / Blockers**: None.
 
 
