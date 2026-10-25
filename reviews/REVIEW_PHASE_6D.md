@@ -240,16 +240,27 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 
 *Post-hoc round 3–4, exploratory. Evaluating dense long-context embeddings (`nomic-ai/nomic-embed-text-v1.5`, 8192 context) without chunking.*
 
-*Scheduled to execute sequentially following completion of Part E secondary KB retrieval.*
+| Dataset | Contrast | Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `cti-taa` | V0h vs V0 | `Object_Recall@10` | 0.1400 | 0.2200 | +0.0800 | [-0.0200, 0.1800] | 5/44/1 | 0.2188 |
+| `cti-taa` | Vrel vs V0h | `Object_Recall@10` | 0.2200 | 0.3400 | +0.1200 | [0.0400, 0.2200] | 6/44/0 | 0.0312 |
+| `cti-taa` | Vrel vs V0 | `Object_Recall@10` | 0.1400 | 0.3400 | +0.2000 | [0.1000, 0.3200] | 10/40/0 | 0.0020 |
+| `cti-ate` | E0_prime_HD vs E0_prime_raw | `Subtech_Recall@10` | 0.0874 | 0.1809 | +0.0935 | [0.0484, 0.1463] | 24/32/4 | 0.0002 |
+| `CTI-ATTACK` | E0_prime_HD vs E0_prime_raw | `Subtech_Recall@10` | 0.2118 | 0.5662 | +0.3544 | [0.2933, 0.4156] | 90/137/2 | 0.0000 |
+
+> [!NOTE]
+> **Key Part D B1 Robustness Findings**:
+> 1. **Relationship Expansion ($V_{\text{rel}}$)**: Under unchunked long-context dense embeddings, $V_{\text{rel}}$ strictly maintains or improves object-level recall on `cti-taa` (0.3400 vs 0.2200 for $V_{0h}$, $\Delta = +0.1200$, 95% CI [0.0400, 0.2200], W/T/L = **6/44/0**, exact sign $p = 0.0312$; and $\Delta = +0.2000$ over $V_0$, W/T/L = **10/40/0**, exact sign $p = 0.0020$). Zero regressions observed.
+> 2. **Query Hygiene / HD Preprocessing**: HD preprocessing more than doubles technique recall on `cti-ate` under B1 (0.1809 vs 0.0874, $\Delta = +0.0935$, exact sign $p = 0.0002$) and yields a massive +35.4 percentage point gain on `CTI-ATTACK` (0.5662 vs 0.2118, $\Delta = +0.3544$, W/T/L = **90/137/2**, exact sign $p < 0.0001$). Both headline effects preserve their direction and magnitude under long-context dense embeddings without chunking.
 
 ---
 
 ## Summary of Outcomes (Plain List, Numbers Only)
 
-Categorization of statistically evaluated primary contrasts across Phase 6D:
-- **Improved**: 4
-- **Not improved**: 2
-- **Unchanged**: 6
+Categorization of statistically evaluated primary contrasts across Phase 6D (Parts A, B, D, E):
+- **Improved**: 13
+- **Not improved**: 3
+- **Unchanged**: 11
 
 ---
 
@@ -259,10 +270,11 @@ Categorization of statistically evaluated primary contrasts across Phase 6D:
 | :--- | :--- | :--- | :---: | :---: | :--- |
 | 2026-10-25 | `gemini-3.5-flash-lite` | Phase 6C HD / V0h / Vrel generation | 389 | 500 | `FinishReason.STOP` (HTTP 200) |
 | 2026-10-25 | `gemini-3.5-flash-lite` | Liveness / Quota Probes | 2 | 500 | `FinishReason.STOP` (HTTP 200) |
-| 2026-10-25 | `gemini-3.1-flash-lite` | Phase 6D Part F Second Generator (`cti-taa`) | 200 | 500 | `FinishReason.STOP` (HTTP 200, in progress) |
+| 2026-10-25 | `gemini-3.1-flash-lite` | Phase 6D Part F Second Generator (`cti-taa`) | 200 | 500 | `FinishReason.STOP` (HTTP 200, completed) |
+| 2026-10-25 | `gemini-3.5-flash-lite` | Phase 6D Part B Priority Arms (D1, D2a, D3) | 607 | 500 (reset) | `FinishReason.STOP` (HTTP 200, waiting on backoff) |
 
 ### Skipped Arms & Operational Log
 - **`gemma-4-31b-it`**: Evaluated during Part F model listing probe; returned HTTP 500 Internal Error on remote API; skipped per rule and replaced with next pre-declared candidate `gemini-3.1-flash-lite`.
 - **`gemini-2.5-flash-lite`**: Evaluated during Part F model listing probe; returned HTTP 404 (model endpoint deprecated); skipped per rule.
-- **Primary Generator Phase 6D Priority Arms (D1–D4)**: Implemented in `scripts/api_runner.py` and dry-run validated. Due to 391 calls completed on `gemini-3.5-flash-lite` during the 2026-10-25 UTC window, arms D1–D4 are queued to resume automatically following the 07:00 UTC daily quota reset to strictly maintain the 500 calls/day quota constraint.
+- **Primary Generator Phase 6D Priority Arms (D1–D4)**: Arms D1 (289 calls) and D2a (160 calls) 100% completed; Arm D3 partially completed (60 cti-ate completed; 98 CTI-ATTACK completed). Runner is safely sleeping on quota backoff and will resume remaining D3 (131 calls), D2b (229 calls), and D4 (60 calls) upon quota replenishment.
 

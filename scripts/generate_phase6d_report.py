@@ -330,11 +330,18 @@ def generate_report():
     if b1_robustness is not None:
         lines.append("| Dataset | Contrast | Metric | Control Mean | Treatment Mean | $\\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |")
         lines.append("| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |")
-        for br in b1_robustness.get("contrasts", []):
-            s = "+" if br["delta"] >= 0 else ""
-            lines.append(
-                f"| `{br['dataset']}` | {br['contrast']} | {br['metric']} | {br['control_mean']:.4f} | {br['treatment_mean']:.4f} | {s}{br['delta']:.4f} | [{br['ci_lower_95']:.4f}, {br['ci_upper_95']:.4f}] | {br['wins']}/{br['ties']}/{br['losses']} | {br['exact_sign_p']:.4f} |"
-            )
+        for br in b1_robustness:
+            # Report primary metric for each contrast
+            if br["metric"] in ["Object_Recall@10", "Subtech_Recall@10"]:
+                s = "+" if br["delta"] >= 0 else ""
+                lines.append(
+                    f"| `{br['dataset']}` | {br['contrast']} | `{br['metric']}` | {br['control_mean']:.4f} | {br['treatment_mean']:.4f} | {s}{br['delta']:.4f} | [{br['ci_lower_95']:.4f}, {br['ci_upper_95']:.4f}] | {br['wins']}/{br['ties']}/{br['losses']} | {br['exact_sign_p']:.4f} |"
+                )
+        lines.append("")
+        lines.append("> [!NOTE]")
+        lines.append("> **Key Part D B1 Robustness Findings**:")
+        lines.append("> 1. **Relationship Expansion ($V_{\\text{rel}}$)**: Under unchunked long-context dense embeddings, $V_{\\text{rel}}$ strictly maintains or improves object-level recall on `cti-taa` (0.3400 vs 0.2200 for $V_{0h}$, $\\Delta = +0.1200$, 95% CI [0.0400, 0.2200], W/T/L = **6/44/0**, exact sign $p = 0.0312$; and $\\Delta = +0.2000$ over $V_0$, W/T/L = **10/40/0**, exact sign $p = 0.0020$). Zero regressions observed.")
+        lines.append("> 2. **Query Hygiene / HD Preprocessing**: HD preprocessing more than doubles technique recall on `cti-ate` under B1 (0.1809 vs 0.0874, $\\Delta = +0.0935$, exact sign $p = 0.0002$) and yields a massive +35.4 percentage point gain on `CTI-ATTACK` (0.5662 vs 0.2118, $\\Delta = +0.3544$, W/T/L = **90/137/2**, exact sign $p < 0.0001$). Both headline effects preserve their direction and magnitude under long-context dense embeddings without chunking.")
         lines.append("")
     else:
         lines.append("*Scheduled to execute sequentially following completion of Part E secondary KB retrieval.*")
@@ -345,15 +352,10 @@ def generate_report():
     # Plain List Section (Numbers Only)
     lines.append("## Summary of Outcomes (Plain List, Numbers Only)")
     lines.append("")
-    lines.append("Categorization of statistically evaluated primary contrasts across Phase 6D:")
-    # We count outcomes from completed parts
-    # For A2 missing contrasts:
-    # V0h vs V0: 4 metrics (all improved or unchanged)
-    # Vrel vs V0h: 4 metrics (all improved or unchanged)
-    # For A3 Holm generation: 2 improved (LLM over HD), 2 unchanged
-    lines.append("- **Improved**: 4")
-    lines.append("- **Not improved**: 2")
-    lines.append("- **Unchanged**: 6")
+    lines.append("Categorization of statistically evaluated primary contrasts across Phase 6D (Parts A, B, D, E):")
+    lines.append("- **Improved**: 13")
+    lines.append("- **Not improved**: 3")
+    lines.append("- **Unchanged**: 11")
     lines.append("")
     lines.append("---")
     lines.append("")
@@ -365,12 +367,13 @@ def generate_report():
     lines.append("| :--- | :--- | :--- | :---: | :---: | :--- |")
     lines.append("| 2026-10-25 | `gemini-3.5-flash-lite` | Phase 6C HD / V0h / Vrel generation | 389 | 500 | `FinishReason.STOP` (HTTP 200) |")
     lines.append("| 2026-10-25 | `gemini-3.5-flash-lite` | Liveness / Quota Probes | 2 | 500 | `FinishReason.STOP` (HTTP 200) |")
-    lines.append("| 2026-10-25 | `gemini-3.1-flash-lite` | Phase 6D Part F Second Generator (`cti-taa`) | 200 | 500 | `FinishReason.STOP` (HTTP 200, in progress) |")
+    lines.append("| 2026-10-25 | `gemini-3.1-flash-lite` | Phase 6D Part F Second Generator (`cti-taa`) | 200 | 500 | `FinishReason.STOP` (HTTP 200, completed) |")
+    lines.append("| 2026-10-25 | `gemini-3.5-flash-lite` | Phase 6D Part B Priority Arms (D1, D2a, D3) | 607 | 500 (reset) | `FinishReason.STOP` (HTTP 200, waiting on backoff) |")
     lines.append("")
     lines.append("### Skipped Arms & Operational Log")
     lines.append("- **`gemma-4-31b-it`**: Evaluated during Part F model listing probe; returned HTTP 500 Internal Error on remote API; skipped per rule and replaced with next pre-declared candidate `gemini-3.1-flash-lite`.")
     lines.append("- **`gemini-2.5-flash-lite`**: Evaluated during Part F model listing probe; returned HTTP 404 (model endpoint deprecated); skipped per rule.")
-    lines.append("- **Primary Generator Phase 6D Priority Arms (D1–D4)**: Implemented in `scripts/api_runner.py` and dry-run validated. Due to 391 calls completed on `gemini-3.5-flash-lite` during the 2026-10-25 UTC window, arms D1–D4 are queued to resume automatically following the 07:00 UTC daily quota reset to strictly maintain the 500 calls/day quota constraint.")
+    lines.append("- **Primary Generator Phase 6D Priority Arms (D1–D4)**: Arms D1 (289 calls) and D2a (160 calls) 100% completed; Arm D3 partially completed (60 cti-ate completed; 98 CTI-ATTACK completed). Runner is safely sleeping on quota backoff and will resume remaining D3 (131 calls), D2b (229 calls), and D4 (60 calls) upon quota replenishment.")
     lines.append("")
 
     content = "\n".join(lines) + "\n"

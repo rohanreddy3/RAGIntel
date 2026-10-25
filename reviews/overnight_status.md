@@ -17,8 +17,8 @@
 ---
 
 ## Current Status Snapshot
-- **Timestamp (UTC)**: `2026-10-25T09:55:00Z`
-- **Timestamp (Local IST)**: `2026-10-25T15:25:00+05:30`
+- **Timestamp (UTC)**: `2026-10-25T10:45:00Z`
+- **Timestamp (Local IST)**: `2026-10-25T16:15:00+05:30`
 - **Current Step**: `PHASE_6D_IN_PROGRESS`
 - **Phase 6C Generation Status**: Completed. All 389 live generation calls finished with code 0. Contrasts computed and saved in `results/phase_6c/`.
 - **Phase 6D Extended Round (Post-Hoc Round 3–4, Exploratory)**:
@@ -34,9 +34,9 @@
     - Runner is safely sleeping on quota backoff and will resume remaining D3 (131 calls), D2b (229 calls), and D4 (60 calls) upon quota replenishment.
     - Metrics saved in `results/phase_6d/generation_contrasts.csv` and `generation_arm_means.json`.
   - Part E (Secondary KB Replication): **Complete**. Evaluated V0, V0h, V1, Vrel on `E0-STIX-ENT` under B2 (`MiniLM-Truncated-256`) and B3 (`MiniLM-MaxSim-Windows`) across all 3 datasets (339 queries). Key findings: (1) on `cti-taa`, relationship expansion ($V_{\text{rel}}$) provides significant recall gains over hygiene alone ($V_{0h}$) under B2 ($\Delta = +0.1800$, $p=0.0117$) and under B3 ($\Delta = +0.0800$); (2) on `cti-ate`, $V_{\text{rel}}$ substantially outperforms both $V_1$ and $V_{0h}$ under B2 ($\Delta = +0.1510$, $p < 0.0001$) and B3 ($\Delta = +0.1476$, $p < 0.0001$); (3) on `CTI-ATTACK`, hygiene ($V_{0h}$) yields a massive +44.9 percentage point recall gain over $V_0$ under both B2 and B3 (0.6303 vs 0.1812, $p < 0.0001$). Saved in `results/phase_6d/secondary_kb_contrasts.csv` and `secondary_kb_evaluations.json`.
-  - Part D (B1 Retriever Robustness): **In Progress** (`task-12625`, PID 18776). Evaluating dense long-context embeddings (`nomic-ai/nomic-embed-text-v1.5`, 8192 context) without chunking. Began immediately following Part E completion (strictly one heavy retrieval process at a time).
-  - Part H (Report & Reproducibility): Unified report updated. Freeze manifest updated to 144 bit-exact files (historic hashes strictly preserved).
-- **Active Errors / Blockers**: None. Background processes running smoothly within resource limits. Part D actively computing; API runner safely waiting on quota backoff.
+  - Part D (B1 Retriever Robustness): **Complete**. Evaluated dense long-context embeddings (`nomic-ai/nomic-embed-text-v1.5`, 8192 context) without document or query chunking across 2,088 raw STIX docs and all 3 datasets. Key findings: (1) on `cti-taa`, relationship expansion ($V_{\text{rel}}$) strictly maintains or improves recall over hygiene alone (0.3400 vs 0.2200, $\Delta = +0.1200$, $p=0.0312$, W/T/L = **6/44/0**; and $\Delta = +0.2000$ over $V_0$, $p=0.0020$, W/T/L = **10/40/0**); (2) on `cti-ate`, HD preprocessing more than doubles technique recall (0.1809 vs 0.0874, $\Delta = +0.0935$, $p=0.0002$); (3) on `CTI-ATTACK`, HD preprocessing yields a massive +35.4 percentage point gain (0.5662 vs 0.2118, $\Delta = +0.3544$, $p < 0.0001$, W/T/L = **90/137/2**). Both headline effects hold under long-context dense embeddings without chunking. Saved in `results/phase_6d/b1_robustness_contrasts.csv` and `b1_robustness_metrics.json`.
+  - Part H (Report & Reproducibility): Unified report updated in `reviews/REVIEW_PHASE_6D.md`. Freeze manifest updated to 146 bit-exact files (historic hashes strictly preserved).
+- **Active Errors / Blockers**: None. Background runner safely waiting on quota backoff for remaining generation calls.
 
 
 ---
