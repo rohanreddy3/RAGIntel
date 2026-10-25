@@ -1,0 +1,14 @@
+contrast_id,dataset,metric,is_primary_metric,control_arm,treatment_arm,control_mean,treatment_mean,delta,ci_lower_95,ci_upper_95,bootstrap_p,wtl,exact_sign_p
+D1_vs_LLM_only_cti-ate,cti-ate,f1_sub,True,LLM_only,D1_HD_b2000,0.4634,0.4432,-0.0202,-0.0682,0.0266,0.4,27/6/27,1.0
+D1_vs_LLM_only_CTI-ATTACK,CTI-ATTACK,f1_sub,True,LLM_only,D1_HD_b2000,0.3964,0.3593,-0.0371,-0.0843,0.0099,0.1264,56/105/68,0.3232
+D1_b2000_vs_P6C_b500_cti-ate,cti-ate,f1_sub,True,HD_b500,D1_HD_b2000,0.3936,0.4432,0.0496,0.003,0.0969,0.037,33/8/19,0.0704
+D1_b2000_vs_P6C_b500_CTI-ATTACK,CTI-ATTACK,f1_sub,True,HD_b500,D1_HD_b2000,0.2994,0.3593,0.0599,0.0212,0.0985,0.0025,60/141/28,0.0008
+D2a_hybrid_vs_LLM_cti-ate,cti-ate,f1_sub,True,LLM_only,D2a_hybrid,0.4634,0.3957,-0.0677,-0.1173,-0.0201,0.007,21/4/35,0.0814
+D2a_hybrid_vs_P6C_HD_cti-ate,cti-ate,f1_sub,True,HD_b500,D2a_hybrid,0.3936,0.3957,0.0021,-0.0334,0.0349,0.9062,29/12/19,0.1934
+D2a_hybrid_V0h_vs_LLM_taa,cti-taa,v2_alias,True,LLM_only,D2a_hybrid_V0h,0.72,0.74,0.02,-0.1,0.14,0.8696,5/41/4,1.0
+D2a_hybrid_V0h_vs_P6C_V0h_taa,cti-taa,v2_alias,True,P6C_V0h,D2a_hybrid_V0h,0.74,0.74,0.0,-0.1,0.1,1.0,3/44/3,1.0
+D2a_hybrid_Vrel_vs_LLM_taa,cti-taa,v2_alias,True,LLM_only,D2a_hybrid_Vrel,0.72,0.74,0.02,-0.12,0.16,0.8925,7/37/6,1.0
+D2a_hybrid_Vrel_vs_P6C_Vrel_taa,cti-taa,v2_alias,True,P6C_Vrel,D2a_hybrid_Vrel,0.76,0.74,-0.02,-0.1,0.06,0.8147,2/45/3,1.0
+D2a_hybrid_Vrel_vs_V0h_taa,cti-taa,v2_alias,True,D2a_hybrid_V0h,D2a_hybrid_Vrel,0.74,0.74,0.0,-0.12,0.12,1.0,5/40/5,1.0
+D3_O2_vs_LLM_cti-ate,cti-ate,f1_sub,True,LLM_only,D3_O2_E1h_HD,0.4634,0.3515,-0.112,-0.1712,-0.0516,0.0002,13/7/40,0.0003
+D3_O2_vs_P6C_HD_cti-ate,cti-ate,f1_sub,True,HD_b500,D3_O2_E1h_HD,0.3936,0.3515,-0.0422,-0.1016,0.0186,0.1745,19/10/31,0.1189

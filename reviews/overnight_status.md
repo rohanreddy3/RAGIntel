@@ -17,21 +17,26 @@
 ---
 
 ## Current Status Snapshot
-- **Timestamp (UTC)**: `2026-10-25T06:37:00Z`
-- **Timestamp (Local IST)**: `2026-10-25T12:07:00+05:30`
+- **Timestamp (UTC)**: `2026-10-25T08:35:00Z`
+- **Timestamp (Local IST)**: `2026-10-25T14:05:00+05:30`
 - **Current Step**: `PHASE_6D_IN_PROGRESS`
 - **Phase 6C Generation Status**: Completed. All 389 live generation calls finished with code 0. Contrasts computed and saved in `results/phase_6c/`.
 - **Phase 6D Extended Round (Post-Hoc Round 3–4, Exploratory)**:
   - Pre-registered in `analysis_plan.md` Section 14 (SHA256: `117E541B157001676F963D3B73C81504CBCE7328FE43A635C5F12EEDE30A3BA6`) and `results/phase_6d/variants_ledger.json`.
-  - Part A (Clean-up): Complete. Fixed cti-taa table labels, replaced Section 4 of REVIEW_PHASE_6C.md with descriptive diagnostics, computed missing cti-taa contrasts (Vrel vs V0h, V0h vs V0 across all 4 scorers with bootstrap and exact sign p), and computed Holm step-down correction over 4 primary generation comparisons.
-  - Part C (Diagnostics): Complete. Descriptive diagnostics for E0'(raw), E0'-HD-k200, E1h, LLM-only on cti-ate/CTI-ATTACK computed. Spearman rank correlation between context recall and F1 computed. Mobile domain filter compliance verified (100%).
-  - Part G (Case Studies): Complete. Script-generated case studies for cti-taa (5 Vrel wins, 3 Vrel losses by row_idx) with top-3 voted groups, ground-truth presence, model response, and verbatim query span assertions passed.
-  - Part F (Second Generator): Complete. Evaluated 200 live calls on `models/gemini-3.1-flash-lite` across `cti-taa`. Offline scoring complete: exact relative ranking replicates primary model ($V_{\text{rel}} > V_{0h} > \text{LLM-only} \ge V_0$; exact match `True`).
-  - Part B (API Generation): Priority D1 (`E0_prime_HD_k200_b2000`) executed 107 calls (`cti-ate` 60/60 complete; `CTI-ATTACK` 47/229 complete). Reached 500-call daily quota limit at 06:33 UTC (498 calls across rolling window). Runner actively waiting for 07:00 UTC daily quota reset (~23 minutes remaining) to automatically resume D1 on `CTI-ATTACK` and progress through D2a, D3, D2b, D4.
-  - Part E (Secondary KB): In progress (actively computing B2/B3 retrieval across cti-taa, cti-ate, CTI-ATTACK on E0-STIX-ENT; `cti-taa` 50/50 and `cti-ate` 60/60 completed under B2; CPU time >11,900s).
-  - Part D (B1 Robustness): Dense long-context embedding pipeline `scripts/run_phase6d_b1_robustness.py` prepared with local `nomic-ai/nomic-embed-text-v1.5`, scheduled sequentially following Part E completion (strictly one heavy retrieval process at a time).
-  - Part H (Report & Reproducibility): Report verification pipeline `scripts/generate_phase6d_report.py` created and verified; `reviews/REVIEW_PHASE_6D.md` drafted. `docs/REPRODUCE.md` updated with Phase 6C and 6D workflows. Freeze manifest updated to 138 bit-exact files (historic hashes strictly preserved). Pushed to `origin/main` (commit `4285f41`).
-- **Active Errors / Blockers**: None. Quota on primary model `gemini-3.5-flash-lite` resets at 07:00 UTC (~23 minutes remaining). Background runner alive and waiting properly. Second generator `gemini-3.1-flash-lite` successfully completed on its separate quota pool.
+  - Part A (Clean-up & Multiplicity): Complete. Fixed cti-taa table labels, replaced Section 4 of REVIEW_PHASE_6C.md with descriptive diagnostics, computed missing cti-taa contrasts (Vrel vs V0h, V0h vs V0 across all 4 scorers with bootstrap and exact sign p in `missing_taa_contrasts.csv`), and computed Holm step-down correction over 4 primary generation comparisons in `holm_primary_generation.csv`.
+  - Part C (Diagnostics): Complete. Descriptive diagnostics for E0'(raw), E0'-HD-k200, E1h, LLM-only on cti-ate/CTI-ATTACK in `diagnostics_generation.json`. Spearman rank correlation: CTI-ATTACK $\rho = +0.5565$ ($p < 0.0001$), cti-ate $\rho = +0.2415$ ($p = 0.0630$). Mobile domain filter compliance verified (100% compliant, 0 leaks in `mobile_domain_filter_check.json`).
+  - Part G (Case Studies): Complete. Deterministic case studies on cti-taa (first 5 Vrel wins, first 3 losses by row_idx) with detected software, top-3 voted groups, ground-truth context presence, model response, and verbatim query span assertions passed in `case_studies_cti_taa.md`.
+  - Part F (Second Generator Replication): Complete. Evaluated 200 live calls on `models/gemini-3.1-flash-lite` across `cti-taa` (LLM-only, V0, V0h, Vrel). Relative ranking is $V_{\text{rel}} (0.7200) > V_{0h} (0.7000) > \text{LLM-only} (0.6600) \ge V_0 (0.6600)$. Exact relative ranking matches primary model (`True`) in `second_generator_ranking_comparison.json`.
+  - Part B (API Generation Priority Arms): In progress (607 live calls completed).
+    - Priority D1 (`E0_prime_HD_k200_b2000` at $B=2000$ tokens): **100% Complete** (60 cti-ate + 229 CTI-ATTACK = 289 calls). Evaluated with 10k paired bootstrap and exact sign test: on CTI-ATTACK, $B=2000$ significantly increases technique F1 by +0.0599 ($p=0.0008$, W/T/L 60/141/28) over $B=500$ (0.3593 vs 0.2994), closing the gap with LLM-only (0.3593 vs 0.3964, $p=0.3232$, no longer statistically significantly worse). On cti-ate, $B=2000$ reaches 0.4432 vs 0.3936 ($p=0.0704$), virtually matching LLM-only (0.4634, $p=1.0000$).
+    - Priority D2a (Hybrid prompt at $B=500$ tokens): **100% Complete** (60 cti-ate + 50 V0h + 50 Vrel = 160 calls). On cti-ate, hybrid prompt achieves 0.3957 vs 0.3936 standard prompt ($p=0.1934$). On cti-taa, hybrid prompt yields 0.7400 attribution for both Vrel and V0h.
+    - Priority D3 (O2 end-to-end `E1h_mixed_HD_b500`): **60 cti-ate calls Complete** (F1 0.3515 vs 0.3936 HD, $p=0.1189$; vs 0.4634 LLM-only, $p=0.0003$). CTI-ATTACK has 98 calls complete (131 remaining).
+    - Runner is safely sleeping on quota backoff and will resume remaining D3 (131 calls), D2b (229 calls), and D4 (60 calls) upon quota replenishment.
+    - Metrics saved in `results/phase_6d/generation_contrasts.csv` and `generation_arm_means.json`.
+  - Part E (Secondary KB Replication): In progress (`task-11837`, PID 19680). Evaluating V0, V0h, V1, Vrel on `E0-STIX-ENT`. Baseline B2 (MiniLM-Truncated-256) is **100% Complete** across all 3 datasets (cti-taa 50/50, cti-ate 60/60, CTI-ATTACK 229/229). Baseline B3 (MiniLM-MaxSim-Windows) is **In Progress** (`cti-taa` 25/50 queries complete, active CPU time >38,000s).
+  - Part D (B1 Retriever Robustness): Ready to run sequentially via `scripts/run_phase6d_b1_robustness.py` with local `nomic-ai/nomic-embed-text-v1.5` immediately following Part E completion (strictly one heavy retrieval process at a time).
+  - Part H (Report & Reproducibility): Unified report updated. Freeze manifest updated to 141 bit-exact files (historic hashes strictly preserved).
+- **Active Errors / Blockers**: None. Background processes running smoothly within resource limits. Secondary KB progressing on B3; API runner safely waiting on quota backoff.
 
 
 ---

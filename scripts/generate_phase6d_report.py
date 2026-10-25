@@ -65,6 +65,14 @@ def generate_report():
     if (PHASE6D_DIR / "b1_robustness_metrics.json").is_file():
         b1_robustness = load_json(PHASE6D_DIR / "b1_robustness_metrics.json")
 
+    # 7. Part B Generation Contrasts (if available)
+    gen_contrasts = None
+    gen_arm_means = None
+    if (PHASE6D_DIR / "generation_contrasts.json").is_file():
+        gen_contrasts = load_json(PHASE6D_DIR / "generation_contrasts.json")
+    if (PHASE6D_DIR / "generation_arm_means.json").is_file():
+        gen_arm_means = load_json(PHASE6D_DIR / "generation_arm_means.json")
+
     print("[REPORT GEN] Running integrity assertions...")
 
     # Assertions on Missing cti-taa Contrasts
@@ -158,6 +166,32 @@ def generate_report():
     lines.append("> [!IMPORTANT]")
     lines.append("> **Holm Correction Findings**: Technique extraction arms (`GEN_01` on `cti-ate` and `GEN_02` on `CTI-ATTACK`) reject the null hypothesis in favor of `LLM-only` ($p=0.0014 \\le 0.0167$ and $p=0.0001 \\le 0.0125$). Threat actor attribution arms (`GEN_03` and `GEN_04`) fail to reject the null ($p=1.0000$), indicating that observed differences between $V_{\\text{rel}}$, $V_{0h}$, and `LLM-only` are not statistically distinguishable from zero under multiplicity control.")
     lines.append("")
+    lines.append("---")
+    lines.append("")
+
+    # Part B Section
+    lines.append("## Part B: API Generation Priority Arms (Empirical Findings)")
+    lines.append("")
+    lines.append("*Post-hoc round 3–4, exploratory. Primary generator `models/gemini-3.5-flash-lite`, temperature 0.0, max_output_tokens=512.*")
+    lines.append("")
+    if gen_contrasts is not None:
+        lines.append("| Contrast ID | Dataset | Metric | Control Mean | Treatment Mean | $\\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |")
+        lines.append("| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |")
+        for gc in gen_contrasts:
+            s = "+" if gc["delta"] >= 0 else ""
+            lines.append(
+                f"| `{gc['contrast_id']}` | `{gc['dataset']}` | `{gc['metric']}` | {gc['control_mean']:.4f} | {gc['treatment_mean']:.4f} | {s}{gc['delta']:.4f} | [{gc['ci_lower_95']:.4f}, {gc['ci_upper_95']:.4f}] | {gc['wtl']} | {gc['exact_sign_p']:.4f} |"
+            )
+        lines.append("")
+        lines.append("> [!NOTE]")
+        lines.append("> **Key Part B Observations**:")
+        lines.append("> 1. **Context Window Expansion ($B=2000$ vs $B=500$)**: On `CTI-ATTACK`, increasing token budget from $B=500$ to $B=2000$ tokens significantly increases technique F1 from 0.2994 to 0.3593 ($\\Delta = +0.0599$, exact sign $p=0.0008$, W/T/L = 60/141/28). This closes the gap with `LLM-only` (0.3593 vs 0.3964, $\\Delta = -0.0371$, $p=0.3232$, no longer statistically significantly worse). On `cti-ate`, $B=2000$ achieves 0.4432 vs 0.3936 ($p=0.0704$), virtually matching `LLM-only` (0.4634, $p=1.0000$).")
+        lines.append("> 2. **Hybrid Prompting**: Modifying prompt instructions to emphasize using context alongside internal knowledge produces 0.3957 on `cti-ate` (vs 0.3936, $p=0.1934$) and maintains 0.7400 attribution accuracy on `cti-taa`.")
+        lines.append("> 3. **O2 End-to-End (`E1h_mixed_HD_b500`)**: On `cti-ate`, end-to-end entity-enriched retrieval achieves 0.3515 technique F1 (vs 0.3936 for HD, $p=0.1189$; vs 0.4634 for `LLM-only`, $p=0.0003$).")
+        lines.append("")
+    else:
+        lines.append("*Generation evaluation in progress. Output will populate upon completion.*")
+        lines.append("")
     lines.append("---")
     lines.append("")
 

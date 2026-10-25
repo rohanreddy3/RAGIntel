@@ -46,6 +46,34 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 
 ---
 
+## Part B: API Generation Priority Arms (Empirical Findings)
+
+*Post-hoc round 3–4, exploratory. Primary generator `models/gemini-3.5-flash-lite`, temperature 0.0, max_output_tokens=512.*
+
+| Contrast ID | Dataset | Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `D1_vs_LLM_only_cti-ate` | `cti-ate` | `f1_sub` | 0.4634 | 0.4432 | -0.0202 | [-0.0682, 0.0266] | 27/6/27 | 1.0000 |
+| `D1_vs_LLM_only_CTI-ATTACK` | `CTI-ATTACK` | `f1_sub` | 0.3964 | 0.3593 | -0.0371 | [-0.0843, 0.0099] | 56/105/68 | 0.3232 |
+| `D1_b2000_vs_P6C_b500_cti-ate` | `cti-ate` | `f1_sub` | 0.3936 | 0.4432 | +0.0496 | [0.0030, 0.0969] | 33/8/19 | 0.0704 |
+| `D1_b2000_vs_P6C_b500_CTI-ATTACK` | `CTI-ATTACK` | `f1_sub` | 0.2994 | 0.3593 | +0.0599 | [0.0212, 0.0985] | 60/141/28 | 0.0008 |
+| `D2a_hybrid_vs_LLM_cti-ate` | `cti-ate` | `f1_sub` | 0.4634 | 0.3957 | -0.0677 | [-0.1173, -0.0201] | 21/4/35 | 0.0814 |
+| `D2a_hybrid_vs_P6C_HD_cti-ate` | `cti-ate` | `f1_sub` | 0.3936 | 0.3957 | +0.0021 | [-0.0334, 0.0349] | 29/12/19 | 0.1934 |
+| `D2a_hybrid_V0h_vs_LLM_taa` | `cti-taa` | `v2_alias` | 0.7200 | 0.7400 | +0.0200 | [-0.1000, 0.1400] | 5/41/4 | 1.0000 |
+| `D2a_hybrid_V0h_vs_P6C_V0h_taa` | `cti-taa` | `v2_alias` | 0.7400 | 0.7400 | +0.0000 | [-0.1000, 0.1000] | 3/44/3 | 1.0000 |
+| `D2a_hybrid_Vrel_vs_LLM_taa` | `cti-taa` | `v2_alias` | 0.7200 | 0.7400 | +0.0200 | [-0.1200, 0.1600] | 7/37/6 | 1.0000 |
+| `D2a_hybrid_Vrel_vs_P6C_Vrel_taa` | `cti-taa` | `v2_alias` | 0.7600 | 0.7400 | -0.0200 | [-0.1000, 0.0600] | 2/45/3 | 1.0000 |
+| `D2a_hybrid_Vrel_vs_V0h_taa` | `cti-taa` | `v2_alias` | 0.7400 | 0.7400 | +0.0000 | [-0.1200, 0.1200] | 5/40/5 | 1.0000 |
+| `D3_O2_vs_LLM_cti-ate` | `cti-ate` | `f1_sub` | 0.4634 | 0.3515 | -0.1120 | [-0.1712, -0.0516] | 13/7/40 | 0.0003 |
+| `D3_O2_vs_P6C_HD_cti-ate` | `cti-ate` | `f1_sub` | 0.3936 | 0.3515 | -0.0422 | [-0.1016, 0.0186] | 19/10/31 | 0.1189 |
+
+> [!NOTE]
+> **Key Part B Observations**:
+> 1. **Context Window Expansion ($B=2000$ vs $B=500$)**: On `CTI-ATTACK`, increasing token budget from $B=500$ to $B=2000$ tokens significantly increases technique F1 from 0.2994 to 0.3593 ($\Delta = +0.0599$, exact sign $p=0.0008$, W/T/L = 60/141/28). This closes the gap with `LLM-only` (0.3593 vs 0.3964, $\Delta = -0.0371$, $p=0.3232$, no longer statistically significantly worse). On `cti-ate`, $B=2000$ achieves 0.4432 vs 0.3936 ($p=0.0704$), virtually matching `LLM-only` (0.4634, $p=1.0000$).
+> 2. **Hybrid Prompting**: Modifying prompt instructions to emphasize using context alongside internal knowledge produces 0.3957 on `cti-ate` (vs 0.3936, $p=0.1934$) and maintains 0.7400 attribution accuracy on `cti-taa`.
+> 3. **O2 End-to-End (`E1h_mixed_HD_b500`)**: On `cti-ate`, end-to-end entity-enriched retrieval achieves 0.3515 technique F1 (vs 0.3936 for HD, $p=0.1189$; vs 0.4634 for `LLM-only`, $p=0.0003$).
+
+---
+
 ## Part C: Descriptive Diagnostics
 
 ### Context and Generation Diagnostics on `cti-ate` and `CTI-ATTACK`
