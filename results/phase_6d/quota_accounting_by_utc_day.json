@@ -1,0 +1,47 @@
+[
+  {
+    "utc_date": "2026-10-21",
+    "model": "gemini-3.5-flash-lite",
+    "success_calls": 500,
+    "rate_limited_429": 12,
+    "server_errors": 2,
+    "total_calls": 514,
+    "notes": "Nominal 500 daily quota"
+  },
+  {
+    "utc_date": "2026-10-22",
+    "model": "gemini-3.5-flash-lite",
+    "success_calls": 500,
+    "rate_limited_429": 14,
+    "server_errors": 0,
+    "total_calls": 514,
+    "notes": "Nominal 500 daily quota"
+  },
+  {
+    "utc_date": "2026-10-23",
+    "model": "gemini-3.5-flash-lite",
+    "success_calls": 0,
+    "rate_limited_429": 1,
+    "server_errors": 0,
+    "total_calls": 1,
+    "notes": "Nominal 500 daily quota"
+  },
+  {
+    "utc_date": "2026-10-25",
+    "model": "gemini-3.5-flash-lite",
+    "success_calls": 998,
+    "rate_limited_429": 17,
+    "server_errors": 1,
+    "total_calls": 1016,
+    "notes": "Crossed 07:00 UTC daily quota reset boundary (391 pre-reset + 607 post-reset)"
+  },
+  {
+    "utc_date": "2026-10-25",
+    "model": "models/gemini-3.1-flash-lite",
+    "success_calls": 201,
+    "rate_limited_429": 0,
+    "server_errors": 0,
+    "total_calls": 201,
+    "notes": "Separate quota pool; completed Part F replication (1 probe + 200 benchmark calls)"
+  }
+]

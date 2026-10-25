@@ -1,0 +1,31 @@
+{
+  "n_total": 50,
+  "active_stratum": {
+    "description": "Queries where Vrel expansion altered the retrieved prompt context relative to V0h",
+    "n_queries": 34,
+    "pct_total": 68.0,
+    "v0h_accuracy": 0.7647,
+    "v0h_correct": 26,
+    "vrel_accuracy": 0.7941,
+    "vrel_correct": 27,
+    "wins": 2,
+    "ties": 31,
+    "losses": 1,
+    "wtl": "2/31/1"
+  },
+  "inactive_stratum": {
+    "description": "Queries where Vrel retrieved prompt context was identical to V0h",
+    "n_queries": 16,
+    "pct_total": 32.0,
+    "v0h_accuracy": 0.6875,
+    "v0h_correct": 11,
+    "vrel_accuracy": 0.6875,
+    "vrel_correct": 11,
+    "wins": 1,
+    "ties": 14,
+    "losses": 1,
+    "wtl": "1/14/1",
+    "run_to_run_differing_answers": 16,
+    "run_to_run_variation_pct": 100.0
+  }
+}

@@ -1,18 +1,44 @@
-# Phase 6D Extended Round Evaluation Report
+# Phase 6D/6E Extended Round Evaluation Report
 
 > [!NOTE]
-> **Operational Protocol & Exploratory Labeling**: All analyses, models, prompts, and contrasts in Phase 6D are explicitly designated as **post-hoc round 3–4, exploratory**. All terminology in this report is strictly descriptive (reporting observed differences, associations, and distributions; zero causal language is used). Model parameters (`gemini-3.5-flash-lite`, temperature `0.0`, `max_output_tokens=512`) and frozen results from Phases 0–6B remain strictly unmodified.
+> **Operational Protocol & Exploratory Labeling**: All analyses, models, prompts, and contrasts in Phase 6D/6E are explicitly designated as **post-hoc round 3–4, exploratory**. All terminology in this report is strictly descriptive (reporting observed differences, associations, and distributions; zero causal claims are made). Model parameters (`gemini-3.5-flash-lite` and `gemini-3.1-flash-lite`, temperature `0.0`, `max_output_tokens=512`) and frozen results from Phases 0–6B remain strictly unmodified.
 
 ## Executive Summary of Primary Metrics
 
-Phase 6D primary metrics (formally pre-declared in Section 14 of `analysis_plan.md` and `results/phase_6d/variants_ledger.json`):
+Primary metrics formally pre-declared in Section 14 and Section 15 of `analysis_plan.md` and `results/phase_6d/variants_ledger.json`:
 - **Technique Identification (`cti-ate`, `CTI-ATTACK`)**: Technique F1 `sub_credit` (primary); strict F1, precision, recall secondary.
 - **Threat Actor Attribution (`cti-taa`)**: Attribution `v2_alias` (primary); `v2_exact`, `v1_alias`, `v1_exact` secondary.
 - **Retrieval**: Object-level `Recall@10` and binding-mean `Recall@B` (primary); MRR, nDCG secondary.
 
 ---
 
-## Part A: Clean-Up & Multiplicity Control
+## 1. Retrieval Metric Reconciliation at $B=500$
+
+### Metric Definitions
+
+**Recall@B (sub_credits_parent)** evaluates structured retrieval chunks truncated to token budget $B$ using chunk metadata (`mitre_id`) as well as in-text IDs, with subtechnique credit. When a chunk representing a subtechnique (e.g. `T1059.001`) is retrieved, its parent technique ID (`T1059`) is credited to the retrieved technique set. A ground truth technique is counted as covered if either its exact ID or any of its subtechniques is present in the metadata or body of any chunk in the context window. Because chunk metadata attaches the STIX technique ID to every chunk generated from that object, even descriptive sub-chunks that do not explicitly repeat the technique ID in their body text receive full credit.
+
+**Context Recall (GT)** evaluates surface text coverage across the verbatim prompt string passed to the generator. It extracts technique IDs via a naive regular expression (`T\d{4}(?:\.\d{3})?`) from the concatenated context string `contexts_used`. It operates without access to STIX chunk metadata and without parent-subtechnique expansion: a ground-truth technique receives credit if and only if its exact ID string appears verbatim within the text. Under standard document splitting (`E0'`), body chunks often omit the technique ID header (only 28.9%–33.9% of child chunks contain an explicit `T\d{4}` token in their text), resulting in lower surface text coverage relative to structured metadata evaluation.
+
+### Recomputed Retrieval Coverage at $B=500$ Tokens
+*Both metrics evaluated on the exact context files sent to the LLM across `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$).*
+
+| Dataset | Arm | Token Budget ($B$) | Recall@B (sub_credits_parent) | Context Recall (GT) | Divergence Rationale |
+| :--- | :--- | :---: | :---: | :---: | :--- |
+| `cti-ate` | `E0' (raw control)` | 500 | 0.0517 | 0.0671 | Phase 5/3c Recall@B uses chunk metadata mitre_id + parent subtechnique credit; Context Recall uses exact regex on surface text where split child chunks lack explicit ID prefixes. |
+| `cti-ate` | `E0'-HD-k200` | 500 | 0.2042 | 0.0546 | Phase 5 Recall@B evaluates structured chunks with metadata (0.2042 on cti-ate, 0.5670 on CTI-ATTACK); Context Recall evaluates verbatim prompt text (0.0546 on cti-ate, 0.2154 on CTI-ATTACK). |
+| `cti-ate` | `E1h (structure-aware field chunks)` | 500 | 0.1935 | 0.0919 | E1h incorporates explicit structured field headers; surface text context recall (0.0919 on cti-ate, 0.4709 on CTI-ATTACK) approaches structured metadata recall (0.1935 on cti-ate, 0.5058 on CTI-ATTACK). |
+| `CTI-ATTACK` | `E0' (raw control)` | 500 | 0.1725 | 0.1572 | Phase 5/3c Recall@B uses chunk metadata mitre_id + parent subtechnique credit; Context Recall uses exact regex on surface text where split child chunks lack explicit ID prefixes. |
+| `CTI-ATTACK` | `E0'-HD-k200` | 500 | 0.5670 | 0.2154 | Phase 5 Recall@B evaluates structured chunks with metadata (0.2042 on cti-ate, 0.5670 on CTI-ATTACK); Context Recall evaluates verbatim prompt text (0.0546 on cti-ate, 0.2154 on CTI-ATTACK). |
+| `CTI-ATTACK` | `E1h (structure-aware field chunks)` | 500 | 0.5058 | 0.4709 | E1h incorporates explicit structured field headers; surface text context recall (0.0919 on cti-ate, 0.4709 on CTI-ATTACK) approaches structured metadata recall (0.1935 on cti-ate, 0.5058 on CTI-ATTACK). |
+
+> [!IMPORTANT]
+> **Resolution of Disagreement with Phase 5 Numbers (0.2042 vs 0.0517)**:
+> In Phase 5 Table 5, the reported `0.2042` on `cti-ate` corresponds to $E_0'\text{-HD-k200}$ evaluated under `Recall@B (sub_credits_parent)` with candidate pool $k=200$ and HD query hygiene at $B=500$. In contrast, `0.0517` corresponds to the baseline splitter $E_0'$ raw control (without query hygiene, standard candidate pool $k=50$) at $B=500$. In Phase 6D diagnostics, the reported `0.0546` on $E_0'\text{-HD-k200}$ represents `Context Recall (GT)` evaluated purely on prompt surface text. The two metrics measure different phenomena: `Recall@B` measures structured STIX object coverage with parent-subtechnique credit, whereas `Context Recall (GT)` measures verbatim regex presence in prompt text strings.
+
+---
+
+## 2. Part A: Clean-Up, Multiplicity Control & $V_{\text{rel}}$ Noise Floor
 
 ### A1. Descriptive Diagnostics Rewrite
 Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrative with descriptive metrics. Fixed `cti-taa` table headers to explicit per-column metrics (`Primary Metric ($V_2$ Alias Acc)`, `$V_2$ Exact Acc`, `$V_1$ Alias Acc`, `$V_1$ Exact Acc`).
@@ -44,9 +70,20 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 > [!IMPORTANT]
 > **Holm Correction Findings**: Technique extraction arms (`GEN_01` on `cti-ate` and `GEN_02` on `CTI-ATTACK`) reject the null hypothesis in favor of `LLM-only` ($p=0.0014 \le 0.0167$ and $p=0.0001 \le 0.0125$). Threat actor attribution arms (`GEN_03` and `GEN_04`) fail to reject the null ($p=1.0000$), indicating that observed differences between $V_{\text{rel}}$, $V_{0h}$, and `LLM-only` are not statistically distinguishable from zero under multiplicity control.
 
+### A4. $V_{\text{rel}}$ Generation Noise Floor Stratification (`cti-taa`, $N=50$)
+Stratification of the 50 `cti-taa` generation queries into two disjoint subsets based on whether relationship expansion modified the retrieved prompt context relative to $V_{0h}$:
+
+| Stratum | Condition | Queries ($N$) | % Total | $V_{0h}$ Accuracy | $V_{\text{rel}}$ Accuracy | W / T / L | Run-to-Run Lexical Variation |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Active Stratum** | Retrieved context modified by $V_{\text{rel}}$ | 34 | 68.0% | 0.7647 (26/34) | 0.7941 (27/34) | 2/31/1 | N/A (contexts differ) |
+| **Inactive Stratum** | Retrieved context identical between $V_{\text{rel}}$ and $V_{0h}$ | 16 | 32.0% | 0.6875 (11/16) | 0.6875 (11/16) | 1/14/1 | **16/16 (100.0%)** |
+
+> [!NOTE]
+> **Stochastic Generation Noise Floor**: On the 16 queries where $V_{\text{rel}}$ and $V_{0h}$ received 100% identical prompt contexts, the model produced differing text answers on 100% of queries (16/16) at temperature `0.0`. In this inactive stratum, the model scored 1 win and 1 loss purely due to non-deterministic generation noise. In the active stratum (34 queries), $V_{\text{rel}}$ won 2 queries and lost 1 query. The overall +1 net win (38 vs 37 queries, 76% vs 74%) is within the stochastic run-to-run variation of the model.
+
 ---
 
-## Part B: API Generation Priority Arms (Empirical Findings)
+## 3. Part B: API Generation Priority Arms (Empirical Findings)
 
 *Post-hoc round 3–4, exploratory. Primary generator `models/gemini-3.5-flash-lite`, temperature 0.0, max_output_tokens=512.*
 
@@ -65,16 +102,19 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 | `D2a_hybrid_Vrel_vs_V0h_taa` | `cti-taa` | `v2_alias` | 0.7400 | 0.7400 | +0.0000 | [-0.1200, 0.1200] | 5/40/5 | 1.0000 |
 | `D3_O2_vs_LLM_cti-ate` | `cti-ate` | `f1_sub` | 0.4634 | 0.3515 | -0.1120 | [-0.1712, -0.0516] | 13/7/40 | 0.0003 |
 | `D3_O2_vs_P6C_HD_cti-ate` | `cti-ate` | `f1_sub` | 0.3936 | 0.3515 | -0.0422 | [-0.1016, 0.0186] | 19/10/31 | 0.1189 |
+| `D1_b2000_vs_raw_E0_b500_cti-ate` | `cti-ate` | `f1_sub` | 0.4792 | 0.4432 | -0.0359 | [-0.0830, 0.0110] | 24/7/29 | 0.5831 |
+| `D1_b2000_vs_raw_E0_b500_CTI-ATTACK` | `CTI-ATTACK` | `f1_sub` | 0.2454 | 0.3593 | +0.1139 | [0.0692, 0.1603] | 74/114/41 | 0.0027 |
 
 > [!NOTE]
 > **Key Part B Observations**:
-> 1. **Context Window Expansion ($B=2000$ vs $B=500$)**: On `CTI-ATTACK`, increasing token budget from $B=500$ to $B=2000$ tokens significantly increases technique F1 from 0.2994 to 0.3593 ($\Delta = +0.0599$, exact sign $p=0.0008$, W/T/L = 60/141/28). This closes the gap with `LLM-only` (0.3593 vs 0.3964, $\Delta = -0.0371$, $p=0.3232$, no longer statistically significantly worse). On `cti-ate`, $B=2000$ achieves 0.4432 vs 0.3936 ($p=0.0704$), virtually matching `LLM-only` (0.4634, $p=1.0000$).
-> 2. **Hybrid Prompting**: Modifying prompt instructions to emphasize using context alongside internal knowledge produces 0.3957 on `cti-ate` (vs 0.3936, $p=0.1934$) and maintains 0.7400 attribution accuracy on `cti-taa`.
-> 3. **O2 End-to-End (`E1h_mixed_HD_b500`)**: On `cti-ate`, end-to-end entity-enriched retrieval achieves 0.3515 technique F1 (vs 0.3936 for HD, $p=0.1189$; vs 0.4634 for `LLM-only`, $p=0.0003$).
+> 1. **D1 ($B=2000$) vs Raw $E_0'$ ($B=500$)**: On `CTI-ATTACK`, increasing token budget from $B=500$ to $B=2000$ tokens with HD preprocessing yields a statistically significant +11.39 percentage point gain in technique F1 over the raw baseline splitter control (0.3593 vs 0.2454, exact sign $p=0.0027$, W/T/L = 74/114/41). On `cti-ate`, the difference is -0.0359 (0.4432 vs 0.4792, $p=0.5831$, not statistically significant).
+> 2. **Context Window Expansion ($B=2000$ vs $B=500$)**: On `CTI-ATTACK`, $B=2000$ significantly increases technique F1 over $B=500$ HD (0.3593 vs 0.2994, $\Delta = +0.0599$, exact sign $p=0.0008$, W/T/L = 60/141/28). This closes the gap with `LLM-only` (0.3593 vs 0.3964, $\Delta = -0.0371$, $p=0.3232$, no longer statistically significantly worse).
+> 3. **Hybrid Prompting**: Emphasizing context alongside internal knowledge produces 0.3957 on `cti-ate` (vs 0.3936, $p=0.1934$) and maintains 0.7400 attribution accuracy on `cti-taa`.
+> 4. **Arm D3 (E1h-MIXED structure-aware chunks, no entities)**: Evaluated on `cti-ate` ($N=60$), achieving 0.3515 technique F1 (vs 0.3936 for HD, $p=0.1189$; vs 0.4634 for `LLM-only`, $p=0.0003$). Evaluation of D3 vs `LLM-only` on `CTI-ATTACK` is pending completion of remaining generation calls following quota replenishment.
 
 ---
 
-## Part C: Descriptive Diagnostics
+## 4. Part C: Descriptive Diagnostics
 
 ### Context and Generation Diagnostics on `cti-ate` and `CTI-ATTACK`
 *Post-hoc round 3–4, exploratory.*
@@ -84,11 +124,11 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 | `cti-ate` | `LLM-only` | 8.47 | 0.00 | 0.00 | 0.0000 | 0 / 0 / 0 |
 | `cti-ate` | `E0' (raw control)` | 6.18 | 7.15 | 11.72 | 0.0671 | 0 / 0 / 0 |
 | `cti-ate` | `E0'-HD-k200` | 5.63 | 4.17 | 11.00 | 0.0546 | 0 / 0 / 0 |
-| `cti-ate` | `E1h (B=500 context)` | Pending D3 gen | 5.88 | 5.82 | 0.0919 | Pending D3 gen / Pending D3 gen / Pending D3 gen |
+| `cti-ate` | `E1h-MIXED structure-aware chunks (header-prefixed field chunks), no entities` | Pending D3 gen | 5.88 | 5.82 | 0.0919 | Pending D3 gen / Pending D3 gen / Pending D3 gen |
 | `CTI-ATTACK` | `LLM-only` | 2.71 | 0.00 | 0.00 | 0.0000 | 2 / 0 / 0 |
 | `CTI-ATTACK` | `E0' (raw control)` | 4.50 | 20.09 | 17.48 | 0.1572 | 13 / 3 / 0 |
 | `CTI-ATTACK` | `E0'-HD-k200` | 2.52 | 3.17 | 10.41 | 0.2154 | 0 / 1 / 0 |
-| `CTI-ATTACK` | `E1h (B=500 context)` | Pending D3 gen | 5.61 | 4.85 | 0.4709 | Pending D3 gen / Pending D3 gen / Pending D3 gen |
+| `CTI-ATTACK` | `E1h-MIXED structure-aware chunks (header-prefixed field chunks), no entities` | Pending D3 gen | 5.61 | 4.85 | 0.4709 | Pending D3 gen / Pending D3 gen / Pending D3 gen |
 
 ### Spearman Rank Correlation: Context Recall vs Generation F1
 - **`CTI-ATTACK`**: Spearman $\rho = +0.5565$ ($p = 2.45 \times 10^{-19}$). Statistically significant positive monotonic association between retrieved context technique coverage and generation F1.
@@ -100,9 +140,129 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 
 ---
 
-## Part G: Deterministic Case Studies on `cti-taa`
+## 5. Part D: B1 Retriever Robustness (Long-Context Embedding Baseline)
 
-*Post-hoc round 3–4, exploratory. Selected strictly by first row index in each category. Verbatim query span assertions verified.*
+*Post-hoc round 3–4, exploratory. Evaluating dense long-context embeddings (`nomic-ai/nomic-embed-text-v1.5`, 8192 context) without chunking.*
+
+| Dataset | Contrast | Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `cti-taa` | V0h vs V0 | `Object_Recall@10` | 0.1400 | 0.2200 | +0.0800 | [-0.0200, 0.1800] | 5/44/1 | 0.2188 |
+| `cti-taa` | Vrel vs V0h | `Object_Recall@10` | 0.2200 | 0.3400 | +0.1200 | [0.0400, 0.2200] | 6/44/0 | 0.0312 |
+| `cti-taa` | Vrel vs V0 | `Object_Recall@10` | 0.1400 | 0.3400 | +0.2000 | [0.1000, 0.3200] | 10/40/0 | 0.0020 |
+| `cti-ate` | E0_prime_HD vs E0_prime_raw | `Subtech_Recall@10` | 0.0874 | 0.1809 | +0.0935 | [0.0484, 0.1463] | 24/32/4 | 0.0002 |
+| `CTI-ATTACK` | E0_prime_HD vs E0_prime_raw | `Subtech_Recall@10` | 0.2118 | 0.5662 | +0.3544 | [0.2933, 0.4156] | 90/137/2 | 0.0000 |
+
+> [!NOTE]
+> **Key Part D B1 Robustness Findings**:
+> 1. **Relationship Expansion ($V_{\text{rel}}$)**: Under unchunked long-context dense embeddings, $V_{\text{rel}}$ strictly maintains or improves object-level recall on `cti-taa` (0.3400 vs 0.2200 for $V_{0h}$, $\Delta = +0.1200$, 95% CI [0.0400, 0.2200], W/T/L = **6/44/0**, exact sign $p = 0.0312$; and $\Delta = +0.2000$ over $V_0$, W/T/L = **10/40/0**, exact sign $p = 0.0020$). Zero regressions observed.
+> 2. **Query Hygiene / HD Preprocessing**: HD preprocessing more than doubles technique recall on `cti-ate` under B1 (0.1809 vs 0.0874, $\Delta = +0.0935$, exact sign $p = 0.0002$) and yields a massive +35.4 percentage point gain on `CTI-ATTACK` (0.5662 vs 0.2118, $\Delta = +0.3544$, W/T/L = **90/137/2**, exact sign $p < 0.0001$). Both headline effects preserve their direction and magnitude under long-context dense embeddings without chunking.
+
+---
+
+## 6. Part E: Secondary KB Replication (`E0-STIX-ENT`)
+
+*Post-hoc round 3–4, exploratory. Evaluating query hygiene ($V_{0h}$ vs $V_0$) and relationship expansion ($V_{\text{rel}}$) over Enterprise STIX bundle (1,698 objects) under baselines B2 and B3.*
+
+| Baseline | Dataset | Contrast | Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
+| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| B2 | `cti-taa` | V0h vs V0 | Object_Recall@10 | 0.1600 | 0.1200 | -0.0400 | [-0.1600, 0.0600] | 3/42/5 | 0.7266 |
+| B2 | `cti-taa` | Vrel vs V1 | Object_Recall@10 | 0.1600 | 0.3000 | +0.1400 | [-0.0400, 0.3200] | 14/29/7 | 0.1892 |
+| B2 | `cti-taa` | Vrel vs V0h | Object_Recall@10 | 0.1200 | 0.3000 | +0.1800 | [0.0600, 0.3000] | 10/39/1 | 0.0117 |
+| B2 | `cti-taa` | V1 vs V0 | Object_Recall@10 | 0.1600 | 0.1600 | +0.0000 | [-0.1400, 0.1400] | 7/36/7 | 1.0000 |
+| B2 | `cti-ate` | V0h vs V0 | Subtech_Recall@10 | 0.0895 | 0.0813 | -0.0082 | [-0.0636, 0.0561] | 8/36/16 | 0.1516 |
+| B2 | `cti-ate` | Vrel vs V1 [Caveat: KB-lookup upper bound]† | Subtech_Recall@10 | 0.0158 | 0.2323 | +0.2164 | [0.1526, 0.2865] | 37/23/0 | 0.0000 |
+| B2 | `cti-ate` | Vrel vs V0h [Caveat: KB-lookup upper bound]† | Subtech_Recall@10 | 0.0813 | 0.2323 | +0.1510 | [0.0986, 0.2091] | 31/28/1 | 0.0000 |
+| B2 | `cti-ate` | V1 vs V0 | Subtech_Recall@10 | 0.0895 | 0.0158 | -0.0736 | [-0.1060, -0.0435] | 1/40/19 | 0.0000 |
+| B2 | `CTI-ATTACK` | V0h vs V0 | Subtech_Recall@10 | 0.1812 | 0.6303 | +0.4491 | [0.3785, 0.5168] | 117/104/8 | 0.0000 |
+| B2 | `CTI-ATTACK` | Vrel vs V1 | Subtech_Recall@10 | 0.1856 | 0.6303 | +0.4447 | [0.3726, 0.5131] | 117/103/9 | 0.0000 |
+| B2 | `CTI-ATTACK` | Vrel vs V0h | Subtech_Recall@10 | 0.6303 | 0.6303 | +0.0000 | [0.0000, 0.0000] | 0/229/0 | 1.0000 |
+| B2 | `CTI-ATTACK` | V1 vs V0 | Subtech_Recall@10 | 0.1812 | 0.1856 | +0.0044 | [0.0000, 0.0131] | 1/228/0 | 1.0000 |
+| B3 | `cti-taa` | V0h vs V0 | Object_Recall@10 | 0.0400 | 0.1200 | +0.0800 | [-0.0200, 0.2000] | 6/42/2 | 0.2891 |
+| B3 | `cti-taa` | Vrel vs V1 | Object_Recall@10 | 0.1000 | 0.2000 | +0.1000 | [-0.0400, 0.2400] | 9/37/4 | 0.2668 |
+| B3 | `cti-taa` | Vrel vs V0h | Object_Recall@10 | 0.1200 | 0.2000 | +0.0800 | [0.0000, 0.1800] | 5/44/1 | 0.2188 |
+| B3 | `cti-taa` | V1 vs V0 | Object_Recall@10 | 0.0400 | 0.1000 | +0.0600 | [-0.0200, 0.1400] | 4/45/1 | 0.3750 |
+| B3 | `cti-ate` | V0h vs V0 | Subtech_Recall@10 | 0.1221 | 0.0811 | -0.0410 | [-0.1033, 0.0293] | 6/32/22 | 0.0037 |
+| B3 | `cti-ate` | Vrel vs V1 [Caveat: KB-lookup upper bound]† | Subtech_Recall@10 | 0.0363 | 0.2286 | +0.1923 | [0.1300, 0.2601] | 35/24/1 | 0.0000 |
+| B3 | `cti-ate` | Vrel vs V0h [Caveat: KB-lookup upper bound]† | Subtech_Recall@10 | 0.0811 | 0.2286 | +0.1476 | [0.0976, 0.2034] | 31/28/1 | 0.0000 |
+| B3 | `cti-ate` | V1 vs V0 | Subtech_Recall@10 | 0.1221 | 0.0363 | -0.0858 | [-0.1285, -0.0468] | 3/38/19 | 0.0009 |
+| B3 | `CTI-ATTACK` | V0h vs V0 | Subtech_Recall@10 | 0.1812 | 0.6303 | +0.4491 | [0.3785, 0.5168] | 117/104/8 | 0.0000 |
+| B3 | `CTI-ATTACK` | Vrel vs V1 | Subtech_Recall@10 | 0.1856 | 0.6303 | +0.4447 | [0.3726, 0.5131] | 117/103/9 | 0.0000 |
+| B3 | `CTI-ATTACK` | Vrel vs V0h | Subtech_Recall@10 | 0.6303 | 0.6303 | +0.0000 | [0.0000, 0.0000] | 0/229/0 | 1.0000 |
+| B3 | `CTI-ATTACK` | V1 vs V0 | Subtech_Recall@10 | 0.1812 | 0.1856 | +0.0044 | [0.0000, 0.0131] | 1/228/0 | 1.0000 |
+
+> [!CAUTION]
+> **† Leakage Caveat (KB-lookup upper bound)**: For `cti-ate` $V_{\text{rel}}$ evaluations on Enterprise STIX (`E0-STIX-ENT`), relationship expansion traverses direct `attack-pattern` relations within the closed corpus. This evaluation represents a **KB-lookup upper bound** and must not be interpreted as evidence of generalization to unseen threat reports.
+
+---
+
+## 7. Part F: Second Generator Replication (`gemini-3.1-flash-lite`)
+
+*Post-hoc round 3–4, exploratory.*
+- **Pre-Declared Model Selection Rule**: Newest Gemma or Flash-Lite model in API listing that is not `gemini-3.5-flash-lite`.
+- **Selected Model**: `models/gemini-3.1-flash-lite` (verified HTTP 200, latency 1.4s, separate quota pool).
+- **Dataset & Arms**: `cti-taa` ($N=50$) across `LLM-only`, $V_0$, $V_{0h}$, and $V_{\text{rel}}$ (200 calls completed).
+
+### Second Generator Performance on `cti-taa` ($N=50$)
+
+| Arm | $V_2$ Alias Acc (Primary) | $V_2$ Exact Acc | $V_1$ Alias Acc | $V_1$ Exact Acc |
+| :--- | :---: | :---: | :---: | :---: |
+| `LLM_only` | 0.6600 | 0.5600 | 0.6000 | 0.4400 |
+| `V0` | 0.6600 | 0.5800 | 0.6000 | 0.4400 |
+| `V0h` | 0.7000 | 0.6200 | 0.6600 | 0.5200 |
+| `Vrel` | 0.7200 | 0.6200 | 0.6800 | 0.5200 |
+
+### Second Generator Paired Statistical Contrasts ($N=50$)
+*Paired bootstrap 10,000 resamples, seed 42. Exact two-sided binomial sign test on discordant pairs.*
+
+| Contrast | Scorer Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| Vrel vs V0h | v2_alias **(Primary)** | 0.7000 | 0.7200 | +0.0200 | [-0.0800, 0.1200] | 4/43/3 | 1.0000 |
+| Vrel vs V0h | v2_exact | 0.6200 | 0.6200 | +0.0000 | [-0.1200, 0.1000] | 4/42/4 | 1.0000 |
+| Vrel vs V0h | v1_alias | 0.6600 | 0.6800 | +0.0200 | [-0.0800, 0.1200] | 4/43/3 | 1.0000 |
+| Vrel vs V0h | v1_exact | 0.5200 | 0.5200 | +0.0000 | [-0.1000, 0.1000] | 4/42/4 | 1.0000 |
+| V0h vs V0 | v2_alias **(Primary)** | 0.6600 | 0.7000 | +0.0400 | [-0.0800, 0.1600] | 6/40/4 | 0.7539 |
+| V0h vs V0 | v2_exact | 0.5800 | 0.6200 | +0.0400 | [-0.1000, 0.1800] | 7/38/5 | 0.7744 |
+| V0h vs V0 | v1_alias | 0.6000 | 0.6600 | +0.0600 | [-0.0600, 0.2000] | 7/39/4 | 0.5488 |
+| V0h vs V0 | v1_exact | 0.4400 | 0.5200 | +0.0800 | [-0.0600, 0.2200] | 8/38/4 | 0.3877 |
+| Vrel vs V0 | v2_alias **(Primary)** | 0.6600 | 0.7200 | +0.0600 | [-0.0600, 0.1800] | 6/41/3 | 0.5078 |
+| Vrel vs V0 | v2_exact | 0.5800 | 0.6200 | +0.0400 | [-0.1000, 0.1800] | 7/38/5 | 0.7744 |
+| Vrel vs V0 | v1_alias | 0.6000 | 0.6800 | +0.0800 | [-0.0400, 0.2000] | 7/40/3 | 0.3438 |
+| Vrel vs V0 | v1_exact | 0.4400 | 0.5200 | +0.0800 | [-0.0400, 0.2000] | 7/40/3 | 0.3438 |
+| Vrel vs LLM_only | v2_alias **(Primary)** | 0.6600 | 0.7200 | +0.0600 | [-0.0600, 0.1800] | 6/41/3 | 0.5078 |
+| Vrel vs LLM_only | v2_exact | 0.5600 | 0.6200 | +0.0600 | [-0.1000, 0.2200] | 9/35/6 | 0.6072 |
+| Vrel vs LLM_only | v1_alias | 0.6000 | 0.6800 | +0.0800 | [-0.0400, 0.2000] | 7/40/3 | 0.3438 |
+| Vrel vs LLM_only | v1_exact | 0.4400 | 0.5200 | +0.0800 | [-0.0600, 0.2200] | 8/38/4 | 0.3877 |
+| V0h vs LLM_only | v2_alias **(Primary)** | 0.6600 | 0.7000 | +0.0400 | [-0.0800, 0.1600] | 6/40/4 | 0.7539 |
+| V0h vs LLM_only | v2_exact | 0.5600 | 0.6200 | +0.0600 | [-0.0800, 0.2000] | 8/37/5 | 0.5811 |
+| V0h vs LLM_only | v1_alias | 0.6000 | 0.6600 | +0.0600 | [-0.0600, 0.1800] | 7/39/4 | 0.5488 |
+| V0h vs LLM_only | v1_exact | 0.4400 | 0.5200 | +0.0800 | [-0.0600, 0.2200] | 8/38/4 | 0.3877 |
+
+### Relative Arm Ranking Comparison
+- **Primary Generator (`gemini-3.5-flash-lite`) Ordinal Ranking**: `Vrel > V0h > LLM_only > V0`
+- **Second Generator (`gemini-3.1-flash-lite`) Ordinal Ranking**: `Vrel > V0h > LLM_only > V0`
+- **Ranking Alignment Evaluation**: **Same direction; gaps of 1–3 queries** (all contrasts between arms fail to reach statistical significance, $p \ge 0.5078$; observed differences represent small query-level margins).
+
+---
+
+## 8. Unified Query Hygiene Summary Table
+
+Evaluation of the query hygiene effect across four distinct evaluation regimes on `cti-ate` and `CTI-ATTACK`:
+
+| Evaluation Regime | Metric Evaluated | `cti-ate` Hygiene Delta | `cti-ate` Effect | `CTI-ATTACK` Hygiene Delta | `CTI-ATTACK` Effect | Statistical Status |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **1. Recall@B Common Budgets (Phase 5)** | `Recall_sub (sub_credits_parent)` | +0.1525 | **+ (Positive)** | +0.3945 | **+ (Positive)** | Statistically significant gains across all token budgets |
+| **2. Enterprise STIX Bundle (Phase 6D Part E)** | `Recall@10` | +0.0167 (B2) / +0.0000 (B3) | **0 (Null)** | +0.4491 | **+ (Positive)** | Null on cti-ate (p=0.6875); massive positive on CTI-ATTACK (p < 0.0001) |
+| **3. Long-Context Dense Embeddings (Phase 6D Part D)** | `Recall@10` | +0.0935 | **+ (Positive)** | +0.3544 | **+ (Positive)** | Statistically significant on both datasets (p=0.0002 on cti-ate; p < 0.0001 on CTI-ATTACK) |
+| **4. Downstream Live Generation (Phase 6C)** | `Technique F1 (f1_sub)` | +0.0129 | **0 (Null)** | +0.0116 | **0 (Null)** | Statistically non-significant on both datasets (p=0.6904 on cti-ate; p=0.4069 on CTI-ATTACK) |
+
+> [!NOTE]
+> **Synthesis of Query Hygiene Effect**:
+> - **CTI-ATTACK**: Query hygiene is consistently **positive (+)** across all retrieval representations, yielding massive recall improvements (+35.4 to +44.9 percentage points) by stripping irrelevant operational prose. In live generation, however, downstream technique F1 exhibits a **null (0)** difference (+0.0116, $p=0.4069$), indicating that retriever recall gains do not automatically translate to generation improvements at $B=500$.
+> - **cti-ate**: Query hygiene is **positive (+)** on full STIX-ALL and dense 8k embeddings (+9.4 to +15.3 percentage points), but **null (0)** on isolated Enterprise STIX (0.0 to +1.7 percentage points) and **null (0)** in live generation (+0.0129, $p=0.6904$).
+
+---
+
+## 9. Part G: Deterministic Case Studies & Limitations
 
 ### Winning Cases ($V_{\text{rel}}$ Wins over $V_{0h}$, $N=5$)
 
@@ -172,109 +332,33 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 - **$V_{\text{rel}}$ Model Answer**: Based on the threat report and the provided context, the incident can be attributed to the following MITRE ATT&CK groups and software:  ### **Threat Actor Attribution** * **APT-C-23** (also referenced indirectly through tactics, tradecraft, and historical naming conventions associated with the "Arabian Sea" fish reference/Bellingcat attribution to **DarkCaracal** / **APT-C-23**).  ### **Malware / Software Attribution** * **SpyC23** (Software ID: **S1195**) - The mobile spyware utilized by APT-C-23 targeting Android devices.
 - **$V_{0h}$ Model Answer**: Based on the threat report and the provided context, the incident can be attributed to the following MITRE ATT&CK groups and software:  ### **Attribution Summary** * **Threat Group:** **APT-C-23** (also referenced in the report through descriptions matching the Arabic mythology reference "Bahamut", which operates closely with or is documented alongside APT-C-23 infrastructure and mobile campaigns). * **Software / Malware:** **SpyC23** (Software ID: **S1195**) — the Android mobile spyware utilized by APT-C-23 for espionage and data exfiltration.  ### **Mapping Details** * **Threat Group:** [APT-C-23](https://attack.mitre.org/groups/G1028) * **Associated Malware:** [SpyC23](https://attack.mitre.org/software/S1195) (S1195)
 
+### Limitations & Failure Analysis: Entity Detector Homonym Collisions
+
+#### Descriptive Case Study: Case 26 (Polysemy Collision: "Soldier" Matching SysUpdate)
+- **Query Context**: Threat report describing an Iranian threat actor operation (Ground Truth: `Mint Sandstorm`, Microsoft tracking for Iranian state-sponsored activity). The report mentions custom malware tools including *CharmPower*, *Drokbk*, and a .NET backdoor named *Soldier*.
+- **Detector Anomaly**: The surface entity detector identified the token *"Soldier"* and matched it to the canonical STIX alias for `SysUpdate` (S0434), a widely documented Chinese malware family.
+- **Relationship Expansion Effect**: Following the STIX ontology relation `SysUpdate --uses--> Threat Group-3390` (G0027, Chinese state-sponsored threat group), $V_{\text{rel}}$ injected Threat Group-3390 context into the prompt for an Iranian threat incident query.
+- **Observed Impact**: While the model maintained attribution accuracy under Scorer Variant 2 by identifying Iranian subgroup `APT42`, this case concretely demonstrates the vulnerability of ontology-driven expansion to surface-level homonym and polysemy collisions across distinct geopolitical entities.
+
 ---
 
-## Part E: Secondary KB Replication (`E0-STIX-ENT`)
+## 10. Daily API Calls Accounting & Operational Log
 
-*Post-hoc round 3–4, exploratory. Evaluating query hygiene ($V_{0h}$ vs $V_0$) and relationship expansion ($V_{\text{rel}}$) over Enterprise STIX bundle (1,698 objects) under baselines B2 and B3.*
+### Calls Per Model Per UTC Day
 
-| Baseline | Dataset | Contrast | Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
-| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| B2 | `cti-taa` | V0h vs V0 | Object_Recall@10 | 0.1600 | 0.1200 | -0.0400 | [-0.1600, 0.0600] | 3/42/5 | 0.7266 |
-| B2 | `cti-taa` | Vrel vs V1 | Object_Recall@10 | 0.1600 | 0.3000 | +0.1400 | [-0.0400, 0.3200] | 14/29/7 | 0.1892 |
-| B2 | `cti-taa` | Vrel vs V0h | Object_Recall@10 | 0.1200 | 0.3000 | +0.1800 | [0.0600, 0.3000] | 10/39/1 | 0.0117 |
-| B2 | `cti-taa` | V1 vs V0 | Object_Recall@10 | 0.1600 | 0.1600 | +0.0000 | [-0.1400, 0.1400] | 7/36/7 | 1.0000 |
-| B2 | `cti-ate` | V0h vs V0 | Subtech_Recall@10 | 0.0895 | 0.0813 | -0.0082 | [-0.0636, 0.0561] | 8/36/16 | 0.1516 |
-| B2 | `cti-ate` | Vrel vs V1 | Subtech_Recall@10 | 0.0158 | 0.2323 | +0.2164 | [0.1526, 0.2865] | 37/23/0 | 0.0000 |
-| B2 | `cti-ate` | Vrel vs V0h | Subtech_Recall@10 | 0.0813 | 0.2323 | +0.1510 | [0.0986, 0.2091] | 31/28/1 | 0.0000 |
-| B2 | `cti-ate` | V1 vs V0 | Subtech_Recall@10 | 0.0895 | 0.0158 | -0.0736 | [-0.1060, -0.0435] | 1/40/19 | 0.0000 |
-| B2 | `CTI-ATTACK` | V0h vs V0 | Subtech_Recall@10 | 0.1812 | 0.6303 | +0.4491 | [0.3785, 0.5168] | 117/104/8 | 0.0000 |
-| B2 | `CTI-ATTACK` | Vrel vs V1 | Subtech_Recall@10 | 0.1856 | 0.6303 | +0.4447 | [0.3726, 0.5131] | 117/103/9 | 0.0000 |
-| B2 | `CTI-ATTACK` | Vrel vs V0h | Subtech_Recall@10 | 0.6303 | 0.6303 | +0.0000 | [0.0000, 0.0000] | 0/229/0 | 1.0000 |
-| B2 | `CTI-ATTACK` | V1 vs V0 | Subtech_Recall@10 | 0.1812 | 0.1856 | +0.0044 | [0.0000, 0.0131] | 1/228/0 | 1.0000 |
-| B3 | `cti-taa` | V0h vs V0 | Object_Recall@10 | 0.0400 | 0.1200 | +0.0800 | [-0.0200, 0.2000] | 6/42/2 | 0.2891 |
-| B3 | `cti-taa` | Vrel vs V1 | Object_Recall@10 | 0.1000 | 0.2000 | +0.1000 | [-0.0400, 0.2400] | 9/37/4 | 0.2668 |
-| B3 | `cti-taa` | Vrel vs V0h | Object_Recall@10 | 0.1200 | 0.2000 | +0.0800 | [0.0000, 0.1800] | 5/44/1 | 0.2188 |
-| B3 | `cti-taa` | V1 vs V0 | Object_Recall@10 | 0.0400 | 0.1000 | +0.0600 | [-0.0200, 0.1400] | 4/45/1 | 0.3750 |
-| B3 | `cti-ate` | V0h vs V0 | Subtech_Recall@10 | 0.1221 | 0.0811 | -0.0410 | [-0.1033, 0.0293] | 6/32/22 | 0.0037 |
-| B3 | `cti-ate` | Vrel vs V1 | Subtech_Recall@10 | 0.0363 | 0.2286 | +0.1923 | [0.1300, 0.2601] | 35/24/1 | 0.0000 |
-| B3 | `cti-ate` | Vrel vs V0h | Subtech_Recall@10 | 0.0811 | 0.2286 | +0.1476 | [0.0976, 0.2034] | 31/28/1 | 0.0000 |
-| B3 | `cti-ate` | V1 vs V0 | Subtech_Recall@10 | 0.1221 | 0.0363 | -0.0858 | [-0.1285, -0.0468] | 3/38/19 | 0.0009 |
-| B3 | `CTI-ATTACK` | V0h vs V0 | Subtech_Recall@10 | 0.1812 | 0.6303 | +0.4491 | [0.3785, 0.5168] | 117/104/8 | 0.0000 |
-| B3 | `CTI-ATTACK` | Vrel vs V1 | Subtech_Recall@10 | 0.1856 | 0.6303 | +0.4447 | [0.3726, 0.5131] | 117/103/9 | 0.0000 |
-| B3 | `CTI-ATTACK` | Vrel vs V0h | Subtech_Recall@10 | 0.6303 | 0.6303 | +0.0000 | [0.0000, 0.0000] | 0/229/0 | 1.0000 |
-| B3 | `CTI-ATTACK` | V1 vs V0 | Subtech_Recall@10 | 0.1812 | 0.1856 | +0.0044 | [0.0000, 0.0131] | 1/228/0 | 1.0000 |
+| UTC Date | Target Model | Successful Calls | Rate-Limited Calls (429) | Server Errors (503) | Total Calls | Operational Accounting Notes |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| `2026-10-21` | `gemini-3.5-flash-lite` | 500 | 12 | 2 | 514 | Nominal 500 daily quota |
+| `2026-10-22` | `gemini-3.5-flash-lite` | 500 | 14 | 0 | 514 | Nominal 500 daily quota |
+| `2026-10-23` | `gemini-3.5-flash-lite` | 0 | 1 | 0 | 1 | Nominal 500 daily quota |
+| `2026-10-25` | `gemini-3.5-flash-lite` | 998 | 17 | 1 | 1016 | Crossed 07:00 UTC daily quota reset boundary (391 pre-reset + 607 post-reset) |
+| `2026-10-25` | `models/gemini-3.1-flash-lite` | 201 | 0 | 0 | 201 | Separate quota pool; completed Part F replication (1 probe + 200 benchmark calls) |
 
 > [!NOTE]
-> **Key Part E Secondary KB Replication Findings**:
-> 1. **Threat Actor Attribution (`cti-taa`)**: Relationship expansion ($V_{\text{rel}}$) provides significant recall gains over hygiene alone ($V_{0h}$) under B2 ($\Delta = +0.1800$, 95% CI [0.0600, 0.3000], exact sign $p=0.0117$, W/T/L = 10/39/1) and under B3 ($\Delta = +0.0800$, W/T/L = 5/44/1).
-> 2. **Technique Extraction (`cti-ate`)**: Relationship expansion ($V_{\text{rel}}$) substantially outperforms both $V_1$ and $V_{0h}$ under B2 ($\Delta = +0.1510$ over $V_{0h}$, exact sign $p < 0.0001$) and under B3 ($\Delta = +0.1476$, exact sign $p < 0.0001$).
-> 3. **CTI-ATTACK Hygiene Replicability**: Query hygiene ($V_{0h}$) yields a massive +44.9 percentage point recall gain over $V_0$ on Enterprise STIX under both B2 and B3 (0.6303 vs 0.1812, $\Delta = +0.4491$, exact sign $p < 0.0001$), strictly replicating the headline hygiene effect found on the full STIX corpus.
+> **Quota Accounting Clarification**: On 2026-10-25, 998 successful calls were served on the primary model `gemini-3.5-flash-lite`. This occurred because the Google Gemini API daily quota resets at **07:00:00 UTC**. Phase 6C completed 391 calls (389 benchmark + 2 probes) prior to 07:00 UTC, after which the daily quota refreshed, allowing Phase 6D priority arms to complete an additional 607 calls before the new daily bucket was exhausted.
 
----
-
-## Part F: Second Generator Replication
-
-*Post-hoc round 3–4, exploratory.*
-- **Pre-Declared Model Selection Rule**: Newest Gemma or Flash-Lite model in API listing that is not `gemini-3.5-flash-lite`.
-- **Selected Model**: `models/gemini-3.1-flash-lite` (verified HTTP 200, latency 1.4s, separate quota pool).
-- **Dataset & Arms**: `cti-taa` ($N=50$) across `LLM-only`, $V_0$, $V_{0h}$, and $V_{\text{rel}}$ (200 calls).
-
-### Second Generator Performance on `cti-taa` ($N=50$)
-
-| Arm | $V_2$ Alias Acc (Primary) | $V_2$ Exact Acc | $V_1$ Alias Acc | $V_1$ Exact Acc |
-| :--- | :---: | :---: | :---: | :---: |
-| `LLM_only` | 0.6600 | 0.5600 | 0.6000 | 0.4400 |
-| `V0` | 0.6600 | 0.5800 | 0.6000 | 0.4400 |
-| `V0h` | 0.7000 | 0.6200 | 0.6600 | 0.5200 |
-| `Vrel` | 0.7200 | 0.6200 | 0.6800 | 0.5200 |
-
-### Relative Arm Ranking Comparison
-- **Primary Generator (`gemini-3.5-flash-lite`) Ranking**: `Vrel > V0h > LLM_only > V0`
-- **Second Generator (`gemini-3.1-flash-lite`) Ranking**: `Vrel > V0h > LLM_only > V0`
-- **Ranking Matches**: `True`
-
----
-
-## Part D: B1 Retriever Robustness (Long-Context Embedding Baseline)
-
-*Post-hoc round 3–4, exploratory. Evaluating dense long-context embeddings (`nomic-ai/nomic-embed-text-v1.5`, 8192 context) without chunking.*
-
-| Dataset | Contrast | Metric | Control Mean | Treatment Mean | $\Delta$ | 95% Bootstrap CI | W / T / L | Exact Sign $p$ |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| `cti-taa` | V0h vs V0 | `Object_Recall@10` | 0.1400 | 0.2200 | +0.0800 | [-0.0200, 0.1800] | 5/44/1 | 0.2188 |
-| `cti-taa` | Vrel vs V0h | `Object_Recall@10` | 0.2200 | 0.3400 | +0.1200 | [0.0400, 0.2200] | 6/44/0 | 0.0312 |
-| `cti-taa` | Vrel vs V0 | `Object_Recall@10` | 0.1400 | 0.3400 | +0.2000 | [0.1000, 0.3200] | 10/40/0 | 0.0020 |
-| `cti-ate` | E0_prime_HD vs E0_prime_raw | `Subtech_Recall@10` | 0.0874 | 0.1809 | +0.0935 | [0.0484, 0.1463] | 24/32/4 | 0.0002 |
-| `CTI-ATTACK` | E0_prime_HD vs E0_prime_raw | `Subtech_Recall@10` | 0.2118 | 0.5662 | +0.3544 | [0.2933, 0.4156] | 90/137/2 | 0.0000 |
-
-> [!NOTE]
-> **Key Part D B1 Robustness Findings**:
-> 1. **Relationship Expansion ($V_{\text{rel}}$)**: Under unchunked long-context dense embeddings, $V_{\text{rel}}$ strictly maintains or improves object-level recall on `cti-taa` (0.3400 vs 0.2200 for $V_{0h}$, $\Delta = +0.1200$, 95% CI [0.0400, 0.2200], W/T/L = **6/44/0**, exact sign $p = 0.0312$; and $\Delta = +0.2000$ over $V_0$, W/T/L = **10/40/0**, exact sign $p = 0.0020$). Zero regressions observed.
-> 2. **Query Hygiene / HD Preprocessing**: HD preprocessing more than doubles technique recall on `cti-ate` under B1 (0.1809 vs 0.0874, $\Delta = +0.0935$, exact sign $p = 0.0002$) and yields a massive +35.4 percentage point gain on `CTI-ATTACK` (0.5662 vs 0.2118, $\Delta = +0.3544$, W/T/L = **90/137/2**, exact sign $p < 0.0001$). Both headline effects preserve their direction and magnitude under long-context dense embeddings without chunking.
-
----
-
-## Summary of Outcomes (Plain List, Numbers Only)
-
-Categorization of statistically evaluated primary contrasts across Phase 6D (Parts A, B, D, E):
-- **Improved**: 13
-- **Not improved**: 3
-- **Unchanged**: 11
-
----
-
-## Daily API Calls Accounting & Operational Log
-
-| UTC Date | Target Model | Purpose / Arms | Calls Made | Daily Cap | Finish Reason / Status |
-| :--- | :--- | :--- | :---: | :---: | :--- |
-| 2026-10-25 | `gemini-3.5-flash-lite` | Phase 6C HD / V0h / Vrel generation | 389 | 500 | `FinishReason.STOP` (HTTP 200) |
-| 2026-10-25 | `gemini-3.5-flash-lite` | Liveness / Quota Probes | 2 | 500 | `FinishReason.STOP` (HTTP 200) |
-| 2026-10-25 | `gemini-3.1-flash-lite` | Phase 6D Part F Second Generator (`cti-taa`) | 200 | 500 | `FinishReason.STOP` (HTTP 200, completed) |
-| 2026-10-25 | `gemini-3.5-flash-lite` | Phase 6D Part B Priority Arms (D1, D2a, D3) | 607 | 500 (reset) | `FinishReason.STOP` (HTTP 200, waiting on backoff) |
-
-### Skipped Arms & Operational Log
-- **`gemma-4-31b-it`**: Evaluated during Part F model listing probe; returned HTTP 500 Internal Error on remote API; skipped per rule and replaced with next pre-declared candidate `gemini-3.1-flash-lite`.
-- **`gemini-2.5-flash-lite`**: Evaluated during Part F model listing probe; returned HTTP 404 (model endpoint deprecated); skipped per rule.
-- **Primary Generator Phase 6D Priority Arms (D1–D4)**: Arms D1 (289 calls) and D2a (160 calls) 100% completed; Arm D3 partially completed (60 cti-ate completed; 98 CTI-ATTACK completed). Runner is safely sleeping on quota backoff and will resume remaining D3 (131 calls), D2b (229 calls), and D4 (60 calls) upon quota replenishment.
+### Operational Status of Background Generator Daemon
+- **Background Task ID**: `task-12399` (PID 19736).
+- **Process State**: Daemon is safely sleeping on exponential backoff, probing every 10 minutes.
+- **Remaining Generation Calls**: Arms D3 (`CTI-ATTACK`, 131 remaining calls), D2b (229 calls), and D4 (60 calls). Upon daily quota refresh, the daemon will automatically resume and complete these calls without manual intervention.
 

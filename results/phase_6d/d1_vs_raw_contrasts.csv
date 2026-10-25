@@ -1,0 +1,3 @@
+contrast_id,dataset,metric,is_primary_metric,control_arm,treatment_arm,control_mean,treatment_mean,delta,ci_lower_95,ci_upper_95,bootstrap_p,wtl,exact_sign_p
+D1_b2000_vs_raw_E0_b500_cti-ate,cti-ate,f1_sub,True,E0_prime_raw_b500,D1_HD_b2000,0.4792,0.4432,-0.0359,-0.083,0.011,0.1295,24/7/29,0.5831
+D1_b2000_vs_raw_E0_b500_CTI-ATTACK,CTI-ATTACK,f1_sub,True,E0_prime_raw_b500,D1_HD_b2000,0.2454,0.3593,0.1139,0.0692,0.1603,0.0,74/114/41,0.0027

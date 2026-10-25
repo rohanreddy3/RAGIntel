@@ -519,6 +519,46 @@ Deterministic, script-generated case studies on `cti-taa` without manual curatio
 - Compile unified report in `reviews/REVIEW_PHASE_6D.md` with assertion-verified tables, numerical difference summaries, daily API usage logs, and complete documentation of any skipped items.
 - Update `docs/REPRODUCE.md` and freeze manifest with newly generated artifacts without modifying historic hashes.
 
+---
 
+## 15. Phase 6E: Offline Fix Round & Methodological Reconciliation (2026-10-25)
 
+**Governance**: Strictly offline execution. Thread cap 4. Zero modification to `api_runner.py` or frozen results (Phases 0–6B). Strictly descriptive scientific language; zero causal assertions.
 
+### 15.1 Retrieval Metric Reconciliation Protocol
+Define and distinguish two distinct retrieval coverage metrics:
+1. **`Recall@B (sub_credits_parent)`**: Evaluates structured retrieval chunks truncated to token budget $B$ using chunk metadata (`mitre_id`). A ground-truth technique is scored as retrieved if either its exact ID or its parent technique ID is present in the metadata of any chunk in the context window.
+2. **`Context Recall (GT)`**: Evaluates surface text coverage across the verbatim prompt string passed to the generator. Matches technique IDs via regex (`T\d{4}(?:\.\d{3})?`) and computes the fraction of exact ground-truth IDs present in the text, without parent credit.
+Both metrics are recomputed across exact context files for $E_0'$ (raw), $E_0'\text{-HD-k200}$, and $E_{1h}$ on `cti-ate` and `CTI-ATTACK` at $B=500$ tokens, explicitly explaining any numerical divergence (e.g., 0.2042 vs 0.0517).
+
+### 15.2 $V_{\text{rel}}$ Generation Noise Floor Stratification (`cti-taa`)
+Stratify the 50 `cti-taa` generation queries into two disjoint subsets based on whether relationship expansion modified the retrieved prompt context relative to $V_{0h}$:
+- **Active Stratum**: Queries where retrieved contexts for $V_{\text{rel}}$ and $V_{0h}$ differ.
+- **Inactive Stratum**: Queries where retrieved contexts for $V_{\text{rel}}$ and $V_{0h}$ are identical.
+Report $V_{\text{rel}}$ and $V_{0h}$ accuracy and W/T/L for each stratum. For inactive queries, quantify the run-to-run response variation (frequency of differing model outputs given identical prompt contexts at temperature 0.0).
+
+### 15.3 Arm Labeling & Leakage Caveats
+1. Relabel Priority Arm D3 as: `"E1h-MIXED structure-aware chunks (header-prefixed field chunks), no entities"`.
+2. Remove unprincipled plain list summaries ("Improved / Not improved / Unchanged") unless formally governed by a pre-declared decision rule.
+3. Apply the formal leakage caveat (`"KB-lookup upper bound; not evidence of generalization to unseen reports"`) to all Enterprise STIX (`E0-STIX-ENT`) `cti-ate` $V_{\text{rel}}$ evaluations.
+
+### 15.4 Missing Statistical Contrasts Protocol
+Compute paired bootstrap (10,000 resamples, seed 42) and exact two-sided binomial sign tests for:
+1. **D1 ($B=2000$) vs raw $E_0'$ ($B=500$)** on `cti-ate` and `CTI-ATTACK`.
+2. **Second Generator (`gemini-3.1-flash-lite`) `cti-taa` Arms**: Paired contrasts for all arm pairs ($V_{\text{rel}}$ vs $V_{0h}$, $V_{0h}$ vs $V_0$, $V_{\text{rel}}$ vs $V_0$, $V_{\text{rel}}$ vs `LLM-only`, $V_{0h}$ vs `LLM-only`).
+3. **Rephrase Replicability**: Describe second generator ranking alignment as: *"same direction; gaps of 1–3 queries"*.
+4. **D3 vs `LLM-only` on `CTI-ATTACK`**: Document as pending completion of remaining generation calls following quota replenishment.
+
+### 15.5 Unified Query Hygiene Summary Table
+Compile a single comparative matrix of the query hygiene effect on `cti-ate` and `CTI-ATTACK` across four evaluation regimes:
+1. Recall@B common budgets (Phase 5).
+2. Enterprise STIX (`E0-STIX-ENT`) Recall@10 under B2 and B3.
+3. Long-context dense embedding (`nomic-ai/nomic-embed-text-v1.5`, 8k context) Recall@10 without chunking (B1).
+4. Live generation technique F1 (Phase 6C).
+Classify each cell as positive ($+$), null ($0$), or negative ($-$).
+
+### 15.6 Quota Accounting Protocol
+Reconcile call logs to show exact successful and rate-limited calls per model per UTC day. Clarify that the 998 successful calls on `gemini-3.5-flash-lite` on 2026-10-25 represent calls served across the 07:00 UTC daily quota reset boundary (391 pre-reset + 607 post-reset), rather than a single static 500-call quota bucket.
+
+### 15.7 Detector Failure Case Study: Polysemy Collision
+Document Case 26 ("Soldier" matching SysUpdate) within the limitations section using descriptive terminology: the token "Soldier" in an Iranian threat report matched the STIX alias for Chinese malware SysUpdate, injecting Threat Group-3390 context and illustrating entity detector homonym vulnerability.

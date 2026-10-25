@@ -1,7 +1,7 @@
 {
   "title": "RAGIntel Freeze Manifest",
   "timestamp_utc": "2026-10-24T07:39:11.247584+00:00",
-  "total_files": 146,
+  "total_files": 157,
   "files": {
     "analysis_plan.md": {
       "sha256": "c07cd8151110565c7aa63ded290a332afca1adf7b5e7b3b550cde5f38dd88c4c",
@@ -586,6 +586,50 @@
     "results/phase_6d/b1_robustness_metrics.json": {
       "sha256": "95d9ce2c2a569dc64c3f224894c09339b5ae2c6912eb8afc419a22c551de6d5b",
       "size_bytes": 8199
+    },
+    "results/phase_6d/d1_vs_raw_contrasts.csv": {
+      "sha256": "0816cde2a244ad1235f7f54997996c3eeb804daa7f13904404ee6d6f024fd995",
+      "size_bytes": 444
+    },
+    "results/phase_6d/d1_vs_raw_contrasts.json": {
+      "sha256": "9d173f6b701318f1a5db3e51e296ee258d3a3178b37f04abe383abbec96a9bb8",
+      "size_bytes": 898
+    },
+    "results/phase_6d/hygiene_summary_table.csv": {
+      "sha256": "95bdd51f0f6172829087e67d671cc4e9f810c11edaa84624361a6336e7bbf63d",
+      "size_bytes": 1337
+    },
+    "results/phase_6d/hygiene_summary_table.json": {
+      "sha256": "53eddd7028b3ce707308aa18339f7b3355879a2bd190a4f62aa972508c5f0c9d",
+      "size_bytes": 2511
+    },
+    "results/phase_6d/quota_accounting_by_utc_day.csv": {
+      "sha256": "e12479193a11c0f465a663d88549844980c9567a8d75c6cfd946b0e94e5bb981",
+      "size_bytes": 548
+    },
+    "results/phase_6d/quota_accounting_by_utc_day.json": {
+      "sha256": "de80d3f41577ea6cd87c7af7ac2713139bb6dc627cc73376f362f133785c6197",
+      "size_bytes": 1252
+    },
+    "results/phase_6d/retrieval_reconciliation_b500.csv": {
+      "sha256": "ba555851eafb4845379b03ffac3ade8c47371b3049bc6a56fdf3821bcb601cdf",
+      "size_bytes": 1581
+    },
+    "results/phase_6d/retrieval_reconciliation_b500.json": {
+      "sha256": "b6ca4227e0dbcf66951bf4af89ce8e713f67ca65e3f6710000e2aae97bb65752",
+      "size_bytes": 2568
+    },
+    "results/phase_6d/second_generator_contrasts.csv": {
+      "sha256": "8e27e11c2ca81e09415a2cf0c5abdddf92541d2a917e0bf2653b56239b14de04",
+      "size_bytes": 3058
+    },
+    "results/phase_6d/second_generator_contrasts.json": {
+      "sha256": "e6b73b3b90c3bfc05356f308b07c71ccb8cbf5ea2e0abcc19e657abcc6b0ec02",
+      "size_bytes": 9727
+    },
+    "results/phase_6d/vrel_noise_floor_stratification.json": {
+      "sha256": "a115e12fe7fa9a0d7dde38b4352b39b72526162fc5eaeb9f25858d62ae784f30",
+      "size_bytes": 807
     }
   }
 }

@@ -1,0 +1,21 @@
+contrast_id,model,dataset,contrast,metric,is_primary_metric,control_arm,treatment_arm,control_mean,treatment_mean,delta,ci_lower_95,ci_upper_95,bootstrap_p,wtl,exact_sign_p
+sec_gen_Vrel_vs_V0h_v2_alias,gemini-3.1-flash-lite,cti-taa,Vrel vs V0h,v2_alias,True,V0h,Vrel,0.7,0.72,0.02,-0.08,0.12,0.8481,4/43/3,1.0
+sec_gen_Vrel_vs_V0h_v2_exact,gemini-3.1-flash-lite,cti-taa,Vrel vs V0h,v2_exact,False,V0h,Vrel,0.62,0.62,0.0,-0.12,0.1,1.0,4/42/4,1.0
+sec_gen_Vrel_vs_V0h_v1_alias,gemini-3.1-flash-lite,cti-taa,Vrel vs V0h,v1_alias,False,V0h,Vrel,0.66,0.68,0.02,-0.08,0.12,0.8481,4/43/3,1.0
+sec_gen_Vrel_vs_V0h_v1_exact,gemini-3.1-flash-lite,cti-taa,Vrel vs V0h,v1_exact,False,V0h,Vrel,0.52,0.52,0.0,-0.1,0.1,1.0,4/42/4,1.0
+sec_gen_V0h_vs_V0_v2_alias,gemini-3.1-flash-lite,cti-taa,V0h vs V0,v2_alias,True,V0,V0h,0.66,0.7,0.04,-0.08,0.16,0.6326,6/40/4,0.7539
+sec_gen_V0h_vs_V0_v2_exact,gemini-3.1-flash-lite,cti-taa,V0h vs V0,v2_exact,False,V0,V0h,0.58,0.62,0.04,-0.1,0.18,0.6638,7/38/5,0.7744
+sec_gen_V0h_vs_V0_v1_alias,gemini-3.1-flash-lite,cti-taa,V0h vs V0,v1_alias,False,V0,V0h,0.6,0.66,0.06,-0.06,0.2,0.446,7/39/4,0.5488
+sec_gen_V0h_vs_V0_v1_exact,gemini-3.1-flash-lite,cti-taa,V0h vs V0,v1_exact,False,V0,V0h,0.44,0.52,0.08,-0.06,0.22,0.2981,8/38/4,0.3877
+sec_gen_Vrel_vs_V0_v2_alias,gemini-3.1-flash-lite,cti-taa,Vrel vs V0,v2_alias,True,V0,Vrel,0.66,0.72,0.06,-0.06,0.18,0.3926,6/41/3,0.5078
+sec_gen_Vrel_vs_V0_v2_exact,gemini-3.1-flash-lite,cti-taa,Vrel vs V0,v2_exact,False,V0,Vrel,0.58,0.62,0.04,-0.1,0.18,0.6634,7/38/5,0.7744
+sec_gen_Vrel_vs_V0_v1_alias,gemini-3.1-flash-lite,cti-taa,Vrel vs V0,v1_alias,False,V0,Vrel,0.6,0.68,0.08,-0.04,0.2,0.259,7/40/3,0.3438
+sec_gen_Vrel_vs_V0_v1_exact,gemini-3.1-flash-lite,cti-taa,Vrel vs V0,v1_exact,False,V0,Vrel,0.44,0.52,0.08,-0.04,0.2,0.259,7/40/3,0.3438
+sec_gen_Vrel_vs_LLM_only_v2_alias,gemini-3.1-flash-lite,cti-taa,Vrel vs LLM_only,v2_alias,True,LLM_only,Vrel,0.66,0.72,0.06,-0.06,0.18,0.403,6/41/3,0.5078
+sec_gen_Vrel_vs_LLM_only_v2_exact,gemini-3.1-flash-lite,cti-taa,Vrel vs LLM_only,v2_exact,False,LLM_only,Vrel,0.56,0.62,0.06,-0.1,0.22,0.512,9/35/6,0.6072
+sec_gen_Vrel_vs_LLM_only_v1_alias,gemini-3.1-flash-lite,cti-taa,Vrel vs LLM_only,v1_alias,False,LLM_only,Vrel,0.6,0.68,0.08,-0.04,0.2,0.2615,7/40/3,0.3438
+sec_gen_Vrel_vs_LLM_only_v1_exact,gemini-3.1-flash-lite,cti-taa,Vrel vs LLM_only,v1_exact,False,LLM_only,Vrel,0.44,0.52,0.08,-0.06,0.22,0.3051,8/38/4,0.3877
+sec_gen_V0h_vs_LLM_only_v2_alias,gemini-3.1-flash-lite,cti-taa,V0h vs LLM_only,v2_alias,True,LLM_only,V0h,0.66,0.7,0.04,-0.08,0.16,0.6356,6/40/4,0.7539
+sec_gen_V0h_vs_LLM_only_v2_exact,gemini-3.1-flash-lite,cti-taa,V0h vs LLM_only,v2_exact,False,LLM_only,V0h,0.56,0.62,0.06,-0.08,0.2,0.4842,8/37/5,0.5811
+sec_gen_V0h_vs_LLM_only_v1_alias,gemini-3.1-flash-lite,cti-taa,V0h vs LLM_only,v1_alias,False,LLM_only,V0h,0.6,0.66,0.06,-0.06,0.18,0.4424,7/39/4,0.5488
+sec_gen_V0h_vs_LLM_only_v1_exact,gemini-3.1-flash-lite,cti-taa,V0h vs LLM_only,v1_exact,False,LLM_only,V0h,0.44,0.52,0.08,-0.06,0.22,0.2998,8/38/4,0.3877

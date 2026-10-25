@@ -1,0 +1,34 @@
+[
+  {
+    "contrast_id": "D1_b2000_vs_raw_E0_b500_cti-ate",
+    "dataset": "cti-ate",
+    "metric": "f1_sub",
+    "is_primary_metric": true,
+    "control_arm": "E0_prime_raw_b500",
+    "treatment_arm": "D1_HD_b2000",
+    "control_mean": 0.4792,
+    "treatment_mean": 0.4432,
+    "delta": -0.0359,
+    "ci_lower_95": -0.083,
+    "ci_upper_95": 0.011,
+    "bootstrap_p": 0.1295,
+    "wtl": "24/7/29",
+    "exact_sign_p": 0.5831
+  },
+  {
+    "contrast_id": "D1_b2000_vs_raw_E0_b500_CTI-ATTACK",
+    "dataset": "CTI-ATTACK",
+    "metric": "f1_sub",
+    "is_primary_metric": true,
+    "control_arm": "E0_prime_raw_b500",
+    "treatment_arm": "D1_HD_b2000",
+    "control_mean": 0.2454,
+    "treatment_mean": 0.3593,
+    "delta": 0.1139,
+    "ci_lower_95": 0.0692,
+    "ci_upper_95": 0.1603,
+    "bootstrap_p": 0.0,
+    "wtl": "74/114/41",
+    "exact_sign_p": 0.0027
+  }
+]
