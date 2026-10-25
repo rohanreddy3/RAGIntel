@@ -1,21 +1,22 @@
 # API Generation Runner Status
 
-- **Last Updated (UTC)**: `2026-10-25T03:51:01.007981+00:00`
-- **Heartbeat Status**: Alive and logging every 10 min (PID: 18568)
-- **Calls Used in Current Window (Rolling 24h)**: `1 / 480 (provisional, probing every 30m until real limit measured)`
-- **Rolling 24-Hour Successful Calls**: `1`
-- **Previous 60s Successful Calls**: `1`
+- **Last Updated (UTC)**: `2026-10-25T03:56:16.166555+00:00`
+- **Heartbeat Status**: Alive and logging every 10 min (PID: 17764)
+- **Calls Used in Current Window (Rolling 24h)**: `61 / 480 (provisional, probing every 30m until real limit measured)`
+- **Rolling 24-Hour Successful Calls**: `61`
+- **Previous 60s Successful Calls**: `12`
 - **Last Quota Event / 429 Reason**: `None recently`
 - **Next Probe Time (UTC)**: `N/A (active processing)`
 - **Confirmed Reset Time**: `2026-10-25T03:51:01.005801+00:00`
 - **Measured Daily Limit**: `480 (provisional, probing every 30m until real limit measured)`
 - **Arm Identification**: Note that `E0` corresponds to `E0'` (original STIX splitter control).
-- **Notes**: Reset confirmed at 2026-10-25T03:51:01.005801+00:00. Resumed active generation.
+- **Notes**: Phase 6C: Finished Priority 1 (E0'-HD-k200 cti-ate, 60 queries).
 
 ## Completed Cache Records by Arm
 | Arm | Cached Responses |
 | :--- | :--- |
 | `E0' (original splitter)` | 289 |
+| `E0'-HD-k200 (Phase 6C)` | 60 |
 | `E1b (superseded Phase 3A)` | 30 |
 | `E1b-MIXED (B* = 500)` | 242 |
 | `LLM-only` | 339 |
