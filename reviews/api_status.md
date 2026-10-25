@@ -1,16 +1,16 @@
 # API Generation Runner Status
 
-- **Last Updated (UTC)**: `2026-10-23T04:12:34.263527+00:00`
-- **Heartbeat Status**: Alive and logging every 10 min (PID: 22196)
-- **Calls Used in Current Window (Rolling 24h)**: `500 / 500`
-- **Rolling 24-Hour Successful Calls**: `500`
-- **Previous 60s Successful Calls**: `0`
-- **Last Quota Event / 429 Reason**: `per-day: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please `
-- **Next Probe Time (UTC)**: `2026-10-23T04:42:34.257699+00:00`
-- **Confirmed Reset Time**: `2026-10-22T07:07:53.184872+00:00`
-- **Measured Daily Limit**: `500`
+- **Last Updated (UTC)**: `2026-10-25T03:51:01.007981+00:00`
+- **Heartbeat Status**: Alive and logging every 10 min (PID: 18568)
+- **Calls Used in Current Window (Rolling 24h)**: `1 / 480 (provisional, probing every 30m until real limit measured)`
+- **Rolling 24-Hour Successful Calls**: `1`
+- **Previous 60s Successful Calls**: `1`
+- **Last Quota Event / 429 Reason**: `None recently`
+- **Next Probe Time (UTC)**: `N/A (active processing)`
+- **Confirmed Reset Time**: `2026-10-25T03:51:01.005801+00:00`
+- **Measured Daily Limit**: `480 (provisional, probing every 30m until real limit measured)`
 - **Arm Identification**: Note that `E0` corresponds to `E0'` (original STIX splitter control).
-- **Notes**: Daily 429 hit (per-day). Probing every 30m; next probe at 2026-10-23T04:42:34.257699+00:00.
+- **Notes**: Reset confirmed at 2026-10-25T03:51:01.005801+00:00. Resumed active generation.
 
 ## Completed Cache Records by Arm
 | Arm | Cached Responses |

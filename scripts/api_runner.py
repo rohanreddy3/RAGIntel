@@ -197,19 +197,21 @@ def parse_quota_error(err_str: str) -> Tuple[str, float]:
 def compute_next_probe_delay() -> Tuple[float, str]:
     """Computes delay until next probe (Rule 2 & 3).
     
-    Probes every 30 minutes, and also probes at 07:05 UTC and 08:05 UTC (Pacific midnight candidates).
+    Probes every 15 minutes, and also probes at 07:00 UTC and 07:05 UTC (confirmed daily reset window).
     """
     now = datetime.datetime.now(datetime.timezone.utc)
-    base_target = now + datetime.timedelta(minutes=30)
+    base_target = now + datetime.timedelta(minutes=15)
     target = base_target
 
     today = now.date()
     tomorrow = today + datetime.timedelta(days=1)
 
     checkpoints = [
+        datetime.datetime(today.year, today.month, today.day, 7, 0, 15, tzinfo=datetime.timezone.utc),
         datetime.datetime(today.year, today.month, today.day, 7, 5, 0, tzinfo=datetime.timezone.utc),
         datetime.datetime(today.year, today.month, today.day, 8, 5, 0, tzinfo=datetime.timezone.utc),
         datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 0, 0, 30, tzinfo=datetime.timezone.utc),
+        datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 7, 0, 15, tzinfo=datetime.timezone.utc),
         datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 7, 5, 0, tzinfo=datetime.timezone.utc),
         datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 8, 5, 0, tzinfo=datetime.timezone.utc),
     ]
@@ -232,6 +234,96 @@ def compute_next_probe_delay() -> Tuple[float, str]:
 
     delay = max(5.0, (target - now).total_seconds())
     return delay, target.isoformat()
+
+
+def send_probe(generator: Optional["APIGenerator"] = None) -> Tuple[bool, str, Dict[str, Any]]:
+    """Send ONE real trivial API call with the existing key now.
+    
+    Logs the exact result (success or 429 + reason) with the real UTC time.
+    """
+    cfg = verify_and_load_config()
+    init_ledger()
+    if generator is None:
+        generator = APIGenerator(cfg, dry_run=False)
+
+    now_utc = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    t0 = time.time()
+    try:
+        resp = generator.client.models.generate_content(
+            model=generator.model_id,
+            contents="Ping",
+        )
+        latency = time.time() - t0
+        finish_reason = "UNKNOWN"
+        if hasattr(resp, "candidates") and resp.candidates:
+            finish_reason = str(resp.candidates[0].finish_reason)
+
+        usage_dict = {}
+        if hasattr(resp, "usage_metadata") and resp.usage_metadata:
+            usage_dict = {
+                "prompt_token_count": getattr(resp.usage_metadata, "prompt_token_count", 2),
+                "candidates_token_count": getattr(resp.usage_metadata, "candidates_token_count", 9),
+                "total_token_count": getattr(resp.usage_metadata, "total_token_count", 11),
+            }
+
+        log_ledger_entry(
+            arm="PROBE",
+            dataset="probe",
+            row_idx=0,
+            model=generator.model_id,
+            status="SUCCESS",
+            http_code=200,
+            prompt_tokens=usage_dict.get("prompt_token_count", 2),
+            completion_tokens=usage_dict.get("candidates_token_count", 9),
+            latency_s=latency,
+            error_msg=f"finish_reason={finish_reason}",
+        )
+        update_status_md(f"Probe succeeded at {now_utc}. Status: HTTP 200 (SUCCESS).")
+        return True, "SUCCESS (HTTP 200)", {
+            "timestamp": now_utc,
+            "latency_s": round(latency, 3),
+            "finish_reason": finish_reason,
+            "usage": usage_dict,
+            "text": ascii(resp.text) if hasattr(resp, "text") and resp.text else "",
+        }
+    except Exception as e:
+        latency = time.time() - t0
+        err_str = str(e)
+        http_code = 429 if ("429" in err_str or "ResourceExhausted" in err_str) else 500
+        metric, retry_delay = parse_quota_error(err_str)
+        s_60s, s_24h = count_rolling_successes()
+        if http_code == 429:
+            log_quota_event(
+                quota_metric=metric,
+                retry_delay_s=retry_delay,
+                raw_error=err_str,
+                success_60s=s_60s,
+                success_24h=s_24h,
+            )
+        log_ledger_entry(
+            arm="PROBE",
+            dataset="probe",
+            row_idx=0,
+            model=generator.model_id,
+            status="RATE_LIMITED_429" if http_code == 429 else "ERROR",
+            http_code=http_code,
+            prompt_tokens=2,
+            completion_tokens=0,
+            latency_s=latency,
+            error_msg=err_str,
+        )
+        update_status_md(
+            f"Probe failed at {now_utc}: {metric} (HTTP {http_code}).",
+            last_429_reason=f"{metric}: {err_str[:100]}",
+        )
+        return False, f"HTTP {http_code} ({metric}): {err_str}", {
+            "timestamp": now_utc,
+            "latency_s": round(latency, 3),
+            "metric": metric,
+            "retry_delay_s": retry_delay,
+            "raw_error": err_str,
+        }
+
 
 
 class APIGenerator:
@@ -318,6 +410,23 @@ class APIGenerator:
                 raw_answer = resp.text if hasattr(resp, "text") and resp.text else ""
                 completion_tokens_est = len(raw_answer) // 4
 
+                finish_reason = "UNKNOWN"
+                if hasattr(resp, "candidates") and resp.candidates:
+                    finish_reason = str(resp.candidates[0].finish_reason)
+
+                usage_dict = {}
+                if hasattr(resp, "usage_metadata") and resp.usage_metadata:
+                    usage_dict = {
+                        "prompt_token_count": getattr(resp.usage_metadata, "prompt_token_count", prompt_tokens_est),
+                        "candidates_token_count": getattr(resp.usage_metadata, "candidates_token_count", completion_tokens_est),
+                        "total_token_count": getattr(resp.usage_metadata, "total_token_count", prompt_tokens_est + completion_tokens_est),
+                    }
+                    actual_p_tokens = usage_dict["prompt_token_count"]
+                    actual_c_tokens = usage_dict["candidates_token_count"]
+                else:
+                    actual_p_tokens = prompt_tokens_est
+                    actual_c_tokens = completion_tokens_est
+
                 # Rule 3 & 4: If this call succeeds after a daily 429, log the confirmed reset!
                 if self.probing_daily_reset:
                     confirm_ts = datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -341,11 +450,12 @@ class APIGenerator:
                     model=self.model_id,
                     status="SUCCESS",
                     http_code=200,
-                    prompt_tokens=prompt_tokens_est,
-                    completion_tokens=completion_tokens_est,
+                    prompt_tokens=actual_p_tokens,
+                    completion_tokens=actual_c_tokens,
                     latency_s=latency,
+                    error_msg=f"finish_reason={finish_reason}",
                 )
-                print(f"[{arm} {dataset}] row {row_idx} completed ({latency:.2f}s)", flush=True)
+                print(f"[{arm} {dataset}] row {row_idx} completed ({latency:.2f}s, finish_reason={finish_reason})", flush=True)
 
                 # Save cache file
                 cache_payload = {
@@ -358,6 +468,8 @@ class APIGenerator:
                     "prompt_text": prompt_text,
                     "contexts_used": contexts_used,
                     "raw_answer": raw_answer,
+                    "finish_reason": finish_reason,
+                    "usage": usage_dict,
                     "latency_s": round(latency, 3),
                 }
                 with open(cache_file, "w", encoding="utf-8") as f:
@@ -569,7 +681,9 @@ def update_status_md(
         for f in CACHE_DIR.glob("*.json"):
             if f.name.endswith(".lock") or f.name == "known_reset.json":
                 continue
-            if f.name.startswith("E0_prime"):
+            if f.name.startswith("E0_prime_HD_k200"):
+                arm = "E0'-HD-k200 (Phase 6C)"
+            elif f.name.startswith("E0_prime"):
                 arm = "E0' (original splitter)"
             elif f.name.startswith("E1b_mixed"):
                 arm = "E1b-MIXED (B* = 500)"
@@ -577,6 +691,10 @@ def update_status_md(
                 arm = "E1b (superseded Phase 3A)"
             elif f.name.startswith("LLM-only"):
                 arm = "LLM-only"
+            elif f.name.startswith("V0h_cti-taa") or f.name.startswith("cti-taa_B2_V0h"):
+                arm = "cti-taa (B2, V0h)"
+            elif f.name.startswith("Vrel_cti-taa") or f.name.startswith("cti-taa_B2_Vrel"):
+                arm = "cti-taa (B2, Vrel)"
             elif f.name.startswith("cti-taa_B2_V0"):
                 arm = "cti-taa (B2, V0)"
             elif f.name.startswith("cti-taa_B2_V1"):
@@ -886,21 +1004,214 @@ def run_experiment(dry_run: bool = False, test_3_calls_only: bool = False):
     print("\n[API RUNNER] All generation steps complete!")
 
 
+def run_phase6c_arms(
+    generator: APIGenerator,
+    dry_run: bool = False,
+    test_3_calls_only: bool = False,
+):
+    """Run the 389 Section 12 generation arms in priority order.
+    
+    1. E0'-HD-k200 on cti-ate (60)
+    2. E0'-HD-k200 on CTI-ATTACK (229)
+    3. cti-taa V0h (50)
+    4. cti-taa Vrel (50)
+    
+    Strict constraints:
+    - B* = 500 tokens
+    - Bare prompt template: "Context:\n{context}\n\nQuestion: {query}\nAnswer:"
+    - Truncation via truncate_to_token_budget(docs, 500)
+    - Row count & query_id alignment asserted
+    - No change to model, prompt, temperature, max_output_tokens
+    """
+    import gzip
+    from langchain_core.documents import Document
+    from src.chunking import truncate_to_token_budget
+    from src.data_loader import compute_query_id
+
+    cfg = generator.cfg
+    template_with_ctx = cfg["prompt_templates"]["with_context"]
+
+    # Load datasets
+    df_ate = pd.read_excel(REPO_ROOT / cfg["datasets"]["cti-ate"]).dropna(subset=["query"]).reset_index(drop=True)
+    df_att = pd.read_excel(REPO_ROOT / cfg["datasets"]["CTI-ATTACK"]).dropna(subset=["query"]).reset_index(drop=True)
+    df_taa = pd.read_excel(REPO_ROOT / cfg["datasets"]["cti-taa"]).dropna(subset=["query"]).reset_index(drop=True)
+
+    # 1. Load context sources
+    top200_hd_path = REPO_ROOT / "results" / "phase_5" / "top200_hd_chunks.json.gz"
+    with gzip.open(top200_hd_path, "rt", encoding="utf-8") as f:
+        top200_hd = json.load(f)
+
+    o1_top10_path = REPO_ROOT / "results" / "phase_5" / "o1_top10_cache.json"
+    with open(o1_top10_path, "r", encoding="utf-8") as f:
+        o1_cache = json.load(f)
+
+    # Assert row counts & alignments
+    ate_recs = top200_hd["cti-ate"]["B2"]["E0_prime_k200"]
+    assert len(ate_recs) == len(df_ate) == 60, f"cti-ate length mismatch: {len(ate_recs)} vs {len(df_ate)}"
+    for idx, row in df_ate.iterrows():
+        assert ate_recs[idx]["idx"] == idx
+        assert ate_recs[idx]["query_id"] == compute_query_id(str(row["query"]))
+
+    att_recs = top200_hd["CTI-ATTACK"]["B2"]["E0_prime_k200"]
+    assert len(att_recs) == len(df_att) == 229, f"CTI-ATTACK length mismatch: {len(att_recs)} vs {len(df_att)}"
+    for idx, row in df_att.iterrows():
+        assert att_recs[idx]["idx"] == idx
+        assert att_recs[idx]["query_id"] == compute_query_id(str(row["query"]))
+
+    v0h_dict = o1_cache["B2"]["V0h"]
+    vrel_dict = o1_cache["B2"]["Vrel"]
+    assert len(v0h_dict) == len(df_taa) == 50
+    assert len(vrel_dict) == len(df_taa) == 50
+    for idx, row in df_taa.iterrows():
+        assert str(idx) in v0h_dict and len(v0h_dict[str(idx)]) == 10
+        assert str(idx) in vrel_dict and len(vrel_dict[str(idx)]) == 10
+
+    print("[API RUNNER] Section 12 arms verified: row counts and query_id alignment 100% matched.", flush=True)
+
+    live_calls_made = 0
+
+    # Priority 1: E0'-HD-k200 on cti-ate (60)
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6C PRIORITY 1: E0'-HD-k200 on cti-ate (60 queries, B*=500)", flush=True)
+    print("=" * 70, flush=True)
+    arm_name = "E0_prime_HD_k200"
+    for row_idx, row in df_ate.iterrows():
+        raw_query = str(row["query"])
+        rec = ate_recs[row_idx]
+        raw_docs = [Document(page_content=c["page_content"], metadata=c.get("metadata", {})) for c in rec["top200"]]
+        trunc_docs = truncate_to_token_budget(raw_docs, budget_tokens=500)
+        contexts = [d.page_content for d in trunc_docs]
+        ctx_str = "\n".join(contexts)
+        prompt = template_with_ctx.format(context=ctx_str, query=raw_query)
+
+        raw_ans, was_hit = generator.generate(
+            arm=arm_name,
+            dataset="cti-ate",
+            row_idx=row_idx,
+            prompt_text=prompt,
+            contexts_used=contexts,
+        )
+        if not was_hit and not dry_run:
+            live_calls_made += 1
+            if test_3_calls_only and live_calls_made >= 3:
+                print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                return
+
+    update_status_md("Phase 6C: Finished Priority 1 (E0'-HD-k200 cti-ate, 60 queries).")
+
+    # Priority 2: E0'-HD-k200 on CTI-ATTACK (229)
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6C PRIORITY 2: E0'-HD-k200 on CTI-ATTACK (229 queries, B*=500)", flush=True)
+    print("=" * 70, flush=True)
+    for row_idx, row in df_att.iterrows():
+        raw_query = str(row["query"])
+        rec = att_recs[row_idx]
+        raw_docs = [Document(page_content=c["page_content"], metadata=c.get("metadata", {})) for c in rec["top200"]]
+        trunc_docs = truncate_to_token_budget(raw_docs, budget_tokens=500)
+        contexts = [d.page_content for d in trunc_docs]
+        ctx_str = "\n".join(contexts)
+        prompt = template_with_ctx.format(context=ctx_str, query=raw_query)
+
+        raw_ans, was_hit = generator.generate(
+            arm=arm_name,
+            dataset="CTI-ATTACK",
+            row_idx=row_idx,
+            prompt_text=prompt,
+            contexts_used=contexts,
+        )
+        if not was_hit and not dry_run:
+            live_calls_made += 1
+            if test_3_calls_only and live_calls_made >= 3:
+                print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                return
+
+    update_status_md("Phase 6C: Finished Priority 2 (E0'-HD-k200 CTI-ATTACK, 229 queries).")
+
+    # Priority 3: cti-taa V0h (50)
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6C PRIORITY 3: cti-taa V0h (50 queries, top-10 chunks under body-only)", flush=True)
+    print("=" * 70, flush=True)
+    for row_idx, row in df_taa.iterrows():
+        raw_query = str(row["query"])
+        chunks = v0h_dict[str(row_idx)]
+        contexts = [c["page_content"] for c in chunks]
+        ctx_str = "\n".join(contexts)
+        prompt = template_with_ctx.format(context=ctx_str, query=raw_query)
+
+        raw_ans, was_hit = generator.generate(
+            arm="V0h",
+            dataset="cti-taa",
+            row_idx=row_idx,
+            prompt_text=prompt,
+            contexts_used=contexts,
+        )
+        if not was_hit and not dry_run:
+            live_calls_made += 1
+            if test_3_calls_only and live_calls_made >= 3:
+                print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                return
+
+    update_status_md("Phase 6C: Finished Priority 3 (cti-taa V0h, 50 queries).")
+
+    # Priority 4: cti-taa Vrel (50)
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6C PRIORITY 4: cti-taa Vrel (50 queries, top-10 chunks under entity rel expansion)", flush=True)
+    print("=" * 70, flush=True)
+    for row_idx, row in df_taa.iterrows():
+        raw_query = str(row["query"])
+        chunks = vrel_dict[str(row_idx)]
+        contexts = [c["page_content"] for c in chunks]
+        ctx_str = "\n".join(contexts)
+        prompt = template_with_ctx.format(context=ctx_str, query=raw_query)
+
+        raw_ans, was_hit = generator.generate(
+            arm="Vrel",
+            dataset="cti-taa",
+            row_idx=row_idx,
+            prompt_text=prompt,
+            contexts_used=contexts,
+        )
+        if not was_hit and not dry_run:
+            live_calls_made += 1
+            if test_3_calls_only and live_calls_made >= 3:
+                print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                return
+
+    update_status_md("Phase 6C: Finished Priority 4 (cti-taa Vrel, 50 queries). All 389 calls complete!")
+    print("\n[API RUNNER] Phase 6C generation complete across all 389 calls!", flush=True)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="API Generation Runner")
+    parser.add_argument("--probe", action="store_true", help="Send ONE real trivial API call to probe Gemini API quota")
+    parser.add_argument("--phase6c", action="store_true", help="Run Phase 6C Section 12 generation arms (389 calls)")
     parser.add_argument("--dry-run", action="store_true", help="Simulate generation without remote API calls")
     parser.add_argument("--test-live-3", action="store_true", help="Execute exactly 3 live API calls to test pipeline")
-    parser.add_argument("--run", action="store_true", help="Run full pipeline in background")
+    parser.add_argument("--run", action="store_true", help="Run Phase 6C generation pipeline in background")
     args = parser.parse_args()
 
-    if args.dry_run:
-        print("[API RUNNER] Launching in DRY RUN mode...")
-        run_experiment(dry_run=True)
+    if args.probe:
+        print("[API RUNNER] Probing Gemini API with single live call...")
+        success, msg, details = send_probe()
+        print(f"[API RUNNER] Probe Result: {msg}")
+        print(json.dumps(details, indent=2))
+    elif args.dry_run:
+        print("[API RUNNER] Launching Phase 6C in DRY RUN mode...")
+        cfg = verify_and_load_config()
+        gen = APIGenerator(cfg, dry_run=True)
+        run_phase6c_arms(gen, dry_run=True)
     elif args.test_live_3:
-        print("[API RUNNER] Launching in 3-CALL LIVE TEST mode...")
-        run_experiment(dry_run=False, test_3_calls_only=True)
-    elif args.run:
-        print("[API RUNNER] Launching in FULL REAL mode...")
-        run_experiment(dry_run=False, test_3_calls_only=False)
+        print("[API RUNNER] Launching Phase 6C in 3-CALL LIVE TEST mode...")
+        cfg = verify_and_load_config()
+        gen = APIGenerator(cfg, dry_run=False)
+        run_phase6c_arms(gen, dry_run=False, test_3_calls_only=True)
+    elif args.phase6c or args.run:
+        print("[API RUNNER] Launching Phase 6C Generation Arms (389 calls)...")
+        cfg = verify_and_load_config()
+        init_ledger()
+        start_heartbeat_thread()
+        gen = APIGenerator(cfg, dry_run=False)
+        run_phase6c_arms(gen, dry_run=False, test_3_calls_only=False)
     else:
-        print("Usage: python scripts/api_runner.py [--dry-run | --test-live-3 | --run]")
+        print("Usage: python scripts/api_runner.py [--probe | --phase6c | --run | --dry-run | --test-live-3]")
+
