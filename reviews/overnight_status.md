@@ -17,20 +17,21 @@
 ---
 
 ## Current Status Snapshot
-- **Timestamp (UTC)**: `2026-10-24T22:25:00Z`
-- **Timestamp (Local IST)**: `2026-10-25T03:55:00+05:30`
-- **Current Step**: `PHASE_7_COMPLETED`
-- **Phase 7 O2 Redesign (Offline, Post-Hoc Round 4, Exploratory)**: Completed.
-  - Pre-registered in `analysis_plan.md` Section 13 and `results/phase_7/variants_ledger.json`.
-  - Part A Diagnostics: Computed across 4 arms ($E_0'\text{-k200}$, $E_0'\text{-TECH-k200}$, $E_{1a}$, $E_1\text{-MIXED}$) at $B \in \{500, 1000\}$; saved in `results/phase_7/assets/table_diagnostics_o2.csv`.
-  - Part B Variants: Built $E_{1h}$ (150-token cap, sentence-boundary split, header repeated, 100% ID coverage) and $E_{1h}\text{-MIXED}$.
-  - Part C Contrasts (Family P7, Holm $M=4$): Evaluated vs $E_0'\text{-TECH-k200}$ on `cti-ate` and `CTI-ATTACK` (paired bootstrap $N=10,000$, seed 42, exact sign test). Results: P7_01 (Neutral, $p=0.5014$), P7_02 (Neutral, $p=0.6162$), P7_03 (Neutral under Holm, $p=0.0334$), P7_04 (Significant Deficit, $p=0.0106$).
-  - Full 4-budget scaling table ($B \in \{500, 1000, 2000, 4000\}$) with binding flags generated and saved in `results/phase_7/assets/table_o2_4budget_scaling.csv`.
-  - Report finalized in `reviews/REVIEW_PHASE_7.md`. Original O2 negative result preserved as-is.
-- **Phase 6C Generation Status**:
-  - Pre-declared in `analysis_plan.md` Section 12 and `results/phase_6c/variants_ledger.json`.
-  - Queued for live execution when the 24-hour rolling Gemini API rate-limit quota resets.
-- **Active Errors / Blockers**: None. All Phase 7 offline benchmarks completed with code 0.
+- **Timestamp (UTC)**: `2026-10-25T04:52:00Z`
+- **Timestamp (Local IST)**: `2026-10-25T10:22:00+05:30`
+- **Current Step**: `PHASE_6D_IN_PROGRESS`
+- **Phase 6C Generation Status**: Completed. All 389 live generation calls finished with code 0 (zero 429 rate limit errors). Contrasts computed and saved in `results/phase_6c/`.
+- **Phase 6D Extended Round (Post-Hoc Round 3–4, Exploratory)**:
+  - Pre-registered in `analysis_plan.md` Section 14 (SHA256: `117E541B157001676F963D3B73C81504CBCE7328FE43A635C5F12EEDE30A3BA6`) and `results/phase_6d/variants_ledger.json`.
+  - Part A (Clean-up): In progress (REVIEW_PHASE_6C.md Section 4 rewrite, missing cti-taa contrasts, Holm correction).
+  - Part B (API Generation): Ready for execution following quota reset (07:00 UTC) with probe-first protocol.
+  - Part C (Diagnostics): Queued.
+  - Part D (B1 Robustness): Queued.
+  - Part E (Secondary KB): Queued.
+  - Part F (Second Generator): Model listing check queued.
+  - Part G (Case Studies): Queued.
+- **Active Errors / Blockers**: None.
+
 
 ---
 

@@ -451,5 +451,74 @@ Evaluate across arms ($E_0'\text{-k200}$, $E_0'\text{-TECH-k200}$, $E_{1a}$, $E_
   - Family-wise multiplicity control via Holm step-down correction at $\alpha = 0.05$ across $M=4$ contrasts.
   - Full 4-budget scaling table ($B \in \{500, 1000, 2000, 4000\}$) reporting binding flags alongside Phase 5 $E_{1a}$ and $E_1\text{-MIXED}$ baselines.
 
+## 14. Phase 6D Amendments: Extended Round (Post-Hoc Round 3–4, Exploratory)
+
+### 14.1 Methodological Governance & Operational Constraints
+- **Date**: 2026-10-25
+- **Status**: Formally pre-registered prior to Phase 6D computation in `analysis_plan.md` and `results/phase_6d/variants_ledger.json`.
+- **Labeling**: Strictly designated as "post-hoc round 3–4, exploratory".
+- **Tone**: Strictly descriptive; zero causal phrasing permitted.
+- **Resource Limits**: Thread cap 4; strictly one heavy retrieval process at a time (API generation permitted in parallel).
+- **Frozen Invariants**: Never change the model (`gemini-3.5-flash-lite`), temperature (`0.0`), `max_output_tokens` (`512`), existing prompts, or frozen results (Phases 0–6C).
+- **Primary Metrics**:
+  - Technique extraction (`cti-ate`, `CTI-ATTACK`): technique F1 sub_credit (primary); strict F1, precision, recall secondary.
+  - Threat actor attribution (`cti-taa`): attribution v2_alias (primary); v1_exact, v1_alias, v2_exact secondary.
+  - Retrieval: object-level Recall@10 and binding-mean Recall@$B$ (primary); MRR, nDCG secondary.
+  - All arms reported, including neutral or negative outcomes.
+
+### 14.2 Part A: Clean-Up & Multiplicity Control
+1. **A1 (Section 4 Rewrite)**: Delete Section 4 of `REVIEW_PHASE_6C.md` (which contained causal interpretation) and replace with descriptive diagnostics from Part C. Fix `cti-taa` table labels.
+2. **A2 (Missing Attribution Contrasts)**: Add contrasts on `cti-taa` for $V_{\text{rel}}$ vs $V_{0h}$ and $V_{0h}$ vs $V_0$ across all four scorers (v1_exact, v1_alias, v2_exact, v2_alias) reporting wins/ties/losses, paired bootstrap 95% CIs, and exact binomial sign test p-values.
+3. **A3 (Multiplicity Control)**: Apply Holm step-down correction over the primary generation comparisons:
+   - HD vs LLM-only on `cti-ate` (F1 sub_credit)
+   - HD vs LLM-only on `CTI-ATTACK` (F1 sub_credit)
+   - $V_{0h}$ vs LLM-only on `cti-taa` (v2_alias)
+   - $V_{\text{rel}}$ vs $V_{0h}$ on `cti-taa` (v2_alias)
+
+### 14.3 Part B: API Generation Extension (Pacing 5.0s, Cap 500 calls/day, Reset 07:00 UTC)
+Live generation evaluated across declared priority arms:
+1. **D1 ($B=2000$ Token Scaling)**: $E_0'\text{-HD-k200}$ at budget $B=2000$ tokens using bare prompt on `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$), totaling 289 calls.
+2. **D2a (Hybrid Prompt at $B^*=500$)**:
+   - Prompt verbatim: `"Use the provided context if it is relevant; otherwise use your own knowledge. List the MITRE technique IDs."` on $E_0'\text{-HD-k200}$ for `cti-ate` ($N=60$).
+   - For `cti-taa`: `"...attribute the incident to a threat group."` on $V_{0h}$ ($N=50$) and $V_{\text{rel}}$ ($N=50$), totaling 160 calls.
+3. **D3 (O2 End-to-End)**: $E_{1h}\text{-MIXED}$ + HD preprocessing at budget $B^*=500$ tokens with bare prompt on `cti-ate` ($N=60$) and `CTI-ATTACK` ($N=229$), totaling 289 calls.
+4. **D2b (Hybrid Prompt on `CTI-ATTACK`)**: Hybrid prompt at $B^*=500$ tokens on $E_0'\text{-HD-k200}$ for `CTI-ATTACK` ($N=229$).
+5. **D4 (Optional Scaling)**: Hybrid prompt at $B=2000$ tokens on `cti-ate` ($N=60$) if quota remains.
+6. **Contrasts**: Each arm compared against `LLM-only` and against matching Phase 6C arm using paired bootstrap (10,000 resamples, seed 42) and exact sign tests.
+
+### 14.4 Part C: Descriptive Diagnostics Protocol
+Descriptive inspection for $E_0'$ (raw), $E_0'\text{-HD-k200}$, $E_{1h}$, and `LLM-only` on `cti-ate` and `CTI-ATTACK`:
+1. Mean predicted technique count.
+2. Mean distinct technique IDs and chunks entering context.
+3. Context recall (share of ground-truth techniques present in retrieved context).
+4. Abstention, empty, and truncation counts.
+5. Per-query Spearman rank correlation between context recall and generation F1.
+6. Verification that domain filter is applied to Mobile rows of `cti-ate`.
+
+### 14.5 Part D: B1 Retriever Robustness (Long-Context Embedding Baseline)
+Evaluate long-context embedding baseline B1 on:
+1. `cti-taa`: $V_0$, $V_{0h}$, and $V_{\text{rel}}$.
+2. `cti-ate` and `CTI-ATTACK`: $E_0'$ (raw) vs $E_0'\text{-HD-k200}$.
+3. Report whether hygiene and $V_{\text{rel}}$ differences preserve sign and magnitude under dense long-context retrieval (retrieval metrics only).
+
+### 14.6 Part E: Secondary KB Replication (`E0-STIX-ENT`)
+Repeat retrieval contrasts for query hygiene ($V_{0h}$) and relationship expansion ($V_{\text{rel}}$) over `E0-STIX-ENT` (Enterprise STIX only) across `cti-taa`, `cti-ate`, and `CTI-ATTACK` under baselines B2 and B3.
+
+### 14.7 Part F: Second Generator Model Pre-Declaration
+1. **Selection Rule (Pre-declared)**: Newest Gemma or Flash-Lite model returned by API model listing that is not `gemini-3.5-flash-lite`.
+2. **Evaluation Arm**: Run on `cti-taa` ($N=50$) across `LLM-only`, $V_0$, $V_{0h}$, $V_{\text{rel}}$ (200 calls), bare prompt, temperature 0.0, max output tokens 512.
+3. **Assessment**: Evaluate whether the relative ranking of arms replicates.
+
+### 14.8 Part G: Deterministic Case Studies Protocol
+Deterministic, script-generated case studies on `cti-taa` without manual curation:
+1. Select the first 5 rows by `row_idx` where $V_{\text{rel}}$ wins over $V_{0h}$, and first 3 rows where $V_{\text{rel}}$ loses to $V_{0h}$.
+2. Print query ID, ground truth, detected software, top-3 voted groups, presence of ground-truth group in context, and model output.
+3. Assert that all printed text spans exist verbatim within the query text.
+
+### 14.9 Part H: Reporting & Reproducibility
+- Compile unified report in `reviews/REVIEW_PHASE_6D.md` with assertion-verified tables, numerical difference summaries, daily API usage logs, and complete documentation of any skipped items.
+- Update `docs/REPRODUCE.md` and freeze manifest with newly generated artifacts without modifying historic hashes.
+
+
 
 

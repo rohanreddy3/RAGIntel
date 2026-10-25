@@ -1,0 +1,116 @@
+{
+  "protocol": "Phase 6D Extended Round (Post-Hoc Round 3-4, Exploratory)",
+  "registration_timestamp_utc": "2026-10-25T04:50:30.2827233Z",
+  "analysis_plan_file": "analysis_plan.md",
+  "analysis_plan_sha256": "117E541B157001676F963D3B73C81504CBCE7328FE43A635C5F12EEDE30A3BA6",
+  "rules": {
+    "thread_cap": 4,
+    "max_heavy_retrieval_processes": 1,
+    "causal_wording": "strictly forbidden (neutral descriptive associations only)",
+    "model_invariants": {
+      "model_id": "gemini-3.5-flash-lite",
+      "temperature": 0.0,
+      "max_output_tokens": 512,
+      "pacing_seconds": 5.0,
+      "daily_quota_cap": 500,
+      "daily_reset_time_utc": "07:00"
+    }
+  },
+  "primary_metrics": {
+    "technique_extraction": "technique F1 sub_credit (cti-ate, CTI-ATTACK)",
+    "threat_actor_attribution": "attribution v2_alias (cti-taa)",
+    "retrieval": "object-level Recall@10 and binding-mean Recall@B"
+  },
+  "declared_arms": {
+    "part_a_cleanup": {
+      "a1_section_4_rewrite": "Replace Section 4 of REVIEW_PHASE_6C.md with descriptive diagnostics; fix cti-taa table labels",
+      "a2_missing_taa_contrasts": "Evaluate Vrel vs V0h and V0h vs V0 across 4 scorers on cti-taa with paired bootstrap and exact sign test",
+      "a3_holm_multiplicity": "Apply Holm step-down correction over HD vs LLM (cti-ate), HD vs LLM (CTI-ATTACK), V0h vs LLM (cti-taa), Vrel vs V0h (cti-taa)"
+    },
+    "part_b_api_generation": {
+      "d1_b2000": {
+        "arm": "E0_prime_HD_k200_b2000",
+        "budget_tokens": 2000,
+        "prompt": "bare prompt",
+        "targets": ["cti-ate (60)", "CTI-ATTACK (229)"],
+        "calls": 289
+      },
+      "d2a_hybrid_b500": {
+        "arm": "hybrid_prompt_b500",
+        "budget_tokens": 500,
+        "prompt": "Use the provided context if it is relevant; otherwise use your own knowledge...",
+        "targets": ["cti-ate (60)", "cti-taa V0h (50)", "cti-taa Vrel (50)"],
+        "calls": 160
+      },
+      "d3_o2_end_to_end": {
+        "arm": "E1h_mixed_HD_b500",
+        "budget_tokens": 500,
+        "prompt": "bare prompt",
+        "targets": ["cti-ate (60)", "CTI-ATTACK (229)"],
+        "calls": 289
+      },
+      "d2b_hybrid_cti_attack": {
+        "arm": "hybrid_prompt_cti_attack_b500",
+        "budget_tokens": 500,
+        "prompt": "Use the provided context if it is relevant; otherwise use your own knowledge...",
+        "targets": ["CTI-ATTACK (229)"],
+        "calls": 229
+      },
+      "d4_optional_b2000_hybrid": {
+        "arm": "hybrid_prompt_cti_ate_b2000",
+        "budget_tokens": 2000,
+        "prompt": "Use the provided context if it is relevant; otherwise use your own knowledge...",
+        "targets": ["cti-ate (60)"],
+        "calls": 60,
+        "condition": "only if quota remains"
+      }
+    },
+    "part_c_diagnostics": {
+      "target_arms": ["E0_prime_raw", "E0_prime_HD_k200", "E1h", "LLM-only"],
+      "datasets": ["cti-ate", "CTI-ATTACK"],
+      "metrics": [
+        "mean_predicted_technique_count",
+        "mean_distinct_ids_in_context",
+        "mean_chunks_in_context",
+        "context_recall",
+        "abstention_empty_truncation_counts",
+        "spearman_context_recall_vs_f1",
+        "domain_filter_verification_mobile_cti_ate"
+      ]
+    },
+    "part_d_b1_robustness": {
+      "model": "BAAI/bge-large-en-v1.5",
+      "targets": ["cti-taa (V0, V0h, Vrel)", "cti-ate (E0_prime_raw, E0_prime_HD_k200)", "CTI-ATTACK (E0_prime_raw, E0_prime_HD_k200)"],
+      "evaluation": "retrieval metrics only; check sign and magnitude consistency"
+    },
+    "part_e_secondary_kb": {
+      "kb": "E0-STIX-ENT",
+      "targets": ["cti-taa", "cti-ate", "CTI-ATTACK"],
+      "baselines": ["B2", "B3"],
+      "contrasts": ["V0h vs V0", "Vrel vs V1"]
+    },
+    "part_f_second_generator": {
+      "selection_rule": "Newest Gemma or Flash-Lite model in API listing != gemini-3.5-flash-lite",
+      "target_dataset": "cti-taa",
+      "arms": ["LLM-only", "V0", "V0h", "Vrel"],
+      "calls": 200
+    },
+    "part_g_case_studies": {
+      "dataset": "cti-taa",
+      "selection_rule": "First 5 rows by row_idx where Vrel wins over V0h; first 3 rows where Vrel loses",
+      "fields": ["query_id", "ground_truth", "detected_software", "top_3_voted_groups", "gt_group_in_context", "model_answer"],
+      "assertion": "Every printed span exists in query text"
+    },
+    "part_h_report": {
+      "file": "reviews/REVIEW_PHASE_6D.md",
+      "assertions": "Table values verified against script outputs",
+      "freeze_manifest_update": "Add new files; historic hashes unmodified"
+    }
+  },
+  "statistical_testing": {
+    "bootstrap_resamples": 10000,
+    "random_seed": 42,
+    "sign_test": "Exact two-sided binomial sign test on discordant pairs",
+    "multiplicity_correction": "Holm-Bonferroni step-down on primary generation comparisons"
+  }
+}
