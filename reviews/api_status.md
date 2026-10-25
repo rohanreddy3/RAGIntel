@@ -1,16 +1,15 @@
 # API Generation Runner Status
 
-- **Last Updated (UTC)**: `2026-10-25T04:23:42.343043+00:00`
-- **Heartbeat Status**: Alive and logging every 10 min (PID: 17764)
+- **Last Updated (UTC)**: `2026-10-25T05:23:50.287505+00:00`
+- **Heartbeat Status**: Alive and logging every 10 min (PID: 16340)
 - **Calls Used in Current Window (Rolling 24h)**: `390 / 480 (provisional, probing every 30m until real limit measured)`
 - **Rolling 24-Hour Successful Calls**: `390`
-- **Previous 60s Successful Calls**: `13`
+- **Previous 60s Successful Calls**: `0`
 - **Last Quota Event / 429 Reason**: `None recently`
 - **Next Probe Time (UTC)**: `N/A (active processing)`
 - **Confirmed Reset Time**: `2026-10-25T03:51:01.005801+00:00`
 - **Measured Daily Limit**: `480 (provisional, probing every 30m until real limit measured)`
-- **Arm Identification**: Note that `E0` corresponds to `E0'` (original STIX splitter control).
-- **Notes**: Phase 6C: Finished Priority 4 (cti-taa Vrel, 50 queries). All 389 calls complete!
+- **Notes**: Phase 6C completed (389 calls). Phase 6D generation arms verified and dry-run validated; ready for execution.
 
 ## Completed Cache Records by Arm
 | Arm | Cached Responses |

@@ -1181,13 +1181,261 @@ def run_phase6c_arms(
     print("\n[API RUNNER] Phase 6C generation complete across all 389 calls!", flush=True)
 
 
+def run_phase6d_arms(
+    generator: APIGenerator,
+    dry_run: bool = False,
+    test_3_calls_only: bool = False,
+):
+    """Run Phase 6D Section 14 generation arms in declared priority order.
+    
+    Priority D1: E0'-HD-k200 at B=2000 tokens, bare prompt:
+      - cti-ate (60) + CTI-ATTACK (229) = 289 calls.
+    Priority D2a: Hybrid prompt at B*=500:
+      - cti-ate (60) on E0'-HD-k200
+      - cti-taa (100: 50 on V0h, 50 on Vrel)
+      Total: 160 calls.
+    Priority D3: O2 end-to-end (E1h-MIXED + HD preprocessing at B*=500, bare prompt):
+      - cti-ate (60) + CTI-ATTACK (229) = 289 calls.
+    Priority D2b: Hybrid prompt at B*=500 on E0'-HD-k200 for CTI-ATTACK (229 calls).
+    Priority D4: (optional) Hybrid prompt at B=2000 on cti-ate (60 calls).
+    """
+    import gzip
+    from langchain_core.documents import Document
+    from src.chunking import truncate_to_token_budget
+    from src.data_loader import compute_query_id
+
+    cfg = generator.cfg
+    template_with_ctx = cfg["prompt_templates"]["with_context"]
+
+    # Load datasets
+    df_ate = pd.read_excel(REPO_ROOT / cfg["datasets"]["cti-ate"]).dropna(subset=["query"]).reset_index(drop=True)
+    df_att = pd.read_excel(REPO_ROOT / cfg["datasets"]["CTI-ATTACK"]).dropna(subset=["query"]).reset_index(drop=True)
+    df_taa = pd.read_excel(REPO_ROOT / cfg["datasets"]["cti-taa"]).dropna(subset=["query"]).reset_index(drop=True)
+
+    # 1. Load context sources
+    top200_hd_path = REPO_ROOT / "results" / "phase_5" / "top200_hd_chunks.json.gz"
+    with gzip.open(top200_hd_path, "rt", encoding="utf-8") as f:
+        top200_hd = json.load(f)
+
+    o1_top10_path = REPO_ROOT / "results" / "phase_5" / "o1_top10_cache.json"
+    with open(o1_top10_path, "r", encoding="utf-8") as f:
+        o1_cache = json.load(f)
+
+    p7_chunks_path = REPO_ROOT / "results" / "phase_7" / "top200_phase7_chunks.json.gz"
+    top200_p7 = {}
+    if p7_chunks_path.is_file():
+        with gzip.open(p7_chunks_path, "rt", encoding="utf-8") as f:
+            top200_p7 = json.load(f)
+
+    ate_recs = top200_hd["cti-ate"]["B2"]["E0_prime_k200"]
+    att_recs = top200_hd["CTI-ATTACK"]["B2"]["E0_prime_k200"]
+    v0h_dict = o1_cache["B2"]["V0h"]
+    vrel_dict = o1_cache["B2"]["Vrel"]
+
+    assert len(ate_recs) == len(df_ate) == 60
+    assert len(att_recs) == len(df_att) == 229
+    assert len(v0h_dict) == len(df_taa) == 50
+    assert len(vrel_dict) == len(df_taa) == 50
+
+    print("[API RUNNER] Phase 6D Section 14 arms verified: all sources and row alignments validated.", flush=True)
+
+    live_calls_made = 0
+
+    # -------------------------------------------------------------------------
+    # Priority D1: E0'-HD-k200 at B=2000 tokens, bare prompt (cti-ate 60 + CTI-ATTACK 229 = 289)
+    # -------------------------------------------------------------------------
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6D PRIORITY D1: E0'-HD-k200 at B=2000 (bare prompt, 289 calls)", flush=True)
+    print("=" * 70, flush=True)
+    arm_d1 = "E0_prime_HD_k200_b2000"
+
+    for ds_name, df_target, recs_target in [("cti-ate", df_ate, ate_recs), ("CTI-ATTACK", df_att, att_recs)]:
+        for row_idx, row in df_target.iterrows():
+            raw_query = str(row["query"])
+            rec = recs_target[row_idx]
+            raw_docs = [Document(page_content=c["page_content"], metadata=c.get("metadata", {})) for c in rec["top200"]]
+            trunc_docs = truncate_to_token_budget(raw_docs, budget_tokens=2000)
+            contexts = [d.page_content for d in trunc_docs]
+            ctx_str = "\n".join(contexts)
+            prompt = template_with_ctx.format(context=ctx_str, query=raw_query)
+
+            raw_ans, was_hit = generator.generate(
+                arm=arm_d1,
+                dataset=ds_name,
+                row_idx=row_idx,
+                prompt_text=prompt,
+                contexts_used=contexts,
+            )
+            if not was_hit and not dry_run:
+                live_calls_made += 1
+                if test_3_calls_only and live_calls_made >= 3:
+                    print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                    return
+        update_status_md(f"Phase 6D: Completed D1 for {ds_name} ({len(df_target)} queries).")
+
+    # -------------------------------------------------------------------------
+    # Priority D2a: Hybrid prompt at B*=500 (cti-ate 60 + cti-taa 100 = 160 calls)
+    # -------------------------------------------------------------------------
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6D PRIORITY D2a: Hybrid prompt at B*=500 (160 calls)", flush=True)
+    print("=" * 70, flush=True)
+
+    # 1. cti-ate (60)
+    hybrid_instr_tech = "Use the provided context if it is relevant; otherwise use your own knowledge. List the MITRE technique IDs."
+    arm_d2a_ate = "hybrid_prompt_b500_E0_prime_HD_k200"
+    for row_idx, row in df_ate.iterrows():
+        raw_query = str(row["query"])
+        rec = ate_recs[row_idx]
+        raw_docs = [Document(page_content=c["page_content"], metadata=c.get("metadata", {})) for c in rec["top200"]]
+        trunc_docs = truncate_to_token_budget(raw_docs, budget_tokens=500)
+        contexts = [d.page_content for d in trunc_docs]
+        ctx_str = "\n".join(contexts)
+        prompt = f"{hybrid_instr_tech}\n\nContext:\n{ctx_str}\n\nQuestion: {raw_query}\nAnswer:"
+
+        raw_ans, was_hit = generator.generate(
+            arm=arm_d2a_ate,
+            dataset="cti-ate",
+            row_idx=row_idx,
+            prompt_text=prompt,
+            contexts_used=contexts,
+        )
+        if not was_hit and not dry_run:
+            live_calls_made += 1
+            if test_3_calls_only and live_calls_made >= 3:
+                print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                return
+    update_status_md("Phase 6D: Completed D2a for cti-ate (60 queries).")
+
+    # 2. cti-taa (V0h 50 + Vrel 50 = 100)
+    hybrid_instr_taa = "Use the provided context if it is relevant; otherwise use your own knowledge. Attribute the incident to a threat group."
+    for sub_arm, c_dict in [("hybrid_prompt_b500_V0h", v0h_dict), ("hybrid_prompt_b500_Vrel", vrel_dict)]:
+        for row_idx, row in df_taa.iterrows():
+            raw_query = str(row["query"])
+            chunks = c_dict[str(row_idx)]
+            contexts = [c["page_content"] for c in chunks]
+            ctx_str = "\n".join(contexts)
+            prompt = f"{hybrid_instr_taa}\n\nContext:\n{ctx_str}\n\nQuestion: {raw_query}\nAnswer:"
+
+            raw_ans, was_hit = generator.generate(
+                arm=sub_arm,
+                dataset="cti-taa",
+                row_idx=row_idx,
+                prompt_text=prompt,
+                contexts_used=contexts,
+            )
+            if not was_hit and not dry_run:
+                live_calls_made += 1
+                if test_3_calls_only and live_calls_made >= 3:
+                    print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                    return
+        update_status_md(f"Phase 6D: Completed D2a for cti-taa {sub_arm} (50 queries).")
+
+    # -------------------------------------------------------------------------
+    # Priority D3: O2 end-to-end (E1h-MIXED + HD at B*=500, bare prompt, 289 calls)
+    # -------------------------------------------------------------------------
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6D PRIORITY D3: O2 end-to-end E1h-MIXED + HD (289 calls)", flush=True)
+    print("=" * 70, flush=True)
+    arm_d3 = "E1h_mixed_HD_b500"
+
+    if top200_p7:
+        for ds_name, df_target in [("cti-ate", df_ate), ("CTI-ATTACK", df_att)]:
+            recs_p7 = top200_p7.get(ds_name, {}).get("E1h_MIXED", [])
+            for row_idx, row in df_target.iterrows():
+                raw_query = str(row["query"])
+                rec = recs_p7[row_idx]
+                raw_docs = [Document(page_content=c["page_content"], metadata=c.get("metadata", {})) for c in rec["top200"]]
+                trunc_docs = truncate_to_token_budget(raw_docs, budget_tokens=500)
+                contexts = [d.page_content for d in trunc_docs]
+                ctx_str = "\n".join(contexts)
+                prompt = template_with_ctx.format(context=ctx_str, query=raw_query)
+
+                raw_ans, was_hit = generator.generate(
+                    arm=arm_d3,
+                    dataset=ds_name,
+                    row_idx=row_idx,
+                    prompt_text=prompt,
+                    contexts_used=contexts,
+                )
+                if not was_hit and not dry_run:
+                    live_calls_made += 1
+                    if test_3_calls_only and live_calls_made >= 3:
+                        print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                        return
+            update_status_md(f"Phase 6D: Completed D3 for {ds_name} ({len(df_target)} queries).")
+
+    # -------------------------------------------------------------------------
+    # Priority D2b: Hybrid prompt at B*=500 on CTI-ATTACK (229 calls)
+    # -------------------------------------------------------------------------
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6D PRIORITY D2b: Hybrid prompt at B*=500 on CTI-ATTACK (229 calls)", flush=True)
+    print("=" * 70, flush=True)
+    arm_d2b = "hybrid_prompt_b500_E0_prime_HD_k200"
+
+    for row_idx, row in df_att.iterrows():
+        raw_query = str(row["query"])
+        rec = att_recs[row_idx]
+        raw_docs = [Document(page_content=c["page_content"], metadata=c.get("metadata", {})) for c in rec["top200"]]
+        trunc_docs = truncate_to_token_budget(raw_docs, budget_tokens=500)
+        contexts = [d.page_content for d in trunc_docs]
+        ctx_str = "\n".join(contexts)
+        prompt = f"{hybrid_instr_tech}\n\nContext:\n{ctx_str}\n\nQuestion: {raw_query}\nAnswer:"
+
+        raw_ans, was_hit = generator.generate(
+            arm=arm_d2b,
+            dataset="CTI-ATTACK",
+            row_idx=row_idx,
+            prompt_text=prompt,
+            contexts_used=contexts,
+        )
+        if not was_hit and not dry_run:
+            live_calls_made += 1
+            if test_3_calls_only and live_calls_made >= 3:
+                print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                return
+    update_status_md("Phase 6D: Completed D2b for CTI-ATTACK (229 queries).")
+
+    # -------------------------------------------------------------------------
+    # Priority D4: (optional) Hybrid prompt at B=2000 on cti-ate (60 calls)
+    # -------------------------------------------------------------------------
+    print("\n" + "=" * 70, flush=True)
+    print("PHASE 6D PRIORITY D4: Hybrid prompt at B=2000 on cti-ate (60 calls)", flush=True)
+    print("=" * 70, flush=True)
+    arm_d4 = "hybrid_prompt_b2000_E0_prime_HD_k200"
+
+    for row_idx, row in df_ate.iterrows():
+        raw_query = str(row["query"])
+        rec = ate_recs[row_idx]
+        raw_docs = [Document(page_content=c["page_content"], metadata=c.get("metadata", {})) for c in rec["top200"]]
+        trunc_docs = truncate_to_token_budget(raw_docs, budget_tokens=2000)
+        contexts = [d.page_content for d in trunc_docs]
+        ctx_str = "\n".join(contexts)
+        prompt = f"{hybrid_instr_tech}\n\nContext:\n{ctx_str}\n\nQuestion: {raw_query}\nAnswer:"
+
+        raw_ans, was_hit = generator.generate(
+            arm=arm_d4,
+            dataset="cti-ate",
+            row_idx=row_idx,
+            prompt_text=prompt,
+            contexts_used=contexts,
+        )
+        if not was_hit and not dry_run:
+            live_calls_made += 1
+            if test_3_calls_only and live_calls_made >= 3:
+                print("[API RUNNER] Completed 3 test calls. Exiting.", flush=True)
+                return
+    update_status_md("Phase 6D: Completed D4 for cti-ate (60 queries). All Phase 6D generation arms complete!")
+    print("\n[API RUNNER] Phase 6D generation complete across all declared arms!", flush=True)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="API Generation Runner")
     parser.add_argument("--probe", action="store_true", help="Send ONE real trivial API call to probe Gemini API quota")
     parser.add_argument("--phase6c", action="store_true", help="Run Phase 6C Section 12 generation arms (389 calls)")
+    parser.add_argument("--phase6d", action="store_true", help="Run Phase 6D Section 14 generation arms (priority D1->D4)")
     parser.add_argument("--dry-run", action="store_true", help="Simulate generation without remote API calls")
     parser.add_argument("--test-live-3", action="store_true", help="Execute exactly 3 live API calls to test pipeline")
-    parser.add_argument("--run", action="store_true", help="Run Phase 6C generation pipeline in background")
+    parser.add_argument("--run", action="store_true", help="Run Phase 6D generation pipeline in background")
     args = parser.parse_args()
 
     if args.probe:
@@ -1196,16 +1444,23 @@ if __name__ == "__main__":
         print(f"[API RUNNER] Probe Result: {msg}")
         print(json.dumps(details, indent=2))
     elif args.dry_run:
-        print("[API RUNNER] Launching Phase 6C in DRY RUN mode...")
+        print("[API RUNNER] Launching Phase 6D in DRY RUN mode...")
         cfg = verify_and_load_config()
         gen = APIGenerator(cfg, dry_run=True)
-        run_phase6c_arms(gen, dry_run=True)
+        run_phase6d_arms(gen, dry_run=True)
     elif args.test_live_3:
-        print("[API RUNNER] Launching Phase 6C in 3-CALL LIVE TEST mode...")
+        print("[API RUNNER] Launching Phase 6D in 3-CALL LIVE TEST mode...")
         cfg = verify_and_load_config()
         gen = APIGenerator(cfg, dry_run=False)
-        run_phase6c_arms(gen, dry_run=False, test_3_calls_only=True)
-    elif args.phase6c or args.run:
+        run_phase6d_arms(gen, dry_run=False, test_3_calls_only=True)
+    elif args.phase6d or args.run:
+        print("[API RUNNER] Launching Phase 6D Generation Arms...")
+        cfg = verify_and_load_config()
+        init_ledger()
+        start_heartbeat_thread()
+        gen = APIGenerator(cfg, dry_run=False)
+        run_phase6d_arms(gen, dry_run=False, test_3_calls_only=False)
+    elif args.phase6c:
         print("[API RUNNER] Launching Phase 6C Generation Arms (389 calls)...")
         cfg = verify_and_load_config()
         init_ledger()
@@ -1213,5 +1468,6 @@ if __name__ == "__main__":
         gen = APIGenerator(cfg, dry_run=False)
         run_phase6c_arms(gen, dry_run=False, test_3_calls_only=False)
     else:
-        print("Usage: python scripts/api_runner.py [--probe | --phase6c | --run | --dry-run | --test-live-3]")
+        print("Usage: python scripts/api_runner.py [--probe | --phase6c | --phase6d | --run | --dry-run | --test-live-3]")
+
 
