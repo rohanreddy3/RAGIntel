@@ -1,0 +1,9 @@
+metric,is_binary,n_queries,mean_control,mean_treatment,mean_delta,ci_lower,ci_upper,boot_p,exact_sign_p,wtl,n_discordant,contrast_id,contrast,dataset
+v1_exact,True,50,0.58,0.6,0.02,-0.1,0.14,0.8662,1.0,5/41/4,9,C_Vrel_vs_V0h_taa,Vrel vs V0h,cti-taa
+v1_alias,True,50,0.7,0.72,0.02,-0.08,0.12,0.8432,1.0,4/43/3,7,C_Vrel_vs_V0h_taa,Vrel vs V0h,cti-taa
+v2_exact,True,50,0.7,0.68,-0.02,-0.14,0.1,0.8633,1.0,4/41/5,9,C_Vrel_vs_V0h_taa,Vrel vs V0h,cti-taa
+v2_alias,True,50,0.74,0.76,0.02,-0.06,0.12,0.8118,1.0,3/45/2,5,C_Vrel_vs_V0h_taa,Vrel vs V0h,cti-taa
+v1_exact,True,50,0.4,0.58,0.18,0.06,0.3,0.0044,0.0117,10/39/1,11,C_V0h_vs_V0_taa,V0h vs V0,cti-taa
+v1_alias,True,50,0.56,0.7,0.14,0.02,0.26,0.0364,0.0654,9/39/2,11,C_V0h_vs_V0_taa,V0h vs V0,cti-taa
+v2_exact,True,50,0.5,0.7,0.2,0.06,0.34,0.0066,0.0129,12/36/2,14,C_V0h_vs_V0_taa,V0h vs V0,cti-taa
+v2_alias,True,50,0.6,0.74,0.14,0.04,0.26,0.021,0.0391,8/41/1,9,C_V0h_vs_V0_taa,V0h vs V0,cti-taa
