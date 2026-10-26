@@ -1,31 +1,45 @@
 [
   {
-    "evaluation_regime": "1. Recall@B Common Budgets (Phase 5)",
-    "representation_tested": "STIX-ALL chunks across B in {500, 1000, 2000, 4000}",
+    "evaluation_regime": "1. Recall@B Common Budgets (Phase 5 single B=500, pool k=200)",
+    "representation_tested": "STIX-ALL chunks at B=500 (k=200 candidate pool expansion)",
     "metric": "Recall_sub (sub_credits_parent)",
-    "cti_ate_control": "0.0517 (B=500)",
-    "cti_ate_treatment": "0.2042 (B=500)",
+    "cti_ate_control": "0.0517",
+    "cti_ate_treatment": "0.2042",
     "cti_ate_delta": "+0.1525",
     "cti_ate_effect": "+ (Positive)",
-    "cti_attack_control": "0.1725 (B=500)",
-    "cti_attack_treatment": "0.5670 (B=500)",
+    "cti_attack_control": "0.1725",
+    "cti_attack_treatment": "0.5670",
     "cti_attack_delta": "+0.3945",
     "cti_attack_effect": "+ (Positive)",
-    "statistical_status": "Statistically significant gains across all token budgets"
+    "statistical_status": "Statistically significant gains on single-budget B=500 (confounds hygiene with k=200 pool expansion)"
+  },
+  {
+    "evaluation_regime": "1b. Recall@B Balanced Common Budgets (Phase 6B, fixed k=50 pool)",
+    "representation_tested": "STIX-ALL chunks across balanced budgets {500, 1000} (pool fixed at k=50)",
+    "metric": "Mean Recall@B",
+    "cti_ate_control": "0.1601",
+    "cti_ate_treatment": "0.2450",
+    "cti_ate_delta": "+0.0849",
+    "cti_ate_effect": "+ (Positive)",
+    "cti_attack_control": "0.3064",
+    "cti_attack_treatment": "0.6074",
+    "cti_attack_delta": "+0.3010",
+    "cti_attack_effect": "+ (Positive)",
+    "statistical_status": "Statistically significant isolated query hygiene gains under balanced evaluation with fixed pool k=50"
   },
   {
     "evaluation_regime": "2. Enterprise STIX Bundle (Phase 6D Part E)",
     "representation_tested": "E0-STIX-ENT objects under B2 / B3 baselines",
-    "metric": "Recall@10",
-    "cti_ate_control": "0.1000 (B2) / 0.0667 (B3)",
-    "cti_ate_treatment": "0.1167 (B2) / 0.0667 (B3)",
-    "cti_ate_delta": "+0.0167 (B2) / +0.0000 (B3)",
-    "cti_ate_effect": "0 (Null)",
-    "cti_attack_control": "0.1812 (B2/B3)",
-    "cti_attack_treatment": "0.6303 (B2/B3)",
-    "cti_attack_delta": "+0.4491",
+    "metric": "Subtech_Recall@10",
+    "cti_ate_control": "0.0895 (B2) / 0.1221 (B3)",
+    "cti_ate_treatment": "0.0813 (B2) / 0.0811 (B3)",
+    "cti_ate_delta": "-0.0082 (B2) / -0.0410 (B3)",
+    "cti_ate_effect": "- (Negative on B3, Null on B2)",
+    "cti_attack_control": "0.1812 (B2) / 0.1812 (B3)",
+    "cti_attack_treatment": "0.6303 (B2) / 0.6303 (B3)",
+    "cti_attack_delta": "+0.4491 (B2) / +0.4491 (B3)",
     "cti_attack_effect": "+ (Positive)",
-    "statistical_status": "Null on cti-ate (p=0.6875); massive positive on CTI-ATTACK (p < 0.0001)"
+    "statistical_status": "Significantly negative on cti-ate B3 (p=0.0037); null on B2 (p=0.1516); massive positive on CTI-ATTACK (p < 0.0001)"
   },
   {
     "evaluation_regime": "3. Long-Context Dense Embeddings (Phase 6D Part D)",
@@ -39,7 +53,7 @@
     "cti_attack_treatment": "0.5662",
     "cti_attack_delta": "+0.3544",
     "cti_attack_effect": "+ (Positive)",
-    "statistical_status": "Statistically significant on both datasets (p=0.0002 on cti-ate; p < 0.0001 on CTI-ATTACK)"
+    "statistical_status": "Statistically significant on both datasets (exact sign p=0.0033 on cti-ate; p < 0.0001 on CTI-ATTACK)"
   },
   {
     "evaluation_regime": "4. Downstream Live Generation (Phase 6C)",
@@ -53,6 +67,6 @@
     "cti_attack_treatment": "0.2994",
     "cti_attack_delta": "+0.0116",
     "cti_attack_effect": "0 (Null)",
-    "statistical_status": "Statistically non-significant on both datasets (p=0.6904 on cti-ate; p=0.4069 on CTI-ATTACK)"
+    "statistical_status": "Statistically non-significant on both datasets (+0.013 on cti-ate, +0.012 on CTI-ATTACK; retrieval gains do not carry to generation)"
   }
 ]

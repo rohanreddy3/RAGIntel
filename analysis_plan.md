@@ -562,3 +562,73 @@ Reconcile call logs to show exact successful and rate-limited calls per model pe
 
 ### 15.7 Detector Failure Case Study: Polysemy Collision
 Document Case 26 ("Soldier" matching SysUpdate) within the limitations section using descriptive terminology: the token "Soldier" in an Iranian threat report matched the STIX alias for Chinese malware SysUpdate, injecting Threat Group-3390 context and illustrating entity detector homonym vulnerability.
+
+---
+
+## 16. Phase 6F: Corrections and Rigor Audits (2026-10-26)
+
+**Governance**: Strictly offline execution. Thread cap 4. Zero modification to `api_runner.py` or frozen results (Phases 0–6B). Strictly descriptive scientific language; zero causal assertions.
+
+### 16.1 Statistical Correction: Holm Family Exact Sign Test
+1. Correct the statistical test input for the primary generation Holm family (GEN_01 to GEN_04). The previously reported raw p-values ($p=0.0014$ on `cti-ate`, $p=0.0001$ on `CTI-ATTACK`) reflected paired bootstrap p-values rather than the pre-registered exact two-sided binomial sign test p-values derived from discordant pair counts.
+2. Under exact two-sided sign tests:
+   - `GEN_02` (CTI-ATTACK HD vs LLM-only, W/T/L 44/102/83, discordant $N=127$): exact sign $p = 0.00068 \le 0.0125$ (Rank 1). **Rejects null hypothesis** (favors LLM-only).
+   - `GEN_01` (`cti-ate` HD vs LLM-only, W/T/L 18/6/36, discordant $N=54$): exact sign $p = 0.0198 > 0.0167$ (Rank 2). **Fails to reject null hypothesis** (not statistically significant under Holm step-down correction).
+   - `GEN_03` (`cti-taa` $V_{0h}$ vs LLM-only, W/T/L 7/37/6): exact sign $p = 1.0000 > 0.025$ (Rank 3). Fails to reject null.
+   - `GEN_04` (`cti-taa` $V_{\text{rel}}$ vs $V_{0h}$, W/T/L 3/45/2): exact sign $p = 1.0000 > 0.050$ (Rank 4). Fails to reject null.
+3. Update all text and decision citations across reports to state that `GEN_01` is not statistically significant under Holm step-down correction ($0.0198 > 0.0167$).
+
+### 16.2 Regenerated Hygiene Summary Table & Metric Reconciliation
+1. Regenerate the unified Hygiene Summary Table directly from source CSVs (`secondary_kb_contrasts.csv`, `b1_robustness_contrasts.csv`, `contrasts_table.csv`, `table_ladder_common_budgets.csv`, `retrieval_reconciliation_b500.csv`) with programmatic cell assertions.
+2. In the Enterprise STIX (`E0-STIX-ENT`) regime, report exact primary metric `Subtech_Recall@10` values:
+   - B2: control 0.0895, treatment 0.0813, delta $-0.0082$ ($p=0.1516$).
+   - B3: control 0.1221, treatment 0.0811, delta $-0.0410$ ($p=0.0037$).
+3. Explicitly reconcile Phase 5 `cti-ate` $+0.1525$ vs the balanced ladder $+0.0849$:
+   - $+0.1525$ represents single-budget $B=500$ evaluation that confounds query hygiene with candidate pool expansion ($k=50 \to k=200$, control 0.0517 vs treatment 0.2042).
+   - $+0.0849$ represents isolated query hygiene evaluated across balanced common token budgets $\{500, 1000\}$ with candidate pool fixed at $k=50$ (control 0.1601 vs treatment 0.2450).
+
+### 16.3 Metadata-Credit Audit
+1. For $E_0'$ raw, $E_0'\text{-HD-k200}$, and $E_{1h}$ across `cti-ate` and `CTI-ATTACK` at $B=500$, report Recall@500 under:
+   - (a) Structured metadata credit (`sub_credits_parent`).
+   - (b) Text-visible surface regex on verbatim prompt strings (`contexts_used`).
+2. Document that under (b), the retrieval hygiene delta on `cti-ate` is smaller/null ($-0.0125$), and state in the claims table: *"retrieval gains do not carry to technique-F1 generation (+0.013 / +0.012, n.s.)."*
+
+### 16.4 Noise Strata & Inactive Win Reclassification (`cti-taa`)
+1. Recount active vs inactive strata over all 50 `cti-taa` queries with a full boolean ledger of `context_identical`.
+2. Confirm that Cases 22 and 41 have empty entity detection / identical contexts between $V_{0h}$ and $V_{\text{rel}}$, so their nominal generation wins belong strictly to the inactive stratum ($N=16$).
+3. Report reconciled W/T/L:
+   - Under `v2_alias`: Active ($N=34$) W/T/L = 2/31/1; Inactive ($N=16$) W/T/L = 1/14/1.
+   - Under `v1_exact`: Active ($N=34$) W/T/L = 3/29/2; Inactive ($N=16$) W/T/L = 2/12/2.
+4. Establish that 100% of inactive queries (16/16) exhibit run-to-run lexical variation at temperature 0.0.
+
+### 16.5 Aggregate Case Studies & Generic OS Binary Stoplist
+1. Replace hand-picked case study selections with aggregate statistics over all 50 `cti-taa` queries:
+   - Share with non-empty vote list: 68.0% (34/50).
+   - Share with ground-truth in top-3 votes: 0.0% (0/50).
+   - Share with ground-truth in context: 28.0% (14/50).
+   - Stratified W/T/L counts by vote list presence, top-3 presence, and context presence.
+2. Retain Case 26 ("Soldier" homonym matching SysUpdate) as a descriptive failure mode and detector limitation.
+3. Test a stoplist targeting generic OS binaries (`cmd.exe`, `schtasks.exe`, `ipconfig`, `netstat`, `net`, `systeminfo`, `ftp`, `ping`, etc.):
+   - Report that 22.0% of queries (11/50) alter detection.
+   - Quantify shifts in group voting candidates and resulting prompt context.
+
+### 16.6 Wording & Quota Corrections
+1. Update D2a reporting text to: `'-0.0677 vs LLM-only on cti-ate (bootstrap CI [-0.117,-0.020], exact sign p=0.081)'`.
+2. Update quota notes to state observed per-window maximum ($\ge 607$ successful calls) and remove all references to a "nominal 500" cap.
+
+### 16.7 Ground-Truth Alias Leakage Audit (`cti-taa`)
+1. Scan all 50 `cti-taa` query bodies (excluding instruction text) for exact word-boundary appearances of any ground-truth threat group alias (canonical or STIX alias, length $\ge 4$, case-insensitive).
+2. Report total leaked query count (10/50, 20.0%) and list affected query indices (Rows 1, 22, 23, 26, 37, 38, 40, 42, 48, 49).
+3. Re-score retrieval and generation for $V_0$, $V_{0h}$, and $V_{\text{rel}}$ on the clean subset ($N=40$) alongside full-50 numbers.
+
+### 16.8 Knowledge Base Integrity Audit
+1. Audit all objects across `enterprise-attack.json`, `mobile-attack.json`, and `ics-attack.json` whose `external_id` deviates from standard ATT&CK conventions.
+2. Enumerate all 66 S9000-series objects (S9000–S9067). Document their provenance as extended STIX entries created between December 2025 and October 2026.
+3. Audit usage: verify that 0 S9000-series objects appeared in retrieved prompt contexts sent to the LLM; document that 40 objects participate in `software_to_groups` graph links, with 1 detection in `cti-taa` (Query 6, `SystemBC` -> S9001) that did not affect context or attribution outcome.
+
+### 16.9 Entity Detector Precision Audit (`results/phase_4b/detector_labels.csv`)
+1. Ingest labeled 100-sample detector matches (`results/phase_4b/detector_labels.csv`).
+2. Report baseline D0 precision: 74.0% for real entity mentions (74/100) and 63.0% for informative attribution mentions (63/100).
+3. Evaluate D1/V1h survival filtering (drop length $\le 4$, drop common words/commands, retain intrusion-set and malware only): 65.0% survival rate (65/100), with 76.9% real precision (50/65) and 76.9% informative precision (50/65).
+4. Categorize false positive error sources: (1) Template instruction examples (11/26, 42.3%), (2) Common English words / file extensions / homonyms (7/26, 26.9%), (3) Generic OS utilities (8/26, 30.8%).
+

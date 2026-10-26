@@ -1,0 +1,62 @@
+[
+  {
+    "dataset": "cti-ate",
+    "arm": "E0' (raw control)",
+    "token_budget": 500,
+    "n_queries": 60,
+    "recall_b_metadata_credit": 0.0517,
+    "recall_b_text_visible_only": 0.0671,
+    "discrepancy_delta": -0.0154,
+    "discrepancy_explanation": "Phase 5/3c Recall@B uses chunk metadata mitre_id + parent subtechnique credit; Context Recall uses exact regex on surface text where split child chunks lack explicit ID prefixes."
+  },
+  {
+    "dataset": "cti-ate",
+    "arm": "E0'-HD-k200",
+    "token_budget": 500,
+    "n_queries": 60,
+    "recall_b_metadata_credit": 0.2042,
+    "recall_b_text_visible_only": 0.0546,
+    "discrepancy_delta": 0.1496,
+    "discrepancy_explanation": "Phase 5 Recall@B evaluates structured chunks with metadata (0.2042 on cti-ate, 0.5670 on CTI-ATTACK); Context Recall evaluates verbatim prompt text (0.0546 on cti-ate, 0.2154 on CTI-ATTACK)."
+  },
+  {
+    "dataset": "cti-ate",
+    "arm": "E1h (structure-aware field chunks)",
+    "token_budget": 500,
+    "n_queries": 60,
+    "recall_b_metadata_credit": 0.1935,
+    "recall_b_text_visible_only": 0.0919,
+    "discrepancy_delta": 0.1016,
+    "discrepancy_explanation": "E1h incorporates explicit structured field headers; surface text context recall (0.0919 on cti-ate, 0.4709 on CTI-ATTACK) approaches structured metadata recall (0.1935 on cti-ate, 0.5058 on CTI-ATTACK)."
+  },
+  {
+    "dataset": "CTI-ATTACK",
+    "arm": "E0' (raw control)",
+    "token_budget": 500,
+    "n_queries": 229,
+    "recall_b_metadata_credit": 0.1725,
+    "recall_b_text_visible_only": 0.1572,
+    "discrepancy_delta": 0.0153,
+    "discrepancy_explanation": "Phase 5/3c Recall@B uses chunk metadata mitre_id + parent subtechnique credit; Context Recall uses exact regex on surface text where split child chunks lack explicit ID prefixes."
+  },
+  {
+    "dataset": "CTI-ATTACK",
+    "arm": "E0'-HD-k200",
+    "token_budget": 500,
+    "n_queries": 229,
+    "recall_b_metadata_credit": 0.567,
+    "recall_b_text_visible_only": 0.2154,
+    "discrepancy_delta": 0.3516,
+    "discrepancy_explanation": "Phase 5 Recall@B evaluates structured chunks with metadata (0.2042 on cti-ate, 0.5670 on CTI-ATTACK); Context Recall evaluates verbatim prompt text (0.0546 on cti-ate, 0.2154 on CTI-ATTACK)."
+  },
+  {
+    "dataset": "CTI-ATTACK",
+    "arm": "E1h (structure-aware field chunks)",
+    "token_budget": 500,
+    "n_queries": 229,
+    "recall_b_metadata_credit": 0.5058,
+    "recall_b_text_visible_only": 0.4709,
+    "discrepancy_delta": 0.0349,
+    "discrepancy_explanation": "E1h incorporates explicit structured field headers; surface text context recall (0.0919 on cti-ate, 0.4709 on CTI-ATTACK) approaches structured metadata recall (0.1935 on cti-ate, 0.5058 on CTI-ATTACK)."
+  }
+]

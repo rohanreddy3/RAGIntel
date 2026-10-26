@@ -1,0 +1,11 @@
+row_idx,query_id,ground_truth,matched_gids,leaked_aliases
+1,e1bc6616ddff,"Stately Taurus (alias Bronze President, Camaro Dragon, Earth Preta, Mustang Panda, Red Delta and Luminous Moth)",['G0129'],"[('STATELY TAURUS', 'Stately Taurus')]"
+22,337b6a14a4b4,Mint Sandstorm (PHOSPHORUS),['G0059'],"[('APT35', 'APT35'), ('Charming Kitten', 'Charming Kitten')]"
+23,488bd1c4770c,MuddyWater,['G0069'],"[('MERCURY', 'MERCURY'), ('TA450', 'TA450')]"
+26,b9933f2beb82,Mint Sandstorm,['G0059'],"[('APT35', 'APT35'), ('TA453', 'TA453'), ('Charming Kitten', 'Charming Kitten'), ('Phosphorus', 'PHOSPHORUS')]"
+37,528efff074c3,APT37,"['G0022', 'G0067']","[('Reaper', 'Reaper')]"
+38,1b269a49fca2,"APT33, or Peach Sandstorm, HOLMIUM, or Refined Kitten","['G0064', 'G0022']","[('Peach Sandstorm', 'Peach Sandstorm'), ('HOLMIUM', 'HOLMIUM')]"
+40,42f7ad174a80,APT29,"['G0024', 'G0016']","[('NOBELIUM', 'NOBELIUM'), ('The Dukes', 'The Dukes'), ('CozyDuke', 'CozyDuke'), ('Midnight Blizzard', 'Midnight Blizzard'), ('UNC2452', 'UNC2452'), ('Cozy Bear', 'Cozy Bear'), ('Dark Halo', 'Dark Halo')]"
+42,9ebb692cad25,Diamond Sleet (ZINC),['G0032'],"[('Labyrinth Chollima', 'Labyrinth Chollima'), ('ZINC', 'ZINC')]"
+48,3fd8c4b0f770,"MuddyWater,or Crambus","['G0069', 'G0049']","[('Crambus', 'Crambus')]"
+49,159ae11fb113,"Turla APT (aka Pensive Ursa, Uroburos, Snake)",['G0010'],"[('Turla', 'Turla'), ('Snake', 'Snake'), ('WhiteBear', 'WhiteBear')]"

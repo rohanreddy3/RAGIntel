@@ -1,0 +1,54 @@
+{
+  "sample_size": 100,
+  "annotator": "claude_draft_unverified (author spot-check pending)",
+  "d0_detector": {
+    "real_entity_precision": 0.74,
+    "real_entity_count": 74,
+    "informative_precision": 0.63,
+    "informative_count": 63,
+    "false_positive_count": 26
+  },
+  "d1_v1h_detector": {
+    "survived_matches": 65,
+    "survival_rate": 0.65,
+    "real_entity_precision": 0.7692,
+    "real_entity_count": 50,
+    "informative_precision": 0.7692,
+    "informative_count": 50,
+    "false_positive_count": 15
+  },
+  "false_positive_error_sources": {
+    "template_instruction_examples": {
+      "count": 11,
+      "pct_of_fps": 42.3,
+      "examples": [
+        "APT36 in instruction template",
+        "Crimson RAT in instruction template"
+      ]
+    },
+    "common_words_and_homonyms": {
+      "count": 7,
+      "pct_of_fps": 26.9,
+      "examples": [
+        "Equation (OLE object)",
+        "Photo (Windows app)",
+        "ps1 (file extension)",
+        "Soldier (homonym matching SysUpdate)"
+      ]
+    },
+    "generic_os_utilities": {
+      "count": 8,
+      "pct_of_fps": 30.8,
+      "examples": [
+        "cmd.exe",
+        "net",
+        "ping",
+        "schtasks.exe",
+        "ipconfig",
+        "netstat",
+        "ftp",
+        "systeminfo"
+      ]
+    }
+  }
+}

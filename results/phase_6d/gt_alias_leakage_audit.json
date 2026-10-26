@@ -1,0 +1,281 @@
+{
+  "summary": {
+    "total_queries": 50,
+    "leaked_queries_count": 10,
+    "clean_queries_count": 40,
+    "leaked_pct": 20.0,
+    "clean_pct": 80.0
+  },
+  "leaked_query_ids": [
+    "e1bc6616ddff",
+    "337b6a14a4b4",
+    "488bd1c4770c",
+    "b9933f2beb82",
+    "528efff074c3",
+    "1b269a49fca2",
+    "42f7ad174a80",
+    "9ebb692cad25",
+    "3fd8c4b0f770",
+    "159ae11fb113"
+  ],
+  "leaked_row_indices": [
+    1,
+    22,
+    23,
+    26,
+    37,
+    38,
+    40,
+    42,
+    48,
+    49
+  ],
+  "leaked_query_details": [
+    {
+      "row_idx": 1,
+      "query_id": "e1bc6616ddff",
+      "ground_truth": "Stately Taurus (alias Bronze President, Camaro Dragon, Earth Preta, Mustang Panda, Red Delta and Luminous Moth)",
+      "matched_gids": [
+        "G0129"
+      ],
+      "leaked_aliases": [
+        [
+          "STATELY TAURUS",
+          "Stately Taurus"
+        ]
+      ]
+    },
+    {
+      "row_idx": 22,
+      "query_id": "337b6a14a4b4",
+      "ground_truth": "Mint Sandstorm (PHOSPHORUS)",
+      "matched_gids": [
+        "G0059"
+      ],
+      "leaked_aliases": [
+        [
+          "APT35",
+          "APT35"
+        ],
+        [
+          "Charming Kitten",
+          "Charming Kitten"
+        ]
+      ]
+    },
+    {
+      "row_idx": 23,
+      "query_id": "488bd1c4770c",
+      "ground_truth": "MuddyWater",
+      "matched_gids": [
+        "G0069"
+      ],
+      "leaked_aliases": [
+        [
+          "MERCURY",
+          "MERCURY"
+        ],
+        [
+          "TA450",
+          "TA450"
+        ]
+      ]
+    },
+    {
+      "row_idx": 26,
+      "query_id": "b9933f2beb82",
+      "ground_truth": "Mint Sandstorm",
+      "matched_gids": [
+        "G0059"
+      ],
+      "leaked_aliases": [
+        [
+          "APT35",
+          "APT35"
+        ],
+        [
+          "TA453",
+          "TA453"
+        ],
+        [
+          "Charming Kitten",
+          "Charming Kitten"
+        ],
+        [
+          "Phosphorus",
+          "PHOSPHORUS"
+        ]
+      ]
+    },
+    {
+      "row_idx": 37,
+      "query_id": "528efff074c3",
+      "ground_truth": "APT37",
+      "matched_gids": [
+        "G0022",
+        "G0067"
+      ],
+      "leaked_aliases": [
+        [
+          "Reaper",
+          "Reaper"
+        ]
+      ]
+    },
+    {
+      "row_idx": 38,
+      "query_id": "1b269a49fca2",
+      "ground_truth": "APT33, or Peach Sandstorm, HOLMIUM, or Refined Kitten",
+      "matched_gids": [
+        "G0064",
+        "G0022"
+      ],
+      "leaked_aliases": [
+        [
+          "Peach Sandstorm",
+          "Peach Sandstorm"
+        ],
+        [
+          "HOLMIUM",
+          "HOLMIUM"
+        ]
+      ]
+    },
+    {
+      "row_idx": 40,
+      "query_id": "42f7ad174a80",
+      "ground_truth": "APT29",
+      "matched_gids": [
+        "G0024",
+        "G0016"
+      ],
+      "leaked_aliases": [
+        [
+          "NOBELIUM",
+          "NOBELIUM"
+        ],
+        [
+          "The Dukes",
+          "The Dukes"
+        ],
+        [
+          "CozyDuke",
+          "CozyDuke"
+        ],
+        [
+          "Midnight Blizzard",
+          "Midnight Blizzard"
+        ],
+        [
+          "UNC2452",
+          "UNC2452"
+        ],
+        [
+          "Cozy Bear",
+          "Cozy Bear"
+        ],
+        [
+          "Dark Halo",
+          "Dark Halo"
+        ]
+      ]
+    },
+    {
+      "row_idx": 42,
+      "query_id": "9ebb692cad25",
+      "ground_truth": "Diamond Sleet (ZINC)",
+      "matched_gids": [
+        "G0032"
+      ],
+      "leaked_aliases": [
+        [
+          "Labyrinth Chollima",
+          "Labyrinth Chollima"
+        ],
+        [
+          "ZINC",
+          "ZINC"
+        ]
+      ]
+    },
+    {
+      "row_idx": 48,
+      "query_id": "3fd8c4b0f770",
+      "ground_truth": "MuddyWater,or Crambus",
+      "matched_gids": [
+        "G0069",
+        "G0049"
+      ],
+      "leaked_aliases": [
+        [
+          "Crambus",
+          "Crambus"
+        ]
+      ]
+    },
+    {
+      "row_idx": 49,
+      "query_id": "159ae11fb113",
+      "ground_truth": "Turla APT (aka Pensive Ursa, Uroburos, Snake)",
+      "matched_gids": [
+        "G0010"
+      ],
+      "leaked_aliases": [
+        [
+          "Turla",
+          "Turla"
+        ],
+        [
+          "Snake",
+          "Snake"
+        ],
+        [
+          "WhiteBear",
+          "WhiteBear"
+        ]
+      ]
+    }
+  ],
+  "retrieval_comparison": {
+    "V0_Recall@10_object": {
+      "full_50": 0.34,
+      "clean_40": 0.4
+    },
+    "V0h_Recall@10_object": {
+      "full_50": 0.14,
+      "clean_40": 0.125
+    },
+    "Vrel_Recall@10_object": {
+      "full_50": 0.32,
+      "clean_40": 0.325
+    },
+    "V0h_Recall@10_text_inclusive": {
+      "full_50": 0.3,
+      "clean_40": 0.275
+    },
+    "Vrel_Recall@10_text_inclusive": {
+      "full_50": 0.5,
+      "clean_40": 0.5
+    }
+  },
+  "generation_comparison": {
+    "LLM-only": {
+      "v1_exact_full": 0.6,
+      "v1_exact_clean": 0.6,
+      "v2_alias_full": 0.72,
+      "v2_alias_clean": 0.65
+    },
+    "V0h": {
+      "v1_exact_full": 0.58,
+      "v1_exact_clean": 0.575,
+      "v2_alias_full": 0.74,
+      "v2_alias_clean": 0.675
+    },
+    "Vrel": {
+      "v1_exact_full": 0.6,
+      "v1_exact_clean": 0.625,
+      "v2_alias_full": 0.76,
+      "v2_alias_clean": 0.7
+    }
+  }
+}

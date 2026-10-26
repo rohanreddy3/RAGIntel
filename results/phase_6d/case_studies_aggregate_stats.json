@@ -1,0 +1,77 @@
+{
+  "share_non_empty_votes": {
+    "count": 34,
+    "total": 50,
+    "pct": 68.0
+  },
+  "share_gt_in_top3_votes": {
+    "count": 0,
+    "total": 50,
+    "pct": 0.0
+  },
+  "share_gt_in_context": {
+    "count": 14,
+    "total": 50,
+    "pct": 28.0
+  },
+  "wtl_split_by_flags": {
+    "has_votes_true": {
+      "n": 34,
+      "wins": 2,
+      "losses": 1,
+      "ties": 31
+    },
+    "has_votes_false": {
+      "n": 16,
+      "wins": 1,
+      "losses": 1,
+      "ties": 14
+    },
+    "gt_in_context_true": {
+      "n": 14,
+      "wins": 1,
+      "losses": 0,
+      "ties": 13
+    },
+    "gt_in_context_false": {
+      "n": 36,
+      "wins": 2,
+      "losses": 2,
+      "ties": 32
+    }
+  },
+  "stoplist_audit": {
+    "generic_os_binaries": [
+      "arp",
+      "cmd.exe",
+      "fsutil",
+      "ftp",
+      "ipconfig",
+      "net",
+      "netstat",
+      "ping",
+      "powershell.exe",
+      "schtasks.exe",
+      "systeminfo",
+      "tasklist",
+      "whoami"
+    ],
+    "queries_changing_detection": 11,
+    "total_queries": 50,
+    "pct_changing": 22.0,
+    "affected_query_indices": [
+      4,
+      7,
+      11,
+      15,
+      17,
+      18,
+      20,
+      24,
+      25,
+      34,
+      43
+    ]
+  },
+  "limitation_case": "Case 26 (homonym: 'Soldier' implant in Iranian report mapped to Chinese malware SysUpdate)"
+}

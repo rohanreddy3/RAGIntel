@@ -1,0 +1,51 @@
+query_idx,query_id,ground_truth,context_identical,answer_identical,empty_detection,n_detected_software,v0h_v1_exact,vrel_v1_exact,v0h_v2_alias,vrel_v2_alias,stratum
+0,8b8e568edda9,SideCopy,False,False,False,3,0,1,0,1,Active
+1,e1bc6616ddff,"Stately Taurus (alias Bronze President, Camaro Dragon, Earth Preta, Mustang Panda, Red Delta and Luminous Moth)",False,False,False,3,1,1,1,1,Active
+2,11b5ab4b1713,Stately Taurus,False,False,False,7,0,0,0,0,Active
+3,afc50c13ed31,Emotet,True,False,True,0,0,0,0,0,Inactive
+4,d9f9d8f4e26b,APT-C-23 ( FrozenCell or Two-tailed Scorpion),False,False,False,2,0,0,0,0,Active
+5,4e2ea9da0931,Sharp Dragon (or  Sharp Panda),False,False,False,1,0,0,0,0,Active
+6,76764c0b57b3,Storm-1811,False,False,False,5,1,1,1,1,Active
+7,f0224670e921,"APT-C-36, also known as Blind Eagle",False,False,False,6,1,1,1,1,Active
+8,92723fd96f20,"APT-C-36, also known as Blind Eagle",False,False,False,1,0,1,0,1,Active
+9,0d2e162bb5d1,ANDROMEDA,False,False,False,2,1,1,1,1,Active
+10,20595acf7065,Venomous Bear (or Turla or Uroburos),True,False,True,0,0,0,1,1,Inactive
+11,dd25537c6f23,APT29 (Cozy Bear / The Dukes),False,False,False,2,0,0,0,0,Active
+12,247a50b4dd69,"Gamaredon (APT-C-53, Primitive Bear, Armageddon)",True,False,True,0,0,0,0,0,Inactive
+13,a879de6b976a,Midnight Blizzard ( NOBELIUM),True,False,True,0,1,1,1,1,Inactive
+14,20cea137852e,Black Basta,False,False,False,4,1,1,1,1,Active
+15,210777ec181c,"OilRig, APT34, Lyceum, or Siamesekitten",False,False,False,5,1,1,1,1,Active
+16,bb290671f727,APT34,True,False,True,0,1,1,1,1,Inactive
+17,9dbd198569bc,Earth Freybug ( subset of APT41),False,False,False,2,1,1,1,1,Active
+18,2e743d5deb12,Lazarus,False,False,False,4,1,1,1,1,Active
+19,5b88978fb824,Springtail espionage group (or Kimsuky),False,False,False,3,0,0,1,1,Active
+20,bd007da00d41,Kimsuky,False,False,False,1,1,0,1,0,Active
+21,b3f61a81708c,Transparent Tribe (APT36),False,False,False,2,1,1,1,1,Active
+22,337b6a14a4b4,Mint Sandstorm (PHOSPHORUS),True,False,True,0,0,1,1,1,Inactive
+23,488bd1c4770c,MuddyWater,False,False,False,1,1,1,1,1,Active
+24,a1d56b2578c3,Seedworm (or Muddywater),False,False,False,3,0,1,1,1,Active
+25,db25436c7bc0,"CharmingCypress (aka Charming Kitten, APT42, TA453)",False,False,False,1,0,0,1,1,Active
+26,b9933f2beb82,Mint Sandstorm,False,False,False,3,1,0,1,1,Active
+27,b2ef40c17a5e,"APT31, also known as BRONZE VINEWOOD, Zirconium or Judgment Panda",False,False,False,1,1,1,1,1,Active
+28,dd13ac7da8a1,"Gamaredon, also known as Primitive Bear, ACTINIUM, and Shuckworm",True,False,True,0,1,1,1,1,Inactive
+29,4421a9a21a33,Gamaredon Group,True,False,True,0,1,1,1,1,Inactive
+30,30b42752d64d,Sharp Panda,True,False,True,0,0,0,0,0,Inactive
+31,b5768558f061,Bitter,True,False,False,1,0,0,0,0,Inactive
+32,afd20c248afd,Confucius,False,False,False,5,1,1,1,1,Active
+33,cbbd750b4327,Dragonfly,False,False,False,5,1,1,1,1,Active
+34,da1b2c45e779,Andariel,False,False,False,2,0,0,0,0,Active
+35,e6057367edeb,"COLDRIVER (also known as UNC4057, Star Blizzard and Callisto)",True,False,True,0,1,1,1,1,Inactive
+36,a07eb7d47158,Bahamut,True,False,True,0,1,0,1,0,Inactive
+37,528efff074c3,APT37,True,False,True,0,1,1,1,1,Inactive
+38,1b269a49fca2,"APT33, or Peach Sandstorm, HOLMIUM, or Refined Kitten",True,False,True,0,1,0,1,1,Inactive
+39,bc9ecaf6eab1,APT29,False,False,False,1,1,1,1,1,Active
+40,42f7ad174a80,APT29,False,False,False,2,1,1,1,1,Active
+41,7172731bb34b,"APT29 (aka Cozy Bear, Nobelium and many other monikers)",True,False,True,0,0,1,0,1,Inactive
+42,9ebb692cad25,Diamond Sleet (ZINC),True,False,True,0,0,0,1,1,Inactive
+43,3baabdce9cce,Lazarus group,False,False,False,1,1,1,1,1,Active
+44,4c0736456eea,Lazarus Group,False,False,False,5,1,1,1,1,Active
+45,ef7c6bfc4d4a,Lazarus Group,False,False,False,1,0,0,0,0,Active
+46,8e7c20dbe897,Lazarus,False,False,False,3,1,1,1,1,Active
+47,fd83b194b486,OilRig,False,False,False,6,1,1,1,1,Active
+48,3fd8c4b0f770,"MuddyWater,or Crambus",False,False,False,2,0,0,1,1,Active
+49,159ae11fb113,"Turla APT (aka Pensive Ursa, Uroburos, Snake)",False,False,False,17,0,0,1,1,Active
