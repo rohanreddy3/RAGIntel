@@ -1,0 +1,1 @@
+Figure F2: Threat actor attribution accuracy on cti-taa comparing Full-50 queries against the Clean-40 primary benchmark across primary and secondary generators (supports Claim C6).

@@ -1,0 +1,1 @@
+Figure F3: Share of cti-taa queries exhibiting ground-truth alias leakage in prompt bodies (20%) and resulting accuracy saturation (100%) on leaked vs clean subsets (supports Claim C7).

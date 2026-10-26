@@ -1,0 +1,7 @@
+dataset,arm,metadata_credit,text_visible,discrepancy
+cti-ate,E0' (Raw control),0.0517,0.0671,-0.0154
+cti-ate,E0'-HD-k200,0.2042,0.0546,0.1496
+cti-ate,E1h (Header-prefixed),0.1935,0.0919,0.1016
+CTI-ATTACK,E0' (Raw control),0.1725,0.1572,0.0153
+CTI-ATTACK,E0'-HD-k200,0.567,0.2154,0.3516
+CTI-ATTACK,E1h (Header-prefixed),0.5058,0.4709,0.0349

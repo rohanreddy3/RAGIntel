@@ -82,19 +82,15 @@ Evaluating the effect of query hygiene and HD preprocessing on downstream genera
 | Dataset | Raw Control ($E_0'$) | HD Treatment ($E_0'\text{-HD-k200}$) | $\Delta$ | W / T / L | Exact Sign $p$ | Statistical Significance |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
 | `cti-ate` ($N=60$) | 0.4792 | 0.3936 | **-0.0855** | 17 / 7 / 36 | **0.01266** | Significant deficit ($p < 0.05$) |
-| `CTI-ATTACK` ($N=229$) | 0.2454 | 0.2994 | **+0.0540** | 64 / 112 / 53 | **0.35528** | Not significant ($p = 0.355$) |
-
----
-
-## 4. Programmatic $p$-Value Reconciliation (Item 4)
+| `CTI-ATTACK` ($N=229$) | 0.2454 | 0.2994 | **+0.0540** | 64 / 112 / 53 | **0.35528** | Not significant ($p = 0.355$) |## 4. Programmatic $p$-Value Reconciliation (Item 4)
 
 Every $p$-value in the report is programmatically derived from discordant pairs $(W, L)$ via two-sided exact binomial test:
 $$p = \text{binomtest}(k=\min(W, L), n=W+L, p=0.5, \text{alternative}='two-sided').pvalue$$
 
 - **B1 `cti-ate` Subtech_Recall@10**: $W=24, T=32, L=4 \implies n=28, k=4$. Exact sign $p = 0.000180 \approx \mathbf{0.0002}$.
   *(The 0.0033 reported in the Phase 6F hygiene summary table was an unasserted string typo, now reconciled and certified.)*
-- **GEN_01 ($V_{\text{rel}}$ vs LLM-only, $v_2\text{-alias}$)**: $W=18, T=6, L=36 \implies n=54, k=18$. Exact sign $p = \mathbf{0.01984} > \alpha_{\text{Holm}} (0.0167)$ $\to$ **NOT SIGNIFICANT**.
-- **GEN_02 ($V_{\text{rel}}$ vs $V_{0h}$, $v_2\text{-alias}$)**: $W=44, T=102, L=83 \implies n=127, k=44$. Exact sign $p = \mathbf{0.00068} \le \alpha_{\text{Holm}} (0.0250)$ $\to$ **SIGNIFICANT**.
+- **GEN_02 (`CTI-ATTACK` HD vs LLM-only, technique `f1_sub`)**: $W=83, T=102, L=44 \implies n=127, k=44$. Exact sign $p = \mathbf{0.00068} \le \alpha^*_{\text{Holm}} (0.0125)$ (Rank 1 in $M=4$ family, $\alpha/4 = 0.0125$) $\to$ **SIGNIFICANT**.
+- **GEN_01 (`cti-ate` HD vs LLM-only, technique `f1_sub`)**: $W=18, T=6, L=36 \implies n=54, k=18$. Exact sign $p = \mathbf{0.01984} > \alpha^*_{\text{Holm}} (0.0167)$ (Rank 2 in $M=4$ family, $\alpha/3 = 0.0167$) $\to$ **NOT SIGNIFICANT**.
 
 ---
 
@@ -108,25 +104,35 @@ This modification is strictly a **RETRIEVAL-LEVEL** observation. Downstream LLM 
 
 ---
 
-## 6. Detector Error Sources & Body-Only Precision Audit (Item 6)
+## 6. Detector Error Sources & Precision Audit (Item 6)
 
 ### 6.1 Mutually Exclusive Partitions of False Positives ($N=37$)
-A complete audit of the 37 non-informative detections in `results/phase_4b/detector_labels.csv` reveals three mutually exclusive error sources:
-1. **Instruction Template Examples ($N=11$, 29.7%)**: Match IDs `[7, 25, 29, 40, 59, 60, 66, 71, 72, 84, 92]`. Detections originating in prompt instruction text (e.g., `"e.g. APT36"`).
-2. **Common Words, .NET, and Ping Homonyms ($N=15$, 40.5%)**: Match IDs `[1, 14, 16, 21, 23, 24, 33, 35, 39, 45, 48, 57, 58, 82, 91]`. General vocabulary collisions (e.g., `ping`, `at`, `net`, `.NET`, `source`).
-3. **Real-but-Generic OS Utilities ($N=11$, 29.7%)**: Match IDs `[10, 17, 27, 32, 55, 67, 74, 93, 95, 96, 99]`. Legitimate system binaries (`cmd.exe`, `powershell.exe`, `whoami`, `tasklist`, `systeminfo`) that are genuine tools in ATT&CK but non-informative for attribution.
+A complete audit of the 37 non-informative detections in `results/phase_4b/detector_labels.csv` reveals three mutually exclusive error sources, using strictly the matched aliases present in the file:
+1. **Instruction Template Examples ($N=11$, 29.7%)**: Match IDs `[7, 25, 29, 40, 59, 60, 66, 71, 72, 84, 92]`. Detections originating in prompt instruction text:
+   - `Crimson` (S0115: IDs 7, 40, 72, 92)
+   - `APT36` (G0134: IDs 25, 29, 59, 60, 66, 71, 84)
+2. **Common Words, .NET, and Ping Homonyms ($N=15$, 40.5%)**: Match IDs `[1, 14, 16, 21, 23, 24, 33, 35, 39, 45, 48, 57, 58, 82, 91]`. General vocabulary collisions:
+   - `equation` (IDs 1, 91), `Photo` (ID 14), `ps1` (IDs 16, 35), `net`/`Net`/`NET` (IDs 21, 33, 39, 45, 48, 57, 58), `ping` (ID 23), `Soldier` (ID 24), `Play` (ID 82).
+3. **Real-but-Generic OS Utilities ($N=11$, 29.7%)**: Match IDs `[10, 17, 27, 32, 55, 67, 74, 93, 95, 96, 99]`. Legitimate system utilities present in ATT&CK software but non-informative for group attribution:
+   - `cmd.exe` (IDs 10, 17, 27), `ipconfig` (IDs 32, 55), `ftp` (ID 67), `netstat` (ID 74), `net` (IDs 93, 95), `schtasks.exe` (ID 96), `systeminfo` (ID 99).
 
-### 6.2 Precision Audits
+### 6.2 Precision Audits & Methodological Caveats
 
 | Detector Configuration | Total Detections | Real Entity Precision | Informative Attribution Precision |
 | :--- | :---: | :---: | :---: |
-| **D0 (Raw Unfiltered Prompt)** | 100 | 74.0% (74 / 100) | 63.0% (63 / 100) |
+| **D0 (Raw Prompt Detections)** | 100 | 74.0% (74 / 100) | 63.0% (63 / 100) |
 | **Body-Only D0 (Templates Excluded)** | 89 | 83.1% (74 / 89) | 70.8% (63 / 89) |
 | **D1 / V1h (Body-Only + Survival Filter)** | 66 | **93.9% (62 / 66)** | **93.9% (62 / 66)** |
 
+> [!IMPORTANT]
+> **Methodological Caveat**:
+> 1. **Change Reconciliation**: Phase 6F reported 50/65 (76.9%) because it applied the survival filter across all 100 prompt detections without separating prompt template instances. Phase 6G/6H separates the 11 template detections first, leaving 89 body detections, of which 66 survive the D1 filter and 62 are informative (62/66 = 93.9%).
+> 2. **Precision Only**: This metric is an empirical precision estimate evaluated on a D0-sampled set of 100 matches. Entity detector **recall was not measured**.
+> 3. **Single-Annotator Status**: Labels are currently single-annotator (`claude_draft_unverified`), with author spot-check pending.
+
 ---
 
-## 7. Knowledge Base Object Count Reconciliation & Limitations (Item 7)
+## 7. Knowledge Base Object Count & Provenance (Item 7)
 
 ### 7.1 Object Count Reconciliation
 
@@ -136,42 +142,39 @@ A complete audit of the 37 non-informative detections in `results/phase_4b/detec
 | **Total Active Objects (Enterprise)** | **26,243** | All active Enterprise STIX objects: 1,698 core entities + 21,819 relationships + 1,770 data components/analytics + 703 detection strategies + 268 mitigations. |
 | **Total Active Objects (All Bundles)** | **31,362** | Active objects across Enterprise, Mobile, and ICS bundles combined (total unfiltered = 31,937). |
 
-### 7.2 Knowledge Base Limitations Paragraph
-> **Knowledge Base Limitations**: The STIX knowledge base reflects an unversioned rolling snapshot of MITRE ATT&CK Enterprise (transition between v14 and v15). The 1,698 figure represents active core entity documents (attack patterns, intrusion sets, malware, tools) in the primary Enterprise bundle, while the 26,243 figure encompasses all active STIX objects including 21,819 relationships, 1,770 analytics, 703 detection strategies, and 268 mitigations. Cross-domain queries contain 31,362 active objects across Enterprise, Mobile, and ICS bundles. Furthermore, synthetic S9000-series objects (S9000–S9067) generated during relationship graph normalization are internal artifacts and must not be conflated with canonical ATT&CK IDs.
+### 7.2 Knowledge Base Provenance & S9000-Series Upstream Verification
+> **Knowledge Base Description**: The STIX knowledge base reflects an unversioned rolling master snapshot of MITRE ATT&CK (STIX specification 2.1, schema version 3.3.0, modified timestamp `2026-07-31T14:48:40.000Z`).  
+> **S9000-Series Provenance**: The 62 S9000-series objects (e.g., S9001 `XWorm`, S9008 `Cobalt Strike Beacon`) are **directly present in the downloaded upstream MITRE bundle** (`data/mitre/enterprise-attack.json`, SHA-256: `66f3fe3f07ef1a2de0bd2fe4b3e8a9ea06c1d0bb2c46171bdbb57c7f7b666524`, modified 2026-07-31; 59 objects in enterprise, 2 in ics, 5 in mobile). They represent upstream MITRE draft software objects created between Dec 2025 and May 2026, **not synthetic artifacts** generated by this project. They do not appear in retrieved prompt contexts and do not affect attribution accuracy.
 
 ---
 
-## 8. Primary `cti-taa` Set Declaration & Headline Comparison Table (Item 8)
+## 8. Primary `cti-taa` Set Declaration, Arm Identity & Retrieval Mechanism (Item 8)
 
 ### 8.1 Primary Benchmark Declaration
 The **clean 40-query subset** (excluding the 10 queries exhibiting ground-truth alias leakage in their bodies) is declared the **primary benchmark set** (post-hoc, labeled) for threat actor attribution (`cti-taa`). Full 50-query numbers are reported side-by-side for completeness.
 
-### 8.2 Headline Comparison Table
+### 8.2 Retrieval Mechanism Check (Hypothesis Testing)
+To determine whether $V_0$'s 0.4000 Object_Recall@10 stems from instruction text matching or report body cues, a mechanism probe evaluated **$V_0$-instruction-only** (prompt instruction text alone, without the report body):
+- **$V_0$-Instruction-Only Recall@10**: **0.0750** (3/40) on Clean-40; **0.0800** (4/50) on Full-50.
+- **$V_0$ (Instruction + Body) Recall@10**: **0.4000** (16/40) on Clean-40; **0.3400** (17/50) on Full-50.
+- **$V_{0h}$ (Hygienic Body-Only) Recall@10**: **0.1250** (5/40) on Clean-40; **0.1400** (7/50) on Full-50.
+- **$V_{\text{rel}}$ (Relationship Expansion) Recall@10**: **0.3250** (13/40) on Clean-40; **0.3200** (16/50) on Full-50.
 
-```
-========================================================================================================
-HEADLINE BENCHMARK COMPARISON: FULL-50 VS CLEAN-40 PRIMARY SET
-========================================================================================================
-Arm Name                                 | Full-50 Queries     | Clean-40 Primary Set
------------------------------------------|---------------------|----------------------------------------
-1. RETRIEVAL (Object_Recall@10)          |                     |
-   - V0 (Raw prompt, no hygiene/det)     | 0.3400              | 0.4000
-   - V0h (Hygienic body-only, no exp)    | 0.1400              | 0.1250
-   - Vrel (Hygienic + Relationship exp)  | 0.3200              | 0.3250
------------------------------------------|---------------------|----------------------------------------
-2. PRIMARY GENERATOR (gemini-3.5-flash)  | Full-50 (v2_alias)  | Clean-40 (v2_alias - PRIMARY)
-   - LLM-only (Zero-shot baseline)       | 0.7200              | 0.6500
-   - V0 (Raw prompt RAG)                 | 0.6000              | 0.5250
-   - V0h (Hygienic RAG)                  | 0.7400              | 0.6750
-   - Vrel (Relationship RAG)             | 0.7400              | 0.6750
------------------------------------------|---------------------|----------------------------------------
-3. SECOND GENERATOR (gemini-3.1-flash)   | Full-50 (v2_alias)  | Clean-40 (v2_alias - PRIMARY)
-   - LLM-only (Zero-shot baseline)       | 0.6600              | 0.5750
-   - V0 (Raw prompt RAG)                 | 0.7000              | 0.6250
-   - V0h (Hygienic RAG)                  | 0.7000              | 0.6250
-   - Vrel (Relationship RAG)             | 0.7200              | 0.6500
-========================================================================================================
-```
+> [!NOTE]
+> **Mechanism Finding**: Instruction text alone retrieves only 0.0750 of target entities. It is an interaction between the body text and instruction cues that produces 0.4000 in raw $V_0$. Any causal attribution mechanism statement is labeled an exploratory **hypothesis**.
+
+### 8.3 Vrel Arm Identity & Reconciliation Table
+
+| Arm Configuration | Prompt Type | Cache File Pattern | Full-50 Accuracy ($v_2\text{-alias}$) | Clean-40 Accuracy ($v_2\text{-alias}$) |
+| :--- | :--- | :--- | :---: | :---: |
+| **Standard $V_{\text{rel}}$** | Standard prompt | `.cache/api_runner/Vrel_cti-taa_row_{i}.json` | **0.7600 (38/50)** | **0.7000 (28/40)** |
+| **Hybrid $V_{\text{rel}}$** | Hybrid prompt ($B=500$) | `.cache/api_runner/hybrid_prompt_b500_Vrel_cti-taa_row_{i}.json` | **0.7400 (37/50)** | **0.6750 (27/40)** |
+| **Standard $V_{0h}$** | Standard prompt | `.cache/api_runner/V0h_cti-taa_row_{i}.json` | **0.7400 (37/50)** | **0.6750 (27/40)** |
+| **Hybrid $V_{0h}$** | Hybrid prompt ($B=500$) | `.cache/api_runner/hybrid_prompt_b500_V0h_cti-taa_row_{i}.json` | **0.7400 (37/50)** | **0.6750 (27/40)** |
+| **LLM-only Baseline** | Standard prompt | `.cache/api_runner/LLM-only_cti-taa_row_{i}.json` | **0.6800 (34/50)** | **0.6500 (26/40)** |
+| **Raw $V_0$** | Standard prompt | `.cache/api_runner/cti-taa_B2_V0_cti-taa_row_{i}.json` | **0.6000 (30/50)** | **0.5250 (21/40)** |
+
+*Root Cause*: Alphabetical globbing order in Python (`list(cache.glob('*Vrel*'))`) prioritizes `hybrid_prompt_b500_Vrel_...` over `Vrel_...` because `'h' < 'V'`, explaining the previous reporting of 0.7400 / 0.6750. Both arms are now explicitly differentiated.
 
 ---
 

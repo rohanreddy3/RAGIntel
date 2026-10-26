@@ -53,20 +53,20 @@
     "cti_attack_treatment": "0.5662",
     "cti_attack_delta": "+0.3544",
     "cti_attack_effect": "+ (Positive)",
-    "statistical_status": "Statistically significant on both datasets (exact sign p=0.0033 on cti-ate; p < 0.0001 on CTI-ATTACK)"
+    "statistical_status": "Statistically significant on both datasets (exact sign p=0.0002 on cti-ate; p < 0.0001 on CTI-ATTACK)"
   },
   {
     "evaluation_regime": "4. Downstream Live Generation (Phase 6C)",
-    "representation_tested": "gemini-3.5-flash-lite technique F1 at B*=500",
+    "representation_tested": "gemini-3.5-flash-lite technique F1 at B*=500 (HD vs true raw E0')",
     "metric": "Technique F1 (f1_sub)",
-    "cti_ate_control": "0.3807",
+    "cti_ate_control": "0.4792",
     "cti_ate_treatment": "0.3936",
-    "cti_ate_delta": "+0.0129",
-    "cti_ate_effect": "0 (Null)",
-    "cti_attack_control": "0.2878",
+    "cti_ate_delta": "-0.0855",
+    "cti_ate_effect": "- (Negative)",
+    "cti_attack_control": "0.2454",
     "cti_attack_treatment": "0.2994",
-    "cti_attack_delta": "+0.0116",
+    "cti_attack_delta": "+0.0540",
     "cti_attack_effect": "0 (Null)",
-    "statistical_status": "Statistically non-significant on both datasets (+0.013 on cti-ate, +0.012 on CTI-ATTACK; retrieval gains do not carry to generation)"
+    "statistical_status": "Significant decrease on cti-ate (p=0.0127, -0.0855); null on CTI-ATTACK (p=0.3551, +0.0540)"
   }
 ]

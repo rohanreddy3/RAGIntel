@@ -714,3 +714,85 @@ Document Case 26 ("Soldier" matching SysUpdate) within the limitations section u
 - $V_{0h}$ (Hygienic RAG): Full-50 = 0.7000, Clean-40 = 0.6250.
 - $V_{\text{rel}}$ (Relationship RAG): Full-50 = 0.7200, Clean-40 = 0.6500.
 
+---
+
+# 18. Phase 6H Final Consistency Round & Synthesis Plan (Dated 2026-10-26)
+
+## 18.1 Executive Protocol & Constraints
+Phase 6H serves as the final consistency and asset preparation phase.
+- **Constraints**: Strictly offline, zero API calls, all existing frozen experimental results untouched.
+- **Tone & Epistemic Status**: Descriptive reporting only; zero causal assertions ("causes", "drives", "leads to"). All post-hoc mechanisms labeled explicitly as hypotheses.
+
+## 18.2 Generation Hygiene Reconciliation
+1. **Contrast Definition**:
+   Downstream generation hygiene is defined strictly as HD preprocessing ($E_0'\text{-HD-k200}$) versus the true raw control ($E_0'$, $k=\text{all}, B=500$):
+   - `cti-ate` ($N=60$): Control $E_0' = 0.4792$, Treatment $HD = 0.3936$, $\Delta = -0.0855$, W/T/L = 17/7/36, exact sign $p = 0.01266$ (statistically significant decrease).
+   - `CTI-ATTACK` ($N=229$): Control $E_0' = 0.2454$, Treatment $HD = 0.2994$, $\Delta = +0.0540$, W/T/L = 64/112/53, exact sign $p = 0.35528$ (statistically non-significant).
+2. **Decommissioning Legacy Back-Calculations**:
+   The legacy $+0.0129$ (`cti-ate`) and $+0.0116$ (`CTI-ATTACK`) figures were artifacts of back-calculating from unadjusted arm means and are permanently removed from all active project reporting.
+3. **P-Value Certification**:
+   B1 `cti-ate` Subtech_Recall@10 ($W=24, T=32, L=4$) exact sign $p = 0.000180 \approx \mathbf{0.0002}$. The previous $0.0033$ typo is rectified and asserted across all summary files.
+
+## 18.3 Vrel Arm Identity & Dual-Prompt Reconciliation
+1. **Arm Differentiation**:
+   - **Standard Prompt $V_{\text{rel}}$** (`Vrel_cti-taa_row_{i}.json`): Full-50 Accuracy ($v_2\text{-alias}$) = **0.7600 (38/50)**; Clean-40 Accuracy = **0.7000 (28/40)**.
+   - **Hybrid Prompt $V_{\text{rel}}$** (`hybrid_prompt_b500_Vrel_cti-taa_row_{i}.json`): Full-50 Accuracy ($v_2\text{-alias}$) = **0.7400 (37/50)**; Clean-40 Accuracy = **0.6750 (27/40)**.
+   - **Standard Prompt $V_{0h}$** (`V0h_cti-taa_row_{i}.json`): Full-50 = **0.7400 (37/50)**; Clean-40 = **0.6750 (27/40)**.
+   - **Hybrid Prompt $V_{0h}$** (`hybrid_prompt_b500_V0h_cti-taa_row_{i}.json`): Full-50 = **0.7400 (37/50)**; Clean-40 = **0.6750 (27/40)**.
+2. **Root Cause**:
+   Alphabetical sorting of cache globs (`*Vrel*`) ordered `hybrid_prompt_b500_Vrel...` before `Vrel...` (`'h' < 'V'`), causing prior scripts to inadvertently read hybrid prompt files. Both arms are now explicitly differentiated with exact filenames.
+
+## 18.4 Holm Step-Down Family Rectification
+1. **Pre-Registered Family Definitions**:
+   `GEN_01` and `GEN_02` are pre-registered as **HD vs LLM-only (technique `f1_sub`)**:
+   - `GEN_02` (`CTI-ATTACK`, $N=229$): $p = 0.00068$ (Rank 1 in $M=4$ family). Holm threshold $\alpha^* = 0.05 / 4 = \mathbf{0.0125}$. Since $0.00068 \le 0.0125$, the effect is **statistically significant**.
+   - `GEN_01` (`cti-ate`, $N=60$): $p = 0.01984$ (Rank 2 in $M=4$ family). Holm threshold $\alpha^* = 0.05 / 3 = \mathbf{0.0167}$. Since $0.01984 > 0.0167$, the effect **fails to reach statistical significance**.
+
+## 18.5 Entity Detector Precision Audit & Methodological Caveats
+1. **Error Class Partitioning**:
+   The 37 non-informative detections in `results/phase_4b/detector_labels.csv` are partitioned into three mutually exclusive categories using strictly matched aliases from the file:
+   - **Instruction Templates ($N=11$, 29.7%)**: `Crimson` (S0115: IDs 7, 40, 72, 92), `APT36` (G0134: IDs 25, 29, 59, 60, 66, 71, 84).
+   - **Common Words / .NET / Ping ($N=15$, 40.5%)**: `equation` (IDs 1, 91), `Photo` (ID 14), `ps1` (IDs 16, 35), `net`/`Net`/`NET` (IDs 21, 33, 39, 45, 48, 57, 58), `ping` (ID 23), `Soldier` (ID 24), `Play` (ID 82).
+   - **Generic OS Utilities ($N=11$, 29.7%)**: `cmd.exe` (IDs 10, 17, 27), `ipconfig` (IDs 32, 55), `ftp` (ID 67), `netstat` (ID 74), `net` (IDs 93, 95), `schtasks.exe` (ID 96), `systeminfo` (ID 99).
+2. **Precision Audit Reconciliation**:
+   - D0 (Raw Prompt): 74.0% real entity precision (74/100), 63.0% informative attribution precision (63/100).
+   - D0 (Body-Only, templates excluded): 83.1% real (74/89), 70.8% informative (63/89).
+   - D1/V1h (Body-Only + Survival Filter): 93.9% real (62/66), 93.9% informative (62/66).
+   *(The Phase 6F 76.9% figure evaluated the filter across all 100 detections including templates; Phase 6G/6H separates prompt templates first).*
+3. **Caveats**:
+   Precision estimate evaluated on a D0-sampled set of 100 matches (recall not measured). Labels are single-annotator (`claude_draft_unverified`), author spot-check pending.
+
+## 18.6 Knowledge Base Provenance & S9000-Series Verification
+1. **Knowledge Base Description**:
+   The STIX KB reflects an unversioned rolling master snapshot of MITRE ATT&CK (STIX specification 2.1, schema version 3.3.0, modified timestamp `2026-07-31T14:48:40.000Z`).
+2. **S9000-Series Upstream Provenance**:
+   The 62 S9000-series objects (59 enterprise, 2 ics, 5 mobile) are directly present in the downloaded upstream MITRE bundle (`data/mitre/enterprise-attack.json`, SHA-256: `66f3fe3f07ef1a2de0bd2fe4b3e8a9ea06c1d0bb2c46171bdbb57c7f7b666524`, date: 2026-07-31). They represent draft software objects created by MITRE upstream between Dec 2025 and May 2026, **not synthetic artifacts**. They do not appear in retrieved contexts and do not affect attribution accuracy.
+
+## 18.7 Retrieval Mechanism Check ($V_0$-Instruction-Only Probe)
+1. **Empirical Recall Verification**:
+   - $V_0$-Instruction-Only (instruction text alone, report body stripped): Clean-40 Object_Recall@10 = **0.0750 (3/40)**; Full-50 = **0.0800 (4/50)**.
+   - Raw $V_0$ (instruction + body): Clean-40 = **0.4000 (16/40)**; Full-50 = **0.3400 (17/50)**.
+   - $V_{0h}$ (body alone, no instruction): Clean-40 = **0.1250 (5/40)**; Full-50 = **0.1400 (7/50)**.
+   - $V_{\text{rel}}$ (relationship expansion): Clean-40 = **0.3250 (13/40)**; Full-50 = **0.3200 (16/50)**.
+2. **Hypothesis Declaration**:
+   Instruction text alone does not drive 0.4000 recall. High raw $V_0$ recall requires an interaction between the body text and instruction tokens. All causal explanations are designated exploratory hypotheses.
+
+## 18.8 Clean-40 Contrasts ($M=5$ Families with Holm Adjustment)
+All Clean-40 contrasts are designated **post-hoc / exploratory**:
+1. **Retrieval (Clean-40 Object_Recall@10)**:
+   - $V_{0h}$ vs $V_0$: Control = 0.4000, Treatment = 0.1250, $\Delta = -0.2750$, 95% CI [-0.425, -0.150], W/T/L = 0/29/11, exact sign $p = 0.00098$.
+   - $V_{\text{rel}}$ vs $V_{0h}$: Control = 0.1250, Treatment = 0.3250, $\Delta = +0.2000$, 95% CI [+0.075, +0.325], W/T/L = 8/32/0, exact sign $p = 0.00781$.
+2. **Primary Generator (Clean-40 $v_2\text{-alias}$ Accuracy, $M=5$)**:
+   - $V_{0h}$ vs $V_0$: Control = 0.5250, Treatment = 0.6750, $\Delta = +0.1500$, 95% CI [+0.025, +0.275], W/T/L = 7/32/1, $p_{\text{raw}} = 0.0703$ (Rank 1, $\alpha^* = 0.0100$) $\to$ Not significant.
+   - $V_0$ vs LLM-only: Control = 0.6500, Treatment = 0.5250, $\Delta = -0.1250$, 95% CI [-0.275, +0.001], W/T/L = 2/31/7, $p_{\text{raw}} = 0.1797$ (Rank 2, $\alpha^* = 0.0125$) $\to$ Not significant.
+   - $V_{\text{rel}}$ vs LLM-only: Control = 0.6500, Treatment = 0.7000, $\Delta = +0.0500$, 95% CI [-0.125, +0.225], W/T/L = 8/26/6, $p_{\text{raw}} = 0.7905$ (Rank 3, $\alpha^* = 0.0167$) $\to$ Not significant.
+   - $V_{\text{rel}}$ vs $V_{0h}$: Control = 0.6750, Treatment = 0.7000, $\Delta = +0.0250$, 95% CI [-0.075, +0.125], W/T/L = 3/35/2, $p_{\text{raw}} = 1.0000$ (Rank 4, $\alpha^* = 0.0250$) $\to$ Not significant.
+   - $V_{0h}$ vs LLM-only: Control = 0.6500, Treatment = 0.6750, $\Delta = +0.0250$, 95% CI [-0.150, +0.200], W/T/L = 7/27/6, $p_{\text{raw}} = 1.0000$ (Rank 5, $\alpha^* = 0.0500$) $\to$ Not significant.
+3. **Secondary Generator (Clean-40 $v_2\text{-alias}$ Accuracy, $M=5$)**:
+   - $V_{\text{rel}}$ vs LLM-only: Control = 0.5750, Treatment = 0.6500, $\Delta = +0.0750$, 95% CI [-0.075, +0.225], W/T/L = 6/31/3, $p_{\text{raw}} = 0.5078$ (Rank 1, $\alpha^* = 0.0100$) $\to$ Not significant.
+   - $V_{0h}$ vs $V_0$: Control = 0.5750, Treatment = 0.6250, $\Delta = +0.0500$, 95% CI [-0.100, +0.200], W/T/L = 6/30/4, $p_{\text{raw}} = 0.7539$ (Rank 2, $\alpha^* = 0.0125$) $\to$ Not significant.
+   - $V_{0h}$ vs LLM-only: Control = 0.5750, Treatment = 0.6250, $\Delta = +0.0500$, 95% CI [-0.100, +0.200], W/T/L = 6/30/4, $p_{\text{raw}} = 0.7539$ (Rank 3, $\alpha^* = 0.0167$) $\to$ Not significant.
+   - $V_{\text{rel}}$ vs $V_{0h}$: Control = 0.6250, Treatment = 0.6500, $\Delta = +0.0250$, 95% CI [-0.100, +0.150], W/T/L = 4/33/3, $p_{\text{raw}} = 1.0000$ (Rank 4, $\alpha^* = 0.0250$) $\to$ Not significant.
+   - $V_0$ vs LLM-only: Control = 0.5750, Treatment = 0.5750, $\Delta = 0.0000$, 95% CI [-0.150, +0.150], W/T/L = 4/32/4, $p_{\text{raw}} = 1.0000$ (Rank 5, $\alpha^* = 0.0500$) $\to$ Not significant.
+
+

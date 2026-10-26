@@ -1,0 +1,16 @@
+# T2_arms: Evaluation Arm Definitions and Experimental Configurations
+
+| Arm ID            | Phase                  | Budget           | Input Query           | Description                                                                                      |
+|:------------------|:-----------------------|:-----------------|:----------------------|:-------------------------------------------------------------------------------------------------|
+| E0' (Raw Control) | Retrieval & Generation | B=500, k=all     | Raw prompt text       | Unfiltered verbatim threat report text; BM25 retriever without candidate pool truncation.        |
+| E0'-HD-k200 (HD)  | Retrieval & Generation | B=500, k=200     | Hygiene filtered      | Candidate pool filtered to top-200 by BM25; prompt stripped of metadata and boilerplate.         |
+| E1h               | Retrieval & Generation | B=500, k=200     | Field-header prefixed | STIX chunks augmented with structural headers bringing technique IDs into verbatim text.         |
+| D1                | Generation             | B=2000, k=200    | Hygiene filtered      | Context budget expanded 4x from B=500 to B=2000 tokens to relieve context choking.               |
+| D2 Hybrid         | Generation             | B=500, k=200     | Hybrid prompt         | Hybrid prompt blending structured STIX entity profiles with raw report text.                     |
+| D3 E1h Mixed      | Generation             | B=500, k=200     | Header-prefixed       | E1h header-prefixed prompt fed to gemini-3.5-flash-lite generator at B=500.                      |
+| D4 Hybrid B=2000  | Generation             | B=2000, k=200    | Hybrid prompt         | Hybrid prompt with expanded B=2000 context budget on cti-ate.                                    |
+| V0                | cti-taa Benchmark      | B2 (BM25 top-10) | Raw prompt text       | Unhygienic raw query including instruction boilerplate and threat group template text.           |
+| V0h               | cti-taa Benchmark      | B2 (BM25 top-10) | Hygienic body-only    | Instruction boilerplate and template examples removed; body text alone.                          |
+| Vrel (Standard)   | cti-taa Benchmark      | B2 (BM25 top-10) | Hygienic + Rel-Exp    | V0h query augmented with software-to-group graph relationship expansion in standard prompt.      |
+| Vrel (Hybrid)     | cti-taa Benchmark      | B=500, k=200     | Hygienic + Rel-Exp    | V0h query augmented with software-to-group expansion evaluated in hybrid prompt format.          |
+| LLM-only          | Generation Baseline    | B=0 tokens       | Zero-shot prompt      | Direct generation without retrieved external context; relies purely on model parametric weights. |

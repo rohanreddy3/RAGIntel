@@ -1,0 +1,12 @@
+arm,regime,clean_40,leaked_10
+LLM-only,Primary Gen,0.65,1.0
+V0 (Raw prompt),Primary Gen,0.525,0.9
+V0h (Hygienic),Primary Gen,0.675,1.0
+Vrel (Relationship),Primary Gen,0.7,1.0
+LLM-only,Secondary Gen,0.575,1.0
+V0 (Raw prompt),Secondary Gen,0.575,1.0
+V0h (Hygienic),Secondary Gen,0.625,1.0
+Vrel (Relationship),Secondary Gen,0.65,1.0
+V0 (Raw prompt),Retrieval Recall@10,0.4,0.1
+V0h (Hygienic),Retrieval Recall@10,0.125,0.2
+Vrel (Relationship),Retrieval Recall@10,0.325,0.3

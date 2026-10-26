@@ -1,0 +1,1 @@
+Figure F5: Downstream live technique F1 across all evaluation arms (E0', HD B=500, D1 B=2000, D2 hybrid, D3 E1h, D4 hybrid) compared against the zero-shot LLM-only baseline with 95% bootstrap CIs (supports Claims C5, C10).

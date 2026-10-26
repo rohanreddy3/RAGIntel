@@ -1,0 +1,9 @@
+generator,arm,full_50,clean_40
+Primary (3.5-flash-lite),LLM-only,0.68,0.65
+Primary (3.5-flash-lite),V0 (Raw prompt),0.6,0.525
+Primary (3.5-flash-lite),V0h (Hygienic),0.74,0.675
+Primary (3.5-flash-lite),Vrel (Relationship),0.76,0.7
+Secondary (3.1-flash-lite),LLM-only,0.66,0.575
+Secondary (3.1-flash-lite),V0 (Raw prompt),0.66,0.575
+Secondary (3.1-flash-lite),V0h (Hygienic),0.7,0.625
+Secondary (3.1-flash-lite),Vrel (Relationship),0.72,0.65

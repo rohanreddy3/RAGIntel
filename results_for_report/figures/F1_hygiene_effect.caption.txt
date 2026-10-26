@@ -1,0 +1,1 @@
+Figure F1: Query hygiene delta across 4 evaluation regimes showing positive retrieval recall contrasting with negative (cti-ate: -0.0855, p=0.0127) or null (CTI-ATTACK: +0.0540, p=0.3553) downstream live generation impact (supports Claims C1, C2, C3, C4).

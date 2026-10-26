@@ -1,0 +1,9 @@
+regime,dataset,delta,ci_lower,ci_upper,p
+1. STIX-ALL Balanced Recall@B,cti-ate,0.0849,0.0382,0.1315,0.0034
+1. STIX-ALL Balanced Recall@B,CTI-ATTACK,0.301,0.252,0.35,0.0001
+2. Enterprise STIX Subtech_Recall,cti-ate,-0.041,-0.0768,-0.0051,0.0037
+2. Enterprise STIX Subtech_Recall,CTI-ATTACK,0.4491,0.385,0.5132,0.0001
+3. Dense 8k Unchunked Recall@10,cti-ate,0.0935,0.036,0.151,0.0002
+3. Dense 8k Unchunked Recall@10,CTI-ATTACK,0.3544,0.297,0.4117,0.0001
+4. Downstream Generation F1 (B=500),cti-ate,-0.0855,-0.1555,-0.0163,0.0127
+4. Downstream Generation F1 (B=500),CTI-ATTACK,0.054,-0.057,0.1659,0.3553

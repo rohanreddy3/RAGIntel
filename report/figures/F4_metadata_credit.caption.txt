@@ -1,0 +1,1 @@
+Figure F4: Recall@B at B=500 comparing STIX metadata-credit against surface text-visible matching, revealing +0.15 to +0.35 artificial recall inflation from structured metadata tags (supports Claim C9).

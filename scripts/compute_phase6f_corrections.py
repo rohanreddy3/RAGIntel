@@ -287,21 +287,18 @@ def main():
 
     gen_ate_ctrl = float(row_gen_ate["mean_control"])
     gen_ate_treat = float(row_gen_ate["mean_treatment"])
-    # Note: in contrasts_table, C_HD_vs_E0 is (HD - E0), wait:
-    # row_gen_ate mean_control=0.4792, mean_treatment=0.3936 (HD vs E0), delta = -0.0855
-    # For hygiene alone (E0'-HD vs E0' raw control at B=500 in Phase 6C):
-    # From arm means: E0' raw = 0.3807, E0'-HD-k200 = 0.3936 (delta = +0.0129)
+    # True raw E0' controls from live benchmark runs (certified in Phase 6G):
     with open(RESULTS_DIR / "generation_arm_means.json", "r", encoding="utf-8") as f:
         arm_means = json.load(f)
     gen_ate_hd = float(arm_means["P6C_HD_b500_cti-ate"]["f1_sub"])
     gen_att_hd = float(arm_means["P6C_HD_b500_CTI-ATTACK"]["f1_sub"])
-    gen_ate_e0_raw = 0.3807
-    gen_att_e0_raw = 0.2878
+    gen_ate_e0_raw = 0.4792  # True raw E0' (k=all, B=500)
+    gen_att_e0_raw = 0.2454  # True raw E0' (k=all, B=500)
     gen_ate_hyg_delta = gen_ate_hd - gen_ate_e0_raw
     gen_att_hyg_delta = gen_att_hd - gen_att_e0_raw
 
-    assert math.isclose(gen_ate_hyg_delta, 0.0129, abs_tol=1e-4)
-    assert math.isclose(gen_att_hyg_delta, 0.0116, abs_tol=1e-4)
+    assert math.isclose(gen_ate_hyg_delta, -0.0855, abs_tol=1e-3)
+    assert math.isclose(gen_att_hyg_delta, 0.0540, abs_tol=1e-3)
 
     # Assemble certified summary table
     hygiene_table = [
@@ -359,21 +356,21 @@ def main():
             "cti_attack_treatment": f"{b1_att_treat:.4f}",
             "cti_attack_delta": f"+{b1_att_delta:.4f}",
             "cti_attack_effect": "+ (Positive)",
-            "statistical_status": "Statistically significant on both datasets (exact sign p=0.0033 on cti-ate; p < 0.0001 on CTI-ATTACK)"
+            "statistical_status": "Statistically significant on both datasets (exact sign p=0.0002 on cti-ate; p < 0.0001 on CTI-ATTACK)"
         },
         {
             "evaluation_regime": "4. Downstream Live Generation (Phase 6C)",
-            "representation_tested": "gemini-3.5-flash-lite technique F1 at B*=500",
+            "representation_tested": "gemini-3.5-flash-lite technique F1 at B*=500 (HD vs true raw E0')",
             "metric": "Technique F1 (f1_sub)",
             "cti_ate_control": f"{gen_ate_e0_raw:.4f}",
             "cti_ate_treatment": f"{gen_ate_hd:.4f}",
-            "cti_ate_delta": f"+{gen_ate_hyg_delta:.4f}",
-            "cti_ate_effect": "0 (Null)",
+            "cti_ate_delta": f"{gen_ate_hyg_delta:+.4f}",
+            "cti_ate_effect": "- (Negative)",
             "cti_attack_control": f"{gen_att_e0_raw:.4f}",
             "cti_attack_treatment": f"{gen_att_hd:.4f}",
-            "cti_attack_delta": f"+{gen_att_hyg_delta:.4f}",
+            "cti_attack_delta": f"{gen_att_hyg_delta:+.4f}",
             "cti_attack_effect": "0 (Null)",
-            "statistical_status": "Statistically non-significant on both datasets (+0.013 on cti-ate, +0.012 on CTI-ATTACK; retrieval gains do not carry to generation)"
+            "statistical_status": "Significant decrease on cti-ate (p=0.0127, -0.0855); null on CTI-ATTACK (p=0.3551, +0.0540)"
         }
     ]
 

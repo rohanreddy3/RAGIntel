@@ -83,25 +83,25 @@ def test_stix_active_vs_all_counts():
     kb_active = load_stix_bundle(bundle_path, filter_active_only=True)
     kb_all = load_stix_bundle(bundle_path, filter_active_only=False)
 
-    assert kb_all.total_objects == 26085
+    assert kb_all.total_objects == 26689
     assert kb_active.total_objects < kb_all.total_objects
-    assert kb_active.total_objects == 25639
+    assert kb_active.total_objects == 26243
     # Difference is exactly 446 inactive objects
     assert kb_all.total_objects - kb_active.total_objects == 446
 
 
 def test_stix_audit_mathematical_reconciliation():
-    """Mathematically reconciles 1,877 unfiltered objects vs 1,698 active objects in raw corpus."""
+    """Mathematically reconciles 1,905 unfiltered objects vs 1,726 active objects in raw corpus."""
     from src.corpus import build_stix_raw_documents
 
     bundle_path = "data/mitre/enterprise-attack.json"
     kb_all = load_stix_bundle(bundle_path, filter_active_only=False)
     kb_active = load_stix_bundle(bundle_path, filter_active_only=True)
 
-    # 1. Unfiltered counts sum to 1,877
-    assert len(kb_all.attack_patterns) == 858
-    assert len(kb_all.intrusion_sets) == 191
-    assert len(kb_all.malware) == 733
+    # 1. Unfiltered counts sum to 1,905
+    assert len(kb_all.attack_patterns) == 867
+    assert len(kb_all.intrusion_sets) == 193
+    assert len(kb_all.malware) == 750
     assert len(kb_all.tools) == 95
     total_unfiltered = (
         len(kb_all.attack_patterns)
@@ -109,7 +109,7 @@ def test_stix_audit_mathematical_reconciliation():
         + len(kb_all.malware)
         + len(kb_all.tools)
     )
-    assert total_unfiltered == 1877
+    assert total_unfiltered == 1905
 
     # 2. Inactive (revoked or deprecated) breakdown
     inactive_patterns = len(kb_all.attack_patterns) - len(kb_active.attack_patterns)
@@ -124,10 +124,10 @@ def test_stix_audit_mathematical_reconciliation():
     total_inactive = inactive_patterns + inactive_groups + inactive_malware + inactive_tools
     assert total_inactive == 179
 
-    # 3. Active counts sum to exactly 1,698
-    assert len(kb_active.attack_patterns) == 697
-    assert len(kb_active.intrusion_sets) == 176
-    assert len(kb_active.malware) == 730
+    # 3. Active counts sum to exactly 1,726
+    assert len(kb_active.attack_patterns) == 706
+    assert len(kb_active.intrusion_sets) == 178
+    assert len(kb_active.malware) == 747
     assert len(kb_active.tools) == 95
     total_active = (
         len(kb_active.attack_patterns)
@@ -135,11 +135,11 @@ def test_stix_audit_mathematical_reconciliation():
         + len(kb_active.malware)
         + len(kb_active.tools)
     )
-    assert total_active == 1698
+    assert total_active == 1726
     assert total_unfiltered - total_inactive == total_active
 
-    # 4. Raw corpus builder produces exactly 1,698 documents
+    # 4. Raw corpus builder produces exactly 1,726 documents
     raw_docs = build_stix_raw_documents(kb_active)
-    assert len(raw_docs) == 1698
+    assert len(raw_docs) == 1726
 
 
