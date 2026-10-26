@@ -45,15 +45,15 @@
     "dataset": "cti-ate",
     "arm": "E1h (B=500 context)",
     "n_queries": 60,
-    "mean_pred_tech_count": "Pending D3 gen",
+    "mean_pred_tech_count": 5.37,
     "mean_distinct_ids_in_ctx": 5.88,
     "mean_chunks_in_ctx": 5.82,
     "mean_context_recall": 0.0919,
-    "abstention_count": "Pending D3 gen",
-    "empty_response_count": "Pending D3 gen",
-    "truncation_count": "Pending D3 gen",
-    "spearman_ctx_rec_vs_f1": "Pending D3 gen",
-    "spearman_p": "Pending D3 gen"
+    "abstention_count": 1,
+    "empty_response_count": 0,
+    "truncation_count": 0,
+    "spearman_ctx_rec_vs_f1": 0.1766,
+    "spearman_p": 0.1771
   },
   {
     "dataset": "CTI-ATTACK",
@@ -101,14 +101,14 @@
     "dataset": "CTI-ATTACK",
     "arm": "E1h (B=500 context)",
     "n_queries": 229,
-    "mean_pred_tech_count": "Pending D3 gen",
+    "mean_pred_tech_count": 2.94,
     "mean_distinct_ids_in_ctx": 5.61,
     "mean_chunks_in_ctx": 4.85,
     "mean_context_recall": 0.4709,
-    "abstention_count": "Pending D3 gen",
-    "empty_response_count": "Pending D3 gen",
-    "truncation_count": "Pending D3 gen",
-    "spearman_ctx_rec_vs_f1": "Pending D3 gen",
-    "spearman_p": "Pending D3 gen"
+    "abstention_count": 1,
+    "empty_response_count": 0,
+    "truncation_count": 0,
+    "spearman_ctx_rec_vs_f1": 0.8023,
+    "spearman_p": 0.0
   }
 ]

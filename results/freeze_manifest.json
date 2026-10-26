@@ -1,11 +1,11 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-24T07:39:11.247584+00:00",
-  "total_files": 157,
+  "timestamp_utc": "2026-10-26T07:57:22.045215+00:00",
+  "total_files": 166,
   "files": {
     "analysis_plan.md": {
-      "sha256": "c07cd8151110565c7aa63ded290a332afca1adf7b5e7b3b550cde5f38dd88c4c",
-      "size_bytes": 34170
+      "sha256": "2edc86e42db4ad06a44e1c677f72a5aa35442edda04006a9772822b1cdab267d",
+      "size_bytes": 64316
     },
     "report/dataset_stats.md": {
       "sha256": "3fe402b2c5553f811f18f3cb5d0f444f78b54631cfbd0b75612c5943983cea62",
@@ -512,12 +512,12 @@
       "size_bytes": 15073
     },
     "results/phase_6d/diagnostics_generation.csv": {
-      "sha256": "ceec5249db2dbac44094802a2b934453ca944b255a0fc00711062a54a44785aa",
-      "size_bytes": 894
+      "sha256": "dbd6ff7f78d41159600a13a5218499ce22d7388f68e992f8e2b3da50217d657c",
+      "size_bytes": 761
     },
     "results/phase_6d/diagnostics_generation.json": {
-      "sha256": "679e3fdb65009454fb17e8522a399af795774e40f3377b9c7f51575a40aaf2a7",
-      "size_bytes": 3268
+      "sha256": "d3377f6661b30832bb0e0f877855fc3ce9a02d054ed6dbf451dcc98a697c0a1d",
+      "size_bytes": 3111
     },
     "results/phase_6d/holm_primary_generation.csv": {
       "sha256": "5aeab1cae550f3fd54bd15fc0a46fc88148fbcaa4a41e38d299ea1fc349aadb1",
@@ -556,16 +556,16 @@
       "size_bytes": 4811
     },
     "results/phase_6d/generation_arm_means.json": {
-      "sha256": "e30f745a4f365636314a9f882bedbf07ba4c965a659b93ac3aaaf485dbc918b6",
-      "size_bytes": 2024
+      "sha256": "19f55b7bc0f3a7edfb27716b6858aa878cac920c298249c69ba69a492e95a21e",
+      "size_bytes": 2563
     },
     "results/phase_6d/generation_contrasts.csv": {
-      "sha256": "c30b03ed54c02f361ab68f3cec43809e9fc6fc4670e53c0019a12eb2ee4a7209",
-      "size_bytes": 1766
+      "sha256": "05a8483af00323fff6ecb9493e500dfab085b1baabbe7d2f52f3fd4dddb3bf95",
+      "size_bytes": 2684
     },
     "results/phase_6d/generation_contrasts.json": {
-      "sha256": "293b36de7c0724596220416c08d0f2f5247f03fcaa277a37e631b17b22362775",
-      "size_bytes": 5575
+      "sha256": "97a4dbc9c4fa7732b1394022c84ead74f3b199b184eab4916adfb8476092ea6e",
+      "size_bytes": 8628
     },
     "results/phase_6d/secondary_kb_contrasts.csv": {
       "sha256": "00ea20fa9824452604de7bf89cc83a213bd4dd9f81e0c03343a1365534690502",
@@ -596,20 +596,20 @@
       "size_bytes": 898
     },
     "results/phase_6d/hygiene_summary_table.csv": {
-      "sha256": "95bdd51f0f6172829087e67d671cc4e9f810c11edaa84624361a6336e7bbf63d",
-      "size_bytes": 1337
+      "sha256": "5a720c07f2097ad9b855bc32a7ed03b9523d7dce7b63077c1a1be125383c24bb",
+      "size_bytes": 1880
     },
     "results/phase_6d/hygiene_summary_table.json": {
-      "sha256": "53eddd7028b3ce707308aa18339f7b3355879a2bd190a4f62aa972508c5f0c9d",
-      "size_bytes": 2511
+      "sha256": "bc29d048e8365ee679b1d537a3e967de3bbdecd66d21223de64d0a29aeea1b49",
+      "size_bytes": 3391
     },
     "results/phase_6d/quota_accounting_by_utc_day.csv": {
-      "sha256": "e12479193a11c0f465a663d88549844980c9567a8d75c6cfd946b0e94e5bb981",
-      "size_bytes": 548
+      "sha256": "0bfd24b5d1e69b3f288de55dfaa16fd56d9ca613d13a27124f5459c6c411c901",
+      "size_bytes": 191
     },
     "results/phase_6d/quota_accounting_by_utc_day.json": {
-      "sha256": "de80d3f41577ea6cd87c7af7ac2713139bb6dc627cc73376f362f133785c6197",
-      "size_bytes": 1252
+      "sha256": "94a4991c5ef51c4fd22a6f495889b3df1ab9be10564998ab8b7e2acbc73afe0c",
+      "size_bytes": 1550
     },
     "results/phase_6d/retrieval_reconciliation_b500.csv": {
       "sha256": "ba555851eafb4845379b03ffac3ade8c47371b3049bc6a56fdf3821bcb601cdf",
@@ -628,8 +628,44 @@
       "size_bytes": 9727
     },
     "results/phase_6d/vrel_noise_floor_stratification.json": {
-      "sha256": "a115e12fe7fa9a0d7dde38b4352b39b72526162fc5eaeb9f25858d62ae784f30",
-      "size_bytes": 807
+      "sha256": "ae0ac24f7229702d6bb2b13801c4698164be790c593de323567a3e3785d8f596",
+      "size_bytes": 932
+    },
+    "results/phase_6d/case_studies_aggregate_stats.json": {
+      "sha256": "78111c91dbd4ef35b2b281c969abcbcac8577507c2673312e9e218f9afbeebb5",
+      "size_bytes": 1395
+    },
+    "results/phase_6d/detector_precision_audit.json": {
+      "sha256": "a7bd1edbadcf1eb1d2a85871cbf003cef9655e8bcb327a5d926cfa53a41e873e",
+      "size_bytes": 1337
+    },
+    "results/phase_6d/gt_alias_leakage_audit.csv": {
+      "sha256": "44f6ad3619edd0d97d937e847b117937670ebed534e687915949706135c3afc1",
+      "size_bytes": 1429
+    },
+    "results/phase_6d/gt_alias_leakage_audit.json": {
+      "sha256": "cfb24ae958f370d3107d5f08876d5dfb13fcbe9d0b7b6e7edc5c6832d563df75",
+      "size_bytes": 5503
+    },
+    "results/phase_6d/kb_integrity_audit.json": {
+      "sha256": "51d29f1854e8724e8273d63c031c42829f457228418f115fbde6f148b23e1605",
+      "size_bytes": 26417
+    },
+    "results/phase_6d/metadata_credit_audit.csv": {
+      "sha256": "7ff2ba622e30445584166cced55a895e8781bd1497d8df39036ddb9cff15eb04",
+      "size_bytes": 1648
+    },
+    "results/phase_6d/metadata_credit_audit.json": {
+      "sha256": "9fe82f71abb91f5dfffe73e987669ac06b9532fcde19af21d285d82be578f165",
+      "size_bytes": 2809
+    },
+    "results/phase_6d/phase6g_corrections.json": {
+      "sha256": "cd45fffe1ecb63ef0ae729ba4f4dba1a6f1474de93912d04a754afaa8368be72",
+      "size_bytes": 9466
+    },
+    "results/phase_6d/vrel_noise_strata_ledger.csv": {
+      "sha256": "2050f496052f92a6a8eca6c99c0b27ee98e0b34606d50f7ff7c711fa02948ea9",
+      "size_bytes": 4090
     }
   }
 }

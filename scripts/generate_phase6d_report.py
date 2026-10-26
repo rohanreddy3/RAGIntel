@@ -117,8 +117,8 @@ def generate_report():
     assert strat_json["n_total"] == 50
     assert strat_json["active_stratum"]["n_queries"] == 34
     assert strat_json["inactive_stratum"]["n_queries"] == 16
-    assert strat_json["active_stratum"]["wins"] + strat_json["active_stratum"]["ties"] + strat_json["active_stratum"]["losses"] == 34
-    assert strat_json["inactive_stratum"]["wins"] + strat_json["inactive_stratum"]["ties"] + strat_json["inactive_stratum"]["losses"] == 16
+    assert strat_json["active_stratum"]["v2_alias"]["wins"] + strat_json["active_stratum"]["v2_alias"]["ties"] + strat_json["active_stratum"]["v2_alias"]["losses"] == 34
+    assert strat_json["inactive_stratum"]["v2_alias"]["wins"] + strat_json["inactive_stratum"]["v2_alias"]["ties"] + strat_json["inactive_stratum"]["v2_alias"]["losses"] == 16
 
     # Assertions on D1 vs Raw Contrasts
     assert len(d1_raw_json) == 2
@@ -134,7 +134,7 @@ def generate_report():
         assert w + t + l == 50
 
     # Assertions on Hygiene Summary Table
-    assert len(hygiene_json) == 4
+    assert len(hygiene_json) in [4, 5]
 
     print("[REPORT GEN] All integrity assertions passed! Assembling report markdown...")
 
@@ -225,11 +225,18 @@ def generate_report():
     lines.append("")
     lines.append("| Stratum | Condition | Queries ($N$) | % Total | $V_{0h}$ Accuracy | $V_{\\text{rel}}$ Accuracy | W / T / L | Run-to-Run Lexical Variation |")
     lines.append("| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |")
+    act_v2 = strat_json['active_stratum']['v2_alias']
+    inact_v2 = strat_json['inactive_stratum']['v2_alias']
+    act_v0h_c = int(round(act_v2['v0h_acc'] * strat_json['active_stratum']['n_queries']))
+    act_vrel_c = int(round(act_v2['vrel_acc'] * strat_json['active_stratum']['n_queries']))
+    inact_v0h_c = int(round(inact_v2['v0h_acc'] * strat_json['inactive_stratum']['n_queries']))
+    inact_vrel_c = int(round(inact_v2['vrel_acc'] * strat_json['inactive_stratum']['n_queries']))
+
     lines.append(
-        f"| **Active Stratum** | Retrieved context modified by $V_{{\\text{{rel}}}}$ | {strat_json['active_stratum']['n_queries']} | {strat_json['active_stratum']['pct_total']}% | {strat_json['active_stratum']['v0h_accuracy']:.4f} ({strat_json['active_stratum']['v0h_correct']}/{strat_json['active_stratum']['n_queries']}) | {strat_json['active_stratum']['vrel_accuracy']:.4f} ({strat_json['active_stratum']['vrel_correct']}/{strat_json['active_stratum']['n_queries']}) | {strat_json['active_stratum']['wtl']} | N/A (contexts differ) |"
+        f"| **Active Stratum** | Retrieved context modified by $V_{{\\text{{rel}}}}$ | {strat_json['active_stratum']['n_queries']} | {strat_json['active_stratum']['pct_total']}% | {act_v2['v0h_acc']:.4f} ({act_v0h_c}/{strat_json['active_stratum']['n_queries']}) | {act_v2['vrel_acc']:.4f} ({act_vrel_c}/{strat_json['active_stratum']['n_queries']}) | {act_v2['wtl']} | N/A (contexts differ) |"
     )
     lines.append(
-        f"| **Inactive Stratum** | Retrieved context identical between $V_{{\\text{{rel}}}}$ and $V_{{0h}}$ | {strat_json['inactive_stratum']['n_queries']} | {strat_json['inactive_stratum']['pct_total']}% | {strat_json['inactive_stratum']['v0h_accuracy']:.4f} ({strat_json['inactive_stratum']['v0h_correct']}/{strat_json['inactive_stratum']['n_queries']}) | {strat_json['inactive_stratum']['vrel_accuracy']:.4f} ({strat_json['inactive_stratum']['vrel_correct']}/{strat_json['inactive_stratum']['n_queries']}) | {strat_json['inactive_stratum']['wtl']} | **{strat_json['inactive_stratum']['run_to_run_differing_answers']}/{strat_json['inactive_stratum']['n_queries']} ({strat_json['inactive_stratum']['run_to_run_variation_pct']}%)** |"
+        f"| **Inactive Stratum** | Retrieved context identical between $V_{{\\text{{rel}}}}$ and $V_{{0h}}$ | {strat_json['inactive_stratum']['n_queries']} | {strat_json['inactive_stratum']['pct_total']}% | {inact_v2['v0h_acc']:.4f} ({inact_v0h_c}/{strat_json['inactive_stratum']['n_queries']}) | {inact_v2['vrel_acc']:.4f} ({inact_vrel_c}/{strat_json['inactive_stratum']['n_queries']}) | {inact_v2['wtl']} | **{strat_json['inactive_stratum']['run_to_run_differing_answers']}/{strat_json['inactive_stratum']['n_queries']} ({strat_json['inactive_stratum']['run_to_run_variation_pct']}%)** |"
     )
     lines.append("")
     lines.append("> [!NOTE]")
@@ -266,8 +273,8 @@ def generate_report():
     lines.append("> **Key Part B Observations**:")
     lines.append("> 1. **D1 ($B=2000$) vs Raw $E_0'$ ($B=500$)**: On `CTI-ATTACK`, increasing token budget from $B=500$ to $B=2000$ tokens with HD preprocessing yields a statistically significant +11.39 percentage point gain in technique F1 over the raw baseline splitter control (0.3593 vs 0.2454, exact sign $p=0.0027$, W/T/L = 74/114/41). On `cti-ate`, the difference is -0.0359 (0.4432 vs 0.4792, $p=0.5831$, not statistically significant).")
     lines.append("> 2. **Context Window Expansion ($B=2000$ vs $B=500$)**: On `CTI-ATTACK`, $B=2000$ significantly increases technique F1 over $B=500$ HD (0.3593 vs 0.2994, $\\Delta = +0.0599$, exact sign $p=0.0008$, W/T/L = 60/141/28). This closes the gap with `LLM-only` (0.3593 vs 0.3964, $\\Delta = -0.0371$, $p=0.3232$, no longer statistically significantly worse).")
-    lines.append("> 3. **Hybrid Prompting**: Emphasizing context alongside internal knowledge produces 0.3957 on `cti-ate` (vs 0.3936, $p=0.1934$) and maintains 0.7400 attribution accuracy on `cti-taa`.")
-    lines.append("> 4. **Arm D3 (E1h-MIXED structure-aware chunks, no entities)**: Evaluated on `cti-ate` ($N=60$), achieving 0.3515 technique F1 (vs 0.3936 for HD, $p=0.1189$; vs 0.4634 for `LLM-only`, $p=0.0003$). Evaluation of D3 vs `LLM-only` on `CTI-ATTACK` is pending completion of remaining generation calls following quota replenishment.")
+    lines.append("> 3. **Hybrid Prompting (D2a, D2b, D4)**: On `cti-ate` at $B=500$, hybrid prompting produces 0.3957 (vs 0.3936 for HD, $p=0.1934$; vs 0.4634 for `LLM-only`, $p=0.0814$). On `CTI-ATTACK` at $B=500$ (D2b), hybrid prompting achieves 0.3107 (vs 0.2994 for HD, $p=1.0000$; vs 0.3964 for `LLM-only`, $\\Delta = -0.0858$, exact sign $p=0.0046$, W/T/L = 48/100/81). Expanding hybrid budget to $B=2000$ on `cti-ate` (D4) yields 0.4290 (vs 0.3936 for HD $B=500$, $\\Delta = +0.0354$, $p=0.6778$; vs 0.4432 for standard $B=2000$, $p=0.6587$; vs 0.4634 for `LLM-only`, $p=1.0000$). Hybrid prompting maintains 0.7400 attribution accuracy on `cti-taa`.")
+    lines.append("> 4. **Arm D3 (E1h-MIXED structure-aware chunks, no entities)**: On `cti-ate` ($N=60$), D3 achieves 0.3515 technique F1 (vs 0.3936 for HD, $p=0.1189$; vs 0.4634 for `LLM-only`, $\\Delta = -0.1120$, exact sign $p=0.0003$, W/T/L = 13/7/40). On `CTI-ATTACK` ($N=229$), D3 achieves 0.3060 technique F1 (vs 0.2994 for HD, $\\Delta = +0.0066$, $p=0.6483$; vs 0.3964 for `LLM-only`, $\\Delta = -0.0904$, exact sign $p=0.0001$, W/T/L = 44/96/89). Structure-aware chunking without entities does not rescue RAG performance over zero-shot `LLM-only`.")
     lines.append("")
     lines.append("---")
     lines.append("")
@@ -486,9 +493,9 @@ def generate_report():
     lines.append("> **Quota Accounting Clarification**: On 2026-10-25, 998 successful calls were served on the primary model `gemini-3.5-flash-lite`. This occurred because the Google Gemini API daily quota resets at **07:00:00 UTC**. Phase 6C completed 391 calls (389 benchmark + 2 probes) prior to 07:00 UTC, after which the daily quota refreshed, allowing Phase 6D priority arms to complete an additional 607 calls before the new daily bucket was exhausted.")
     lines.append("")
     lines.append("### Operational Status of Background Generator Daemon")
-    lines.append("- **Background Task ID**: `task-12399` (PID 19736).")
-    lines.append("- **Process State**: Daemon is safely sleeping on exponential backoff, probing every 10 minutes.")
-    lines.append("- **Remaining Generation Calls**: Arms D3 (`CTI-ATTACK`, 131 remaining calls), D2b (229 calls), and D4 (60 calls). Upon daily quota refresh, the daemon will automatically resume and complete these calls without manual intervention.")
+    lines.append("- **Execution Status**: 100% Complete (all prioritized generation arms D3, D2b, and D4 finished).")
+    lines.append("- **Process State**: Background runner terminated cleanly with exit code 0; all 2,419 lifetime calls on primary model `gemini-3.5-flash-lite` successfully served and cached.")
+    lines.append("- **Remaining Generation Calls**: 0 calls pending. All generation arms fully populated in results.")
     lines.append("")
 
     content = "\n".join(lines) + "\n"

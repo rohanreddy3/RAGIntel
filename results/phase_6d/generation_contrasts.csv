@@ -12,3 +12,10 @@ D2a_hybrid_Vrel_vs_P6C_Vrel_taa,cti-taa,v2_alias,True,P6C_Vrel,D2a_hybrid_Vrel,0
 D2a_hybrid_Vrel_vs_V0h_taa,cti-taa,v2_alias,True,D2a_hybrid_V0h,D2a_hybrid_Vrel,0.74,0.74,0.0,-0.12,0.12,1.0,5/40/5,1.0
 D3_O2_vs_LLM_cti-ate,cti-ate,f1_sub,True,LLM_only,D3_O2_E1h_HD,0.4634,0.3515,-0.112,-0.1712,-0.0516,0.0002,13/7/40,0.0003
 D3_O2_vs_P6C_HD_cti-ate,cti-ate,f1_sub,True,HD_b500,D3_O2_E1h_HD,0.3936,0.3515,-0.0422,-0.1016,0.0186,0.1745,19/10/31,0.1189
+D3_O2_vs_LLM_CTI-ATTACK,CTI-ATTACK,f1_sub,True,LLM_only,D3_O2_E1h_HD,0.3964,0.306,-0.0904,-0.1386,-0.043,0.0001,44/96/89,0.0001
+D3_O2_vs_P6C_HD_CTI-ATTACK,CTI-ATTACK,f1_sub,True,HD_b500,D3_O2_E1h_HD,0.2994,0.306,0.0066,-0.0378,0.0516,0.7731,57/109/63,0.6483
+D2b_hybrid_vs_LLM_CTI-ATTACK,CTI-ATTACK,f1_sub,True,LLM_only,D2b_hybrid,0.3964,0.3107,-0.0858,-0.1294,-0.0421,0.0002,48/100/81,0.0046
+D2b_hybrid_vs_P6C_HD_CTI-ATTACK,CTI-ATTACK,f1_sub,True,HD_b500,D2b_hybrid,0.2994,0.3107,0.0113,-0.0201,0.043,0.488,41/147/41,1.0
+D4_hybrid_vs_LLM_cti-ate,cti-ate,f1_sub,True,LLM_only,D4_hybrid_b2000,0.4634,0.429,-0.0345,-0.0779,0.0083,0.1193,27/6/27,1.0
+D4_hybrid_vs_P6C_HD_cti-ate,cti-ate,f1_sub,True,HD_b500,D4_hybrid_b2000,0.3936,0.429,0.0354,-0.0134,0.0895,0.1806,28/8/24,0.6778
+D4_hybrid_vs_D1_b2000_cti-ate,cti-ate,f1_sub,True,D1_HD_b2000,D4_hybrid_b2000,0.4432,0.429,-0.0142,-0.0609,0.032,0.5491,21/14/25,0.6587

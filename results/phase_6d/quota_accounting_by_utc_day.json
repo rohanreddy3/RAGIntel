@@ -43,5 +43,14 @@
     "server_errors": 0,
     "total_calls": 201,
     "notes": "Separate quota pool; completed Part F replication (1 probe + 200 benchmark calls)"
+  },
+  {
+    "utc_date": "2026-10-26",
+    "model": "gemini-3.5-flash-lite",
+    "success_calls": 421,
+    "rate_limited_429": 0,
+    "server_errors": 0,
+    "total_calls": 421,
+    "notes": "Completed remaining generation arms D3, D2b, D4 (1 probe + 420 benchmark calls); 0 rate limits."
   }
 ]

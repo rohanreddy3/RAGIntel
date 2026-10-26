@@ -42,7 +42,7 @@ from src.retrieval_eval import (
     parse_ground_truth_techniques,
     normalize_group_name,
 )
-from scripts.compute_phase6c_metrics import score_group_match, compute_contrast_stats
+from scripts.compute_phase6c_metrics import score_group_match, compute_contrast_stats, compute_technique_f1
 
 
 def is_abstention(text: str) -> bool:
@@ -369,6 +369,11 @@ def main():
         chunks_per_ctx_e1h = []
         distinct_ids_e1h = []
         ctx_recall_e1h = []
+        pred_counts_e1h = []
+        abstain_e1h = 0
+        empty_e1h = 0
+        trunc_e1h = 0
+        f1_vals_e1h = []
 
         for idx, row in df_bench.iterrows():
             gt_set = parse_ground_truth_techniques(str(row.get("techniques", row.get("ground_truth", ""))))
@@ -385,19 +390,40 @@ def main():
             else:
                 ctx_recall_e1h.append(0.0)
 
+            c_file = cache_dir / f"E1h_mixed_HD_b500_{ds_name}_row_{idx}.json"
+            if c_file.is_file():
+                with open(c_file, "r", encoding="utf-8") as f:
+                    d = json.load(f)
+                raw_ans = d.get("raw_answer", "")
+                if is_abstention(raw_ans):
+                    abstain_e1h += 1
+                if d.get("finish_reason") == "FinishReason.MAX_TOKENS":
+                    trunc_e1h += 1
+                preds = extract_technique_ids_from_text(raw_ans)
+                pred_counts_e1h.append(len(preds))
+                if len(preds) == 0:
+                    empty_e1h += 1
+                f1_sub = compute_technique_f1(preds, gt_set)["f1_sub"]
+                f1_vals_e1h.append(f1_sub)
+            else:
+                pred_counts_e1h.append(0)
+                f1_vals_e1h.append(0.0)
+
+        rho_e1h, p_val_e1h = spearmanr(ctx_recall_e1h, f1_vals_e1h)
+
         diagnostics_rows.append({
             "dataset": ds_name,
             "arm": "E1h (B=500 context)",
             "n_queries": n_queries,
-            "mean_pred_tech_count": "Pending D3 gen",
+            "mean_pred_tech_count": round(float(np.mean(pred_counts_e1h)), 2),
             "mean_distinct_ids_in_ctx": round(float(np.mean(distinct_ids_e1h)), 2),
             "mean_chunks_in_ctx": round(float(np.mean(chunks_per_ctx_e1h)), 2),
             "mean_context_recall": round(float(np.mean(ctx_recall_e1h)), 4),
-            "abstention_count": "Pending D3 gen",
-            "empty_response_count": "Pending D3 gen",
-            "truncation_count": "Pending D3 gen",
-            "spearman_ctx_rec_vs_f1": "Pending D3 gen",
-            "spearman_p": "Pending D3 gen",
+            "abstention_count": abstain_e1h,
+            "empty_response_count": empty_e1h,
+            "truncation_count": trunc_e1h,
+            "spearman_ctx_rec_vs_f1": round(float(rho_e1h), 4),
+            "spearman_p": round(float(p_val_e1h), 4),
         })
 
     df_diag = pd.DataFrame(diagnostics_rows)

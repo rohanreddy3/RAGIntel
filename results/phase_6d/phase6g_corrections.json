@@ -1,0 +1,331 @@
+{
+  "item1_gt_top3": {
+    "full_50": {
+      "non_empty_votes": 34,
+      "gt_top1": 19,
+      "gt_top3": 21
+    },
+    "clean_40": {
+      "non_empty_votes": 28,
+      "gt_top1": 14,
+      "gt_top3": 15
+    }
+  },
+  "item2_arm_definitions_and_recall": {
+    "arm_definitions": [
+      {
+        "Arm": "V0",
+        "Query Text": "Raw prompt (body + instruction + threat group templates)",
+        "Detector": "None",
+        "Hygiene": "None",
+        "Expansion": "None",
+        "Clean-40 Recall@10": 0.4
+      },
+      {
+        "Arm": "V1",
+        "Query Text": "Raw prompt (body + instruction + threat group templates)",
+        "Detector": "Phase 4 regex (unfiltered)",
+        "Hygiene": "None",
+        "Expansion": "STIX software-to-group co-occurrence",
+        "Clean-40 Recall@10": "N/A (unhygienic)"
+      },
+      {
+        "Arm": "V0h",
+        "Query Text": "Hygienic body-only (instruction & templates stripped)",
+        "Detector": "None",
+        "Hygiene": "Instruction stripping + OS stoplist",
+        "Expansion": "None",
+        "Clean-40 Recall@10": 0.125
+      },
+      {
+        "Arm": "Vrel",
+        "Query Text": "Hygienic body-only (instruction & templates stripped)",
+        "Detector": "Phase 4 regex (body-only)",
+        "Hygiene": "Instruction stripping + OS stoplist",
+        "Expansion": "STIX software-to-group co-occurrence",
+        "Clean-40 Recall@10": 0.325
+      }
+    ],
+    "clean_40_means": {
+      "V0": 0.4,
+      "V0h": 0.125,
+      "Vrel": 0.325
+    },
+    "contrasts": {
+      "V0h_to_Vrel": {
+        "delta": 0.2,
+        "W": 8,
+        "T": 32,
+        "L": 0,
+        "p": 0.0078125,
+        "ci_95": [
+          0.075,
+          0.325
+        ]
+      },
+      "V0_to_Vrel": {
+        "delta": -0.07500000000000001,
+        "W": 6,
+        "T": 25,
+        "L": 9,
+        "p": 0.6072387695312499,
+        "ci_95": [
+          -0.275,
+          0.125
+        ]
+      }
+    },
+    "plain_statement": "On the clean 40-query primary benchmark, relationship expansion recovers recall relative to hygienic retrieval (V0h -> Vrel: +0.2000, W/T/L = 8/32/0, p = 0.00781), but DOES NOT exceed the raw unhygienic V0 level (Vrel = 0.3250 vs V0 = 0.4000; Delta = -0.0750, W/T/L = 6/25/9, p = 0.60724). The higher recall of raw V0 is driven by unhygienic prompt cues (e.g., explicit threat group templates) present in the raw text."
+  },
+  "item3_control_reconciliation": {
+    "table": [
+      {
+        "Dataset": "cti-ate",
+        "Role": "Raw Control (E0')",
+        "Arm Name": "raw_prompt_b500_E0_prime",
+        "Pool (k)": "Unfiltered (k=all)",
+        "Budget B": 500,
+        "N": 60,
+        "Mean f1_sub": 0.47918000000000005,
+        "Status": "TRUE CONTROL"
+      },
+      {
+        "Dataset": "cti-ate",
+        "Role": "Phantom Control",
+        "Arm Name": "0.3807 (back-calculated)",
+        "Pool (k)": "N/A",
+        "Budget B": 500,
+        "N": 60,
+        "Mean f1_sub": 0.3807,
+        "Status": "ERRONEOUS (Phase 6E back-calc: 0.3936 - 0.0129)"
+      },
+      {
+        "Dataset": "cti-ate",
+        "Role": "HD Treatment (E0'-HD-k200)",
+        "Arm Name": "raw_prompt_b500_E0_prime_HD_k200",
+        "Pool (k)": "k=200",
+        "Budget B": 500,
+        "N": 60,
+        "Mean f1_sub": 0.39364000000000005,
+        "Status": "TREATMENT"
+      },
+      {
+        "Dataset": "CTI-ATTACK",
+        "Role": "Raw Control (E0')",
+        "Arm Name": "raw_prompt_b500_E0_prime",
+        "Pool (k)": "Unfiltered (k=all)",
+        "Budget B": 500,
+        "N": 229,
+        "Mean f1_sub": 0.2454,
+        "Status": "TRUE CONTROL"
+      },
+      {
+        "Dataset": "CTI-ATTACK",
+        "Role": "Phantom Control",
+        "Arm Name": "0.2878 (back-calculated)",
+        "Pool (k)": "N/A",
+        "Budget B": 500,
+        "N": 229,
+        "Mean f1_sub": 0.2878,
+        "Status": "ERRONEOUS (Phase 6E back-calc: 0.2994 - 0.0116)"
+      },
+      {
+        "Dataset": "CTI-ATTACK",
+        "Role": "HD Treatment (E0'-HD-k200)",
+        "Arm Name": "raw_prompt_b500_E0_prime_HD_k200",
+        "Pool (k)": "k=200",
+        "Budget B": 500,
+        "N": 229,
+        "Mean f1_sub": 0.2994122270742358,
+        "Status": "TREATMENT"
+      }
+    ],
+    "contrasts": {
+      "cti-ate": {
+        "raw": 0.47918000000000005,
+        "hd": 0.39364000000000005,
+        "delta": -0.08554,
+        "W": 17,
+        "T": 7,
+        "L": 36,
+        "p": 0.012660335802414213
+      },
+      "CTI-ATTACK": {
+        "raw": 0.2454,
+        "hd": 0.2994122270742358,
+        "delta": 0.05401222707423581,
+        "W": 64,
+        "T": 112,
+        "L": 53,
+        "p": 0.3552796816522469
+      }
+    }
+  },
+  "item4_p_values": {
+    "B1_cti_ate_p": 0.00017999112606048584
+  },
+  "item5_stoplist_clarification": {
+    "changed_queries": [
+      4,
+      7,
+      11,
+      15,
+      17,
+      18,
+      20,
+      24,
+      25,
+      34,
+      43
+    ],
+    "count_changed": 11,
+    "clarification": "The generic OS utility stoplist filter modified entity detection tokens in exactly 11 cti-taa queries (IDs: [4, 7, 11, 15, 17, 18, 20, 24, 25, 34, 43]). This modification is strictly a RETRIEVAL-LEVEL observation. Downstream LLM generation for these 11 queries was NOT re-run under the modified stoplist."
+  },
+  "item6_detector_errors_and_precision": {
+    "partitions": {
+      "prompt_templates": {
+        "count": 11,
+        "ids": [
+          7,
+          25,
+          29,
+          40,
+          59,
+          60,
+          66,
+          71,
+          72,
+          84,
+          92
+        ]
+      },
+      "common_words_dotnet_ping": {
+        "count": 15,
+        "ids": [
+          1,
+          14,
+          16,
+          21,
+          23,
+          24,
+          33,
+          35,
+          39,
+          45,
+          48,
+          57,
+          58,
+          82,
+          91
+        ]
+      },
+      "generic_os_utilities": {
+        "count": 11,
+        "ids": [
+          10,
+          17,
+          27,
+          32,
+          55,
+          67,
+          74,
+          93,
+          95,
+          96,
+          99
+        ]
+      }
+    },
+    "precision_audit": {
+      "body_only_raw": {
+        "total": 89,
+        "real_entity_prec": 0.8314606741573034,
+        "informative_prec": 0.7078651685393258
+      },
+      "body_only_d1_v1h": {
+        "total": 66,
+        "real_entity_prec": 0.9393939393939394,
+        "informative_prec": 0.9393939393939394
+      }
+    }
+  },
+  "item7_kb_reconciliation_and_limitations": {
+    "counts": {
+      "active_core_entities_enterprise": 1698,
+      "total_active_objects_enterprise": 26243,
+      "total_active_objects_all_bundles": 31362,
+      "total_unfiltered_all_bundles": 31937
+    },
+    "breakdown_enterprise_core_entities": {
+      "attack-pattern": 695,
+      "intrusion-set": 178,
+      "malware": 730,
+      "tool": 95,
+      "total": 1698
+    },
+    "limitations_statement": "Knowledge Base Limitations: The STIX knowledge base reflects an unversioned rolling snapshot of MITRE ATT&CK Enterprise (v14/v15 transition). The 1,698 figure represents active core entity documents (attack patterns, intrusion sets, malware, tools) in the primary Enterprise bundle, while the 26,243 figure encompasses all active STIX objects including 21,819 relationships, 1,770 analytics, 703 detection strategies, and 268 mitigations. Cross-domain queries contain 31,362 active objects across Enterprise, Mobile, and ICS bundles. Furthermore, synthetic S9000-series objects generated during relationship graph normalization are internal artifacts and must not be conflated with canonical ATT&CK IDs."
+  },
+  "item8_headline_table": {
+    "retrieval": [
+      {
+        "arm": "V0 (Raw prompt, no detector/hygiene)",
+        "full_50_obj_r10": 0.34,
+        "clean_40_obj_r10": 0.4
+      },
+      {
+        "arm": "V0h (Hygienic body-only, no expansion)",
+        "full_50_obj_r10": 0.14,
+        "clean_40_obj_r10": 0.125
+      },
+      {
+        "arm": "Vrel (Hygienic + STIX relationship exp)",
+        "full_50_obj_r10": 0.32,
+        "clean_40_obj_r10": 0.325
+      }
+    ],
+    "primary_generator": [
+      {
+        "arm": "LLM-only",
+        "full_50_v2_alias": 0.72,
+        "clean_40_v2_alias": 0.65
+      },
+      {
+        "arm": "V0 (Raw prompt RAG)",
+        "full_50_v2_alias": 0.6,
+        "clean_40_v2_alias": 0.525
+      },
+      {
+        "arm": "V0h (Hygienic RAG)",
+        "full_50_v2_alias": 0.74,
+        "clean_40_v2_alias": 0.675
+      },
+      {
+        "arm": "Vrel (Relationship RAG)",
+        "full_50_v2_alias": 0.74,
+        "clean_40_v2_alias": 0.675
+      }
+    ],
+    "secondary_generator": [
+      {
+        "arm": "LLM-only",
+        "full_50_v2_alias": 0.66,
+        "clean_40_v2_alias": 0.575
+      },
+      {
+        "arm": "V0 (Raw prompt RAG)",
+        "full_50_v2_alias": 0.7,
+        "clean_40_v2_alias": 0.625
+      },
+      {
+        "arm": "V0h (Hygienic RAG)",
+        "full_50_v2_alias": 0.7,
+        "clean_40_v2_alias": 0.625
+      },
+      {
+        "arm": "Vrel (Relationship RAG)",
+        "full_50_v2_alias": 0.72,
+        "clean_40_v2_alias": 0.65
+      }
+    ]
+  }
+}

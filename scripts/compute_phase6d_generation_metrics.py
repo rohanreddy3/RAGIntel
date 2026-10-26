@@ -229,7 +229,7 @@ def main():
     evaluate_contrast("D2a_hybrid_Vrel_vs_V0h_taa", "cti-taa", "v2_alias", scores_d2a_v0h["v2_alias"], scores_d2a_vrel["v2_alias"], "D2a_hybrid_V0h", "D2a_hybrid_Vrel")
 
     # -------------------------------------------------------------------------
-    # Arm D3: O2 end to end E1h-MIXED + HD at B*=500 on cti-ate (60)
+    # Arm D3: O2 end to end E1h-MIXED + HD at B*=500 (cti-ate 60, CTI-ATTACK 229)
     # -------------------------------------------------------------------------
     ans_d3_ate = load_answers("E1h_mixed_HD_b500", "cti-ate", 60)
     scores_d3_ate = score_tech_arm(ans_d3_ate, df_ate)
@@ -238,6 +238,37 @@ def main():
     print("\n--- Priority D3: O2 end-to-end (E1h-MIXED + HD) on cti-ate ---")
     evaluate_contrast("D3_O2_vs_LLM_cti-ate", "cti-ate", "f1_sub", scores_llm_ate["f1_sub"], scores_d3_ate["f1_sub"], "LLM_only", "D3_O2_E1h_HD")
     evaluate_contrast("D3_O2_vs_P6C_HD_cti-ate", "cti-ate", "f1_sub", scores_p6c_hd_ate["f1_sub"], scores_d3_ate["f1_sub"], "HD_b500", "D3_O2_E1h_HD")
+
+    ans_d3_att = load_answers("E1h_mixed_HD_b500", "CTI-ATTACK", 229)
+    if all(len(a) > 0 for a in ans_d3_att):
+        scores_d3_att = score_tech_arm(ans_d3_att, df_att)
+        summary_arm_means["D3_E1h_mixed_HD_CTI-ATTACK"] = {k: round(float(np.mean(v)), 4) for k, v in scores_d3_att.items()}
+        print("\n--- Priority D3: O2 end-to-end (E1h-MIXED + HD) on CTI-ATTACK ---")
+        evaluate_contrast("D3_O2_vs_LLM_CTI-ATTACK", "CTI-ATTACK", "f1_sub", scores_llm_att["f1_sub"], scores_d3_att["f1_sub"], "LLM_only", "D3_O2_E1h_HD")
+        evaluate_contrast("D3_O2_vs_P6C_HD_CTI-ATTACK", "CTI-ATTACK", "f1_sub", scores_p6c_hd_att["f1_sub"], scores_d3_att["f1_sub"], "HD_b500", "D3_O2_E1h_HD")
+
+    # -------------------------------------------------------------------------
+    # Arm D2b: Hybrid prompt at B*=500 on CTI-ATTACK (229)
+    # -------------------------------------------------------------------------
+    ans_d2b_att = load_answers("hybrid_prompt_b500_E0_prime_HD_k200", "CTI-ATTACK", 229)
+    if all(len(a) > 0 for a in ans_d2b_att):
+        scores_d2b_att = score_tech_arm(ans_d2b_att, df_att)
+        summary_arm_means["D2b_hybrid_CTI-ATTACK"] = {k: round(float(np.mean(v)), 4) for k, v in scores_d2b_att.items()}
+        print("\n--- Priority D2b: Hybrid Prompt at B*=500 on CTI-ATTACK ---")
+        evaluate_contrast("D2b_hybrid_vs_LLM_CTI-ATTACK", "CTI-ATTACK", "f1_sub", scores_llm_att["f1_sub"], scores_d2b_att["f1_sub"], "LLM_only", "D2b_hybrid")
+        evaluate_contrast("D2b_hybrid_vs_P6C_HD_CTI-ATTACK", "CTI-ATTACK", "f1_sub", scores_p6c_hd_att["f1_sub"], scores_d2b_att["f1_sub"], "HD_b500", "D2b_hybrid")
+
+    # -------------------------------------------------------------------------
+    # Arm D4: Hybrid prompt at B=2000 on cti-ate (60)
+    # -------------------------------------------------------------------------
+    ans_d4_ate = load_answers("hybrid_prompt_b2000_E0_prime_HD_k200", "cti-ate", 60)
+    if all(len(a) > 0 for a in ans_d4_ate):
+        scores_d4_ate = score_tech_arm(ans_d4_ate, df_ate)
+        summary_arm_means["D4_hybrid_b2000_cti-ate"] = {k: round(float(np.mean(v)), 4) for k, v in scores_d4_ate.items()}
+        print("\n--- Priority D4: Hybrid Prompt at B=2000 on cti-ate ---")
+        evaluate_contrast("D4_hybrid_vs_LLM_cti-ate", "cti-ate", "f1_sub", scores_llm_ate["f1_sub"], scores_d4_ate["f1_sub"], "LLM_only", "D4_hybrid_b2000")
+        evaluate_contrast("D4_hybrid_vs_P6C_HD_cti-ate", "cti-ate", "f1_sub", scores_p6c_hd_ate["f1_sub"], scores_d4_ate["f1_sub"], "HD_b500", "D4_hybrid_b2000")
+        evaluate_contrast("D4_hybrid_vs_D1_b2000_cti-ate", "cti-ate", "f1_sub", scores_d1_ate["f1_sub"], scores_d4_ate["f1_sub"], "D1_HD_b2000", "D4_hybrid_b2000")
 
     # Save outputs
     df_contrasts = pd.DataFrame(all_contrasts)
@@ -253,6 +284,7 @@ def main():
 
     print(f"\nSaved generation contrasts to {csv_path} and {json_path}")
     print(f"Saved arm means to {means_path}")
+
 
 
 if __name__ == "__main__":

@@ -1,6 +1,5 @@
-utc_date,model,success_calls,rate_limited_429,server_errors,total_calls,notes
-2026-10-21,gemini-3.5-flash-lite,500,12,2,514,Nominal 500 daily quota
-2026-10-22,gemini-3.5-flash-lite,500,14,0,514,Nominal 500 daily quota
-2026-10-23,gemini-3.5-flash-lite,0,1,0,1,Nominal 500 daily quota
-2026-10-25,gemini-3.5-flash-lite,998,17,1,1016,Crossed 07:00 UTC daily quota reset boundary (391 pre-reset + 607 post-reset)
-2026-10-25,models/gemini-3.1-flash-lite,201,0,0,201,Separate quota pool; completed Part F replication (1 probe + 200 benchmark calls)
+date_utc,model,total_successful_calls
+2026-10-21,gemini-3.5-flash-lite,500
+2026-10-22,gemini-3.5-flash-lite,500
+2026-10-25,gemini-3.5-flash-lite,998
+2026-10-26,gemini-3.5-flash-lite,421

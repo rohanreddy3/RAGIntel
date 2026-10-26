@@ -632,3 +632,85 @@ Document Case 26 ("Soldier" matching SysUpdate) within the limitations section u
 3. Evaluate D1/V1h survival filtering (drop length $\le 4$, drop common words/commands, retain intrusion-set and malware only): 65.0% survival rate (65/100), with 76.9% real precision (50/65) and 76.9% informative precision (50/65).
 4. Categorize false positive error sources: (1) Template instruction examples (11/26, 42.3%), (2) Common English words / file extensions / homonyms (7/26, 26.9%), (3) Generic OS utilities (8/26, 30.8%).
 
+## 17. Phase 6G — Final Corrections, Reconciliations, and Audits (Dated: 2026-10-26)
+#
+
+## 17.1 Ground-Truth-in-Top-3 Bug Resolution (Alias-Aware Matching)
+1. **Root Cause Analysis**: The Phase 6F finding of `0/50` ground truth in top-3 votes was caused by an indexing type mismatch: `software_to_groups` graph candidate outputs used STIX IDs (`intrusion-set--...`), whereas `get_group_alias_map()` was indexed by MITRE IDs (`G0082`), causing all equality comparisons to return `False`.
+2. **Alias-Aware Recomputation**: Resolving each intrusion set STIX ID to its canonical name, MITRE ID, and complete STIX alias set against the ground-truth threat group canonical name and aliases:
+- **Full-50 Queries**: Non-empty vote list = 34 / 50 (68.0%); Ground-truth in Top-1 votes = 19 / 50 (38.0%); Ground-truth in Top-3 votes = 21 / 50 (42.0%).
+- **Clean-40 Queries**: Non-empty vote list = 28 / 40 (70.0%); Ground-truth in Top-1 votes = 14 / 40 (35.0%); Ground-truth in Top-3 votes = 15 / 40 (37.5%).
+#
+
+## 17.2 Arm Definitions & Object Recall Reconciliation
+1. **Explicit Arm Definitions Table**:
+- $V_0$: Raw prompt text (body + instruction + threat group templates), no entity detector, no hygiene, no expansion.
+- $V_1$: Raw prompt text, Phase 4 regex detector (unfiltered), no hygiene, STIX software-to-group expansion.
+- $V_{0h}$: Hygienic body-only query (instruction & templates stripped), no detector, hygiene active, no expansion.
+- $V_{\text{rel}}$: Hygienic body-only query, Phase 4 regex detector (body-only), hygiene active, STIX software-to-group relationship expansion.
+2. **Object Recall Disparity Analysis**:
+- Clean 40 Object Recall@10: $V_0 = 0.4000 > V_{0h} = 0.1250$.
+- Reason: Unhygienic raw prompts in $V_0$ contain prompt instruction text (e.g., `"attribute to MITRE ATT&CK threat groups (e.g. APT36)"`), causing BM25 to directly match threat group intrusion-set profiles. In $V_{0h}$, stripping instruction text leaves purely low-level technical malware/system artifacts, so standard BM25 retrieves attack patterns and software rather than intrusion sets.
+- Relationship expansion ($V_{\text{rel}}$) injects candidate threat group names into the query, lifting recall from $0.1250$ to $0.3250$.
+3. **Primary Benchmark (Clean-40) Contrasts**:
+- $V_{0h} \to V_{\text{rel}}$: $\Delta = +0.2000$, W/T/L = 8/32/0, exact sign $p = 0.00781$, 95% bootstrap CI: [0.0750, 0.3250].
+- $V_0 \to V_{\text{rel}}$: $\Delta = -0.0750$, W/T/L = 6/25/9, exact sign $p = 0.60724$, 95% bootstrap CI: [-0.2750, 0.1250].
+- **Plain Statement**: On the clean 40-query primary benchmark, relationship expansion recovers recall relative to hygienic retrieval ($V_{0h} \to V_{\text{rel}}$: $+0.2000$, $p = 0.00781$), but **DOES NOT exceed the raw unhygienic $V_0$ level** ($V_{\text{rel}} = 0.3250$ vs $V_0 = 0.4000$; $\Delta = -0.0750$, $p = 0.60724$).
+#
+
+## 17.3 Control-Mean Reconciliation & Generation Hygiene
+1. **Control-Mean Reconciliation**:
+- `cti-ate` ($N=60$): True raw control $E_0'$ ($k=\text{all}, B=500$) = 0.4792. The previously cited 0.3807 was a Phase 6E back-calculation artifact (0.3936 - 0.0129).
+- `CTI-ATTACK` ($N=229$): True raw control $E_0'$ ($k=\text{all}, B=500$) = 0.2454. The previously cited 0.2878 was a Phase 6E back-calculation artifact (0.2994 - 0.0116).
+2. **Recomputed Generation Hygiene Contrasts ($E_0'\text{-HD-k200}$ vs $E_0'$ Raw)**:
+- `cti-ate`: Control = 0.4792, Treatment = 0.3936, $\Delta = -0.0855$, W/T/L = 17/7/36, exact sign $p = 0.01266$ (statistically significant decrease under hygiene).
+- `CTI-ATTACK`: Control = 0.2454, Treatment = 0.2994, $\Delta = +0.0540$, W/T/L = 64/112/53, exact sign $p = 0.35528$ (not significant).
+#
+
+## 17.4 Programmatic $p$-Value Reconciliation
+1. **Exact Sign Test Derivation**: Every $p$-value in the report is programmatically derived from discordant pairs $(W, L)$ via two-sided binomial test $k = \min(W, L), n = W + L$.
+2. **Resolution of Discrepancies**:
+- B1 `cti-ate` Subtech_Recall@10 ($W=24, T=32, L=4$): exact sign $p = 0.000180 \approx 0.0002$. The 0.0033 reported in the Phase 6F hygiene summary table was an unasserted typo and is now corrected with programmatic assertion.
+#
+
+## 17.5 Stoplist Clarification
+1. The generic OS utility stoplist altered entity detection tokens in exactly 11 `cti-taa` queries (IDs: 4, 7, 11, 15, 17, 18, 20, 24, 25, 34, 43).
+2. **Scope Constraint**: This modification is strictly a RETRIEVAL-LEVEL observation. Downstream LLM generation for these 11 queries was NOT re-run under the modified stoplist.
+#
+
+## 17.6 Detector Error Sources & Body-Only Precision Audit
+1. **Three Mutually Exclusive Partitions of False Positives ($N=37$)**:
+- Instruction Template Examples ($N=11$): IDs 7, 25, 29, 40, 59, 60, 66, 71, 72, 84, 92.
+- Common Words, .NET, and Ping Homonyms ($N=15$): IDs 1, 14, 16, 21, 23, 24, 33, 35, 39, 45, 48, 57, 58, 82, 91.
+- Real-but-Generic OS Utilities ($N=11$): IDs 10, 17, 27, 32, 55, 67, 74, 93, 95, 96, 99.
+2. **Body-Only Precision**:
+- Excluding the 11 template detections ($N=89$ body-only matches): Real Entity Precision = 83.1% (74/89), Informative Attribution Precision = 70.8% (63/89).
+- Under D1/V1h survival filtering ($N=66$ matches): Real Entity Precision = 93.9% (62/66), Informative Attribution Precision = 93.9% (62/66).
+#
+
+## 17.7 Knowledge Base Reconciliation & Limitations
+1. **Count Reconciliation**:
+- **1,698**: Active core entity documents in Enterprise ATT&CK (`E0-STIX-ENT` index: 695 attack-patterns + 178 intrusion-sets + 730 malware + 95 tools).
+- **26,243**: Total active STIX objects in Enterprise ATT&CK (including 21,819 relationships, 1,770 analytics, 703 detection strategies, 268 mitigations).
+- **31,362**: Active STIX objects across ALL 3 bundles (Enterprise + Mobile + ICS; total unfiltered = 31,937).
+2. **Limitations Statement**: The STIX knowledge base reflects an unversioned rolling snapshot of MITRE ATT&CK Enterprise (v14/v15 transition). Synthetic S9000-series objects (S9000–S9067) are internal graph normalization artifacts and must not be conflated with canonical ATT&CK IDs.
+#
+
+## 17.8 Primary `cti-taa` Set Declaration & Headline Comparison Table
+1. **Primary Benchmark**: The clean 40-query set (excluding the 10 ground-truth alias-leaked queries) is declared the primary benchmark set (post-hoc, labeled) for threat actor attribution (`cti-taa`).
+2. **Headline Comparison Table across Generators and Regimes**:
+- **Retrieval (Object_Recall@10)**:
+- $V_0$: Full-50 = 0.3400, Clean-40 = 0.4000.
+- $V_{0h}$: Full-50 = 0.1400, Clean-40 = 0.1250.
+- $V_{\text{rel}}$: Full-50 = 0.3200, Clean-40 = 0.3250.
+- **Primary Generator (`gemini-3.5-flash-lite`, $v_2\text{-alias}$)**:
+- LLM-only: Full-50 = 0.7200, Clean-40 = 0.6500.
+- $V_0$ (Raw prompt RAG): Full-50 = 0.6000, Clean-40 = 0.5250.
+- $V_{0h}$ (Hygienic RAG): Full-50 = 0.7400, Clean-40 = 0.6750.
+- $V_{\text{rel}}$ (Relationship RAG): Full-50 = 0.7400, Clean-40 = 0.6750.
+- **Secondary Generator (`gemini-3.1-flash-lite`, $v_2\text{-alias}$)**:
+- LLM-only: Full-50 = 0.6600, Clean-40 = 0.5750.
+- $V_0$ (Raw prompt RAG): Full-50 = 0.7000, Clean-40 = 0.6250.
+- $V_{0h}$ (Hygienic RAG): Full-50 = 0.7000, Clean-40 = 0.6250.
+- $V_{\text{rel}}$ (Relationship RAG): Full-50 = 0.7200, Clean-40 = 0.6500.
+

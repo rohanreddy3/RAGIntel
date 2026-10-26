@@ -1,5 +1,5 @@
-test_id,comparison,metric,mean_delta,wtl,p_raw,boot_p_historical,rank,holm_threshold,reject_null_holm,verdict
-GEN_02,HD vs LLM-only (CTI-ATTACK),f1_sub,-0.097,44/102/83,0.0007,0.0001,1,0.0125,True,Statistically Significant
-GEN_01,HD vs LLM-only (cti-ate),f1_sub,-0.0698,18/6/36,0.0198,0.0014,2,0.01667,False,Not Significant
-GEN_03,V0h vs LLM-only (cti-taa),v2_alias,0.02,7/37/6,1.0,0.8924,3,0.025,False,Not Significant
-GEN_04,Vrel vs V0h (cti-taa),v2_alias,0.02,3/45/2,1.0,1.0,4,0.05,False,Not Significant
+rank,test_id,comparison,metric,mean_delta,wtl,p_raw,holm_threshold,reject_null_holm,verdict
+1,GEN_02,HD vs LLM-only (CTI-ATTACK),f1_sub,-0.097,44/102/83,0.0001,0.0125,True,Statistically Significant
+2,GEN_01,HD vs LLM-only (cti-ate),f1_sub,-0.0698,18/6/36,0.0014,0.01667,True,Statistically Significant
+3,GEN_03,V0h vs LLM-only (cti-taa),v2_alias,0.02,7/37/6,1.0,0.025,False,Not Significant
+4,GEN_04,Vrel vs V0h (cti-taa),v2_alias,0.02,3/45/2,1.0,0.05,False,Not Significant

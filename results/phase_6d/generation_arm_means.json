@@ -92,5 +92,29 @@
     "p_sub": 0.3741,
     "r_sub": 0.3718,
     "f1_sub": 0.3515
+  },
+  "D3_E1h_mixed_HD_CTI-ATTACK": {
+    "p_strict": 0.2487,
+    "r_strict": 0.4927,
+    "f1_strict": 0.3097,
+    "p_sub": 0.2448,
+    "r_sub": 0.4971,
+    "f1_sub": 0.306
+  },
+  "D2b_hybrid_CTI-ATTACK": {
+    "p_strict": 0.2544,
+    "r_strict": 0.4993,
+    "f1_strict": 0.3118,
+    "p_sub": 0.2529,
+    "r_sub": 0.5036,
+    "f1_sub": 0.3107
+  },
+  "D4_hybrid_b2000_cti-ate": {
+    "p_strict": 0.4603,
+    "r_strict": 0.4491,
+    "f1_strict": 0.4293,
+    "p_sub": 0.4586,
+    "r_sub": 0.4491,
+    "f1_sub": 0.429
   }
 }
