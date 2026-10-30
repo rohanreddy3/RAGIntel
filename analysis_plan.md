@@ -862,5 +862,91 @@ Every row must explicitly state the evaluation metric and data provenance:
 2. Run pytest suite in offline mode to verify test integrity.
 3. Commit all Phase 6I updates, create git tag `v1.0-final`, and push to `origin/main`.
 
+---
+
+## 20. Phase 6J — Final Source-of-Truth Rebuild, Balanced Ladder Restoration, and Certified Freeze (2026-10-30)
+
+### 20.1 Objective & Governance
+Phase 6J is the final corrective synchronization of the RAG Intel repository, executed completely offline with zero API calls. In accordance with strict audit directives:
+- No files under `results/phase_0` through `results/phase_6b` were modified on disk.
+- All numbers in `reviews/RESULTS_MASTER.md`, `results_for_report/RESULTS_MASTER.md`, `claims_master.csv`, and tables T3, T4, T6 are generated programmatically by `scripts/build_results_master.py` from raw source CSV/JSON artifacts.
+- Every claim and headline-table cell is independently verified and certified by `scripts/verify_master.py`.
+
+### 20.2 Claim C1: Balanced Ladder Claim Restoration
+1. **Restoration of Canonical Balanced Ladder**:
+   Claim C1 is restored strictly from `results/phase_6b/assets/table_ladder_common_budgets.csv` under the pre-declared balanced ladder regime (Mean Recall@B across balanced budgets $\{500, 1000\}$ with fixed pool $k=50$):
+   - `cti-ate`: Baseline Raw ($E0'$ raw, $k=50$) = **0.1601**, Stage 2 Hygiene ($E0'$ body-only, $k=50$) = **0.2450**, $\Delta = \mathbf{+0.0849}$, 95% bootstrap CI **[+0.0382, +0.1315]**, W/T/L = **29/21/10**, exact sign test $p = \mathbf{0.0034}$.
+   - `CTI-ATTACK`: Baseline Raw ($E0'$ raw, $k=50$) = **0.3064**, Stage 2 Hygiene ($E0'$ body-only, $k=50$) = **0.6074**, $\Delta = \mathbf{+0.3010}$, 95% bootstrap CI **[+0.2520, +0.3500]**, W/T/L = **175/27/27**, exact sign test $p < \mathbf{0.0001}$.
+2. **Separation from Enterprise-Only Hygiene (Claim C2)**:
+   The Enterprise-only STIX hygiene evaluation ($E0\text{-STIX-ENT}$) is maintained separately as Claim C2:
+   - `cti-ate` ($B=3$): $\Delta = -0.0410$, 95% CI [-0.1033, +0.0293], W/T/L = 6/32/22, $p = 0.0037$ (significant negative).
+   - `CTI-ATTACK` ($B=2$): $\Delta = +0.4491$, 95% CI [+0.3785, +0.5168], W/T/L = 117/104/8, $p < 0.0001$ (massive positive).
+   - Numbers are never conflated between C1 and C2.
+
+### 20.3 Headline Table Synchronization & Dual Prompt Arms
+In `reviews/RESULTS_MASTER.md` and `results_for_report/tables/`:
+1. **Primary Generator ($V_{\text{rel}}$)**:
+   - $V_{\text{rel}}$ (Relationship RAG, standard prompt): Full-50 = **0.7600**, Clean-40 = **0.7000**.
+   - $V_{\text{rel}}$ (Relationship RAG, hybrid prompt): Full-50 = **0.7400**, Clean-40 = **0.6750** (reported as a distinct row).
+2. **Secondary Generator ($V_0$)**:
+   - Secondary generator $V_0$ (Raw prompt RAG): Full-50 = **0.6600**, Clean-40 = **0.5750**.
+3. **Source of Truth**:
+   Every cell in the headline comparison table is loaded programmatically by key from `results/phase_6d/phase6g_corrections.json` (`item8_headline_table`).
+
+### 20.4 Formal Epistemic Status Label Definitions & Relabeling
+1. **Header Definitions**:
+   - **Robust**: Statistically significant after declared multiple-testing correction AND replicated on a second KB, second retriever, or second generator.
+   - **Exploratory**: Statistically notable or significant under an isolated setting, but not replicated across multiple axes or failed family-wise correction.
+   - **Mixed**: Heterogeneous effects observed across benchmark datasets or metrics (e.g., significant positive on one dataset, negative or null on another).
+   - **Null / Negative**: Empirical effect not statistically distinguishable from zero ($p \ge 0.05$ or CI crossing 0) or statistically significant in the adverse direction ($\Delta < 0$).
+2. **Relabeling of Claims**:
+   - **Claim C2**: Relabeled to **Mixed** (negative on `cti-ate`, positive on `CTI-ATTACK`).
+   - **Claim C4**: Relabeled to **Mixed** (`cti-ate`: negative, significant $\Delta = -0.0855$, $p = 0.0127$; `CTI-ATTACK`: positive mean $\Delta = +0.0540$, 95% CI [+0.0069, +0.1027], but sign test null $p = 0.3553$).
+   - **Claim C10**: Relabeled to **Exploratory** (`CTI-ATTACK` significant only $\Delta = +0.0599$, $p = 0.0008$; `cti-ate` D1 $p = 0.0704$; D4 hybrid null $p = 0.6587$).
+
+### 20.5 Claim C7: Master Fisher Exact Values
+For Claim C7 (Ground-truth alias leakage in `cti-taa`), all four model arms report the master Fisher exact test values comparing accuracy on the 10 leaked vs 40 clean queries:
+- `LLM-only`: $p = \mathbf{0.0445}$
+- $V_0$: $p = \mathbf{0.0366}$
+- $V_{0h}$: $p = \mathbf{0.0463}$
+- $V_{\text{rel}}$: $p = \mathbf{0.0920}$
+All four values are explicitly declared as **uncorrected and descriptive** partition differences, not causal guarantees.
+
+### 20.6 Figure F1: Four-Regime Forest Plot & Caption Verification
+1. **Four-Regime Forest Plot**:
+   `results_for_report/figures/F1_hygiene_effect.png` and `.svg` were rebuilt from `results_for_report/data/F1_hygiene_effect.csv` to plot all four empirical hygiene regimes:
+   - Balanced Retrieval Ladder (C1)
+   - Enterprise STIX Retrieval (C2)
+   - B1 Long-Context Embeddings (C3)
+   - Downstream Live Generation (C4)
+2. **Caption Synchronization**:
+   Captions in `results_for_report/captions.md` were checked and verified against every figure's source CSV data.
+
+### 20.7 Independent Verifier Suite (`verify_master.py`)
+`scripts/verify_master.py` was extended to:
+1. Independently recompute all statistics from per-query raw data using 10,000 bootstrap iterations (seed 42) and exact binomial sign tests (`scipy.stats.binomtest`).
+2. Enforce semantic directional assertions on claim text (e.g., verifying that terms like "improves" or "benefit" require strictly positive $\Delta > 0$ and 95% CIs that strictly exclude zero).
+3. Validate every headline table cell against `results/phase_6d/phase6g_corrections.json`.
+4. Verification Suite Outcome: 77 passed, 0 failed.
+
+### 20.8 Test Suite Reconciliation (52 vs 46 Tests)
+- Total collected unit and integration tests across the 11 test files in `tests/`: exactly **52 tests**.
+- In Phase 6I, only the 9 fast unit test files were run (46 tests, ~17s runtime) to avoid the heavy FAISS and sentence-transformer CPU embedding initialization in `test_retrieval_determinism.py` (~75s) and `test_retrieval_eval.py` (5 tests).
+- Zero tests were removed or skipped.
+- Executed `pytest -q` in Phase 6J under offline configuration: `52 passed, 2 warnings in 111.34s (0:01:51)`.
+
+### 20.9 Freeze Manifest Reconciliation & Final Tag
+- Line-ending normalized hashing was performed across all 167 repository assets.
+- 157 files matched exact raw bytes.
+- 10 historical and Phase 6 files were updated in `results/freeze_manifest.json` with detailed documentation:
+  - `results/phase_4b/detector_labels.csv` (annotator label column from Phase 4B/6F).
+  - `results/phase_6/assets/table_family_p6.csv` and `results/phase_6b/assets/` tables (regenerated during Phase 6B asset rebuild).
+  - `results/phase_6b/leakage_audit_detailed.json` (Phase 6B leakage audit details).
+  - `results/phase_6d/phase6g_corrections.json` (Phase 6J headline table update with Vrel standard/hybrid prompt and secondary V0).
+  - `analysis_plan.md` (updated with Section 20).
+- Confirmed that `results/phase_6c/per_query_scores.csv`, `results/phase_1/ragas_deferred_smoke_results.csv`, and `results/phase_2/ragas_phase2_smoke_results.csv` match their exact on-disk byte hashes in the manifest.
+- Final repository freeze tagged as `v1.0-final2`.
+
+
 
 

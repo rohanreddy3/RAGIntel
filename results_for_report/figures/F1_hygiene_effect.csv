@@ -1,5 +1,9 @@
-dataset,arm,recall,delta,source
-cti-ate,V0 (Raw),0.0895,0,secondary_kb_contrasts.json
-cti-ate,V0h (Hygiene),0.0813,-0.0082,secondary_kb_contrasts.json
-CTI-ATTACK,V0 (Raw),0.1812,0,secondary_kb_contrasts.json
-CTI-ATTACK,V0h (Hygiene),0.6303,0.4491,secondary_kb_contrasts.json
+regime,dataset,metric,control,treatment,delta,ci_lower_95,ci_upper_95,source
+"1. Balanced Ladder ({500, 1000}, pool k=50)",cti-ate,Mean Recall@B,0.1601,0.245,0.0849,0.0382,0.1315,table_ladder_common_budgets.csv
+"1. Balanced Ladder ({500, 1000}, pool k=50)",CTI-ATTACK,Mean Recall@B,0.3064,0.6074,0.301,0.252,0.35,table_ladder_common_budgets.csv
+2. Enterprise STIX (E0-STIX-ENT),cti-ate (B3),Subtech_Recall@10,0.1221,0.0811,-0.041,-0.0768,-0.0051,secondary_kb_contrasts.json
+2. Enterprise STIX (E0-STIX-ENT),CTI-ATTACK (B2),Subtech_Recall@10,0.1812,0.6303,0.4491,0.385,0.5132,secondary_kb_contrasts.json
+3. Long-Context Embeddings (B1 nomic-8k),cti-ate,Subtech_Recall@10,0.0874,0.1809,0.0935,0.036,0.151,b1_robustness_contrasts.csv
+3. Long-Context Embeddings (B1 nomic-8k),CTI-ATTACK,Subtech_Recall@10,0.2118,0.5662,0.3544,0.297,0.4117,b1_robustness_contrasts.csv
+4. Downstream Generation (B=500),cti-ate,Technique F1 (f1_sub),0.4792,0.3936,-0.0855,-0.1356,-0.0386,contrasts_table.json
+4. Downstream Generation (B=500),CTI-ATTACK,Technique F1 (f1_sub),0.2454,0.2994,0.054,0.0069,0.1027,contrasts_table.json

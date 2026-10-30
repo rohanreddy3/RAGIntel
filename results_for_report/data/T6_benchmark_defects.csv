@@ -1,4 +1,4 @@
 Defect,Scope,Impact,Mitigation,Source
-GT Alias Leakage (C7),cti-taa 10/50 queries,Leaked queries have ~100% accuracy,Report clean-40 subset separately,gt_alias_leakage_audit.json
-Metadata Credit (C9),All datasets,Recall@B inflated by +0.1496 (ate) / +0.3516 (att),Report text-visible alongside metadata values,metadata_credit_audit.json
-S9000-Series Objects,62 objects,Draft MITRE objects in bundle,Documented in kb_integrity_audit.csv,kb_integrity_audit.json
+GT Alias Leakage (C7),cti-taa 10/50 queries (20.0%),Leaked queries have 100% accuracy saturation across generators,Report clean-40 subset separately (Fisher p values uncorrected),gt_alias_leakage_audit.json
+Metadata Credit (C9),All datasets (Phase 5/6),Recall@B inflated by +0.1496 (ate) / +0.3516 (att),Report text-visible alongside metadata values,metadata_credit_audit.json
+S9000-Series Objects,62 objects in bundle,Authentic upstream MITRE draft objects present in STIX snapshot,Documented in kb_integrity_audit.csv,kb_integrity_audit.json

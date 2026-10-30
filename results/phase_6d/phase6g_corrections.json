@@ -300,7 +300,12 @@
         "clean_40_v2_alias": 0.675
       },
       {
-        "arm": "Vrel (Relationship RAG)",
+        "arm": "Vrel (Relationship RAG, standard prompt)",
+        "full_50_v2_alias": 0.76,
+        "clean_40_v2_alias": 0.7
+      },
+      {
+        "arm": "Vrel (Relationship RAG, hybrid prompt)",
         "full_50_v2_alias": 0.74,
         "clean_40_v2_alias": 0.675
       }
@@ -313,8 +318,8 @@
       },
       {
         "arm": "V0 (Raw prompt RAG)",
-        "full_50_v2_alias": 0.7,
-        "clean_40_v2_alias": 0.625
+        "full_50_v2_alias": 0.66,
+        "clean_40_v2_alias": 0.575
       },
       {
         "arm": "V0h (Hygienic RAG)",
