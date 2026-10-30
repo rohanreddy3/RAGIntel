@@ -1,13 +1,13 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-30T13:36:57.803777+00:00",
-  "total_files": 167,
+  "timestamp_utc": "2026-10-30T14:28:02.629937+00:00",
+  "total_files": 169,
   "files": {
     "analysis_plan.md": {
-      "sha256": "435e9495571446c675636a912a07a15eac1f19feac1f1f96bcd71343d468257d",
-      "raw_sha256": "618c97144c702ef90a8e688c5332fcbddcc50778fa8cbbb1a10541c81e900f26",
-      "size_bytes": 86728,
-      "norm_size_bytes": 85776
+      "sha256": "f4c04a872bec841f5564185119ebf0c25d9bc32979d5bb5a213ecb1d599ec07d",
+      "raw_sha256": "542937ecba4bcd481adcd4ceb51c4be988426baed1dcf35a86fd808a24175f37",
+      "size_bytes": 92770,
+      "norm_size_bytes": 91761
     },
     "report/dataset_stats.md": {
       "sha256": "ab0215b8803770cba50ecdaabe01a707bf1f6d3c2dda160a122ddcdeab488439",
@@ -1004,9 +1004,21 @@
       "raw_sha256": "b969b90737c61818b9df17db18316f16c42aab05b2845ec58335a61ec6c1c654",
       "size_bytes": 9337,
       "norm_size_bytes": 9274
+    },
+    "results/phase_6l/bidirectional_sensitivity.csv": {
+      "sha256": "527f4f595be1f59a6142d7a766bcb00b3fd0d1687aba8d5b4fff4aaf6552eb02",
+      "raw_sha256": "105551520addd52c4da1bac957cbcbf6139741989bf917c8a2fb9e4502f1eb17",
+      "size_bytes": 981,
+      "norm_size_bytes": 972
+    },
+    "results/phase_6l/bidirectional_sensitivity.json": {
+      "sha256": "f476a9946d24b1d1901acbbfac1046b3ef3c9b2d9ec5429f0fa4b861c024e1fc",
+      "raw_sha256": "7bac6fdc22b0101915866755d1f44cd45acccf66aa54496dbb55f331aa70aeac",
+      "size_bytes": 4742,
+      "norm_size_bytes": 4619
     }
   },
-  "freeze_version": "v1.0-final3",
+  "freeze_version": "v1.0-final4",
   "phase": "Phase 6K",
   "normalization": "LF normalized (replace CRLF with LF) for text files",
   "reconciliation_explanations": {

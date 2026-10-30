@@ -1,4 +1,4 @@
-# Figure and Table Captions (Phase 6J, auto-generated)
+# Figure and Table Captions (Phase 6L, auto-generated)
 
 ## Figure Captions
 
@@ -14,9 +14,15 @@
 
 ## Table Captions
 
+**T1 (Datasets and Inventory)**: Datasets and knowledge base inventory. Data: `results_for_report/data/T1_datasets.csv`.
+
+**T2 (Arm Definitions)**: Evaluation arm definitions and experimental configurations. Data: `results_for_report/data/T2_arms.csv`.
+
 **T3 (Main Results)**: Primary claim cells with deltas, CIs, W/T/L, p-values, source files. Data: `results_for_report/data/T3_main_results.csv`.
 
 **T4 (Statistical Tests)**: Holm step-down results for primary (M=4) and post-hoc hygiene (M=2) families. Data: `results_for_report/data/T4_statistical_tests.csv`.
+
+**T5 (Detector Precision)**: Entity detector precision across filtering stages and error class partitioning. Data: `results_for_report/data/T5_detector_precision.csv`.
 
 **T6 (Benchmark Defects)**: Known measurement artifacts and mitigations. Data: `results_for_report/data/T6_benchmark_defects.csv`.
 

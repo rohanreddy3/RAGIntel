@@ -1,0 +1,9 @@
+dataset,arm,description,n_queries,std_f1_sub,bidi_precision,bidi_recall,bidi_f1,delta_bidi_vs_std,rank_std,rank_bidi,ranking_changed
+cti-ate,LLM-only,Zero-shot parametric baseline,60,0.4634,0.578,0.5453,0.5494,0.0859,2,1,True
+cti-ate,E0',"True raw retriever control (k=all, B=500)",60,0.4792,0.6103,0.4909,0.5313,0.0521,1,2,True
+cti-ate,HD,"Domain routing + query hygiene (k=200, B=500)",60,0.3936,0.5705,0.4041,0.4554,0.0617,4,4,False
+cti-ate,D1,"Domain routing + query hygiene (k=200, B=2000)",60,0.4432,0.6157,0.4643,0.5144,0.0711,3,3,False
+CTI-ATTACK,LLM-only,Zero-shot parametric baseline,229,0.3964,0.5299,0.7489,0.5834,0.187,1,1,False
+CTI-ATTACK,E0',"True raw retriever control (k=all, B=500)",229,0.2454,0.3609,0.5488,0.396,0.1506,4,4,False
+CTI-ATTACK,HD,"Domain routing + query hygiene (k=200, B=500)",229,0.2994,0.4221,0.5713,0.4566,0.1572,3,3,False
+CTI-ATTACK,D1,"Domain routing + query hygiene (k=200, B=2000)",229,0.3593,0.4914,0.6259,0.5249,0.1656,2,2,False

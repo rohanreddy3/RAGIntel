@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """
-Phase 6J — Source-of-Truth Rebuild.
+Phase 6L — Source-of-Truth Rebuild and Final Consistency Synchronization.
 
-Reads every claim cell (delta, CI, W/T/L, p) from the canonical source
+Reads every claim cell (delta, CI, W/T/L, p) from canonical source
 CSV/JSON in results/phase_* and writes:
   - reviews/RESULTS_MASTER.md
   - results_for_report/RESULTS_MASTER.md
-  - results_for_report/tables/T3_main_results.{md,csv}
-  - results_for_report/tables/T4_statistical_tests.{md,csv}
-  - results_for_report/tables/T6_benchmark_defects.{md,csv}
+  - results_for_report/tables/T1_datasets.{md,csv,tex}
+  - results_for_report/tables/T2_arms.{md,csv,tex}
+  - results_for_report/tables/T3_main_results.{md,csv,tex}
+  - results_for_report/tables/T4_statistical_tests.{md,csv,tex}
+  - results_for_report/tables/T5_detector_precision.{md,csv,tex}
+  - results_for_report/tables/T6_benchmark_defects.{md,csv,tex}
   - results_for_report/data/claims_master.csv
   - results_for_report/data/F1-F5 figure CSVs
+  - results_for_report/figures/F1-F5 figure CSVs, PNGs, and SVGs
   - results_for_report/captions.md
   - results/phase_6d/kb_integrity_audit.csv (S9000 CSV)
 
@@ -25,9 +29,11 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from scipy.stats import fisher_exact
 
 REPO = Path(__file__).resolve().parent.parent
 RESULTS = REPO / "results"
+P6B = RESULTS / "phase_6b"
 P6C = RESULTS / "phase_6c"
 P6D = RESULTS / "phase_6d"
 P4B = RESULTS / "phase_4b"
@@ -70,7 +76,7 @@ retr_recon: list[dict] = load_json(P6D / "retrieval_reconciliation_b500.json")
 arm_means: dict = load_json(P6D / "generation_arm_means.json")
 sec_gen: list[dict] = load_json(P6D / "second_generator_contrasts.json")
 kb_audit: dict = load_json(P6D / "kb_integrity_audit.json")
-ladder_common_csv: list[dict] = load_csv_dicts(RESULTS / "phase_6b" / "assets" / "table_ladder_common_budgets.csv")
+ladder_common_csv: list[dict] = load_csv_dicts(P6B / "assets" / "table_ladder_common_budgets.csv")
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -101,8 +107,86 @@ def fmt_ci(lo, hi):
 def fmt_delta(d):
     return f"{d:+.4f}"
 
+def tex_escape(s: str) -> str:
+    """Escape LaTeX special characters in table text."""
+    if not s or s == "-":
+        return s
+    replacements = [
+        ("&", r"\&"),
+        ("%", r"\%"),
+        ("_", r"\_"),
+        ("#", r"\#"),
+        ("{", r"\{"),
+        ("}", r"\}"),
+    ]
+    out = ""
+    i = 0
+    while i < len(s):
+        if s[i] == "\\" and i + 1 < len(s):
+            out += s[i:i+2]
+            i += 2
+            continue
+        c = s[i]
+        matched = False
+        for char, repl in replacements:
+            if c == char:
+                out += repl
+                matched = True
+                break
+        if not matched:
+            out += c
+        i += 1
+    return out
+
+def render_latex_table(cols: list[str], rows: list[dict]) -> str:
+    """Render a LaTeX booktabs tabular environment from column names and row dicts."""
+    align = "l" * len(cols)
+    out = [f"\\begin{{tabular}}{{{align}}}", "\\toprule"]
+    escaped_headers = [tex_escape(c) for c in cols]
+    out.append(" & ".join(escaped_headers) + " \\\\")
+    out.append("\\midrule")
+    for r in rows:
+        row_vals = [tex_escape(str(r.get(c, ""))) for c in cols]
+        out.append(" & ".join(row_vals) + " \\\\")
+    out.append("\\bottomrule")
+    out.append("\\end{tabular}")
+    return "\n".join(out)
+
+def write_table_artifacts(name: str, title: str, rows: list[dict], cols: list[str] | None = None):
+    """Write .csv, .md, and .tex for a given table."""
+    if not rows:
+        return
+    if cols is None:
+        cols = list(rows[0].keys())
+
+    # 1. Write CSV
+    for folder in [RFR_TABLES, RFR_DATA]:
+        csv_path = folder / f"{name}.csv"
+        with open(csv_path, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
+            w.writeheader()
+            w.writerows(rows)
+
+    # 2. Write Markdown
+    md_lines = [f"# {title}", "",
+                "| " + " | ".join(cols) + " |",
+                "| " + " | ".join([":---"] * len(cols)) + " |"]
+    for r in rows:
+        md_lines.append("| " + " | ".join(str(r.get(c, "")) for c in cols) + " |")
+    md_path = RFR_TABLES / f"{name}.md"
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(md_lines) + "\n")
+
+    # 3. Write LaTeX
+    tex_content = render_latex_table(cols, rows)
+    tex_path = RFR_TABLES / f"{name}.tex"
+    with open(tex_path, "w", encoding="utf-8") as f:
+        f.write(tex_content + "\n")
+
+    print(f"  [{name}] Wrote .csv, .md, .tex")
+
 # ---------------------------------------------------------------------------
-# Step 8: S9000 KB integrity CSV
+# S9000 KB integrity CSV
 # ---------------------------------------------------------------------------
 
 def build_kb_csv():
@@ -127,6 +211,206 @@ def build_kb_csv():
     return rows
 
 # ---------------------------------------------------------------------------
+# Table Builders for T1, T2, T5
+# ---------------------------------------------------------------------------
+
+def build_t1_rows() -> list[dict]:
+    return [
+        {
+            "Resource": "cti-ate",
+            "Type": "Evaluation Benchmark",
+            "Domain": "Threat Extraction (Technique)",
+            "Size": "60 queries",
+            "Description": "Cyber threat reports annotated with MITRE ATT&CK techniques; average short reports.",
+        },
+        {
+            "Resource": "CTI-ATTACK",
+            "Type": "Evaluation Benchmark",
+            "Domain": "Threat Extraction (Technique)",
+            "Size": "229 queries",
+            "Description": "Multi-paragraph threat intelligence reports with ground-truth techniques; long operational prose.",
+        },
+        {
+            "Resource": "cti-taa",
+            "Type": "Evaluation Benchmark",
+            "Domain": "Threat Actor Attribution",
+            "Size": "50 queries (40 clean)",
+            "Description": "Threat reports attributed to intrusion-sets. Clean-40 excludes 10 queries with prompt GT alias leakage.",
+        },
+        {
+            "Resource": "Enterprise STIX Core",
+            "Type": "Knowledge Base (E0-STIX-ENT)",
+            "Domain": "Core ATT&CK Objects",
+            "Size": "1,698 active entities",
+            "Description": "695 attack-patterns, 178 intrusion-sets, 730 malware, 95 tools indexed as primary documents.",
+        },
+        {
+            "Resource": "Enterprise STIX Total",
+            "Type": "Knowledge Base Total",
+            "Domain": "Enterprise ATT&CK Objects",
+            "Size": "26,243 active objects",
+            "Description": "1,698 core entities + 21,819 relationships + 1,770 analytics + 703 detection strategies + 268 mitigations.",
+        },
+        {
+            "Resource": "STIX-ALL Bundle",
+            "Type": "Knowledge Base All Bundles",
+            "Domain": "Enterprise, Mobile, ICS",
+            "Size": "31,362 active objects",
+            "Description": "Cross-domain STIX bundle containing all active objects from Enterprise, Mobile, and ICS matrices.",
+        },
+        {
+            "Resource": "S9000-series Objects",
+            "Type": "Upstream MITRE Drafts",
+            "Domain": "Software (Malware/Tools)",
+            "Size": f"{kb_audit['total_non_standard_objects']} unique objects",
+            "Description": "59 enterprise, 2 ics, 5 mobile objects present in official downloaded bundle (date: 2026-07-31).",
+        },
+    ]
+
+def build_t2_rows() -> list[dict]:
+    return [
+        {
+            "Arm ID": "E0' (Raw Control)",
+            "Phase": "Retrieval & Generation",
+            "Budget": "B=500, k=all",
+            "Input Query": "Raw prompt text",
+            "Description": "Unfiltered verbatim threat report text; BM25 retriever without candidate pool truncation.",
+        },
+        {
+            "Arm ID": "E0'-HD-k200 (HD)",
+            "Phase": "Retrieval & Generation",
+            "Budget": "B=500, k=200",
+            "Input Query": "Hygiene filtered",
+            "Description": "Candidate pool filtered to top-200 by BM25; prompt stripped of metadata and boilerplate.",
+        },
+        {
+            "Arm ID": "E1h",
+            "Phase": "Retrieval & Generation",
+            "Budget": "B=500, k=200",
+            "Input Query": "Field-header prefixed",
+            "Description": "STIX chunks augmented with structural headers bringing technique IDs into verbatim text.",
+        },
+        {
+            "Arm ID": "D1",
+            "Phase": "Generation",
+            "Budget": "B=2000, k=200",
+            "Input Query": "Hygiene filtered",
+            "Description": "Context budget expanded 4x from B=500 to B=2000 tokens to relieve context choking.",
+        },
+        {
+            "Arm ID": "D2 Hybrid",
+            "Phase": "Generation",
+            "Budget": "B=500, k=200",
+            "Input Query": "Hybrid prompt",
+            "Description": "Hybrid prompt blending structured STIX entity profiles with raw report text.",
+        },
+        {
+            "Arm ID": "D3 E1h Mixed",
+            "Phase": "Generation",
+            "Budget": "B=500, k=200",
+            "Input Query": "Header-prefixed",
+            "Description": "E1h header-prefixed prompt fed to gemini-3.5-flash-lite generator at B=500.",
+        },
+        {
+            "Arm ID": "D4 Hybrid B=2000",
+            "Phase": "Generation",
+            "Budget": "B=2000, k=200",
+            "Input Query": "Hybrid prompt",
+            "Description": "Hybrid prompt with expanded B=2000 context budget on cti-ate.",
+        },
+        {
+            "Arm ID": "V0",
+            "Phase": "cti-taa Benchmark",
+            "Budget": "B2 (BM25 top-10)",
+            "Input Query": "Raw prompt text",
+            "Description": "Unhygienic raw query including instruction boilerplate and threat group template text.",
+        },
+        {
+            "Arm ID": "V0h",
+            "Phase": "cti-taa Benchmark",
+            "Budget": "B2 (BM25 top-10)",
+            "Input Query": "Hygienic body-only",
+            "Description": "Instruction boilerplate and template examples removed; body text alone.",
+        },
+        {
+            "Arm ID": "Vrel (Standard)",
+            "Phase": "cti-taa Benchmark",
+            "Budget": "B2 (BM25 top-10)",
+            "Input Query": "Hygienic + Rel-Exp",
+            "Description": "V0h query augmented with software-to-group graph relationship expansion in standard prompt.",
+        },
+        {
+            "Arm ID": "Vrel (Hybrid)",
+            "Phase": "cti-taa Benchmark",
+            "Budget": "B=500, k=200",
+            "Input Query": "Hygienic + Rel-Exp",
+            "Description": "V0h query augmented with software-to-group expansion evaluated in hybrid prompt format.",
+        },
+        {
+            "Arm ID": "LLM-only",
+            "Phase": "Generation Baseline",
+            "Budget": "B=0 tokens",
+            "Input Query": "Zero-shot prompt",
+            "Description": "Direct generation without retrieved external context; relies purely on model parametric weights.",
+        },
+    ]
+
+def build_t5_rows() -> list[dict]:
+    prec = p6g["item6_detector_errors_and_precision"]["precision_audit"]
+    d0 = prec["body_only_raw"]
+    d1 = prec["body_only_d1_v1h"]
+    return [
+        {
+            "Detector Stage": "D0 (Raw Prompt Detections)",
+            "Sample Size": "100 matches",
+            "Real Entity Precision": "74.0% (74/100)",
+            "Informative Attribution Precision": "63.0% (63/100)",
+            "Notes": "Raw prompt text; includes prompt instruction templates and general vocabulary.",
+            "Error Class Breakdown": "-",
+        },
+        {
+            "Detector Stage": "D0 Body-Only (Templates Excluded)",
+            "Sample Size": f"{d0['total']} matches",
+            "Real Entity Precision": f"{d0['real_entity_prec']*100:.1f}% ({round(d0['real_entity_prec']*d0['total'])}/{d0['total']})",
+            "Informative Attribution Precision": f"{d0['informative_prec']*100:.1f}% ({round(d0['informative_prec']*d0['total'])}/{d0['total']})",
+            "Notes": "Excludes 11 prompt instruction template detections (e.g. Crimson S0115, APT36 G0134).",
+            "Error Class Breakdown": "-",
+        },
+        {
+            "Detector Stage": "D1/V1h (Body-Only + Survival Filter)",
+            "Sample Size": f"{d1['total']} matches",
+            "Real Entity Precision": f"{d1['real_entity_prec']*100:.1f}% ({round(d1['real_entity_prec']*d1['total'])}/{d1['total']})",
+            "Informative Attribution Precision": f"{d1['informative_prec']*100:.1f}% ({round(d1['informative_prec']*d1['total'])}/{d1['total']})",
+            "Notes": f"Removes {d0['total'] - d1['total']} non-informative common words and generic OS utilities; {round(d1['informative_prec']*d1['total'])} real & informative.",
+            "Error Class Breakdown": "-",
+        },
+        {
+            "Detector Stage": "-",
+            "Sample Size": "11 detections (29.7%)",
+            "Real Entity Precision": "100.0% (Real STIX objects)",
+            "Informative Attribution Precision": "0.0% (Non-informative)",
+            "Notes": "Matched in instruction prompt text: Crimson (S0115: IDs 7,40,72,92), APT36 (G0134: IDs 25,29,59,60,66,71,84).",
+            "Error Class Breakdown": "Class 1: Prompt Instruction Templates",
+        },
+        {
+            "Detector Stage": "-",
+            "Sample Size": "15 detections (40.5%)",
+            "Real Entity Precision": "0.0% - 26.7%",
+            "Informative Attribution Precision": "0.0% (Non-informative)",
+            "Notes": "Vocabulary collisions: equation (IDs 1,91), Photo (14), ps1 (16,35), net/Net/NET (21,33,39,45,48,57,58), ping (23), Soldier (24), Play (82).",
+            "Error Class Breakdown": "Class 2: Common Words / .NET / Ping",
+        },
+        {
+            "Detector Stage": "-",
+            "Sample Size": "11 detections (29.7%)",
+            "Real Entity Precision": "100.0% (Real ATT&CK tools)",
+            "Informative Attribution Precision": "0.0% (Non-informative)",
+            "Notes": "Generic OS tools in software: cmd.exe (IDs 10,17,27), ipconfig (32,55), ftp (67), netstat (74), net (93,95), schtasks.exe (96), systeminfo (99).",
+            "Error Class Breakdown": "Class 3: Generic OS Utilities",
+        },
+    ]
+
+# ---------------------------------------------------------------------------
 # Claim Builders
 # ---------------------------------------------------------------------------
 
@@ -135,6 +419,7 @@ def build_claims() -> list[dict]:
 
     # === C1 — Balanced retrieval hygiene ===
     # Restored from results/phase_6b/assets/table_ladder_common_budgets.csv
+    # Per-query ladder data was never archived, so label CI/W/T/L/p accordingly
     c1_ate_raw_row = find(ladder_common_csv, Dataset="cti-ate", Stage="1. Raw (E0' raw, k=50)")
     c1_ate_hyg_row = find(ladder_common_csv, Dataset="cti-ate", Stage="2. + Hygiene (E0' body-only, k=50)")
     c1_att_raw_row = find(ladder_common_csv, Dataset="CTI-ATTACK", Stage="1. Raw (E0' raw, k=50)")
@@ -148,6 +433,8 @@ def build_claims() -> list[dict]:
     c1_delta_ate = c1_ate_hyg - c1_ate_raw
     c1_delta_att = c1_att_hyg - c1_att_raw
 
+    c1_unarchived = "from Phase 6B run; per-query data not archived; not re-derivable"
+
     claims.append({
         "claim_id": "C1",
         "summary": f"Balanced retrieval query hygiene improves Mean Recall@B across balanced budgets {{500, 1000}} with fixed pool k=50 (cti-ate: {c1_ate_raw:.4f} -> {c1_ate_hyg:.4f}; CTI-ATTACK: {c1_att_raw:.4f} -> {c1_att_hyg:.4f})",
@@ -158,40 +445,51 @@ def build_claims() -> list[dict]:
         "N": "60 / 229",
         "delta_ate": fmt_delta(c1_delta_ate),
         "delta_att": fmt_delta(c1_delta_att),
-        "ci_ate": fmt_ci(0.0382, 0.1315),
-        "ci_att": fmt_ci(0.2520, 0.3500),
-        "wtl_ate": "29/21/10",
-        "wtl_att": "175/27/27",
-        "p_ate": fmt_p(0.0034),
-        "p_att": fmt_p(0.0000),
+        "ci_ate": c1_unarchived,
+        "ci_att": c1_unarchived,
+        "wtl_ate": c1_unarchived,
+        "wtl_att": c1_unarchived,
+        "p_ate": c1_unarchived,
+        "p_att": c1_unarchived,
         "source": "results/phase_6b/assets/table_ladder_common_budgets.csv",
         "status": "Robust",
     })
 
-    # === C2 — Enterprise STIX B3 cti-ate hygiene negative, CTI-ATTACK B2 positive ===
-    c2_ate = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B3", dataset="cti-ate",
-                  contrast="V0h vs V0", metric="Subtech_Recall@10")
+    # === C2 — Enterprise STIX B3 & B2 cti-ate hygiene, CTI-ATTACK B2 positive ===
+    c2_ate_b3 = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B3", dataset="cti-ate",
+                     contrast="V0h vs V0", metric="Subtech_Recall@10")
+    c2_ate_b2 = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B2", dataset="cti-ate",
+                     contrast="V0h vs V0", metric="Subtech_Recall@10")
     c2_att = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B2", dataset="CTI-ATTACK",
                   contrast="V0h vs V0", metric="Subtech_Recall@10")
-    c2_ate_ctrl = float(c2_ate["control_mean"])
-    c2_ate_trt = float(c2_ate["treatment_mean"])
+
+    c2_ate_b3_ctrl = float(c2_ate_b3["control_mean"])
+    c2_ate_b3_trt = float(c2_ate_b3["treatment_mean"])
+    c2_ate_b2_ctrl = float(c2_ate_b2["control_mean"])
+    c2_ate_b2_trt = float(c2_ate_b2["treatment_mean"])
     c2_att_ctrl = float(c2_att["control_mean"])
     c2_att_trt = float(c2_att["treatment_mean"])
+
     claims.append({
         "claim_id": "C2",
-        "summary": f"Enterprise STIX (E0-STIX-ENT): query hygiene is negative under B3 on cti-ate ({c2_ate_ctrl:.4f} -> {c2_ate_trt:.4f}, delta -0.0410, p=0.0037) but massive positive under B2 on CTI-ATTACK ({c2_att_ctrl:.4f} -> {c2_att_trt:.4f}, delta +0.4491, p<0.0001)",
+        "summary": (
+            f"Enterprise STIX (E0-STIX-ENT): query hygiene effect is baseline-dependent on cti-ate "
+            f"(B3: {c2_ate_b3_ctrl:.4f} -> {c2_ate_b3_trt:.4f}, delta {float(c2_ate_b3['delta']):+.4f}, p={float(c2_ate_b3['exact_sign_p']):.4f}; "
+            f"B2: {c2_ate_b2_ctrl:.4f} -> {c2_ate_b2_trt:.4f}, delta {float(c2_ate_b2['delta']):+.4f}, p={float(c2_ate_b2['exact_sign_p']):.4f}) "
+            f"and positive under B2 on CTI-ATTACK ({c2_att_ctrl:.4f} -> {c2_att_trt:.4f}, delta {float(c2_att['delta']):+.4f}, p<0.0001)"
+        ),
         "metric": "Subtech_Recall@10",
-        "dataset": "cti-ate B3 (N=60) & CTI-ATTACK B2 (N=229)",
+        "dataset": "cti-ate B3/B2 (N=60) & CTI-ATTACK B2 (N=229)",
         "control": "E0-STIX-ENT Raw (V0)",
         "treatment": "E0-STIX-ENT Hygiene (V0h)",
         "N": "60 / 229",
-        "delta_ate": fmt_delta(float(c2_ate["delta"])),
+        "delta_ate": f"{fmt_delta(float(c2_ate_b3['delta']))} (B3) / {fmt_delta(float(c2_ate_b2['delta']))} (B2)",
         "delta_att": fmt_delta(float(c2_att["delta"])),
-        "ci_ate": fmt_ci(float(c2_ate["ci_lower_95"]), float(c2_ate["ci_upper_95"])),
+        "ci_ate": f"{fmt_ci(float(c2_ate_b3['ci_lower_95']), float(c2_ate_b3['ci_upper_95']))} (B3) / {fmt_ci(float(c2_ate_b2['ci_lower_95']), float(c2_ate_b2['ci_upper_95']))} (B2)",
         "ci_att": fmt_ci(float(c2_att["ci_lower_95"]), float(c2_att["ci_upper_95"])),
-        "wtl_ate": f"{c2_ate['wins']}/{c2_ate['ties']}/{c2_ate['losses']}",
+        "wtl_ate": f"{c2_ate_b3['wins']}/{c2_ate_b3['ties']}/{c2_ate_b3['losses']} (B3) / {c2_ate_b2['wins']}/{c2_ate_b2['ties']}/{c2_ate_b2['losses']} (B2)",
         "wtl_att": f"{c2_att['wins']}/{c2_att['ties']}/{c2_att['losses']}",
-        "p_ate": fmt_p(float(c2_ate["exact_sign_p"])),
+        "p_ate": f"{fmt_p(float(c2_ate_b3['exact_sign_p']))} (B3) / {fmt_p(float(c2_ate_b2['exact_sign_p']))} (B2)",
         "p_att": fmt_p(float(c2_att["exact_sign_p"])),
         "source": "results/phase_6d/secondary_kb_contrasts.csv",
         "status": "Mixed",
@@ -231,7 +529,11 @@ def build_claims() -> list[dict]:
     c4_att_6c = find(contrasts_6c, contrast_id="C_HD_vs_E0_att", metric="f1_sub")
     claims.append({
         "claim_id": "C4",
-        "summary": "Downstream generation hygiene (HD vs E0') hurts cti-ate (negative, significant), mixed on CTI-ATTACK (positive mean, CI excludes 0, sign test p=0.355)",
+        "summary": (
+            "Downstream generation hygiene (HD vs E0') hurts cti-ate (negative, significant), mixed on CTI-ATTACK "
+            "(positive mean, CI excludes 0, sign test p=0.355) (confound note: control is k=all, treatment is k=200, "
+            "so hygiene is confounded with pool size)"
+        ),
         "metric": "Technique F1 (f1_sub)",
         "dataset": "cti-ate (N=60) & CTI-ATTACK (N=229)",
         "control": "True Raw E0' (B=500, k=all)",
@@ -268,8 +570,8 @@ def build_claims() -> list[dict]:
         "ci_att": fmt_ci(c5_att_6c["ci_lower"], c5_att_6c["ci_upper"]),
         "wtl_ate": g01["wtl"],
         "wtl_att": g02["wtl"],
-        "p_ate": f"{g01['p_raw']} (Holm α*={g01['holm_threshold']}, {'Sig' if g01['reject_null_holm'] else 'Not Sig'})",
-        "p_att": f"{g02['p_raw']} (Holm α*={g02['holm_threshold']}, {'Sig' if g02['reject_null_holm'] else 'Not Sig'})",
+        "p_ate": f"{g01['p_raw']} (Holm alpha*={g01['holm_threshold']}, {'Sig' if g01['reject_null_holm'] else 'Not Sig'})",
+        "p_att": f"{g02['p_raw']} (Holm alpha*={g02['holm_threshold']}, {'Sig' if g02['reject_null_holm'] else 'Not Sig'})",
         "source": "results/phase_6d/holm_primary_generation.json + results/phase_6c/contrasts_table.json",
         "status": "Robust (CTI-ATTACK) / Not Sig under Holm (cti-ate)",
     })
@@ -297,9 +599,14 @@ def build_claims() -> list[dict]:
         "status": "Exploratory (Retrieval Sig / Generation Null)",
     })
 
-    # === C7 — Leakage (Fisher exact per arm) ===
+    # === C7 — Leakage (Fisher exact per arm computed dynamically) ===
+    p_llm = fisher_exact([[10, 0], [26, 14]])[1]
+    p_v0 = fisher_exact([[9, 1], [21, 19]])[1]
+    p_v0h = fisher_exact([[10, 0], [27, 13]])[1]
+    p_vrel = fisher_exact([[10, 0], [28, 12]])[1]
     leak_sum = leakage["summary"]
-    fisher_str = "Fisher p (uncorrected, descriptive): LLM-only=0.0445, V0=0.0366, V0h=0.0463, Vrel=0.0920"
+    fisher_str = f"Fisher p (uncorrected, descriptive): LLM-only={p_llm:.4f}, V0={p_v0:.4f}, V0h={p_v0h:.4f}, Vrel={p_vrel:.4f}"
+
     claims.append({
         "claim_id": "C7",
         "summary": "GT alias leakage: 20% of cti-taa queries have leaked aliases, producing high accuracy; Fisher exact values are uncorrected and descriptive",
@@ -314,7 +621,7 @@ def build_claims() -> list[dict]:
         "ci_att": "N/A",
         "wtl_ate": "10/10 leaked correct (LLM-only, V0h, Vrel); 9/10 (V0)",
         "wtl_att": "N/A",
-        "p_ate": "0.0445 (LLM) / 0.0366 (V0) / 0.0463 (V0h) / 0.0920 (Vrel) [uncorrected, descriptive]",
+        "p_ate": f"{p_llm:.4f} (LLM) / {p_v0:.4f} (V0) / {p_v0h:.4f} (V0h) / {p_vrel:.4f} (Vrel) [uncorrected, descriptive]",
         "p_att": "N/A",
         "source": "results/phase_6d/gt_alias_leakage_audit.json",
         "status": "Robust Benchmark Defect",
@@ -344,12 +651,12 @@ def build_claims() -> list[dict]:
         "status": "Exploratory Precision (Recall unmeasured, single annotator)",
     })
 
-    # === C9 — Metadata credit (difference only, no p) ===
+    # === C9 — Metadata credit (dynamic summary from metadata_credit_audit.json) ===
     mc_ate_hd = [r for r in meta_credit if r["dataset"] == "cti-ate" and r["arm"] == "E0'-HD-k200"][0]
     mc_att_hd = [r for r in meta_credit if r["dataset"] == "CTI-ATTACK" and r["arm"] == "E0'-HD-k200"][0]
     claims.append({
         "claim_id": "C9",
-        "summary": "Chunk metadata tagging creates artificial recall advantage over text-visible matching (+0.1556 ate / +0.3475 att)",
+        "summary": f"Chunk metadata tagging creates artificial recall advantage over text-visible matching (+{mc_ate_hd['discrepancy_delta']:.4f} ate / +{mc_att_hd['discrepancy_delta']:.4f} att)",
         "metric": "Recall@B (B=500)",
         "dataset": "cti-ate & CTI-ATTACK",
         "control": "Text-Visible Only",
@@ -477,12 +784,12 @@ def build_headline_table():
 # ---------------------------------------------------------------------------
 
 def write_results_master(claims, holm_primary, holm_posthoc, headline_rows, kb_rows):
-    """Write the canonical RESULTS_MASTER.md."""
+    """Write canonical RESULTS_MASTER.md."""
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     lines = []
     lines.append("# RESULTS_MASTER: Canonical Claims, Contrasts, and Evidence Ledger")
     lines.append("")
-    lines.append(f"**Generated programmatically by `scripts/build_results_master.py` — Phase 6J ({ts})**")
+    lines.append(f"**Generated programmatically by `scripts/build_results_master.py` — Phase 6L ({ts})**")
     lines.append("All numbers read from source CSV/JSON in `results/phase_*`; zero hand-typed values.")
     lines.append("")
     lines.append("### Status Label Definitions")
@@ -507,7 +814,7 @@ def write_results_master(claims, holm_primary, holm_posthoc, headline_rows, kb_r
     # Holm Primary M=4
     lines.append("## Holm Primary Family (M=4, Pre-Declared)")
     lines.append("")
-    lines.append("| Rank | ID | Comparison | Metric | Δ | W/T/L | Raw p | Holm α* | Decision |")
+    lines.append("| Rank | ID | Comparison | Metric | Delta | W/T/L | Raw p | Holm alpha* | Decision |")
     lines.append("| :---: | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :--- |")
     for t in holm_primary:
         lines.append(f"| {t['rank']} | `{t['test_id']}` | {t['comparison']} | {t['metric']} | {t['mean_delta']:+.4f} | {t['wtl']} | {fmt_p(t['p_raw'])} | {t['holm_threshold']} | **{t['verdict']}** |")
@@ -516,7 +823,7 @@ def write_results_master(claims, holm_primary, holm_posthoc, headline_rows, kb_r
     # Holm Post-hoc M=2
     lines.append("## Post-Hoc Exploratory Family (M=2, HD vs Raw E0' Hygiene)")
     lines.append("")
-    lines.append("| Rank | ID | Comparison | Metric | Δ | W/T/L | Raw p | Holm α* | Decision |")
+    lines.append("| Rank | ID | Comparison | Metric | Delta | W/T/L | Raw p | Holm alpha* | Decision |")
     lines.append("| :---: | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :--- |")
     for t in holm_posthoc:
         lines.append(f"| {t['rank']} | `{t['test_id']}` | {t['comparison']} | {t['metric']} | {t['mean_delta']:+.4f} | {t['wtl']} | {fmt_p(t['p_raw'])} | {t['holm_threshold']} | **{t['verdict']}** |")
@@ -609,8 +916,8 @@ def write_figure_csvs():
             "control": 0.1221,
             "treatment": 0.0811,
             "delta": -0.0410,
-            "ci_lower_95": -0.0768,
-            "ci_upper_95": -0.0051,
+            "ci_lower_95": -0.1033,
+            "ci_upper_95": 0.0293,
             "source": "secondary_kb_contrasts.csv"
         },
         {
@@ -620,8 +927,8 @@ def write_figure_csvs():
             "control": 0.1812,
             "treatment": 0.6303,
             "delta": 0.4491,
-            "ci_lower_95": 0.3850,
-            "ci_upper_95": 0.5132,
+            "ci_lower_95": 0.3785,
+            "ci_upper_95": 0.5168,
             "source": "secondary_kb_contrasts.csv"
         },
         {
@@ -751,7 +1058,6 @@ def write_figure_csvs():
             w.writerows(f5_rows)
     print(f"  [F5] Wrote F5_rag_vs_llm_only.csv")
 
-
 def render_figures():
     """Render publication-quality figures F1-F5 using matplotlib from exact source CSVs."""
     import matplotlib
@@ -771,8 +1077,6 @@ def render_figures():
     deltas = [float(r["delta"]) for r in df_f1]
     ci_lowers = [float(r["ci_lower_95"]) for r in df_f1]
     ci_uppers = [float(r["ci_upper_95"]) for r in df_f1]
-    xerr = [[d - lo for d, lo in zip(deltas, ci_lowers)],
-            [hi - d for d, hi in zip(deltas, ci_uppers)]]
     colors = [CB_BLUE if "cti-ate" in r["dataset"] else CB_ORANGE for r in df_f1]
 
     for y, d, lo, hi, col in zip(y_pos, deltas, ci_lowers, ci_uppers, colors):
@@ -871,14 +1175,20 @@ def render_figures():
     print("  [FIG] Rendered PNG and SVG for F1-F5 in results_for_report/figures/")
 
 # ---------------------------------------------------------------------------
-# Write T3, T4, T6
+# Write T1, T2, T3, T4, T5, T6
 # ---------------------------------------------------------------------------
 
 def write_tables(claims, holm_primary, holm_posthoc):
-    """Write T3, T4, T6 tables as CSV and MD."""
+    """Write T1 to T6 tables as CSV, MD, and LaTeX."""
+    # T1: Datasets
+    t1_rows = build_t1_rows()
+    write_table_artifacts("T1_datasets", "Table T1: Datasets and Knowledge Base Inventory", t1_rows)
+
+    # T2: Arms
+    t2_rows = build_t2_rows()
+    write_table_artifacts("T2_arms", "Table T2: Evaluation Arm Definitions and Experimental Configurations", t2_rows)
+
     # T3: Main results
-    t3_out = RFR_TABLES / "T3_main_results"
-    t3_csv = RFR_DATA / "T3_main_results.csv"
     t3_rows = []
     for c in claims:
         t3_rows.append({
@@ -896,24 +1206,9 @@ def write_tables(claims, holm_primary, holm_posthoc):
             "Source": c["source"],
             "Status": c["status"],
         })
-    cols = list(t3_rows[0].keys())
-    with open(t3_csv, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=cols)
-        w.writeheader()
-        w.writerows(t3_rows)
-
-    md_lines = ["# Table T3: Main Experimental Results", "",
-                "| " + " | ".join(cols) + " |",
-                "| " + " | ".join([":---"] * len(cols)) + " |"]
-    for r in t3_rows:
-        md_lines.append("| " + " | ".join(str(r[c]) for c in cols) + " |")
-    with open(str(t3_out) + ".md", "w", encoding="utf-8") as f:
-        f.write("\n".join(md_lines) + "\n")
-    print(f"  [T3] Wrote {t3_csv} and .md")
+    write_table_artifacts("T3_main_results", "Table T3: Main Experimental Results", t3_rows)
 
     # T4: Statistical tests / Holm
-    t4_csv = RFR_DATA / "T4_statistical_tests.csv"
-    t4_out = RFR_TABLES / "T4_statistical_tests"
     t4_rows = []
     for t in holm_primary:
         t4_rows.append({
@@ -941,48 +1236,28 @@ def write_tables(claims, holm_primary, holm_posthoc):
             "Holm_threshold": t["holm_threshold"],
             "Decision": t["verdict"],
         })
-    cols = list(t4_rows[0].keys())
-    with open(t4_csv, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=cols)
-        w.writeheader()
-        w.writerows(t4_rows)
-    md_lines = ["# Table T4: Statistical Tests & Holm Corrections", "",
-                "| " + " | ".join(cols) + " |",
-                "| " + " | ".join([":---"] * len(cols)) + " |"]
-    for r in t4_rows:
-        md_lines.append("| " + " | ".join(str(r[c]) for c in cols) + " |")
-    with open(str(t4_out) + ".md", "w", encoding="utf-8") as f:
-        f.write("\n".join(md_lines) + "\n")
-    print(f"  [T4] Wrote {t4_csv} and .md")
+    write_table_artifacts("T4_statistical_tests", "Table T4: Statistical Tests & Holm Corrections", t4_rows)
+
+    # T5: Detector precision
+    t5_rows = build_t5_rows()
+    write_table_artifacts("T5_detector_precision", "Table T5: Entity Detector Precision Across Filtering Stages and Error Class Partitioning", t5_rows)
 
     # T6: Benchmark defects
-    t6_csv = RFR_DATA / "T6_benchmark_defects.csv"
-    t6_out = RFR_TABLES / "T6_benchmark_defects"
+    mc_ate_hd = [r for r in meta_credit if r["dataset"] == "cti-ate" and r["arm"] == "E0'-HD-k200"][0]
+    mc_att_hd = [r for r in meta_credit if r["dataset"] == "CTI-ATTACK" and r["arm"] == "E0'-HD-k200"][0]
     t6_rows = [
         {"Defect": "GT Alias Leakage (C7)", "Scope": "cti-taa 10/50 queries (20.0%)",
          "Impact": "Leaked queries have 100% accuracy saturation across generators", "Mitigation": "Report clean-40 subset separately (Fisher p values uncorrected)",
          "Source": "gt_alias_leakage_audit.json"},
         {"Defect": "Metadata Credit (C9)", "Scope": "All datasets (Phase 5/6)",
-         "Impact": f"Recall@B inflated by +{meta_credit[1]['discrepancy_delta']:.4f} (ate) / +{meta_credit[4]['discrepancy_delta']:.4f} (att)",
+         "Impact": f"Recall@B inflated by +{mc_ate_hd['discrepancy_delta']:.4f} (ate) / +{mc_att_hd['discrepancy_delta']:.4f} (att)",
          "Mitigation": "Report text-visible alongside metadata values",
          "Source": "metadata_credit_audit.json"},
         {"Defect": "S9000-Series Objects", "Scope": f"{kb_audit['total_non_standard_objects']} objects in bundle",
          "Impact": "Authentic upstream MITRE draft objects present in STIX snapshot", "Mitigation": "Documented in kb_integrity_audit.csv",
          "Source": "kb_integrity_audit.json"},
     ]
-    cols = list(t6_rows[0].keys())
-    with open(t6_csv, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=cols)
-        w.writeheader()
-        w.writerows(t6_rows)
-    md_lines = ["# Table T6: Benchmark Defects", "",
-                "| " + " | ".join(cols) + " |",
-                "| " + " | ".join([":---"] * len(cols)) + " |"]
-    for r in t6_rows:
-        md_lines.append("| " + " | ".join(str(r[c]) for c in cols) + " |")
-    with open(str(t6_out) + ".md", "w", encoding="utf-8") as f:
-        f.write("\n".join(md_lines) + "\n")
-    print(f"  [T6] Wrote {t6_csv} and .md")
+    write_table_artifacts("T6_benchmark_defects", "Table T6: Benchmark Defects", t6_rows)
 
 # ---------------------------------------------------------------------------
 # Write captions
@@ -991,7 +1266,7 @@ def write_tables(claims, holm_primary, holm_posthoc):
 def write_captions():
     out = RFR / "captions.md"
     lines = [
-        "# Figure and Table Captions (Phase 6J, auto-generated)",
+        "# Figure and Table Captions (Phase 6L, auto-generated)",
         "",
         "## Figure Captions",
         "",
@@ -1007,9 +1282,15 @@ def write_captions():
         "",
         "## Table Captions",
         "",
+        "**T1 (Datasets and Inventory)**: Datasets and knowledge base inventory. Data: `results_for_report/data/T1_datasets.csv`.",
+        "",
+        "**T2 (Arm Definitions)**: Evaluation arm definitions and experimental configurations. Data: `results_for_report/data/T2_arms.csv`.",
+        "",
         "**T3 (Main Results)**: Primary claim cells with deltas, CIs, W/T/L, p-values, source files. Data: `results_for_report/data/T3_main_results.csv`.",
         "",
         "**T4 (Statistical Tests)**: Holm step-down results for primary (M=4) and post-hoc hygiene (M=2) families. Data: `results_for_report/data/T4_statistical_tests.csv`.",
+        "",
+        "**T5 (Detector Precision)**: Entity detector precision across filtering stages and error class partitioning. Data: `results_for_report/data/T5_detector_precision.csv`.",
         "",
         "**T6 (Benchmark Defects)**: Known measurement artifacts and mitigations. Data: `results_for_report/data/T6_benchmark_defects.csv`.",
         "",
@@ -1027,7 +1308,7 @@ def write_captions():
 
 def main():
     print("=" * 60)
-    print("Phase 6J: Source-of-Truth Rebuild")
+    print("Phase 6L: Source-of-Truth Rebuild and Synchronization")
     print("=" * 60)
 
     # Step 8: KB integrity CSV
@@ -1064,7 +1345,7 @@ def main():
     write_captions()
 
     print("\n" + "=" * 60)
-    print("Phase 6J build_results_master.py complete.")
+    print("Phase 6L build_results_master.py complete.")
     print("=" * 60)
 
 

@@ -30,7 +30,7 @@ CTI-TAA evaluates actor attribution across 50 real-world incident queries. The g
 
 ## 3. MITRE ATT&CK STIX 2.1 Knowledge Base Composition (`E0-STIX-ALL`)
 
-Corpus combines Enterprise, Mobile, and ICS domains from MITRE ATT&CK v14.1 (active, non-deprecated objects):
+Corpus combines Enterprise, Mobile, and ICS domains from MITRE ATT&CK STIX 2.1 rolling master snapshot (2026-07-31) (active, non-deprecated objects):
 
 | Object Type | STIX 2.1 Type | Active Objects Count | Chunking Method ($E_0'$) | Chunks Count ($E_0'$) | Field Chunks ($E_{1a}$) |
 | :--- | :--- | :---: | :--- | :---: | :---: |

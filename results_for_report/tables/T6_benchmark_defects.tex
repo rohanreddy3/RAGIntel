@@ -1,11 +1,9 @@
 \begin{tabular}{lllll}
 \toprule
-Defect ID & Defect Name & Affected Benchmark & Empirical Impact & Mitigation / Status \\
+Defect & Scope & Impact & Mitigation & Source \\
 \midrule
-DEF-01 & Ground-Truth Alias Leakage in Query Body & cti-taa (10 of 50 queries = 20.0\%) & 100\% saturation on leaked subset across all generators and retrievers; artificially compresses model gaps. & Isolated Clean-40 subset (N=40) established as primary benchmark (post-hoc, labeled). \\
-DEF-02 & Metadata Credit vs Text-Visible Gap & cti-ate and CTI-ATTACK (Phase 5/6) & Chunk-level STIX metadata awards +0.15 to +0.35 recall over actual verbatim prompt text coverage. & Dual reporting: surface text-visible matching audited side-by-side with metadata-credit recall. \\
-DEF-03 & Upstream S9000-Series Draft Objects & MITRE ATT\&CK STIX Bundle (62 objects) & Draft non-canonical IDs created Dec 2025 - May 2026 present in enterprise-attack.json. & Verified directly in downloaded bundle (date: 2026-07-31); confirmed 0 occurrences in prompt contexts. \\
-DEF-04 & Instruction Text BM25 Token Matching & cti-taa unhygienic V0 baseline & Raw V0BM25 matches intrusion-set names from prompt instruction templates (V0=0.4000 vs V0h=0.1250). & V0-instruction-only probe (0.0750) confirms interaction between body and instruction tokens. \\
-DEF-05 & Legacy Back-Calculated Control Artifacts & Phase 6E/6F hygiene summary tables & Phantom control means (0.3807 / 0.2878) created erroneous +0.0129 / +0.0116 delta claims. & True raw controls certified (E0' ate=0.4792, att=0.2454); generation hygiene corrected to -0.0855 and +0.0540. \\
+GT Alias Leakage (C7) & cti-taa 10/50 queries (20.0\%) & Leaked queries have 100\% accuracy saturation across generators & Report clean-40 subset separately (Fisher p values uncorrected) & gt\_alias\_leakage\_audit.json \\
+Metadata Credit (C9) & All datasets (Phase 5/6) & Recall@B inflated by +0.1496 (ate) / +0.3516 (att) & Report text-visible alongside metadata values & metadata\_credit\_audit.json \\
+S9000-Series Objects & 62 objects in bundle & Authentic upstream MITRE draft objects present in STIX snapshot & Documented in kb\_integrity\_audit.csv & kb\_integrity\_audit.json \\
 \bottomrule
 \end{tabular}

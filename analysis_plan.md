@@ -455,7 +455,7 @@ Evaluate across arms ($E_0'\text{-k200}$, $E_0'\text{-TECH-k200}$, $E_{1a}$, $E_
 
 ### 14.1 Methodological Governance & Operational Constraints
 - **Date**: 2026-10-25
-- **Status**: Formally pre-registered prior to Phase 6D computation in `analysis_plan.md` and `results/phase_6d/variants_ledger.json`.
+- **Status**: Pre-declared prior to Phase 6D computation in `analysis_plan.md` and `results/phase_6d/variants_ledger.json`.
 - **Labeling**: Strictly designated as "post-hoc round 3–4, exploratory".
 - **Tone**: Strictly descriptive; zero causal phrasing permitted.
 - **Resource Limits**: Thread cap 4; strictly one heavy retrieval process at a time (API generation permitted in parallel).
@@ -570,7 +570,7 @@ Document Case 26 ("Soldier" matching SysUpdate) within the limitations section u
 **Governance**: Strictly offline execution. Thread cap 4. Zero modification to `api_runner.py` or frozen results (Phases 0–6B). Strictly descriptive scientific language; zero causal assertions.
 
 ### 16.1 Statistical Correction: Holm Family Exact Sign Test
-1. Correct the statistical test input for the primary generation Holm family (GEN_01 to GEN_04). The previously reported raw p-values ($p=0.0014$ on `cti-ate`, $p=0.0001$ on `CTI-ATTACK`) reflected paired bootstrap p-values rather than the pre-registered exact two-sided binomial sign test p-values derived from discordant pair counts.
+1. Correct the statistical test input for the primary generation Holm family (GEN_01 to GEN_04). The previously reported raw p-values ($p=0.0014$ on `cti-ate`, $p=0.0001$ on `CTI-ATTACK`) reflected paired bootstrap p-values rather than the pre-declared exact two-sided binomial sign test p-values derived from discordant pair counts.
 2. Under exact two-sided sign tests:
    - `GEN_02` (CTI-ATTACK HD vs LLM-only, W/T/L 44/102/83, discordant $N=127$): exact sign $p = 0.00068 \le 0.0125$ (Rank 1). **Rejects null hypothesis** (favors LLM-only).
    - `GEN_01` (`cti-ate` HD vs LLM-only, W/T/L 18/6/36, discordant $N=54$): exact sign $p = 0.0198 > 0.0167$ (Rank 2). **Fails to reject null hypothesis** (not statistically significant under Holm step-down correction).
@@ -742,9 +742,10 @@ Phase 6H serves as the final consistency and asset preparation phase.
 2. **Root Cause**:
    Alphabetical sorting of cache globs (`*Vrel*`) ordered `hybrid_prompt_b500_Vrel...` before `Vrel...` (`'h' < 'V'`), causing prior scripts to inadvertently read hybrid prompt files. Both arms are now explicitly differentiated with exact filenames.
 
-## 18.4 Holm Step-Down Family Rectification
-1. **Pre-Registered Family Definitions**:
-   `GEN_01` and `GEN_02` are pre-registered as **HD vs LLM-only (technique `f1_sub`)**:
+## 18.4 Post-Hoc Confirmatory Generation Family (M=4)
+1. **Post-Hoc Confirmatory Family Definitions**:
+   This family was formally defined after Phase 6C generation results were observed, rather than prior to observation.
+   `GEN_01` and `GEN_02` are evaluated as **HD vs LLM-only (technique `f1_sub`)**:
    - `GEN_02` (`CTI-ATTACK`, $N=229$): $p = 0.00068$ (Rank 1 in $M=4$ family). Holm threshold $\alpha^* = 0.05 / 4 = \mathbf{0.0125}$. Since $0.00068 \le 0.0125$, the effect is **statistically significant**.
    - `GEN_01` (`cti-ate`, $N=60$): $p = 0.01984$ (Rank 2 in $M=4$ family). Holm threshold $\alpha^* = 0.05 / 3 = \mathbf{0.0167}$. Since $0.01984 > 0.0167$, the effect **fails to reach statistical significance**.
 
@@ -947,6 +948,62 @@ All four values are explicitly declared as **uncorrected and descriptive** parti
 - Confirmed that `results/phase_6c/per_query_scores.csv`, `results/phase_1/ragas_deferred_smoke_results.csv`, and `results/phase_2/ragas_phase2_smoke_results.csv` match their exact on-disk byte hashes in the manifest.
 - Final repository freeze tagged as `v1.0-final2`.
 
+## 21. Phase 6L — Final Consistency Fixes, Rigorous Audits, and Certified Freeze (Dated 2026-10-30)
 
+### 21.1 Governance & Operational Invariants
+Phase 6L is strictly an offline consistency, audit-reconciliation, and packaging phase:
+- Zero API calls; no new experiments.
+- Frozen results under `results/phase_0` through `results/phase_6b` remain strictly immutable and untouched.
+- All report artifacts (Markdown, CSV, and LaTeX tables T1..T6) are generated programmatically via `scripts/build_results_master.py` from verified source files.
+- Zero hand-typed numerical values in any report, table, caption, or figure.
 
+### 21.2 Comprehensive Table Rebuild (Markdown & LaTeX Synchronization)
+1. **Unified Table Generator**: `scripts/build_results_master.py` generates every `.tex` table (T1..T6) from the exact same data structures as the `.md` tables, removing stale pre-Phase 6 LaTeX files.
+2. **Automated Cross-Verification**: `scripts/verify_master.py` asserts that every numerical token present in the Markdown tables matches its corresponding LaTeX entry with 100% concordance.
 
+### 21.3 Claim Harmonization & Clarifications
+1. **Claim C1 (Balanced Ladder Recall@B)**:
+   Per-query ladder data was never archived in Phase 6B; therefore, C1 confidence intervals, W/T/L discordant pairs, and $p$-values are explicitly labeled as *"from Phase 6B run; per-query data not archived; not re-derivable"* in `RESULTS_MASTER.md`, `claims_master.csv`, and Table T3, while retaining the canonical point estimates ($\Delta = +0.0849$ on `cti-ate`, $+0.3010$ on `CTI-ATTACK`) from `results/phase_6b/assets/table_ladder_common_budgets.csv`.
+2. **Claim C2 (Enterprise STIX Hygiene)**:
+   Reports both baseline regimes for `cti-ate` to reflect baseline dependency:
+   - Baseline B3: Control = 0.1221, Treatment = 0.0811, $\Delta = -0.0410$, 95% CI [-0.1033, +0.0293], W/T/L = 6/32/22, exact sign $p = 0.0037$ (significant negative).
+   - Baseline B2: Control = 0.0895, Treatment = 0.0813, $\Delta = -0.0082$, 95% CI [-0.0636, +0.0561], W/T/L = 8/36/16, exact sign $p = 0.1516$ (null).
+   - `CTI-ATTACK` B2: Control = 0.1812, Treatment = 0.6303, $\Delta = +0.4491$, 95% CI [+0.3785, +0.5168], W/T/L = 117/104/8, exact sign $p < 0.0001$ (massive positive).
+   - Explicitly designates the query hygiene effect on `cti-ate` as baseline-dependent.
+3. **Claim C4 (Downstream Live Generation Hygiene)**:
+   Added formal methodological confound disclosure: Control arm uses $k = \text{all}$ candidate pool size, whereas treatment arm uses $k = 200$. Therefore, query hygiene in this contrast is confounded with candidate pool truncation.
+4. **Claim C7 (GT Alias Leakage)**:
+   Fisher exact test $p$-values are computed directly in code via `scipy.stats.fisher_exact`:
+   - `LLM-only`: $p = 0.0445$
+   - $V_0$: $p = 0.0366$
+   - $V_{0h}$: $p = 0.0463$
+   - $V_{\text{rel}}$: $p = 0.0920$
+   Designated as uncorrected and descriptive subset partition audits.
+5. **Claim C9 (Metadata Credit Audit)**:
+   Summary string is constructed dynamically from `results/phase_6d/metadata_credit_audit.json` ($\Delta = +0.1496$ on `cti-ate`, $+0.3516$ on `CTI-ATTACK`), eliminating hardcoded values.
+
+### 21.4 Sensitivity Analysis: Bidirectional Credit under Prompt Instruction Mismatch (CRIT-02)
+1. **Audit Finding**: In prompt instructions, the model was instructed to output canonical MITRE ATT&CK technique IDs *"excluding any subtechnique IDs"*, whereas in ground truth, 47.8% of `CTI-ATTACK` targets (and 14.1% of `cti-ate` targets) are subtechniques (`Txxxx.xxx`). The pre-declared headline metric `f1_sub` awards credit if the predicted ID matches either the target subtechnique or its parent technique, but does NOT award credit if the prompt instructed a parent technique and the ground truth required a subtechnique.
+2. **Offline Re-Scoring**: Evaluated saved model outputs under full bidirectional credit (credit awarded if prediction equals target, prediction is parent of target, or prediction is subtechnique of target):
+   - `CTI-ATTACK` ($N=229$):
+     - LLM-only: 0.3964 (headline) $\to$ 0.5834 (bidirectional), Rank 1.
+     - D1 ($B=2000$): 0.3593 (headline) $\to$ 0.5249 (bidirectional), Rank 2.
+     - HD ($B=500$): 0.2994 (headline) $\to$ 0.4566 (bidirectional), Rank 3.
+     - $E_0'$ (raw, $B=500$): 0.2454 (headline) $\to$ 0.3960 (bidirectional), Rank 4.
+     - **Conclusion**: Relative model rankings on `CTI-ATTACK` are 100% preserved under bidirectional credit. LLM-only remains superior to all RAG configurations.
+   - `cti-ate` ($N=60$):
+     - LLM-only: 0.4634 (headline) $\to$ 0.5494 (bidirectional), Rank 2 $\to$ Rank 1.
+     - $E_0'$ (raw): 0.4792 (headline) $\to$ 0.5313 (bidirectional), Rank 1 $\to$ Rank 2.
+     - D1 ($B=2000$): 0.4432 (headline) $\to$ 0.5144 (bidirectional), Rank 3.
+     - HD ($B=500$): 0.3936 (headline) $\to$ 0.4554 (bidirectional), Rank 4.
+   - Results archived in `results/phase_6l/bidirectional_sensitivity.csv` and `.json`.
+   - The headline metric is retained unchanged for comparability with pre-registered specifications; prompt limitation is disclosed.
+
+### 21.5 Status of `results/phase_7/`
+The directory `results/phase_7` contains exploratory, uncommitted intermediate evaluation dumps generated on 2026-10-25 (including raw chunk caches `top200_phase7_chunks.json` totaling ~167 MB). In accordance with the Phase 6L freeze plan, `results/phase_7` is explicitly designated **exploratory and excluded** from the release manifest (`results/freeze_manifest.json`).
+
+### 21.6 Certified Verification and Final Freeze
+- Pytest suite: 52 tests collected, 52 passed in offline configuration (`pythonpath = .` in `pytest.ini`).
+- Cross-check verifier (`scripts/verify_master.py`): 97 checks executed, 97 passed, 0 failed.
+- Line-ending normalized hashes updated in `results/freeze_manifest.json`.
+- Repository release tagged as `v1.0-final4`.

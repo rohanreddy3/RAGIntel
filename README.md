@@ -4,7 +4,7 @@ RAGIntel investigates the optimization of retrieval-augmented generation pipelin
 
 ## Status
 
-Experiments in progress, see `reviews/api_status.md`.
+Release v1.0 Frozen (Phase 6L final consistency fixes complete; verified offline). See `reviews/RESULTS_MASTER.md` and `results_for_report/`.
 
 ## Repository Structure
 
