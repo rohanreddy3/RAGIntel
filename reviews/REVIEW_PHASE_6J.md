@@ -143,15 +143,15 @@ A critical distinction enforced in Phase 6J is the strict separation between Cla
 - **Source**: `results/phase_6d/secondary_kb_contrasts.json`
 - **Definition**: Subtechnique Recall@10 on Enterprise-only STIX bundle under dense embeddings.
 - **`cti-ate` under Budget B3 (N=60)**:
-  - Baseline Raw ($V_0$): **0.2797**
-  - Treatment Hygiene ($V_{0h}$): **0.2387**
+  - Baseline Raw ($V_0$): **0.1221**
+  - Treatment Hygiene ($V_{0h}$): **0.0811**
   - Delta ($\Delta$): **-0.0410**
   - 95% Bootstrap CI: **[-0.1033, +0.0293]**
   - Wins / Ties / Losses: **6 / 32 / 22**
   - Exact Binomial Sign Test $p$: **0.0037** (significant negative)
 - **`CTI-ATTACK` under Budget B2 (N=229)**:
-  - Baseline Raw ($V_0$): **0.2762**
-  - Treatment Hygiene ($V_{0h}$): **0.7253**
+  - Baseline Raw ($V_0$): **0.1812**
+  - Treatment Hygiene ($V_{0h}$): **0.6303**
   - Delta ($\Delta$): **+0.4491**
   - 95% Bootstrap CI: **[+0.3785, +0.5168]**
   - Wins / Ties / Losses: **117 / 104 / 8**

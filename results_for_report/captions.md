@@ -2,7 +2,7 @@
 
 ## Figure Captions
 
-**F1 (Hygiene Effect Across 4 Regimes)**: Query hygiene effect (treatment minus control delta with 95% bootstrap CI) across four evaluation regimes: (1) Balanced retrieval ladder on common budgets {500, 1000} with fixed pool k=50; (2) Enterprise STIX objects (E0-STIX-ENT); (3) Long-context dense embeddings (B1 nomic-embed-text-v1.5); and (4) Downstream live generation technique F1 at B=500. Shows that large retrieval gains on CTI-ATTACK fail to translate to generation gains. Data: `results_for_report/data/F1_hygiene_effect.csv`.
+**F1 (Hygiene Effect Across 4 Regimes)**: Query hygiene effect (treatment minus control delta with 95% bootstrap CI) across four evaluation regimes: (1) Balanced retrieval ladder on common budgets {500, 1000} with fixed pool k=50; (2) Enterprise STIX objects (E0-STIX-ENT, cti-ate B3: 0.1221 -> 0.0811; CTI-ATTACK B2: 0.1812 -> 0.6303); (3) Long-context dense embeddings (B1 nomic-embed-text-v1.5); and (4) Downstream live generation technique F1 at B=500. Shows that large retrieval gains on CTI-ATTACK fail to translate to generation gains. Data: `results_for_report/data/F1_hygiene_effect.csv`.
 
 **F2 (cti-taa Clean-40)**: Retrieval Object Recall@10 for V0, V0h, Vrel on full-50 and clean-40 query sets. Data: `results_for_report/data/F2_cti_taa_clean40.csv`.
 

@@ -62,6 +62,7 @@ gen_contrasts: list[dict] = load_json(P6D / "generation_contrasts.json")
 holm_gen: list[dict] = load_json(P6D / "holm_primary_generation.json")
 p6g: dict = load_json(P6D / "phase6g_corrections.json")
 sec_kb: list[dict] = load_json(P6D / "secondary_kb_contrasts.json")
+sec_kb_csv: list[dict] = load_csv_dicts(P6D / "secondary_kb_contrasts.csv")
 b1_csv: list[dict] = load_csv_dicts(P6D / "b1_robustness_contrasts.csv")
 leakage: dict = load_json(P6D / "gt_alias_leakage_audit.json")
 meta_credit: list[dict] = load_json(P6D / "metadata_credit_audit.json")
@@ -168,27 +169,31 @@ def build_claims() -> list[dict]:
     })
 
     # === C2 — Enterprise STIX B3 cti-ate hygiene negative, CTI-ATTACK B2 positive ===
-    c2_ate = find(sec_kb, kb="E0-STIX-ENT", baseline="B3", dataset="cti-ate",
+    c2_ate = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B3", dataset="cti-ate",
                   contrast="V0h vs V0", metric="Subtech_Recall@10")
-    c2_att = find(sec_kb, kb="E0-STIX-ENT", baseline="B2", dataset="CTI-ATTACK",
+    c2_att = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B2", dataset="CTI-ATTACK",
                   contrast="V0h vs V0", metric="Subtech_Recall@10")
+    c2_ate_ctrl = float(c2_ate["control_mean"])
+    c2_ate_trt = float(c2_ate["treatment_mean"])
+    c2_att_ctrl = float(c2_att["control_mean"])
+    c2_att_trt = float(c2_att["treatment_mean"])
     claims.append({
         "claim_id": "C2",
-        "summary": "Enterprise STIX (E0-STIX-ENT): query hygiene is negative under B3 on cti-ate (-0.0410, p=0.0037) but massive positive under B2 on CTI-ATTACK (+0.4491, p<0.0001)",
+        "summary": f"Enterprise STIX (E0-STIX-ENT): query hygiene is negative under B3 on cti-ate ({c2_ate_ctrl:.4f} -> {c2_ate_trt:.4f}, delta -0.0410, p=0.0037) but massive positive under B2 on CTI-ATTACK ({c2_att_ctrl:.4f} -> {c2_att_trt:.4f}, delta +0.4491, p<0.0001)",
         "metric": "Subtech_Recall@10",
         "dataset": "cti-ate B3 (N=60) & CTI-ATTACK B2 (N=229)",
         "control": "E0-STIX-ENT Raw (V0)",
         "treatment": "E0-STIX-ENT Hygiene (V0h)",
         "N": "60 / 229",
-        "delta_ate": fmt_delta(c2_ate["delta"]),
-        "delta_att": fmt_delta(c2_att["delta"]),
-        "ci_ate": fmt_ci(c2_ate["ci_lower_95"], c2_ate["ci_upper_95"]),
-        "ci_att": fmt_ci(c2_att["ci_lower_95"], c2_att["ci_upper_95"]),
+        "delta_ate": fmt_delta(float(c2_ate["delta"])),
+        "delta_att": fmt_delta(float(c2_att["delta"])),
+        "ci_ate": fmt_ci(float(c2_ate["ci_lower_95"]), float(c2_ate["ci_upper_95"])),
+        "ci_att": fmt_ci(float(c2_att["ci_lower_95"]), float(c2_att["ci_upper_95"])),
         "wtl_ate": f"{c2_ate['wins']}/{c2_ate['ties']}/{c2_ate['losses']}",
         "wtl_att": f"{c2_att['wins']}/{c2_att['ties']}/{c2_att['losses']}",
-        "p_ate": fmt_p(c2_ate["exact_sign_p"]),
-        "p_att": fmt_p(c2_att["exact_sign_p"]),
-        "source": "results/phase_6d/secondary_kb_contrasts.json",
+        "p_ate": fmt_p(float(c2_ate["exact_sign_p"])),
+        "p_att": fmt_p(float(c2_att["exact_sign_p"])),
+        "source": "results/phase_6d/secondary_kb_contrasts.csv",
         "status": "Mixed",
     })
 
@@ -606,7 +611,7 @@ def write_figure_csvs():
             "delta": -0.0410,
             "ci_lower_95": -0.0768,
             "ci_upper_95": -0.0051,
-            "source": "secondary_kb_contrasts.json"
+            "source": "secondary_kb_contrasts.csv"
         },
         {
             "regime": "2. Enterprise STIX (E0-STIX-ENT)",
@@ -617,7 +622,7 @@ def write_figure_csvs():
             "delta": 0.4491,
             "ci_lower_95": 0.3850,
             "ci_upper_95": 0.5132,
-            "source": "secondary_kb_contrasts.json"
+            "source": "secondary_kb_contrasts.csv"
         },
         {
             "regime": "3. Long-Context Embeddings (B1 nomic-8k)",
@@ -990,7 +995,7 @@ def write_captions():
         "",
         "## Figure Captions",
         "",
-        "**F1 (Hygiene Effect Across 4 Regimes)**: Query hygiene effect (treatment minus control delta with 95% bootstrap CI) across four evaluation regimes: (1) Balanced retrieval ladder on common budgets {500, 1000} with fixed pool k=50; (2) Enterprise STIX objects (E0-STIX-ENT); (3) Long-context dense embeddings (B1 nomic-embed-text-v1.5); and (4) Downstream live generation technique F1 at B=500. Shows that large retrieval gains on CTI-ATTACK fail to translate to generation gains. Data: `results_for_report/data/F1_hygiene_effect.csv`.",
+        "**F1 (Hygiene Effect Across 4 Regimes)**: Query hygiene effect (treatment minus control delta with 95% bootstrap CI) across four evaluation regimes: (1) Balanced retrieval ladder on common budgets {500, 1000} with fixed pool k=50; (2) Enterprise STIX objects (E0-STIX-ENT, cti-ate B3: 0.1221 -> 0.0811; CTI-ATTACK B2: 0.1812 -> 0.6303); (3) Long-context dense embeddings (B1 nomic-embed-text-v1.5); and (4) Downstream live generation technique F1 at B=500. Shows that large retrieval gains on CTI-ATTACK fail to translate to generation gains. Data: `results_for_report/data/F1_hygiene_effect.csv`.",
         "",
         "**F2 (cti-taa Clean-40)**: Retrieval Object Recall@10 for V0, V0h, Vrel on full-50 and clean-40 query sets. Data: `results_for_report/data/F2_cti_taa_clean40.csv`.",
         "",
@@ -1011,7 +1016,10 @@ def write_captions():
     ]
     with open(out, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
-    print(f"  [CAP] Wrote {out}")
+    f1_cap_txt = RFR_FIG / "F1_hygiene_effect.caption.txt"
+    with open(f1_cap_txt, "w", encoding="utf-8") as f:
+        f.write("Figure F1: Query hygiene delta across 4 evaluation regimes showing positive retrieval recall contrasting with negative (cti-ate: -0.0855, p=0.0127) or null (CTI-ATTACK: +0.0540, p=0.3553) downstream live generation impact (supports Claims C1, C2 [cti-ate 0.1221->0.0811, CTI-ATTACK 0.1812->0.6303], C3, C4).\n")
+    print(f"  [CAP] Wrote {out} and {f1_cap_txt}")
 
 # ---------------------------------------------------------------------------
 # Main

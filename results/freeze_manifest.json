@@ -1,6 +1,6 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-30T09:42:07.579210+00:00",
+  "timestamp_utc": "2026-10-30T13:36:57.803777+00:00",
   "total_files": 167,
   "files": {
     "analysis_plan.md": {
@@ -1006,8 +1006,8 @@
       "norm_size_bytes": 9274
     }
   },
-  "freeze_version": "v1.0-final2",
-  "phase": "Phase 6J",
+  "freeze_version": "v1.0-final3",
+  "phase": "Phase 6K",
   "normalization": "LF normalized (replace CRLF with LF) for text files",
   "reconciliation_explanations": {
     "results/phase_4b/detector_labels.csv": "Annotator column and single-annotator quality labels added in Phase 4B/6F audit.",

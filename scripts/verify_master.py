@@ -87,6 +87,7 @@ def main():
     holm_gen = load_json(P6D / "holm_primary_generation.json")
     p6g = load_json(P6D / "phase6g_corrections.json")
     sec_kb = load_json(P6D / "secondary_kb_contrasts.json")
+    sec_kb_csv = load_csv(P6D / "secondary_kb_contrasts.csv")
     b1_csv = load_csv(P6D / "b1_robustness_contrasts.csv")
     leakage = load_json(P6D / "gt_alias_leakage_audit.json")
     meta_credit = load_json(P6D / "metadata_credit_audit.json")
@@ -142,18 +143,31 @@ def main():
     # C2: Enterprise STIX (E0-STIX-ENT)
     # -------------------------------------------------------------------------
     c2 = find(claims_csv, claim_id="C2")
-    c2_ate = find(sec_kb, kb="E0-STIX-ENT", baseline="B3", dataset="cti-ate", contrast="V0h vs V0", metric="Subtech_Recall@10")
-    c2_att = find(sec_kb, kb="E0-STIX-ENT", baseline="B2", dataset="CTI-ATTACK", contrast="V0h vs V0", metric="Subtech_Recall@10")
-    p_c2_ate = binomtest(c2_ate["wins"], c2_ate["wins"] + c2_ate["losses"], 0.5).pvalue
-    p_c2_att = binomtest(c2_att["losses"], c2_att["wins"] + c2_att["losses"], 0.5).pvalue
+    c2_ate = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B3", dataset="cti-ate", contrast="V0h vs V0", metric="Subtech_Recall@10")
+    c2_att = find(sec_kb_csv, kb="E0-STIX-ENT", baseline="B2", dataset="CTI-ATTACK", contrast="V0h vs V0", metric="Subtech_Recall@10")
 
-    check("C2_ENT", "cti-ate B3 delta=-0.0410", close(c2_ate["delta"], -0.0410), f"got {c2_ate['delta']:.4f}")
-    check("C2_ENT", "CTI-ATTACK B2 delta=+0.4491", close(c2_att["delta"], 0.4491), f"got {c2_att['delta']:.4f}")
+    ate_ctrl = float(c2_ate["control_mean"])
+    ate_trt = float(c2_ate["treatment_mean"])
+    att_ctrl = float(c2_att["control_mean"])
+    att_trt = float(c2_att["treatment_mean"])
+
+    check("C2_ENT", "cti-ate B3 baseline control mean from CSV (0.1221)", close(ate_ctrl, 0.1221), f"got {ate_ctrl}")
+    check("C2_ENT", "cti-ate B3 treatment mean from CSV (0.0811)", close(ate_trt, 0.0811), f"got {ate_trt}")
+    check("C2_ENT", "cti-ate B3 delta=-0.0410", close(float(c2_ate["delta"]), -0.0410), f"got {c2_ate['delta']}")
+    check("C2_ENT", "CTI-ATTACK B2 baseline control mean from CSV (0.1812)", close(att_ctrl, 0.1812), f"got {att_ctrl}")
+    check("C2_ENT", "CTI-ATTACK B2 treatment mean from CSV (0.6303)", close(att_trt, 0.6303), f"got {att_trt}")
+    check("C2_ENT", "CTI-ATTACK B2 delta=+0.4491", close(float(c2_att["delta"]), 0.4491), f"got {c2_att['delta']}")
+
+    w_ate, l_ate = int(c2_ate["wins"]), int(c2_ate["losses"])
+    w_att, l_att = int(c2_att["wins"]), int(c2_att["losses"])
+    p_c2_ate = binomtest(min(w_ate, l_ate), w_ate + l_ate, 0.5).pvalue
+    p_c2_att = binomtest(min(w_att, l_att), w_att + l_att, 0.5).pvalue
+
     check("C2_STAT", "cti-ate B3 sign test p=0.0037", close(p_c2_ate, 0.0037, tol=0.0005), f"got {p_c2_ate:.4f}")
     check("C2_STAT", "CTI-ATTACK B2 sign test p<0.0001", p_c2_att < 0.0001, f"got {p_c2_att:.2e}")
-    check("C2_SEMANTIC", "Text reflects opposing signs across datasets",
-          float(c2["delta_ate"]) < 0 and float(c2["delta_att"]) > 0,
-          f"ate={c2['delta_ate']}, att={c2['delta_att']}")
+    check("C2_SEMANTIC", "Text reflects opposing signs and exact means from CSV",
+          float(c2["delta_ate"]) < 0 and float(c2["delta_att"]) > 0 and f"{ate_ctrl:.4f}" in c2["summary"] and f"{ate_trt:.4f}" in c2["summary"] and f"{att_ctrl:.4f}" in c2["summary"] and f"{att_trt:.4f}" in c2["summary"],
+          f"summary={c2['summary']}")
     check("C2_STATUS", "Status is Mixed (relabelled per Phase 6J)", c2["status"] == "Mixed", f"status={c2['status']}")
 
     # -------------------------------------------------------------------------
