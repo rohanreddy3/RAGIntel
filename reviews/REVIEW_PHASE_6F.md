@@ -1,5 +1,8 @@
 # Phase 6F Review: Corrections, Methodological Rigor, and Reproducibility Audits
 
+> [!IMPORTANT]
+> **SUPERSEDED by 6G/6H/6I**: API status is final: all arms complete (100% of prioritized generation arms D3, D2b, D4 finished offline; 0 calls pending). Canonical claims and statistical tests are unified in `reviews/RESULTS_MASTER.md` and `reviews/REVIEW_PHASE_6I.md`.
+
 **Date**: 2026-10-26  
 **Status**: Certified & Verified Offline (Zero API Calls)  
 **Execution Context**: Independent post-hoc audit following Phase 6D/6E; frozen results from Phases 0–6B strictly preserved.

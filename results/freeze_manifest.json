@@ -1,11 +1,11 @@
 {
   "title": "RAGIntel Freeze Manifest",
-  "timestamp_utc": "2026-10-26T07:57:22.045215+00:00",
-  "total_files": 166,
+  "timestamp_utc": "2026-10-30T08:45:23.001260+00:00",
+  "total_files": 167,
   "files": {
     "analysis_plan.md": {
-      "sha256": "2edc86e42db4ad06a44e1c677f72a5aa35442edda04006a9772822b1cdab267d",
-      "size_bytes": 64316
+      "sha256": "6a86b19850e91a7706420623635ef617a9888fc4ec1cd332fb7b301302444119",
+      "size_bytes": 79366
     },
     "report/dataset_stats.md": {
       "sha256": "3fe402b2c5553f811f18f3cb5d0f444f78b54631cfbd0b75612c5943983cea62",
@@ -524,8 +524,8 @@
       "size_bytes": 477
     },
     "results/phase_6d/holm_primary_generation.json": {
-      "sha256": "99ad9139deccf699a8f2fecccf2af86f4b3879ddba4da8dc0829cc117c831127",
-      "size_bytes": 1191
+      "sha256": "ed85c531ff8d901949a15882bfa1b0c1b7dd51576123a3119b961bd555cd63d7",
+      "size_bytes": 1264
     },
     "results/phase_6d/missing_taa_contrasts.csv": {
       "sha256": "7f2522dbd1337a4da1ed03c21430e4798bf7aca4f8c03a0812a64fd3f567c416",
@@ -596,12 +596,12 @@
       "size_bytes": 898
     },
     "results/phase_6d/hygiene_summary_table.csv": {
-      "sha256": "5a720c07f2097ad9b855bc32a7ed03b9523d7dce7b63077c1a1be125383c24bb",
-      "size_bytes": 1880
+      "sha256": "c49a4eea91c648ff805e27e63e4b902e7bd02677c06c0d69304048e8db20c048",
+      "size_bytes": 1866
     },
     "results/phase_6d/hygiene_summary_table.json": {
-      "sha256": "bc29d048e8365ee679b1d537a3e967de3bbdecd66d21223de64d0a29aeea1b49",
-      "size_bytes": 3391
+      "sha256": "f904c8888b47246226467f9ef988b79e416dc0d33463760ed12f2f9c94cc8186",
+      "size_bytes": 3375
     },
     "results/phase_6d/quota_accounting_by_utc_day.csv": {
       "sha256": "0bfd24b5d1e69b3f288de55dfaa16fd56d9ca613d13a27124f5459c6c411c901",
@@ -666,6 +666,10 @@
     "results/phase_6d/vrel_noise_strata_ledger.csv": {
       "sha256": "2050f496052f92a6a8eca6c99c0b27ee98e0b34606d50f7ff7c711fa02948ea9",
       "size_bytes": 4090
+    },
+    "results/phase_6d/kb_integrity_audit.csv": {
+      "sha256": "b969b90737c61818b9df17db18316f16c42aab05b2845ec58335a61ec6c1c654",
+      "size_bytes": 9337
     }
   }
 }

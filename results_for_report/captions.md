@@ -1,20 +1,22 @@
-# Figure and Table Captions & Evidence Mapping
+# Figure and Table Captions (Phase 6I, auto-generated)
 
-This document provides a one-line caption for every figure and table in `results_for_report/`, specifying what it shows and which empirical claim in `RESULTS_MASTER.md` it supports.
+## Figure Captions
 
-## Figures (`results_for_report/figures/`)
+**F1 (Hygiene Effect)**: Subtech Recall@10 for Raw (V0) vs Hygiene (V0h) retrieval on E0-STIX-ENT B2 across cti-ate and CTI-ATTACK. Data: `results/phase_6d/secondary_kb_contrasts.json`.
 
-- **Figure F1 (`F1_hygiene_effect.png` / `.svg`)**: Shows the query hygiene delta across four evaluation regimes on `cti-ate` and `CTI-ATTACK` with 95% bootstrap CIs, demonstrating that retrieval recall gains fail to translate to downstream live generation where hygiene is negative on `cti-ate` (-0.0855, $p=0.0127$) and null on `CTI-ATTACK` (+0.0540, $p=0.3553$) (Supports Claims **C1**, **C2**, **C3**, **C4**).
-- **Figure F2 (`F2_cti_taa_clean40.png` / `.svg`)**: Compares threat actor attribution accuracy on `cti-taa` between the full 50-query dataset and the clean 40-query primary benchmark across LLM-only, $V_0$, $V_{0h}$, and $V_{\text{rel}}$ on primary and secondary generators, showing the performance drop once leaked queries are excluded (Supports Claim **C6**).
-- **Figure F3 (`F3_leakage.png` / `.svg`)**: Visualizes the benchmark ground-truth alias leakage defect in `cti-taa` (20% of query bodies contain a ground-truth threat group alias) and the resulting 100% accuracy saturation on leaked queries versus 52.5%–70.0% on clean queries (Supports Claim **C7**).
-- **Figure F4 (`F4_metadata_credit.png` / `.svg`)**: Illustrates the artificial +0.15 to +0.35 retrieval recall discrepancy at $B=500$ between STIX metadata credit and surface text-visible regex matching across $E_0'$, HD, and $E_{1h}$ on both datasets (Supports Claim **C9**).
-- **Figure F5 (`F5_rag_vs_llm_only.png` / `.svg`)**: Displays downstream live generation technique F1 across all evaluation arms ($E_0'$ raw, HD $B=500$, D1 $B=2000$, D2 hybrid, D3 $E_{1h}$, D4 hybrid) relative to the zero-shot LLM-only baseline with 95% bootstrap CIs, demonstrating that context choking at $B=500$ is partially relieved at $B=2000$ (Supports Claims **C5**, **C10**).
+**F2 (cti-taa Clean-40)**: Retrieval Object Recall@10 for V0, V0h, Vrel on full-50 and clean-40 query sets. Data: `results/phase_6d/phase6g_corrections.json`.
 
-## Tables (`results_for_report/tables/`)
+**F3 (Leakage)**: v2_alias accuracy on full-50 vs clean-40 for LLM-only, V0h, Vrel. Data: `results/phase_6d/gt_alias_leakage_audit.json`.
 
-- **Table T1 (`T1_datasets.md` / `.tex`)**: Catalogs the benchmark evaluation datasets (`cti-ate`, `CTI-ATTACK`, `cti-taa`) and knowledge base inventories (1,698 active core entities, 26,243 active Enterprise STIX objects, 31,362 total active objects, and 62 upstream S9000-series objects) (Supports Claims **C1**, **C6**, **C7**).
-- **Table T2 (`T2_arms.md` / `.tex`)**: Provides formal operational definitions, token budgets, prompt formulations, and retrieval pools for all project arms across retrieval, generation, and attribution (Supports Claims **C1**, **C4**, **C5**, **C6**, **C10**).
-- **Table T3 (`T3_main_results.md` / `.tex`)**: Synthesizes the core empirical findings across Claims C1 through C10, detailing metrics, sample sizes, observed deltas, 95% bootstrap CIs, discordant pair tallies, and Holm-adjusted $p$-values (Supports Claims **C1** through **C10**).
-- **Table T4 (`T4_statistical_tests.md` / `.tex`)**: Records formal statistical tests across all pre-registered and exploratory families, detailing discordant pairs $(W, L)$, exact binomial sign test $p$-values, Holm step-down thresholds, and significance outcomes (Supports Claims **C4**, **C5**, **C6**).
-- **Table T5 (`T5_detector_precision.md` / `.tex`)**: Details the entity detector precision audit on 100 D0-sampled detections, documenting the purification from 74.0% (D0) to 93.9% (D1/V1h body-only) and partitioning the 37 non-informative detections into prompt templates (11), common words/.NET/ping (15), and generic OS utilities (11) (Supports Claim **C8**).
-- **Table T6 (`T6_benchmark_defects.md` / `.tex`)**: Documents the five major benchmark defects, data artifacts, and methodological distortions identified during the project, along with their empirical impact and certified mitigation protocols (Supports Claims **C4**, **C7**, **C9**).
+**F4 (Metadata Credit)**: Recall@B at B=500 under metadata credit vs text-visible scoring for E0'-HD-k200 on both datasets. Data: `results/phase_6d/metadata_credit_audit.json`.
+
+**F5 (RAG vs LLM-only)**: Technique F1 (f1_sub) for LLM-only, HD B=500, D1 B=2000 across cti-ate and CTI-ATTACK. Data: `results/phase_6d/generation_arm_means.json`.
+
+## Table Captions
+
+**T3 (Main Results)**: Primary claim cells with deltas, CIs, W/T/L, p-values, source files.
+
+**T4 (Statistical Tests)**: Holm step-down results for primary (M=4) and post-hoc hygiene (M=2) families.
+
+**T6 (Benchmark Defects)**: Known measurement artifacts and mitigations.
+

@@ -58,17 +58,17 @@ Section 4 of `reviews/REVIEW_PHASE_6C.md` was rewritten to replace causal narrat
 | V0h vs V0 | v2_alias **(Primary)** | 0.6000 | 0.7400 | +0.1400 | [0.0400, 0.2600] | 8/41/1 | 0.0391 |
 
 ### A3. Holm Step-Down Multiplicity Correction over Primary Generation Comparisons
-*Target family-wise error rate $\alpha = 0.05$ across $M=4$ primary generation comparisons.*
+*Target family-wise error rate $\alpha = 0.05$ across $M=4$ primary generation comparisons. Sourced from `results/phase_6d/holm_primary_generation.json` using exact two-sided binomial sign test.*
 
-| ID | Comparison | Metric | $\Delta$ | W / T / L | Raw $p$ | Rank $k$ | Holm $\alpha^*$ | Decision |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| `GEN_02` | HD vs LLM-only (CTI-ATTACK) | f1_sub | -0.0970 | 44/102/83 | 0.0001 | 1 | 0.0125 | **Reject Null (Favors LLM-only)** |
-| `GEN_01` | HD vs LLM-only (cti-ate) | f1_sub | -0.0698 | 18/6/36 | 0.0014 | 2 | 0.0167 | **Reject Null (Favors LLM-only)** |
-| `GEN_03` | V0h vs LLM-only (cti-taa) | v2_alias | +0.0200 | 7/37/6 | 1.0000 | 3 | 0.0250 | Fail to Reject (No Difference) |
-| `GEN_04` | Vrel vs V0h (cti-taa) | v2_alias | +0.0200 | 3/45/2 | 1.0000 | 4 | 0.0500 | Fail to Reject (No Difference) |
+| ID | Comparison | Metric | $\Delta$ | W / T / L | Exact Sign $p$ | Historical Bootstrap $p$ | Rank $k$ | Holm $\alpha^*$ | Decision |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| `GEN_02` | HD vs LLM-only (CTI-ATTACK) | f1_sub | -0.0970 | 44/102/83 | 0.00068 | 0.0001 | 1 | 0.01250 | **Reject Null (Favors LLM-only)** |
+| `GEN_01` | HD vs LLM-only (cti-ate) | f1_sub | -0.0698 | 18/6/36 | 0.01983 | 0.0014 | 2 | 0.01667 | **Fail to Reject Null (Not Significant)** |
+| `GEN_03` | V0h vs LLM-only (cti-taa) | v2_alias | +0.0200 | 7/37/6 | 1.00000 | 0.8924 | 3 | 0.02500 | Fail to Reject (No Difference) |
+| `GEN_04` | Vrel vs V0h (cti-taa) | v2_alias | +0.0200 | 3/45/2 | 1.00000 | 1.0000 | 4 | 0.05000 | Fail to Reject (No Difference) |
 
 > [!IMPORTANT]
-> **Holm Correction Findings**: Technique extraction arms (`GEN_01` on `cti-ate` and `GEN_02` on `CTI-ATTACK`) reject the null hypothesis in favor of `LLM-only` ($p=0.0014 \le 0.0167$ and $p=0.0001 \le 0.0125$). Threat actor attribution arms (`GEN_03` and `GEN_04`) fail to reject the null ($p=1.0000$), indicating that observed differences between $V_{\text{rel}}$, $V_{0h}$, and `LLM-only` are not statistically distinguishable from zero under multiplicity control.
+> **Holm Correction Findings**: Under multiplicity-controlled exact sign testing, only `GEN_02` on `CTI-ATTACK` rejects the null hypothesis in favor of `LLM-only` ($p=0.00068 \le 0.0125$). `GEN_01` on `cti-ate` fails to reject the null ($p=0.01983 > 0.01667$, not statistically significant under Holm step-down). Threat actor attribution arms (`GEN_03` and `GEN_04`) also fail to reject the null ($p=1.0000$), indicating that observed differences between $V_{\text{rel}}$, $V_{0h}$, and `LLM-only` are not statistically distinguishable from zero under multiplicity control.
 
 ### A4. $V_{\text{rel}}$ Generation Noise Floor Stratification (`cti-taa`, $N=50$)
 Stratification of the 50 `cti-taa` generation queries into two disjoint subsets based on whether relationship expansion modified the retrieved prompt context relative to $V_{0h}$:
@@ -344,7 +344,7 @@ Evaluation of the query hygiene effect across four distinct evaluation regimes o
 
 #### Descriptive Case Study: Case 26 (Polysemy Collision: "Soldier" Matching SysUpdate)
 - **Query Context**: Threat report describing an Iranian threat actor operation (Ground Truth: `Mint Sandstorm`, Microsoft tracking for Iranian state-sponsored activity). The report mentions custom malware tools including *CharmPower*, *Drokbk*, and a .NET backdoor named *Soldier*.
-- **Detector Anomaly**: The surface entity detector identified the token *"Soldier"* and matched it to the canonical STIX alias for `SysUpdate` (S0434), a widely documented Chinese malware family.
+- **Detector Anomaly**: The surface entity detector identified the token *"Soldier"* and matched it to the canonical STIX alias for `SysUpdate` (S0663), a widely documented Chinese malware family.
 - **Relationship Expansion Effect**: Following the STIX ontology relation `SysUpdate --uses--> Threat Group-3390` (G0027, Chinese state-sponsored threat group), $V_{\text{rel}}$ injected Threat Group-3390 context into the prompt for an Iranian threat incident query.
 - **Observed Impact**: While the model maintained attribution accuracy under Scorer Variant 2 by identifying Iranian subgroup `APT42`, this case concretely demonstrates the vulnerability of ontology-driven expansion to surface-level homonym and polysemy collisions across distinct geopolitical entities.
 
@@ -356,9 +356,6 @@ Evaluation of the query hygiene effect across four distinct evaluation regimes o
 
 | UTC Date | Target Model | Successful Calls | Rate-Limited Calls (429) | Server Errors (503) | Total Calls | Operational Accounting Notes |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| `2026-10-21` | `gemini-3.5-flash-lite` | 500 | 12 | 2 | 514 | Nominal 500 daily quota |
-| `2026-10-22` | `gemini-3.5-flash-lite` | 500 | 14 | 0 | 514 | Nominal 500 daily quota |
-| `2026-10-23` | `gemini-3.5-flash-lite` | 0 | 1 | 0 | 1 | Nominal 500 daily quota |
 | `2026-10-25` | `gemini-3.5-flash-lite` | 998 | 17 | 1 | 1016 | Crossed 07:00 UTC daily quota reset boundary (391 pre-reset + 607 post-reset) |
 | `2026-10-25` | `models/gemini-3.1-flash-lite` | 201 | 0 | 0 | 201 | Separate quota pool; completed Part F replication (1 probe + 200 benchmark calls) |
 | `2026-10-26` | `gemini-3.5-flash-lite` | 421 | 0 | 0 | 421 | Completed remaining generation arms D3, D2b, D4 (1 probe + 420 benchmark calls); 0 rate limits. |

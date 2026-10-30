@@ -795,4 +795,72 @@ All Clean-40 contrasts are designated **post-hoc / exploratory**:
    - $V_{\text{rel}}$ vs $V_{0h}$: Control = 0.6250, Treatment = 0.6500, $\Delta = +0.0250$, 95% CI [-0.100, +0.150], W/T/L = 4/33/3, $p_{\text{raw}} = 1.0000$ (Rank 4, $\alpha^* = 0.0250$) $\to$ Not significant.
    - $V_0$ vs LLM-only: Control = 0.5750, Treatment = 0.5750, $\Delta = 0.0000$, 95% CI [-0.150, +0.150], W/T/L = 4/32/4, $p_{\text{raw}} = 1.0000$ (Rank 5, $\alpha^* = 0.0500$) $\to$ Not significant.
 
+---
+
+## 19. Phase 6I: Source-of-Truth Rebuild, Multiplicity Corrections, and Final Freeze (Dated 2026-10-30)
+
+**Governance**: Strictly offline execution. Zero API calls. Zero modification to frozen results in `results/phase_0` .. `results/phase_6b`. All numbers programmatically extracted from raw per-query result files and canonical CSV/JSON artifacts.
+
+### 19.1 Programmatic Source-of-Truth Rebuild
+1. **Single Rebuild Script (`scripts/build_results_master.py`)**:
+   - Reconstructs `reviews/RESULTS_MASTER.md`, `results_for_report/RESULTS_MASTER.md`, `results_for_report/data/claims_master.csv`, tables T3, T4, T6, figure data F1–F5, and `results_for_report/captions.md`.
+   - Every metric, confidence interval, discordant pair count (W/T/L), and $p$-value is extracted programmatically by key from frozen JSON/CSV source artifacts. Zero hand-typed values.
+2. **Automated Cross-Check Verification (`scripts/verify_master.py`)**:
+   - Re-reads every source file independently and re-evaluates every claim cell.
+   - Recomputes exact two-sided binomial sign test $p$-values via `scipy.stats.binomtest(min(W, L), W + L, 0.5).pvalue` on discordant pairs.
+   - Emits a machine-checked PASS/FAIL verification list with zero tolerance for discrepancies.
+
+### 19.2 Mismatch Reconciliations & Certified Values
+1. **Claim C2 (Enterprise STIX Hygiene)**:
+   - On `cti-ate` under baseline B3: W/T/L = **6/32/22**, 95% bootstrap CI = **[-0.1033, +0.0293]**, exact sign $p = 0.0037$.
+   - On `CTI-ATTACK` under baseline B2: W/T/L = **117/104/8**, exact sign $p < 0.0001$.
+2. **Claim C3 (B1 Long-Context Embeddings)**:
+   - On `CTI-ATTACK`: W/T/L = **90/137/2**, exact sign $p < 0.0001$.
+3. **Claim C4 (Downstream Live Generation Hygiene HD vs E0')**:
+   - 95% bootstrap CI on `cti-ate`: **[-0.1356, -0.0386]** ($\Delta = -0.0855$, exact sign $p = 0.0127$).
+   - 95% bootstrap CI on `CTI-ATTACK`: **[+0.0069, +0.1027]** ($\Delta = +0.0540$, exact sign $p = 0.3553$, robust null).
+4. **Claim C10 (Budget Expansion & Hybrid Prompting)**:
+   - `cti-ate` D1 ($B=2000$) vs P6C HD ($B=500$): W/T/L = **33/8/19**, exact sign $p = 0.0704$.
+   - `CTI-ATTACK` D1 ($B=2000$) vs P6C HD ($B=500$): W/T/L = **60/141/28**, exact sign $p = 0.0008$.
+   - `cti-ate` D4 Hybrid ($B=2000$) vs P6C HD ($B=500$): $\Delta = +0.0354$, W/T/L = **28/8/24**, exact sign $p = 0.6778$.
+
+### 19.3 Elimination of Invalid Statistical Tests
+1. **Claim C7 (GT Alias Leakage)**: Removed invalid pooled Fisher test citation ("<0.001"). Recomputed exact two-sided Fisher test per model arm between leaked-10 and clean-40 subsets:
+   - `LLM-only`: 10/10 leaked vs 26/40 clean ($p = 0.0465$).
+   - $V_{0h}$: 10/10 leaked vs 27/40 clean ($p = 0.0850$).
+   - $V_{\text{rel}}$: 10/10 leaked vs 28/40 clean ($p = 0.1687$).
+2. **Claim C8 (Entity Detector Precision)**: Deleted pseudo-hypothesis binomial test against arbitrary 50% null. Reports descriptive sample counts only ($62/66 = 93.9\%$ real/informative precision on surviving detections).
+3. **Claim C9 (Metadata Credit Audit)**: Removed invalid $p$-value ("<0.0001") for a deterministic scoring divergence. Reports exact discrepancy deltas ($+0.1496$ on `cti-ate`, $+0.3516$ on `CTI-ATTACK`).
+
+### 19.4 Strict Holm Multiplicity Control Families
+1. **Pre-Declared Primary Generation Family ($M=4$)**:
+   - `GEN_02` (CTI-ATTACK HD vs LLM-only): $p = 0.00068 \le 0.0125$ (Rank 1). **Statistically Significant**.
+   - `GEN_01` (cti-ate HD vs LLM-only): $p = 0.01983 > 0.01667$ (Rank 2). **Fail to Reject Null (Not Significant)**.
+   - `GEN_03` (cti-taa $V_{0h}$ vs LLM-only): $p = 1.00000 > 0.0250$ (Rank 3). Fail to Reject Null.
+   - `GEN_04` (cti-taa $V_{\text{rel}}$ vs $V_{0h}$): $p = 1.00000 > 0.0500$ (Rank 4). Fail to Reject Null.
+   - Verified that Holm ranks are sorted strictly by ascending raw exact sign $p$-values.
+2. **Post-Hoc Exploratory Hygiene Family ($M=2$)**:
+   - `HYG_01` (cti-ate HD vs true raw E0'): $p = 0.0127 \le 0.0250$ (Rank 1). **Statistically Significant Negative**.
+   - `HYG_02` (CTI-ATTACK HD vs true raw E0'): $p = 0.3553 > 0.0500$ (Rank 2). **Not Significant (Null)**.
+
+### 19.5 Headline Attribution Table Specification (`cti-taa`)
+Every row must explicitly state the evaluation metric and data provenance:
+- Retrieval: `Retrieval Recall@10` (Full-50 / Clean-40).
+- Primary Generator (`gemini-3.5-flash-lite`): `Primary Generator (v2_alias)`. `LLM-only` Full-50 = **0.7200** ($v_2\text{-alias}$), Clean-40 = **0.6500** ($v_1\text{-alias}$ was 0.6800).
+- Secondary Generator (`gemini-3.1-flash-lite`): `Secondary Generator (v2_alias)`. Reconciled $V_0$: Full-50 = **0.6600**, Clean-40 = **0.5750**.
+- Source file stated per row: `results/phase_6d/phase6g_corrections.json (item8)`.
+
+### 19.6 Descriptive Language Protocol & Benchmark Integrity
+1. **Descriptive Language**: No causal claims; "context choking" replaced with descriptive references to constrained token budgets; all attribution mechanisms designated hypotheses.
+2. **Metadata Credit Note on C1**: Notes that Recall@B uses chunk metadata tagging with parent-subtechnique expansion, displaying the text-visible surface matching values side-by-side ($0.2042$ vs $0.0546$ on `cti-ate`; $0.5670$ vs $0.2154$ on `CTI-ATTACK`).
+3. **STIX S9000-Series Audit**: Certified catalog in `results/phase_6d/kb_integrity_audit.csv` (62 objects, 53 malware, 9 tools, S9001 *SystemBC*, S9008 *Shai-Hulud*). Corrected all erroneous citations (e.g. S9001 *XWorm*).
+4. **SysUpdate Canonical ID**: Corrected to **S0663** (from upstream STIX bundle `data/mitre/enterprise-attack.json`).
+5. **Stale Quota Reporting**: Stale "Nominal 500" quota rows removed; superseding banner added to `REVIEW_PHASE_6F.md` and `REVIEW_PHASE_6G.md` Section 9.
+
+### 19.7 Final Repository Freeze Protocol
+1. Run freeze script to update `results/freeze_manifest.json` with SHA-256 hashes for all project artifacts.
+2. Run pytest suite in offline mode to verify test integrity.
+3. Commit all Phase 6I updates, create git tag `v1.0-final`, and push to `origin/main`.
+
+
 

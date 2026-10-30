@@ -1,0 +1,63 @@
+external_id,name,type,stix_id,created,modified,bundle,in_software_to_groups
+S9015,BRICKSTORM,malware,malware--0450ed20-e9a7-4799-b601-2f2710300796,2026-04-16T17:34:09.075Z,2026-04-23T03:13:35.645Z,enterprise-attack.json,False
+S9029,IronWind,malware,malware--089aa00a-99ac-46b4-9cf8-4224d463566d,2026-04-20T12:42:31.383Z,2026-05-12T15:12:00.732Z,enterprise-attack.json,True
+S9018,HeartCrypt,malware,malware--148f947c-aabd-4ba8-b6a3-22b296855119,2026-04-16T20:45:04.154Z,2026-04-23T03:34:30.999Z,enterprise-attack.json,True
+S9034,Tsundere Botnet,malware,malware--18f5f8c6-bba5-4aba-93e7-3539fe565883,2026-04-20T22:24:44.870Z,2026-05-12T15:12:00.733Z,enterprise-attack.json,True
+S9026,ROAMINGHOUSE,malware,malware--251f1715-fc97-4487-b939-5c8823ef7a39,2026-04-17T19:03:01.696Z,2026-05-12T15:12:00.733Z,enterprise-attack.json,True
+S9022,MirrorStealer,malware,malware--2f851d4a-18cc-4d7f-9408-b10ef02ee936,2026-04-17T16:54:17.773Z,2026-04-24T02:32:16.653Z,enterprise-attack.json,True
+S9038,DynoWiper,malware,malware--34057cb6-0a56-48a3-92e5-3af1357808da,2026-04-22T22:09:31.886Z,2026-04-23T23:21:34.879Z,enterprise-attack.json,False
+S9001,SystemBC,malware,malware--39643fb9-00c1-4a45-85e5-801a3f2665d1,2025-12-15T22:33:21.950Z,2026-04-23T03:17:29.350Z,enterprise-attack.json,True
+S9030,SameCoin,malware,malware--4e164a21-3fbe-4aaa-be69-2513fdba90f7,2026-04-20T13:01:30.316Z,2026-05-12T15:12:00.733Z,enterprise-attack.json,True
+S9037,RustyWater,malware,malware--50be4e81-db74-41a2-a9aa-423314082bea,2026-04-21T15:00:10.376Z,2026-05-12T15:12:00.733Z,enterprise-attack.json,True
+S9007,HTTPTroy,malware,malware--52b52f72-88e6-4847-88d6-da3b9e4a4f71,2026-04-08T15:49:02.020Z,2026-04-23T02:33:46.681Z,enterprise-attack.json,True
+S9025,NOOPLDR,malware,malware--66637cd6-ae68-4bcd-af82-32f70a854175,2026-04-17T18:35:44.528Z,2026-05-12T15:12:00.734Z,enterprise-attack.json,True
+S9019,PureCrypter,malware,malware--6f22487c-dbbf-4a5b-85ca-a8c85e8f2f80,2026-04-16T22:06:18.120Z,2026-04-23T03:35:11.899Z,enterprise-attack.json,True
+S9020,LODEINFO,malware,malware--7908f855-5b5b-4d6a-acbc-af6b45ec27ad,2026-04-17T14:45:26.266Z,2026-05-12T15:12:00.735Z,enterprise-attack.json,True
+S9032,MuddyViper,malware,malware--7b92e996-b535-4159-be16-3c3aee4edf54,2026-04-20T17:41:52.695Z,2026-04-23T03:31:49.616Z,enterprise-attack.json,True
+S9033,Fooder,malware,malware--7c8865dc-1bf9-49ce-b5f2-f15abde0909a,2026-04-20T21:28:28.895Z,2026-04-23T03:31:09.302Z,enterprise-attack.json,True
+S9036,LP-Notes,malware,malware--7fbf1f1e-cbd8-4060-8e3b-7ca0e56ce3fe,2026-04-21T14:43:14.412Z,2026-04-23T03:29:27.045Z,enterprise-attack.json,True
+S9010,GlassWorm,malware,malware--809bc57b-4d4c-43de-b698-448334ed8185,2026-04-10T16:59:14.138Z,2026-04-24T02:39:02.116Z,enterprise-attack.json,False
+S9000,Ngrok,malware,malware--911fe4c3-444d-4e92-83b8-cc761ac5fd3b,2020-09-15T13:32:10.185Z,2026-10-08T18:57:03.576Z,enterprise-attack.json,False
+S9028,PHPsert,malware,malware--9491a623-5861-4d0a-9958-8c05d0d17442,2026-04-19T19:03:14.000Z,2026-05-12T15:12:00.739Z,enterprise-attack.json,False
+S9016,Caminho,malware,malware--97da6467-c9c5-4eb0-84d4-1234e937e534,2026-04-16T17:48:45.413Z,2026-05-12T15:12:00.739Z,enterprise-attack.json,True
+S9023,HiddenFace,malware,malware--9edc41d1-a13d-4acf-b400-d47fb2f6809d,2026-04-17T17:12:08.208Z,2026-05-12T15:12:00.739Z,enterprise-attack.json,True
+S9012,TRAILBLAZE,malware,malware--b82b9e25-e37b-4f7c-b1f0-2c2eea4f4be9,2026-04-14T12:48:16.344Z,2026-04-23T01:59:00.751Z,enterprise-attack.json,False
+S9031,AshTag,malware,malware--bb6f2a5c-dbc9-45b0-bd3f-a0b7849959c2,2026-04-20T14:04:02.153Z,2026-05-12T15:12:00.739Z,enterprise-attack.json,True
+S9027,ANELLDR,malware,malware--c21edbd1-a0a4-4c3c-9b22-4a49634186c3,2026-04-19T15:09:46.460Z,2026-04-24T02:34:13.607Z,enterprise-attack.json,False
+S9035,LAMEHUG,malware,malware--c55e0410-842d-4365-a2c8-26c0330f85b8,2026-04-21T12:07:59.044Z,2026-05-12T15:12:00.739Z,enterprise-attack.json,True
+S9014,PHASEJAM,malware,malware--ca3f5123-b853-45ef-83cb-1d1bca22e03f,2026-04-16T13:59:06.123Z,2026-05-12T15:12:00.739Z,enterprise-attack.json,False
+S9024,SPAWNCHIMERA,malware,malware--d1974f35-0e06-478e-bc74-7530545d814b,2026-04-17T18:25:01.807Z,2026-04-23T02:42:16.476Z,enterprise-attack.json,False
+S9008,Shai-Hulud,malware,malware--de376fb9-1093-4f59-8d13-aed61042701d,2026-04-09T18:24:26.568Z,2026-04-24T00:04:27.563Z,enterprise-attack.json,False
+S9011,BRUSHFIRE,malware,malware--e110c9c6-7691-4bcb-874d-3d83a63c06c2,2026-04-13T14:24:52.519Z,2026-04-23T03:07:51.031Z,enterprise-attack.json,False
+S9039,LazyWiper,malware,malware--e4160979-b9bc-4f58-acbe-1d921ebbc122,2026-04-22T22:31:11.070Z,2026-05-12T15:12:00.739Z,enterprise-attack.json,False
+S9013,DRYHOOK,malware,malware--e9c72c02-b55a-4852-b2eb-c7031d215414,2026-04-14T13:25:25.776Z,2026-04-23T03:09:34.005Z,enterprise-attack.json,False
+S9021,DOWNIISSA,malware,malware--eddb863e-fc77-41c1-86e9-5210d6d58b88,2026-04-17T16:31:22.126Z,2026-04-24T02:30:38.822Z,enterprise-attack.json,True
+S9004,Crocodilus,malware,malware--eed7b988-0279-4c4f-bfa9-d81f5444a04b,2026-02-06T21:22:59.796Z,2026-04-23T03:24:47.669Z,enterprise-attack.json,False
+S9002,Diskpart,tool,tool--080f872e-f1a3-4d42-bb00-9eb55949f6a9,2026-01-26T18:36:33.410Z,2026-04-23T02:11:05.517Z,enterprise-attack.json,False
+S9003,evilginx2,tool,tool--1eb9627d-a661-4db6-bf53-41b7dcc63087,2026-01-30T20:15:05.674Z,2026-04-23T02:18:02.821Z,enterprise-attack.json,False
+S9017,DCRAT,tool,tool--2f481072-e9f8-4452-be00-d1d7e43c2edc,2026-04-16T18:23:44.020Z,2026-05-12T15:12:00.740Z,enterprise-attack.json,True
+S9009,TruffleHog,tool,tool--76f8a686-3157-481f-9af6-e8558883a8d6,2026-04-09T19:12:38.917Z,2026-04-23T02:27:35.330Z,enterprise-attack.json,False
+S9041,TeamPCP Cloud Stealer,malware,malware--fe5b2f0f-8fdc-459d-85b7-dd45c0217a0c,2026-07-01T21:11:27.530Z,2026-07-31T02:42:44.295Z,enterprise-attack.json,True
+S9043,Mini Shai-Hulud,malware,malware--7f211b2e-c008-4cac-9ea8-29bd7edd50a4,2026-07-29T14:50:38.891Z,2026-07-31T02:40:12.281Z,enterprise-attack.json,True
+S9042,CanisterWorm,malware,malware--5b30f717-1d7b-4e91-a97d-be361d00aa5e,2026-07-24T17:52:27.451Z,2026-07-31T02:39:34.113Z,enterprise-attack.json,True
+S9044,Kali365,malware,malware--f5a56c26-e192-489d-a77e-a8b38fd70eee,2026-07-30T20:47:44.241Z,2026-07-31T03:34:21.895Z,enterprise-attack.json,False
+S9062,MiniBrowse,malware,malware--8c8b765a-fba0-4551-ae83-b12e2a8b8937,2026-10-01T12:59:07.184Z,2026-10-01T20:13:07.752Z,enterprise-attack.json,True
+S9052,MiniFast,malware,malware--363bc9c0-6e9b-4815-a072-1a92d0ad7502,2026-09-24T18:08:39.049Z,2026-10-01T20:46:23.748Z,enterprise-attack.json,True
+S9053,MiniJunk,malware,malware--7eaf437c-cde7-475b-87dd-d8573ca5406b,2026-09-24T19:00:14.300Z,2026-10-01T20:58:58.010Z,enterprise-attack.json,True
+S9064,TRUSTTRAP,malware,malware--e60b857a-afe6-4f3a-b308-664d51768610,2026-10-01T20:58:43.749Z,2026-10-01T21:36:37.212Z,enterprise-attack.json,True
+S9059,MiniBike,malware,malware--1cf09c8f-32e1-404c-bb1e-4ac9ee7c5191,2026-09-28T18:35:48.220Z,2026-10-01T21:23:13.768Z,enterprise-attack.json,True
+S9061,LIGHTRAIL,malware,malware--0bbfc4cf-818d-4ef0-97e0-15b423c85b08,2026-09-30T16:19:28.930Z,2026-10-01T21:28:13.399Z,enterprise-attack.json,True
+S9057,CRASHPAD,malware,malware--b7c4047f-d56b-43b7-a0c8-65088a70d0cc,2026-09-28T16:01:35.123Z,2026-10-01T21:38:53.171Z,enterprise-attack.json,True
+S9063,DEEPROOT,malware,malware--8460166d-ba74-405b-9944-c6f0365bc085,2026-10-01T18:01:41.908Z,2026-10-01T21:33:55.245Z,enterprise-attack.json,True
+S9060,MiniBus,malware,malware--8b325e28-6ea1-4094-929b-966d5db4ee4c,2026-09-28T21:33:08.238Z,2026-10-01T21:15:12.857Z,enterprise-attack.json,True
+S9058,SIGHTGRAB,malware,malware--53450019-1b2f-4912-bb3a-004bb1d7f177,2026-09-28T16:25:08.301Z,2026-10-01T22:15:12.580Z,enterprise-attack.json,True
+S9065,DCSYNCER.SLICK,malware,malware--e6de8db2-092a-476c-a683-ad6e042a3265,2026-10-01T21:18:08.255Z,2026-10-02T12:11:29.664Z,enterprise-attack.json,True
+S9066,POLLBLEND,malware,malware--fa6cfe4c-e83b-4e19-b687-bd26e2b656e5,2026-10-01T21:28:47.232Z,2026-10-01T21:29:24.896Z,enterprise-attack.json,True
+S9067,TWOSTROKE,malware,malware--86adfd9a-6092-4714-9c5a-a05c5e3f63b5,2026-10-01T21:41:24.357Z,2026-10-01T21:42:36.830Z,enterprise-attack.json,True
+S9051,The Gentlemen Ransomware,malware,malware--73526d60-8813-4895-88ac-915c68dfe8dd,2026-09-22T22:53:37.482Z,2026-09-30T20:43:14.935Z,enterprise-attack.json,True
+S9045,BACKUPOSINT v9.0 APEX PREDATOR,malware,malware--ab183324-4634-45bc-98af-9458bb94bcef,2026-09-02T20:19:46.450Z,2026-10-09T00:56:40.966Z,enterprise-attack.json,False
+S9050,Vidar,malware,malware--947119be-4875-49aa-8247-776c34233063,2026-09-11T19:05:30.171Z,2026-09-23T18:54:28.219Z,enterprise-attack.json,True
+S9046,IOControl,malware,malware--bcd0f2cd-0b21-4109-8310-8a90be320514,2026-09-02T20:33:19.300Z,2026-10-12T16:09:31.637Z,enterprise-attack.json,False
+S9005,DocSwap,malware,malware--3dbef387-12df-4547-9dd3-075c7ffec9e3,2026-02-16T15:40:59.504Z,2026-04-23T02:05:27.803Z,mobile-attack.json,False
+S9006,VajraSpy,malware,malware--8205a875-3ed5-4be2-ab9b-14a7d29431d0,2026-03-09T14:58:08.050Z,2026-05-12T15:12:00.736Z,mobile-attack.json,True
+S9040,NGate,malware,malware--9a3315e6-667d-4b64-b789-5e01653110a5,2026-05-13T20:12:36.646Z,2026-10-01T18:29:33.633Z,mobile-attack.json,False

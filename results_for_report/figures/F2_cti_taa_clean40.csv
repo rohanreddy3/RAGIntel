@@ -1,9 +1,4 @@
-generator,arm,full_50,clean_40
-Primary (3.5-flash-lite),LLM-only,0.68,0.65
-Primary (3.5-flash-lite),V0 (Raw prompt),0.6,0.525
-Primary (3.5-flash-lite),V0h (Hygienic),0.74,0.675
-Primary (3.5-flash-lite),Vrel (Relationship),0.76,0.7
-Secondary (3.1-flash-lite),LLM-only,0.66,0.575
-Secondary (3.1-flash-lite),V0 (Raw prompt),0.66,0.575
-Secondary (3.1-flash-lite),V0h (Hygienic),0.7,0.625
-Secondary (3.1-flash-lite),Vrel (Relationship),0.72,0.65
+arm,metric,full_50,clean_40,source
+"V0 (Raw prompt, no detector/hygiene)",Retrieval Recall@10,0.34,0.4,phase6g_corrections.json
+"V0h (Hygienic body-only, no expansion)",Retrieval Recall@10,0.14,0.125,phase6g_corrections.json
+Vrel (Hygienic + STIX relationship exp),Retrieval Recall@10,0.32,0.325,phase6g_corrections.json
