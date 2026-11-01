@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you utilize this benchmark, code, or evaluation methodology in your research, please cite this repository and the upstream RAGIntel paper."
+title: "RAGIntel Optimization: Empirical Evaluation, Retrieval Hygiene, and Benchmark Diagnostics for Cyber Threat Intelligence"
+version: 1.0.0
+date-released: 2026-10-30
+license: MIT
+repository-code: "https://github.com/rohanreddy3/RAGIntel"
+authors:
+  - family-names: "Reddy"
+    given-names: "Rohan"
+preferred-citation:
+  type: generic
+  title: "RAGIntel Optimization: Empirical Evaluation, Retrieval Hygiene, and Benchmark Diagnostics for Cyber Threat Intelligence"
+  authors:
+    - family-names: "Reddy"
+      given-names: "Rohan"
+  year: 2026
+  url: "https://github.com/rohanreddy3/RAGIntel"
+references:
+  - type: article
+    title: "LLM-powered threat intelligence: a retrieval-augmented generation approach for cyber attack investigation"
+    authors:
+      - family-names: "Alhuzali"
+        given-names: "Abeer"
+    journal: "PeerJ Computer Science"
+    volume: 11
+    pages: "e3371"
+    year: 2025
+    doi: "10.7717/peerj-cs.3371"
+  - type: generic
+    title: "MITRE ATT&CK: Design and Philosophy"
+    authors:
+      - name: "The MITRE Corporation"
+    year: 2026
+    url: "https://attack.mitre.org"

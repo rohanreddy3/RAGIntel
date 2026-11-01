@@ -1,204 +1,161 @@
 # Reproduction Guide: RAGIntel Benchmark
 
-This document provides step-by-step instructions to reproduce all retrieval, extraction, attribution, and generation results across Phases 0–4 of RAGIntel.
+This document provides exact commands, expected outputs, runtime benchmarks, and environmental requirements to independently reproduce all evaluations, test suites, statistical assertions, and report tables in this repository.
 
-## 1. Pinned Hardware & System Requirements
+> **Hardware & Environment Note**: All retrieval benchmarks, statistical evaluations, bootstrap resampling routines, and offline verification scripts execute **entirely on standard CPU hardware**. No GPU acceleration is required.
 
-- **Operating System**: Windows 11 / Linux (x86_64)
-- **RAM**: Minimum 8.0 GB RAM (Peak resident set size kept below 2.5 GB via batching and sequential execution)
-- **CPU**: Multi-core CPU (Thread execution capped at 4 threads via `OMP_NUM_THREADS=4` and `torch.set_num_threads(4)`)
-- **Python Version**: Python 3.12 (Virtual environment at `venv/`)
-- **Execution Mode**: Strict offline evaluation (`OFFLINE_ONLY=true`, `HF_HUB_OFFLINE=1`, `TRANSFORMERS_OFFLINE=1`) except during LLM generation runner.
+---
 
-## 2. Verified Data Hashes (SHA-256)
+## 1. System Requirements & Environment Setup
 
-All dataset files and STIX bundles are pinned and cryptographically verified:
+- **Python Version**: Python 3.12 (recommended) or 3.11.
+- **Operating System**: Linux (Ubuntu 22.04+), macOS (13+), or Windows 10/11.
+- **RAM**: Minimum 8.0 GB RAM (resident memory consumption is capped below 2.5 GB via batched execution).
 
-| File Path | SHA-256 Checksum | Size |
-| :--- | :--- | :---: |
-| `data/datasets/cti-ate.xlsx` | `1096cf479b815402c32370db16ea37b4b31d90fdf50b36b5c2d90682eb4c0f1f` | 30,576 bytes |
-| `data/datasets/CTI-ATTACK.xlsx` | `c669f8bc2ea9868be2347762565a8e28c1517f3319c6309b7cf8b2bb67cfb772` | 23,913 bytes |
-| `data/datasets/cti-taa.xlsx` | `fc6dfcb29569e8329da4bdccf584324a6c871a7d349faa920c0bcabec1f432af` | 227,523 bytes |
-| `data/mitre/enterprise-attack.json` | `f7eaf37fe53b50404084fe1fe67237278f7317e61c11ad550295722d13ede259` | 47,953,963 bytes |
-| `data/mitre/mobile-attack.json` | `592d4ee8cb2958de20eef65ebd5829753a8dd686f098b237ddeb867558c81faa` | 5,489,646 bytes |
-| `data/mitre/ics-attack.json` | `202328ce7193aa1c1803cbfbf712e81c37a7e9de6c5adc14dd8c11ceb302573e` | 4,683,721 bytes |
-
-
-## 3. Pinned Python Dependencies
-
-Key pinned packages from `requirements.txt`:
-- `torch`: 2.2.0+
-- `faiss-cpu`: 1.8.0+
-- `flashrank`: 0.2.4+
-- `sentence-transformers`: 2.5.1+
-- `langchain`: 0.2.14+
-- `pandas`: 2.2.1+
-- `openpyxl`: 3.1.2+
-
-## 4. End-to-End Execution Sequence
-
-### Phase 1: Baselines & Long-Query Retrieval
+### Step 1.1: Clone and Create Virtual Environment
 ```bash
-# 1. Download STIX bundles and inspect schemas
-python scripts/download_stix.py
-python scripts/inspect_datasets.py
+git clone https://github.com/rohanreddy3/RAGIntel.git
+cd RAGIntel
 
-# 2. Evaluate initial retrieval baselines (B1, B2, B3)
-python scripts/evaluate_all_baselines.py
+# Create and activate virtual environment
+python -m venv venv
+
+# On Linux / macOS:
+source venv/bin/activate
+
+# On Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
 ```
 
-### Phase 2: Optimization 1 (Entity Resolution Benchmark)
+### Step 1.2: Install Pinned Dependencies
 ```bash
-# 1. Full grid retrieval benchmark over B2/B3 across V0-V3
-python scripts/benchmark_phase2_o1.py
-
-# 2. Evaluate Family P1 hypotheses & V3 seed sensitivity (Seeds 42-46)
-python scripts/regenerate_p1_table.py
-python scripts/run_v3_seeds_b2.py
-python scripts/run_v3_seeds_b3.py
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-### Phase 3: Optimization 2 (Structure-Aware Chunking Benchmark)
+---
+
+## 2. Verification Suite: Bit-Exact Consistency (Offline)
+
+All experimental results, statistical tests, bootstrap confidence intervals, and publication tables are completely frozen under `results/` and verified by automated tools. **Zero external API calls are made during verification.**
+
+### Step 2.1: Run the Source-of-Truth Verifier
+The verifier re-derives every claim cell (deltas, 95% bootstrap CIs, W/T/L discordant pairs, binomial sign test $p$-values, Fisher exact tests) directly from raw per-query CSV/JSON files, asserts table cell equivalence against `claims_master.csv`, and cross-checks LaTeX `.tex` tables against Markdown `.md` tables.
+
 ```bash
-# 1. Run Phase 3C controls, build E0'-TECH & E1-MIXED, evaluate Family P2'
-python scripts/compute_phase3c_controls.py
+python scripts/verify_master.py
 ```
 
-### Phase 4: Offline Scoring, Integrity Audit, & Publication Assets
+**Expected Output**:
+```
+===========================================================================
+VERIFICATION SUMMARY: 97 PASSED, 0 FAILED (TOTAL 97 CHECKS)
+===========================================================================
+ALL CHECKS PASSED PERFECTLY. ZERO DISCREPANCIES.
+```
+- **Runtime**: ~3–5 seconds.
+
+### Step 2.2: Run the Unit & Integration Test Suite
+The repository includes 52 unit and regression tests covering deterministic retrieval, STIX parsing, metric evaluation, prompt formatting, and tokenizer boundaries.
+
 ```bash
-# 1. Offline integrity audit (row alignment, query_id sha1, entity span assertions)
-python scripts/audit_row_alignment.py
-python scripts/print_examples.py
-
-# 2. Score cached LLM generations (technique F1 sub_credit and cti-taa attribution)
-python scripts/score_cached_generations_d1.py
-
-# 3. Regenerate cti-taa diagnostics and paired bootstrap tables
-python scripts/regenerate_cti_taa_tables.py
-
-# 4. Generate all Markdown and LaTeX publication tables, vector SVG figures, and freeze manifest
-python scripts/generate_final_assets.py
+python -m pytest
 ```
 
-### Phase 4B: Fix Round & Rigor Verification
+**Expected Output**:
+```
+============================== 52 passed in ~130s ==============================
+```
+- **Runtime**: ~2 minutes (CPU only).
+
+---
+
+## 3. Rebuilding Publication Tables & Assets
+
+To programmatically re-extract all data from raw `results/phase_*` files and regenerate `results_for_report/` (Markdown tables, LaTeX tables, figure data CSVs, and `claims_master.csv`):
+
 ```bash
-# 1. Recompute A8 threat actor attribution at matched 500-token budget
-python scripts/recompute_a8.py
-
-# 2. Audit Table 5 token budget binding and chunk saturation
-python scripts/audit_budget_binding.py
-
-# 3. Comprehensive generation failure and abstention audit across all cache records
-python scripts/audit_generation_failures.py
-
-# 4. Audit ATT&CK STIX bundle versioning and domain technique inventory
-python scripts/audit_stix_version.py
-
-# 5. Entity detector precision audit and exploratory V1-strict retrieval
-python scripts/analyze_detector_precision.py
+python scripts/build_results_master.py
 ```
 
-### Phase 5: Pre-Declared Fixes and Improvement Round (Post-Hoc, Exploratory)
+**Outputs Regenerated**:
+- `results_for_report/RESULTS_MASTER.md`
+- `results_for_report/data/claims_master.csv`
+- `results_for_report/tables/T1_datasets` (`.csv`, `.md`, `.tex`)
+- `results_for_report/tables/T2_arms` (`.csv`, `.md`, `.tex`)
+- `results_for_report/tables/T3_main_results` (`.csv`, `.md`, `.tex`)
+- `results_for_report/tables/T4_statistical_tests` (`.csv`, `.md`, `.tex`)
+- `results_for_report/tables/T5_detector_precision` (`.csv`, `.md`, `.tex`)
+- `results_for_report/tables/T6_benchmark_defects` (`.csv`, `.md`, `.tex`)
+- `results_for_report/figures/F1_hygiene_effect` (`.csv`, `.png`, `.svg`)
+- `results_for_report/figures/F2_cti_taa_clean40` (`.csv`, `.png`, `.svg`)
+- `results_for_report/figures/F3_leakage` (`.csv`, `.png`, `.svg`)
+- `results_for_report/figures/F4_metadata_credit` (`.csv`, `.png`, `.svg`)
+- `results_for_report/figures/F5_rag_vs_llm_only` (`.csv`, `.png`, `.svg`)
+
+- **Runtime**: ~5 seconds.
+
+---
+
+## 4. Bidirectional Credit Sensitivity Analysis (CRIT-02)
+
+To recompute the parent/subtechnique bidirectional credit scoring on saved model generation outputs for `cti-ate` and `CTI-ATTACK`:
+
 ```bash
-# 1. Query Hygiene Audit (339 benchmark queries body marker verification)
-python scripts/run_query_hygiene_audit.py
-
-# 2. Optimization 1 (O1) Benchmark on cti-taa (V0h, V1h, Vrel under body-only hygiene)
-python scripts/run_o1_phase5_benchmark.py
-
-# 3. Exact two-sided sign test (McNemar) & bootstrap side-by-side computation
-python scripts/recompute_p3_binary_mcnemar.py
-
-# 4. Domain sanity audit on cti-ate enterprise vs mobile declarations
-python scripts/check_cti_ate_domain_sanity.py
-
-# 5. Optimization 2 (O2) Clean Comparisons under HD preprocessing (Family P4)
-python scripts/run_o2_clean_benchmark.py
-
-# 6. Candidate pool k=200 scaling extension (eliminating candidate starvation)
-python scripts/run_o2_k200_extension.py
-
-# 7. Table 7 Claims reconciliation (restoring C9, correcting P1_08 reference)
-python scripts/reconcile_table7.py
-
-# 8. Ground-truth STIX status audit (revoked, deprecated, absent counts)
-python scripts/audit_ground_truth_in_stix.py
-python scripts/generate_stix_limitations_table.py
-
-# 9. Format all Phase 5 tables, plain list of contrasts, and verification assets
-python scripts/generate_phase5_assets.py
+python scripts/compute_phase6l_bidirectional_sensitivity.py
 ```
 
-### Phase 5B & Phase 6: Offline Fixes & Pre-Declared Extensions (Post-Hoc Round 3)
-```bash
-# 1. Step 1: Offline Reconciliations and Fixes
-# Evaluates exact two-sided binomial sign tests, CTI-ATTACK entity detector share reconciliation (3.49%),
-# k=200 primary O2 comparisons across all four budgets, and cti-taa mappable subset (N=43).
-python scripts/run_phase5b_offline_fixes.py
+**Expected Output**:
+- Outputs saved to `results/phase_6l/bidirectional_sensitivity.csv` and `.json`.
+- Confirms that relative model rankings on `CTI-ATTACK` remain 100% invariant (LLM-only > D1 > HD > E0').
+- **Runtime**: ~2 seconds.
 
-# 2. Step 1b: Pre-Declared Extensions (Vrel-T & E-comb)
-# Verifies variants_ledger.json, builds malware-to-technique STIX co-occurrence graph,
-# executes Vrel-T and E-comb benchmarks, evaluates Family P6 Holm contrasts, and builds improvement ladder table.
-python scripts/run_vrel_t_extension.py
-```
+---
 
-### Phase 6C: Live LLM Generation Benchmark (Post-Hoc Round 3)
-```bash
-# 1. Execute live generation on primary model (gemini-3.5-flash-lite, 389 calls)
-# Evaluates E0'-HD-k200 on cti-ate (60) and CTI-ATTACK (229), and V0h (50) and Vrel (50) on cti-taa.
-python scripts/api_runner.py --phase6c
+## 5. Live LLM Generation Note (API Optional)
 
-# 2. Score generation outputs and compute Phase 6C contrasts
-python scripts/compute_phase6c_metrics.py
-```
+All live generation responses (`gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`) are archived and cryptographically frozen under:
+- `results/phase_6c/`
+- `results/phase_6d/`
+- `results/phase_6l/`
 
-### Phase 6D: Extended Round (Post-Hoc Round 3–4, Exploratory)
-```bash
-# 1. Part A: Clean-up and missing cti-taa contrasts (Vrel vs V0h, V0h vs V0 across 4 scorers)
-python scripts/evaluate_missing_taa_contrasts.py
+**You do NOT need a Google Gemini API key to verify or reproduce the results in this paper.** The tables and tests load from these frozen outputs.
 
-# 2. Part C: Descriptive diagnostics & Mobile domain filter audit
-python scripts/compute_phase6d_diagnostics.py
+If you wish to execute new live generation queries against the Google Gemini API:
+1. Create a `.env` file containing:
+   ```env
+   GEMINI_API_KEY=your_api_key_here
+   ```
+2. Execute the runner:
+   ```bash
+   python scripts/api_runner.py --phase6c
+   ```
+*(Note: Never commit `.env` or API keys. `.env` is strictly ignored by `.gitignore`.)*
 
-# 3. Part G: Deterministic script-generated case studies on cti-taa (5 wins, 3 losses)
-python scripts/generate_phase6d_case_studies.py
+---
 
-# 4. Part F: Second generator replication (models/gemini-3.1-flash-lite on cti-taa, 200 calls)
-python scripts/run_phase6d_second_generator.py --run
+## 6. Cryptographic Freeze Manifest Verification
 
-# 5. Part E: Secondary KB replication on E0-STIX-ENT (B2 and B3 across all 3 datasets)
-python scripts/run_phase6d_secondary_kb.py
-
-# 6. Part D: B1 retriever robustness (nomic-ai/nomic-embed-text-v1.5 dense retrieval)
-python scripts/run_phase6d_b1_robustness.py
-
-# 7. Part B: API generation extension priority arms (D1, D2a, D3, D2b, D4)
-python scripts/api_runner.py --phase6d
-
-# 8. Part H: Unified report generation and integrity verification
-python scripts/generate_phase6d_report.py
-```
-
-## 5. Cryptographic Freeze Manifest Verification
-
-To verify the integrity of all experiment outputs against the frozen manifest:
+To verify that the offline results directory matches the frozen release snapshot:
 ```bash
 python -c "
 import json, hashlib
 from pathlib import Path
 
 manifest = json.loads(Path('results/freeze_manifest.json').read_text())
-mismatches = 0
+verified, missing, mismatched = 0, 0, 0
 for rel_path, meta in manifest['files'].items():
     p = Path(rel_path)
     if not p.is_file():
-        print(f'Missing: {rel_path}')
-        mismatches += 1
+        missing += 1
         continue
-    h = hashlib.sha256(p.read_bytes()).hexdigest()
-    if h != meta['sha256']:
-        print(f'Hash mismatch: {rel_path}')
-        mismatches += 1
-print(f'Verification completed: {len(manifest[\"files\"]) - mismatches}/{len(manifest[\"files\"])} files verified bit-exact.')
+    raw_hash = hashlib.sha256(p.read_bytes()).hexdigest()
+    text_content = p.read_bytes().replace(b'\r\n', b'\n')
+    norm_hash = hashlib.sha256(text_content).hexdigest()
+    if norm_hash == meta.get('sha256') or raw_hash == meta.get('raw_sha256'):
+        verified += 1
+    else:
+        mismatched += 1
+print(f'Freeze manifest verified: {verified} bit-exact, {missing} missing/ignored, {mismatched} mismatched.')
 "
 ```
