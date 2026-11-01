@@ -229,12 +229,13 @@ Output:
 ## 4. Complete Inventory of Added or Edited Files
 
 ### 4.1 Files Added
-1. [`LICENSE`](../LICENSE): MIT License for code with explicit Apache 2.0 attribution for benchmark datasets and MITRE ATT&CK STIX 2.1 data.
+1. [`LICENSE`](../LICENSE): MIT License for code with explicit MITRE ATT&CK Terms of Use and upstream repository license links for benchmark datasets.
 2. [`CITATION.cff`](../CITATION.cff): Citation File Format (CFF 1.2.0) metadata for the repository.
 3. [`docs/RESULTS_GUIDE.md`](../docs/RESULTS_GUIDE.md): Comprehensive map from claims C1–C10 to source artifacts under `results/`.
 4. [`docs/REVIEW_INDEX.md`](../docs/REVIEW_INDEX.md): Navigational index linking and summarizing all 21 review and audit documents in `reviews/`.
 5. [`results_for_report/README.md`](../results_for_report/README.md): Index of all publication figures, tables, and machine-readable data CSVs.
-6. [`reviews/REVIEW_PHASE_7P.md`](../reviews/REVIEW_PHASE_7P.md): This document.
+6. [`scratch/README.md`](../scratch/README.md): Exploratory one-off checks and temporary scripts note.
+7. [`reviews/REVIEW_PHASE_7P.md`](../reviews/REVIEW_PHASE_7P.md): This document.
 
 ### 4.2 Files Edited
 1. [`README.md`](../README.md): Complete rewrite with all requested sections, embedded PNG figures, verbatim captions, canonical Markdown tables, negative results, limitations, and reproduction guide.
@@ -245,3 +246,4 @@ Output:
 - All results under `results/phase_0/` through `results/phase_6l/` remain strictly unmodified.
 - `results/freeze_manifest.json`: Verified 100% bit-exact against `v1.0-final4`.
 - All files under `src/`, `scripts/`, `tests/` remain untouched.
+

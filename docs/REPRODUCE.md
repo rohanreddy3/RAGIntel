@@ -159,3 +159,5 @@ for rel_path, meta in manifest['files'].items():
 print(f'Freeze manifest verified: {verified} bit-exact, {missing} missing/ignored, {mismatched} mismatched.')
 "
 ```
+
+> **Note on Manifest Scope & Large Files**: The large intermediate retrieval caches in `results/phase_3`, `results/phase_5`, and `results/phase_7` (`results/phase_3/top50_phase3c_chunks.json` [204 MB], `results/phase_3/top50_ranked_chunks.json` [119 MB], `results/phase_5/top50_hd_chunks.json` [78 MB], `results/phase_5/top200_hd_chunks.json` [117 MB], and exploratory `results/phase_7/top200_phase7_chunks.json` [167 MB]) are excluded from git because they exceed GitHub's upload limits (50 MB warning threshold, 100 MB rejection limit). Full manifest hash verification across all 169 entries needs them present on the local machine; on a fresh clone from GitHub, the 4 intermediate Phase 3/5 files will be reported as missing while 100% of the git-tracked evaluation outputs verify bit-exact.

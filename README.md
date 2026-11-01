@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
-[![Release: v1.0-final4](https://img.shields.io/badge/Release-v1.0--final4-green.svg)](https://github.com/rohanreddy3/RAGIntel/releases/tag/v1.0-final4)
+[![Release: v1.0-final6](https://img.shields.io/badge/Release-v1.0--final6-green.svg)](https://github.com/rohanreddy3/RAGIntel/releases/tag/v1.0-final6)
 [![Tests: 52 Passed](https://img.shields.io/badge/Tests-52%20Passed-brightgreen.svg)](tests/)
 [![Verifier: 97 Passed](https://img.shields.io/badge/Verifier-97%20Passed-brightgreen.svg)](scripts/verify_master.py)
 
@@ -231,11 +231,11 @@ The RAGIntel optimization pipeline addresses two architectural bottlenecks in th
 
 | Dataset / KB | Type | Queries / Entities | License | Obtaining the Data |
 | :--- | :--- | :---: | :--- | :--- |
-| `cti-ate` | Technique Extraction | 60 | Apache-2.0 | Tracked in repo at [`data/datasets/cti-ate.xlsx`](data/datasets/cti-ate.xlsx). Upstream: CTIBench / RAGIntel. |
-| `CTI-ATTACK` | Technique Extraction | 229 | Apache-2.0 | Tracked in repo at [`data/datasets/CTI-ATTACK.xlsx`](data/datasets/CTI-ATTACK.xlsx). Upstream: Dattaraj (2025) / RAGIntel. |
-| `cti-taa` | Threat Actor Attribution | 50 (40 clean) | Apache-2.0 | Tracked in repo at [`data/datasets/cti-taa.xlsx`](data/datasets/cti-taa.xlsx). Upstream: CTIBench / RAGIntel. |
-| MITRE ATT&CK Enterprise | Knowledge Base (`E0-STIX-ENT`) | 1,698 active entities | Apache-2.0 | Download via `python scripts/download_stix.py`. Exact SHA-256 and size in [`data/README.md`](data/README.md). |
-| MITRE ATT&CK STIX-ALL | Knowledge Base (`E0-STIX-ALL`) | 2,062 active entities | Apache-2.0 | Combines Enterprise, Mobile, and ICS STIX bundles (snapshot 2026-07-31). |
+| `cti-ate` | Technique Extraction | 60 | See upstream repository license ([CTIBench](https://github.com/xashru/cti-bench) / [RAGIntel](https://github.com/AbeerAlhuthali/RAGIntel)) | Tracked in repo at [`data/datasets/cti-ate.xlsx`](data/datasets/cti-ate.xlsx). Upstream: CTIBench / RAGIntel. |
+| `CTI-ATTACK` | Technique Extraction | 229 | See upstream repository license ([RAGIntel](https://github.com/AbeerAlhuthali/RAGIntel)) | Tracked in repo at [`data/datasets/CTI-ATTACK.xlsx`](data/datasets/CTI-ATTACK.xlsx). Upstream: Dattaraj (2025) / RAGIntel. |
+| `cti-taa` | Threat Actor Attribution | 50 (40 clean) | See upstream repository license ([CTIBench](https://github.com/xashru/cti-bench) / [RAGIntel](https://github.com/AbeerAlhuthali/RAGIntel)) | Tracked in repo at [`data/datasets/cti-taa.xlsx`](data/datasets/cti-taa.xlsx). Upstream: CTIBench / RAGIntel. |
+| MITRE ATT&CK Enterprise | Knowledge Base (`E0-STIX-ENT`) | 1,698 active entities | MITRE ATT&CK Terms of Use (https://attack.mitre.org/resources/terms-of-use/) | Download via `python scripts/download_stix.py`. Exact SHA-256 and size in [`data/README.md`](data/README.md). |
+| MITRE ATT&CK STIX-ALL | Knowledge Base (`E0-STIX-ALL`) | 2,062 active entities | MITRE ATT&CK Terms of Use (https://attack.mitre.org/resources/terms-of-use/) | Combines Enterprise, Mobile, and ICS STIX bundles (snapshot 2026-07-31). |
 
 ---
 
@@ -350,4 +350,5 @@ This research builds upon the original RAGIntel framework and benchmark suite in
 ## License
 
 - **Source Code & Analysis Scripts**: Licensed under the [MIT License](LICENSE).
-- **Third-Party Datasets & MITRE STIX 2.1 Data**: Distributed under the [Apache License 2.0](LICENSE).
+- **MITRE ATT&CK STIX 2.1 Data**: Governed by the [MITRE ATT&CK Terms of Use](https://attack.mitre.org/resources/terms-of-use/).
+- **Benchmark Evaluation Datasets**: See upstream repository license ([CTIBench](https://github.com/xashru/cti-bench), [RAGIntel](https://github.com/AbeerAlhuthali/RAGIntel)).

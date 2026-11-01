@@ -28,13 +28,14 @@ This repository builds upon and evaluates third-party cybersecurity data and ben
 
 1. **MITRE ATT&CK STIX 2.1 Data**:
    - Source: The MITRE Corporation (https://attack.mitre.org)
-   - License: Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+   - Terms: MITRE ATT&CK Terms of Use (https://attack.mitre.org/resources/terms-of-use/)
    - Copyright (c) 2026 The MITRE Corporation.
 
 2. **Benchmark Evaluation Datasets (`cti-ate`, `CTI-ATTACK`, `cti-taa`)**:
-   - Sources: CTIBench (Alam et al., 2024/2025), Dattaraj (2025), and RAGIntel upstream benchmark suite (Alhuzali, PeerJ Computer Science 2025, DOI: 10.7717/peerj-cs.3371).
-   - License: Distributed under Apache License, Version 2.0 as part of the open research release of RAGIntel.
+   - Sources: CTIBench (https://github.com/xashru/cti-bench) and RAGIntel upstream benchmark suite (https://github.com/AbeerAlhuthali/RAGIntel; PeerJ Computer Science 2025, DOI: 10.7717/peerj-cs.3371).
+   - Terms: See upstream repository license.
 
 3. **Base Paper Code & Upstream RAGIntel**:
    - Author: Abeer Alhuzali (Department of Computer Science, King Abdulaziz University).
-   - License: Apache License, Version 2.0.
+   - Source: https://github.com/AbeerAlhuthali/RAGIntel
+   - Terms: See upstream repository license.
